@@ -1,0 +1,11 @@
+{
+  "name": "arch-project-manager-",
+  "version": "1.0.0",
+  "description": "A Projects management system for Take architectural project to the next level with our GitHub open-source solution!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
