@@ -29,8 +29,8 @@
 ##### 2. User Manager :-
 
 - [ ] Add , Delete , Update Users API Creation
-- [ ] Add , Delete , Update integration with Front-end UI  
 - [ ] Create Add , Delete , Update Model windows
+- [ ] Add , Delete , Update integration with Front-end UI  
 - [ ] Last Login time & status for Each Employee
 - [ ] User Attendance 
 - [ ] Total Project done by each User (with Completed , Pending Projects)
@@ -42,11 +42,16 @@
   > - [ ] total amount 
   > - [ ] All 3 spliced amount 
   > - [ ] Amount paid , Amount remaining
-  > - [ ] Amount in Hand , Amount in Bank
+  > - [ ] Amount in Hand , Amount in Bank of each project
+  > - [ ] Advance & remaining balance  insertions 
 
-- [ ] Add sub-page Expanse  with 
+- [ ] Add sub-page Expanse with --
 
   > - [ ] list of Expenses of each month/10 days
-  > - [ ] Showing > Amount , Subject , By cash/Online , Date and Sub-note for each expanse
+  > - [ ] Showing Row> Amount , Subject , By cash/Online , Date and Sub-note for each expanse
   > - [ ] Add a Model window to Add expanse
   > - [ ] Add , delete & Update features for Expenses
+
+##### 4. Settings :-
+
+- [ ] Ratio Changeability settings
