@@ -1,0 +1,150 @@
+# Ebah_database
+
+create table deals (
+ id bigint primary key auto_increment,
+ deal_name varchar(200),
+ reference_no int,
+ contact int,
+ agreement_amount int,
+ work_name varchar(300),
+ email varchar(80),
+ city varchar(50),
+ total_price int
+);
+
+create table task (
+ task_id int primary key auto_increment,
+ task_name varchar(100)
+);
+
+create table subtask (
+ sub_task_id int primary key auto_increment,
+ task_id int,
+ sub_task_name varchar(100),
+ foreign key(task_id) references task(task_id)
+);
+
+create table employee(
+ em_id int primary key auto_increment,
+ name varchar(80),
+ email varchar(80),
+ password varchar(30)
+);
+
+create table normal_project_cat (
+    npcid int primary key auto_increment,
+    ndeal_id bigint,
+    category_id int,
+    cat_status varchar(50) default "pending",
+    project_status varchar(60) default "pending",
+    dateofdeadline varchar(80) default 0,
+    dateofpostponed varchar(80) default 0,
+    dateofcomplete varchar(50) default 0,
+    foreign key(category_id) references task(task_id),
+    foreign key(ndeal_id) references deals(id)
+);
+
+create table normal_project_subtask (
+    npstid int primary key auto_increment,
+    ndeal_id bigint,
+    category_id int,
+    stask_id int,
+    stask_status varchar(50) default "not started",
+    dateofcomplete varchar(50) default 0,
+    foreign key(ndeal_id) references deals(id),
+    foreign key(stask_id) references subtask(sub_task_id)
+);
+
+create table normal_project_employee (
+    npeid int primary key auto_increment,
+    ndeal_id bigint,
+    category_id int,
+    emid int,
+    dateofassign varchar(50) default 0,
+    dateofremove varchar(50) default 0,
+    foreign key(ndeal_id) references deals(id),
+    foreign key(category_id) references task(task_id),
+    foreign key(emid) references employee(em_id)
+);
+
+//----------------miscelleneous task work------------------
+
+create table single_deal(
+ sdid int primary key auto_increment,
+ sdeal_name varchar(200),
+ reference_no int,
+ contact int,
+ agreement_amount int,
+ work_name varchar(300),
+ email varchar(80),
+ city varchar(50),
+ total_price int
+);
+
+create table mis_subtask (
+ msub_task_id int primary key auto_increment,
+ msub_task_name varchar(100)
+);
+
+create table misc_project_subtask (
+    mpstid int primary key auto_increment,
+    mdeal_id int,
+    mstask_id int,
+    mstask_status varchar(50) default "not started",
+    dateofdeadline varchar(50) default 0,
+    dateofcomplete varchar(50) default 0,
+    foreign key(mdeal_id) references single_deal(sdid),
+    foreign key(mstask_id) references mis_subtask(msub_task_id)
+);
+
+create table misc_project_employee (
+    mpeid int primary key auto_increment,
+    mdeal_id int,
+    mstask_id int,
+    mpemid int,
+    dateofassign varchar(50) default 0,
+    dateofremove varchar(50) default 0,
+    foreign key(mdeal_id) references single_deal(sdid),
+    foreign key(mstask_id) references mis_subtask(msub_task_id),
+    foreign key(mpemid) references employee(em_id)
+);
+
+
+//------------------notifications dbs------------------------------
+
+create table emp_task_notify(
+  notid bigint primary key auto_increment,
+  emid int,
+  task varchar(70),
+  project varchar(200),
+  dateofnotify varchar(50) default 0,
+  viewed varchar(20) default "unread",
+  foreign key(emid) references employee(em_id)
+);
+
+
+//----------------------finance section-------------------------------------
+
+create table amount_split(
+spid int primary key auto_increment,
+task int not null,
+split_value int,
+foreign key(task) references task(task_id)
+);
+
+create table normal_projects_finance(
+  fid bigint primary key auto_increment,
+  ndeal_id bigint not null,
+  totalamount int,
+  task int,
+  amount_got int default 0,
+  dateofpay varchar(50),
+  modeofpay varchar(15),
+  foreign key(ndeal_id) references deals(id),
+  foreign key(task) references task(task_id)
+);
+
+
+
+
+
