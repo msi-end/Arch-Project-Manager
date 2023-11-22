@@ -1,5 +1,6 @@
 const express = require('express');
 const route = express.Router();
+const errorHandler = require('../middleware/error')
 const databaseCon = require('../config/db.config');
 const { createHmac } = require('crypto')
 
@@ -12,10 +13,15 @@ route.get('/', (req, res) => {
     }
 })
 route.get('/login', (req, res) => {
-    if (req.session.isLoggedIn == true) {
-        res.status(200).render('../views/admin/index.ejs')
-    } else {
-        res.status(200).render('../views/admin/login.ejs')
+    try {
+        if (req.session.isLoggedIn == true) {
+            res.status(200).render('../views/admin/index.ejs')
+        } else {
+            res.status(200).render('../vifdfews/admin/login.ejs')
+        }
+
+    } catch (error) {
+        throw new errorHandler(404, 'dgadr5ragfd')
     }
 }
 )

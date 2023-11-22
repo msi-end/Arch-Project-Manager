@@ -5,7 +5,7 @@ class errorHandler extends Error {
         this.message = message;
     }
 }
-const handerError = (err, res) => {
+const ErrorComposer = (err, res) => {
     const { statusCode, message } = err;
     res.status(statusCode).json({
         status: "error",
@@ -13,4 +13,4 @@ const handerError = (err, res) => {
         message
     })
 }
-module.exports = { errorHandler , handerError }
+module.exports = { errorHandler , ErrorComposer }
