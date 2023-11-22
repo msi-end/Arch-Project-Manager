@@ -1,19 +1,18 @@
-const express = require('express');
-const app = express();
+const app = require('express')();
 const path = require('path');
 const ejs = require('ejs');
 require('dotenv').config()
 const PORT = process.env.PORT || 8000;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const {errHandler} = require('./middleware/error')
+const { errHandler } = require('./middleware/error')
 
 
 app.use(session({
     // store: new LokiStore(options),
     secret: "secrctekeyfhrgfgrfrty84fwir767",
     saveUninitialized: true,
-    cookie: { secure: false,httpOnly:false, },
+    cookie: { secure: false, httpOnly: false, },
     resave: false,
 
 }));
