@@ -6,7 +6,7 @@ require('dotenv').config()
 const PORT = process.env.PORT || 8000;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-
+const {errHandler} = require('./middleware/error')
 
 
 app.use(session({
@@ -45,7 +45,7 @@ app.use('/admin', auth)
 //     res.render('../views/error.ejs');
 //     })
 
-
+app.use(errHandler);
 app.listen(PORT,
     () => {
         console.log(`working at port ${PORT}`);
