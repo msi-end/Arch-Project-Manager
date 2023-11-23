@@ -21,6 +21,7 @@ app.use(session({
 
 // Administrator 
 const auth = require('./controllers/adminAuth')
+const Employeeauth = require('./routes/employee/auth.js')
 
 // Employees
 
@@ -39,6 +40,7 @@ app.use(cookieParser());
 app.use('/admin', auth)
 
 // For Employees
+app.use('/', Employeeauth)
 
 
 
