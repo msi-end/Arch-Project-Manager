@@ -16,7 +16,7 @@ const transporter = nmailer.createTransport(
             const changeData = new RegExp(`{{${key}}}`,'g');
             fileDate=fileDate.replace(changeData,value);
         }
-        return fileData;
+        return fileDate;
     }
 const EmailNotifier = async (email, subject, text, htmlFile,htmlData) => {
     try { 
