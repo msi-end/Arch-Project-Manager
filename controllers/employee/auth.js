@@ -7,7 +7,7 @@ exports.CheckLoginServe = (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'employee') {
         res.status(200).render('../views/employee/dashboard.ejs')
     } else {
-        res.status(200).render('../views/employee/login.ejs')
+        res.status(200).render('../views/employee/logidn.ejs')
     }
 }
 
