@@ -21,6 +21,7 @@ app.use(session({
 
 // Administrator 
 const auth = require('./controllers/adminAuth')
+const Employeeauth = require('./routes/employee/auth.js')
 
 // Employees
 
@@ -40,6 +41,7 @@ app.use('/admin', auth)
 app.use('/apiV1', tasks)
 
 // For Employees
+app.use('/', Employeeauth)
 
 
 

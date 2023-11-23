@@ -7,10 +7,13 @@ class errorHandler extends Error {
 }
 const ErrorComposer = (err, res) => {
     const { statusCode, message } = err;
+    if (res.headersSent) {
+        return next(err);
+    }
     res.status(statusCode).json({
         status: "error",
         statusCode,
         message
     })
 }
-module.exports = { errorHandler , ErrorComposer }
+module.exports = { errorHandler, ErrorComposer }
