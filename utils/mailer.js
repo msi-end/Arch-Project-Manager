@@ -1,6 +1,7 @@
 const nmailer = require('nodemailer');
 const { errHandler } = require('../middleware/error')
 const { email: config } = require('../config/mail.config');
+const fs =require('fs')
 
 const transporter = nmailer.createTransport(
     {   host: config.host,
@@ -8,17 +9,23 @@ const transporter = nmailer.createTransport(
         secure: config.secure,
         auth: {
             user: config.user,
-            pass: config.pass }
-    })
-
-
-const EmailNotifier = async (email, subject, text, htmlFile) => {
+            pass: config.pass } })
+    const emailTemplate =(filepath , data)=>{
+       let fileDate = fs.readFileSync(filepath,'utf8');
+        for(const [key , value] of Object.entries(data)){
+            const changeData = new RegExp(`{{${key}}}`,'h');
+            fileDate=fileDate.replace(changeData,value)
+        }
+        return fileData
+    }
+const EmailNotifier = async (email, subject, text, htmlFile,htmlData) => {
+  let template=  emailTemplate(htmlFile,htmlData)
     try { const options = {
             from: config.user,
             to,
             subject,
             text,
-            html: htmlFile}
+            html: template}
         let sendInfoStatus = await transporter.sendMail(options);
         return sendInfoStatus;
     } catch (err) {
