@@ -1,10 +1,11 @@
 const mysql = require('mysql');
 let con = mysql.createPool({
-    hos:'localhost',
+    host:'localhost',
     user:'root',
     password:'',
+    port : 3307,
     database:'ArchDB',
-    multipleStatements: true
+    multipleStatements: true,
 })
 con.getConnection((error) => {
     if (!!error) {

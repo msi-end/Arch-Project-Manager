@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 8000;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const {errHandler} = require('./middleware/error')
+const tasks = require('./controllers/subdetails')
 
 
 app.use(session({
@@ -36,6 +37,7 @@ app.use(cookieParser());
 
 // For Admin
 app.use('/admin', auth)
+app.use('/apiV1', tasks)
 
 // For Employees
 

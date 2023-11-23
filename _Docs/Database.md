@@ -1,5 +1,13 @@
 # Ebah_database
 
+create table adminauth(
+ adm_id int primary key auto_increment,
+ name varchar(80),
+ email varchar(80),
+ password varchar(30),
+ role varchar(10) default "admin"
+);
+
 create table deals (
  id bigint primary key auto_increment,
  deal_name varchar(200),
@@ -126,10 +134,8 @@ create table emp_task_notify(
 //----------------------finance section-------------------------------------
 
 create table amount_split(
-spid int primary key auto_increment,
-task int not null,
-split_value int,
-foreign key(task) references task(task_id)
+cid int primary key auto_increment,
+splitvalue varchar(100)
 );
 
 create table normal_projects_finance(
@@ -143,6 +149,11 @@ create table normal_projects_finance(
   foreign key(ndeal_id) references deals(id),
   foreign key(task) references task(task_id)
 );
+
+
+//--------entry atlast------------------------
+
+ALTER TABLE deals ADD split varchar(100);
 
 
 
