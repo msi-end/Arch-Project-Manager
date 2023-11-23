@@ -13,20 +13,18 @@ route.get('/', (req, res) => {
     }
 })
 route.get('/login', (req, res) => {
-
     if (req.session.isLoggedIn == true) {
         res.status(200).render('../views/admin/index.ejs')
     } else {
         res.status(200).render('../views/admin/login.ejs')
     }
     throw errorHandler(404, 'dgadr5ragfd')
-
 }
 )
 
 route.post('/auth', async (req, res) => {
     if (req.body.Username && req.body.Password) {
-        const query = `SELECT username,password FROM adminAuth WHERE _id ='1'`;
+        const query = `SELECT email, password FROM adminauth WHERE _id ='1'`;
         const hash = createHmac('sha256', 'secret').update(req.body.Password).digest('hex');
         await databaseCon.query(query, (err, rows, fields) => {
             // if (err) throw new errorHandler(404, 'Something wents wrong in this Mysql Admin Auth')
@@ -52,6 +50,11 @@ route.get('/logOut', (req, res) => {
     res.redirect(`/admin/login`)
 })
 
-
-
 module.exports = route;
+
+// SELECT deals.deal_name, employee.name, task.task_name, normal_project_employee.dateofassign
+// FROM normal_project_employee
+// INNER JOIN deals ON deals.id = normal_project_employee.ndeal_id
+// INNER JOIN task ON normal_project_employee.category_id = task.task_id
+// INNER JOIN employee ON normal_project_employee.emid = employee.em_id
+// WHERE ndeal_id = 1;
