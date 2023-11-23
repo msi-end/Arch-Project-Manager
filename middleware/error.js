@@ -9,10 +9,8 @@ exports.errHandler = (err, req, res, next) => {
     err.message = "Duplicate Key Error";
     err.statusCode = 400;
   }
-  ErrorComposer(err, res)
-  // res.status().json({
-  //   success: false,
-  //   message: err,
-  // });
+  if (req.accepts('json')) {
+    ErrorComposer(err, res)
+  }
 };
 
