@@ -13,16 +13,17 @@ const transporter = nmailer.createTransport(
     const emailTemplate =(filepath , data)=>{
        let fileDate = fs.readFileSync(filepath,'utf8');
         for(const [key , value] of Object.entries(data)){
-            const changeData = new RegExp(`{{${key}}}`,'h');
-            fileDate=fileDate.replace(changeData,value)
+            const changeData = new RegExp(`{{${key}}}`,'g');
+            fileDate=fileDate.replace(changeData,value);
         }
-        return fileData
+        return fileData;
     }
 const EmailNotifier = async (email, subject, text, htmlFile,htmlData) => {
-  let template=  emailTemplate(htmlFile,htmlData)
-    try { const options = {
+    try { 
+        let template= emailTemplate(htmlFile,htmlData);
+        const options = {
             from: config.user,
-            to,
+            email,
             subject,
             text,
             html: template}
@@ -33,3 +34,5 @@ const EmailNotifier = async (email, subject, text, htmlFile,htmlData) => {
         throw new errHandler('503', 'Unable to send the Email, Recheck utils/mailer.js:26')
     }
 }
+
+module.exports={EmailNotifier};
