@@ -6,15 +6,17 @@ require('dotenv').config()
 const PORT = process.env.PORT || 8000;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const {errHandler} = require('./middleware/error')
+const LokiStore = require('connect-loki')(session)
+const { errHandler } = require('./middleware/error')
 const tasks = require('./controllers/subdetails')
+let LokiConf = {path:'/sessions/loginAuth.db'}
 
 
 app.use(session({
-    // store: new LokiStore(options),
+    store: new LokiStore(LokiConf),
     secret: "secrctekeyfhrgfgrfrty84fwir767",
     saveUninitialized: true,
-    cookie: { secure: false,httpOnly:false, },
+    cookie: { secure: false, httpOnly: false, },
     resave: false,
 }));
 
