@@ -5,7 +5,7 @@ const wsErrorLog = ws.createLogger({
   level: 'info', format: format.json(),
   transports: [
     new transports.Console(),
-    new transports.File({ filename: 'erros.log' })]
+    new transports.File({ filename: '/src/storage/erros.log' })]
 })
 const wsErrorLoger = (err, req) => {
   if (process.env.NODE_ENV === 'development') {
