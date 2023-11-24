@@ -1,32 +1,41 @@
 const nmailer = require('nodemailer');
-const { errHandler } = require('../middleware/error')
+const { errHandler } = require('../utils/errorHandler')
 const { email: config } = require('../config/mail.config');
-const fs =require('fs')
+const fs = require('fs')
 
 const transporter = nmailer.createTransport(
-    {   host: config.host,
+    {
+        service: "gmail",
+        host: config.host,
         port: config.port,
-        secure: config.secure,
+        // secure: config.secure,
         auth: {
-            user: config.user,
-            pass: config.pass } })
-    const emailTemplate =(filepath , data)=>{
-       let fileDate = fs.readFileSync(filepath,'utf8');
-        for(const [key , value] of Object.entries(data)){
-            const changeData = new RegExp(`{{${key}}}`,'g');
-            fileDate=fileDate.replace(changeData,value);
+            type: "OAuth2",
+            user: "your.gmail.here@gmail.com",
+            clientId: "Your ClientID Here",
+            clientSecret: "Your Client Secret Here",
+            refreshToken: "Your Refresh Token Here",
+            accessToken: accessToken
         }
-        return fileDate;
+    })
+const emailTemplate = (filepath, data) => {
+    let fileDate = fs.readFileSync(filepath, 'utf8');
+    for (const [key, value] of Object.entries(data)) {
+        const changeData = new RegExp(`{{${key}}}`, 'g');
+        fileDate = fileDate.replace(changeData, value);
     }
-const EmailNotifier = async (email, subject, text, htmlFile,htmlData) => {
-    try { 
-        let template= emailTemplate(htmlFile,htmlData);
+    return fileDate;
+}
+const EmailNotifier = async (email, subject, text, htmlFile, htmlData) => {
+    try {
+        let template = emailTemplate(htmlFile, htmlData);
         const options = {
             from: config.user,
             email,
             subject,
             text,
-            html: template}
+            html: template
+        }
         let sendInfoStatus = await transporter.sendMail(options);
         return sendInfoStatus;
     } catch (err) {
@@ -35,4 +44,4 @@ const EmailNotifier = async (email, subject, text, htmlFile,htmlData) => {
     }
 }
 
-module.exports={EmailNotifier};
+module.exports = { EmailNotifier };
