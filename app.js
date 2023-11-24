@@ -8,7 +8,6 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const LokiStore = require('connect-loki')(session)
 const { errHandler } = require('./middleware/error')
-const tasks = require('./controllers/subdetails')
 let LokiConf = {path:'/sessions/loginAuth.db'}
 
 
@@ -22,6 +21,7 @@ app.use(session({
 
 
 // Administrator 
+const tasks = require('./controllers/subdetails')
 const auth = require('./controllers/adminAuth')
 const Employeeauth = require('./routes/employee/auth.js')
 
