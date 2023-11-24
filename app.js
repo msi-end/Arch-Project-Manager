@@ -6,9 +6,9 @@ require('dotenv').config()
 const PORT = process.env.PORT || 8000;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const LokiStore = require('connect-loki')(session)
+const LokiStore = require('connect-loki')(session);
 const { errHandler } = require('./middleware/error')
-let LokiConf = {path:'/sessions/loginAuth.db'}
+let LokiConf = {path:'./sessions/loginAuth.db'}
 
 
 app.use(session({
