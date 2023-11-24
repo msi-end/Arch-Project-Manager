@@ -25,10 +25,6 @@ exports.errHandler = (err, req, res, next) => {
   wsErrorLoger(err, req)
 
   // MSQL Error List
-  if (err.code === 11000) {
-    err.message = "Duplicate Key Error";
-    err.statusCode = 400;
-  }
   if (req.accepts('json')) {
     ErrorComposer(err, res)
   }
