@@ -32,6 +32,7 @@ route.post('/auth', async (req, res) => {
                 if (req.body.Username == rows[0].username && hash == rows[0].password) {
                     req.session.isLoggedIn = true;
                     req.session.user_id = req.body.Username;
+                    req.session.role = 'admin';
                     req.session.cookie.expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
                     req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
                     res.redirect(`/admin`);
