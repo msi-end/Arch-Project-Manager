@@ -12,26 +12,26 @@ route.get('/', (req, res) => {
         res.redirect(`/admin/login`)
     }
 })
-route.get('/login', (req, res,next) => {
+route.get('/login', (req, res) => {
     if (req.session.isLoggedIn == true) {
-        res.status(200).render('../views/admin/index.ejs')
+        res.redirect(`/admin`)
     } else {
         res.status(200).render('../views/admin/login.ejs')
     }
-     throw new errorHandler(404, 'dgadr5ragfd')
+    //  throw new errorHandler(404, 'dgadr5ragfd')
 }
 )
 
 route.post('/auth', async (req, res) => {
-    if (req.body.Username && req.body.Password) {
-        const query = `SELECT email, password FROM adminauth WHERE _id ='1'`;
+    if (req.body.Email && req.body.Password) {
+        const query = `SELECT email, password FROM adminauth WHERE email ='${req.body.Email}'`;
         const hash = createHmac('sha256', 'secret').update(req.body.Password).digest('hex');
         await databaseCon.query(query, (err, rows, fields) => {
-            // if (err) throw new errorHandler(404, 'Something wents wrong in this Mysql Admin Auth')
+            if (err) throw new errorHandler(500, 'Something wents wrong in this Mysql Admin Auth')
             if (rows.length > 0) {
-                if (req.body.Username == rows[0].username && hash == rows[0].password) {
+                  if (req.body.Email == rows[0].email && hash == rows[0].password) {
                     req.session.isLoggedIn = true;
-                    req.session.user_id = req.body.Username;
+                    req.session.email_id = req.body.Email;
                     req.session.role = 'admin';
                     req.session.cookie.expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
                     req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;

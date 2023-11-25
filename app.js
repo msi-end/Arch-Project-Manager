@@ -50,10 +50,9 @@ app.use('/', EmployeeAuth)
 
 
 
-// app.get('*',(req,res)=>{ 
-//     res.render('../views/error.ejs');
-//     })
-
+app.get('*',(req,res)=>{ 
+    res.render('../views/errorPage.ejs');
+    })
 app.use(errHandler);
 app.listen(PORT,
     () => {
