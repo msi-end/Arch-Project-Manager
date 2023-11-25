@@ -23,9 +23,11 @@ app.use(session({
 // Administrator 
 const tasks = require('./controllers/subdetails')
 const auth = require('./controllers/adminAuth')
-const Employeeauth = require('./routes/employee/auth.js')
+const indexRoutes = require('./routes/employee/auth.js')
+
 
 // Employees
+const EmployeeAuth = require('./routes/employee/auth.js')
 
 
 
@@ -40,10 +42,11 @@ app.use(cookieParser());
 
 // For Admin
 app.use('/admin', auth)
+app.use('/admin', indexRoutes)
 app.use('/apiV1', tasks)
 
 // For Employees
-app.use('/', Employeeauth)
+app.use('/', EmployeeAuth)
 
 
 

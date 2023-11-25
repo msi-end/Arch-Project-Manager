@@ -1,6 +1,6 @@
 const express = require('express');
 const route = express.Router();
-const errorHandler = require('../middleware/error')
+const { errorHandler } = require('../utils/errorHandler')
 const databaseCon = require('../config/db.config');
 const { createHmac } = require('crypto')
 
@@ -12,13 +12,13 @@ route.get('/', (req, res) => {
         res.redirect(`/admin/login`)
     }
 })
-route.get('/login', (req, res) => {
+route.get('/login', (req, res,next) => {
     if (req.session.isLoggedIn == true) {
         res.status(200).render('../views/admin/index.ejs')
     } else {
         res.status(200).render('../views/admin/login.ejs')
     }
-    throw errorHandler(404, 'dgadr5ragfd')
+     throw new errorHandler(404, 'dgadr5ragfd')
 }
 )
 
@@ -36,8 +36,8 @@ route.post('/auth', async (req, res) => {
                     req.session.cookie.expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
                     req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
                     res.redirect(`/admin`);
-                }else{
-                   res.status(503).send('unauthorized')
+                } else {
+                    res.status(503).send('unauthorized')
                 }
             } else {
                 res.redirect(`/admin/login`)
