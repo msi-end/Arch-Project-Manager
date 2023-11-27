@@ -24,7 +24,7 @@ const auth = require('./controllers/adminAuth')
 const tasks = require('./controllers/subdetails')
 const userManager = require('./routes/admin/userManager.crud.js')
 const adminPage = require('./routes/admin/projectsRoute.js')
-const indexRoutes = require('./routes/employee/auth.js')
+const indexRoutes = require('./routes/admin/indexRoutes')
 
 
 // Employees
@@ -45,8 +45,10 @@ app.use(cookieParser());
 app.use('/admin', auth)
 app.use('/admin', indexRoutes)
 app.use('/admin', userManager)
+
 app.use('/apiV1', tasks)
 app.use('/page', adminPage)
+
 
 // For Employees
 app.use('/', EmployeeAuth)
