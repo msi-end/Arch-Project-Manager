@@ -10,7 +10,6 @@ const LokiStore = require('connect-loki')(session);
 const { errHandler } = require('./middleware/error')
 let LokiConf = {path:'./sessions/loginAuth.db'}
 
-
 app.use(session({
     store: new LokiStore(LokiConf),
     secret: "secrctekeyfhrgfgrfrty84fwir767",
@@ -22,10 +21,19 @@ app.use(session({
 
 // Administrator 
 const auth = require('./controllers/adminAuth')
+<<<<<<< HEAD
 const tasks = require('./controllers/subdetails')
 const indexRoutes = require('./routes/admin/indexRoutes.js')
 const userManager = require('./routes/admin/userManager.crud.js')
+=======
+<<<<<<< HEAD
+const Employeeauth = require('./routes/employee/auth.js')
+const adminPage = require('./routes/admin/projectsRoute.js')
+=======
+const indexRoutes = require('./routes/employee/auth.js')
+>>>>>>> 6674f72b2fe768155f77a8db6a9c267317f44dc9
 
+>>>>>>> 8068af50c41661ca227709e95683337a09fde031
 
 // Employees
 const EmployeeAuth = require('./routes/employee/auth.js')
@@ -46,6 +54,7 @@ app.use('/admin', auth)
 app.use('/admin', indexRoutes)
 app.use('/admin', userManager)
 app.use('/apiV1', tasks)
+app.use('/page', adminPage)
 
 // For Employees
 app.use('/', EmployeeAuth)
