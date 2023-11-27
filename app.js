@@ -22,7 +22,6 @@ app.use(session({
 // Administrator 
 const auth = require('./controllers/adminAuth')
 const tasks = require('./controllers/subdetails')
-const indexRoutes = require('./routes/admin/indexRoutes.js')
 const userManager = require('./routes/admin/userManager.crud.js')
 const adminPage = require('./routes/admin/projectsRoute.js')
 const indexRoutes = require('./routes/employee/auth.js')
