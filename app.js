@@ -21,9 +21,10 @@ app.use(session({
 
 
 // Administrator 
-const tasks = require('./controllers/subdetails')
 const auth = require('./controllers/adminAuth')
-const indexRoutes = require('./routes/employee/auth.js')
+const tasks = require('./controllers/subdetails')
+const indexRoutes = require('./routes/admin/indexRoutes.js')
+const userManager = require('./routes/admin/userManager.crud.js')
 
 
 // Employees
@@ -43,6 +44,7 @@ app.use(cookieParser());
 // For Admin
 app.use('/admin', auth)
 app.use('/admin', indexRoutes)
+app.use('/admin', userManager)
 app.use('/apiV1', tasks)
 
 // For Employees

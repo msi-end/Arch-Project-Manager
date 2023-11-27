@@ -6,16 +6,12 @@ exports.index = (req, res) => {
     db.query(query, (err, result, field) => {
         res.send(result)
     })
-
-
 }
 exports.userManager = (req, res) => {
     const query = ``
     db.query(query, (err, result, field) => {
         res.send(result)
     })
-
-
 }
 exports.Projects = (req, res) => {
     const query = ``
