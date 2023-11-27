@@ -10,7 +10,4 @@ router.get('/finance', mainController.finance);
 router.get('/settings', mainController.settings);
 
 
-
-
-
 module.exports = router;

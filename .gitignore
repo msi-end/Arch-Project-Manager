@@ -2,3 +2,4 @@
 /test.js
 /src/storage/error.log
 /sessions/loginAuth.db
+/test.http

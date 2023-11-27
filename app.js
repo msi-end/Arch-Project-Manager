@@ -22,13 +22,8 @@ app.use(session({
 // Administrator 
 const tasks = require('./controllers/subdetails')
 const auth = require('./controllers/adminAuth')
-<<<<<<< HEAD
-const Employeeauth = require('./routes/employee/auth.js')
-const adminPage = require('./routes/admin/projectsRoute.js')
-=======
 const indexRoutes = require('./routes/employee/auth.js')
 
->>>>>>> 8068af50c41661ca227709e95683337a09fde031
 
 // Employees
 const EmployeeAuth = require('./routes/employee/auth.js')
@@ -43,12 +38,18 @@ app.set('view engine', ejs)
 app.use(cookieParser());
 
 
+//API for dashboard
+const apiRoute = require('./api/admin/dashboad.api.js')
+
+app.use('/apiv1', apiRoute)
+
+
 
 // For Admin
 app.use('/admin', auth)
 app.use('/admin', indexRoutes)
 app.use('/apiV1', tasks)
-app.use('/page', adminPage)
+// app.use('/page', adminPage)
 
 // For Employees
 app.use('/', EmployeeAuth)
