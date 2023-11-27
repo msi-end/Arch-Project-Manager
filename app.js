@@ -20,8 +20,11 @@ app.use(session({
 
 
 // Administrator 
+const auth = require('./controllers/adminAuth')
 const tasks = require('./controllers/subdetails')
 const auth = require('./controllers/adminAuth')
+const userManager = require('./routes/admin/userManager.crud.js')
+const adminPage = require('./routes/admin/projectsRoute.js')
 const indexRoutes = require('./routes/employee/auth.js')
 
 
@@ -48,6 +51,7 @@ app.use('/apiv1', apiRoute)
 // For Admin
 app.use('/admin', auth)
 app.use('/admin', indexRoutes)
+app.use('/admin', userManager)
 app.use('/apiV1', tasks)
 // app.use('/page', adminPage)
 
