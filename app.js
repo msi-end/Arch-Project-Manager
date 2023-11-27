@@ -9,7 +9,6 @@ const cookieParser = require('cookie-parser');
 const {errHandler} = require('./middleware/error')
 const tasks = require('./controllers/subdetails')
 
-
 app.use(session({
     // store: new LokiStore(options),
     secret: "secrctekeyfhrgfgrfrty84fwir767",
@@ -22,6 +21,7 @@ app.use(session({
 // Administrator 
 const auth = require('./controllers/adminAuth')
 const Employeeauth = require('./routes/employee/auth.js')
+const adminPage = require('./routes/admin/projectsRoute.js')
 
 // Employees
 
@@ -39,6 +39,7 @@ app.use(cookieParser());
 // For Admin
 app.use('/admin', auth)
 app.use('/apiV1', tasks)
+app.use('/page', adminPage)
 
 // For Employees
 app.use('/', Employeeauth)
