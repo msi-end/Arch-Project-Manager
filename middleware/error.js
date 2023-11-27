@@ -5,7 +5,7 @@ const wsErrorLog = ws.createLogger({
   level: 'info', format: format.json(),
   transports: [
     new transports.Console(),
-    new transports.File({ filename: 'erros.log' })]
+    new transports.File({ filename: './src/storage/erros.log' })]
 })
 const wsErrorLoger = (err, req) => {
   if (process.env.NODE_ENV === 'development') {
@@ -25,10 +25,6 @@ exports.errHandler = (err, req, res, next) => {
   wsErrorLoger(err, req)
 
   // MSQL Error List
-  if (err.code === 11000) {
-    err.message = "Duplicate Key Error";
-    err.statusCode = 400;
-  }
   if (req.accepts('json')) {
     ErrorComposer(err, res)
   }
