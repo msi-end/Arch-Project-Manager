@@ -1,7 +1,6 @@
-const {errHandler} = require('../../middleware/error');
+const { errorHandler } = require('../../utils/errorHandler');
 const databaseCon = require('../../config/db.config');
 const { createHmac } = require('crypto');
-const { log } = require('console');
 
 exports.CheckLoginServe = (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'employee') {
@@ -13,18 +12,20 @@ exports.CheckLoginServe = (req, res) => {
 
 
 exports.Auth = async (req, res) => {
-    if (req.body.Username && req.body.Password) {
-        const query = `SELECT username,password FROM adminAuth WHERE _id ='1'`;
+    if (req.body.Email && req.body.Password) {
+        const query = `SELECT name,email, password FROM employee WHERE email ='${req.body.Email}'`;
+        let queryUpdateTime = `UPDATE employee SET lastLoginAt = CONVERT_TZ(NOW(),\'+00:00\',\'+05:30\') WHERE email='${req.body.Email}'`;
         const hash = createHmac('sha256', 'secret').update(req.body.Password).digest('hex');
         await databaseCon.query(query, (err, rows, fields) => {
-            if (err) throw new errHandler(404, 'Something wents wrong in this Mysql Admin Auth')
+            if (err) throw new errHandler(404, 'Something wents wrong in this Mysql  Auth');
             if (rows.length > 0) {
-                if (req.body.Username == rows[0].username  && hash == rows[0].password) {
+                if (req.body.Email == rows[0].email && hash == rows[0].password) {
                     req.session.isLoggedIn = true;
-                    req.session.user_id = req.body.Username;
+                    req.session.email_id = req.body.Email;
                     req.session.role = 'employee';
                     req.session.cookie.expires = new Date(Date.now() + 10 * 60 * 60 * 1000);
                     req.session.cookie.maxAge = 10 * 60 * 60 * 1000;
+                    databaseCon.query(queryUpdateTime, (err) => { if (err) throw new errorHandler(404, err); })
                     res.redirect(`/`);
                 } else {
                     res.status(503).send('unauthorized')
@@ -36,8 +37,9 @@ exports.Auth = async (req, res) => {
         })
     }
 }
-
 exports.logout = (req, res) => {
+    let queryUpdateTime = `UPDATE employee SET lastLogoutAt = CONVERT_TZ(NOW(),\'+00:00\',\'+05:30\') WHERE email='${req.session.email_id}'`;
     req.session.destroy();
+    databaseCon.query(queryUpdateTime, (err) => { if (err) throw new errorHandler(404, err); })
     res.redirect(`/`)
 }

@@ -8,7 +8,7 @@ exports.index = (req, res) => {
     })
 }
 exports.userManager = (req, res) => {
-    const query = ``
+    const query = `SELECT em_id, name ,number, email, lastLoginAt ,lastLogoutAt FROM employee;`
     db.query(query, (err, result, field) => {
         res.send(result)
     })
