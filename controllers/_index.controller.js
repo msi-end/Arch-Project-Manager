@@ -8,7 +8,7 @@ exports.index = (req, res) => {
     })
 }
 exports.userManager = (req, res) => {
-    const query = `SELECT em_id, name ,number, email, lastLoginAt ,lastLogoutAt FROM employee;`
+    const query = `SELECT em_id, name ,number, email, lastLoginAt ,lastLogoutAt , status FROM employee;`
     db.query(query, (err, result, field) => {
         res.send(result)
     })
@@ -26,8 +26,12 @@ exports.finance = (req, res) => {
     db.query(query, (err, result, field) => {
         res.send(result)
     })
-
-
+}
+exports.expense = (req, res) => {
+    const query = ``
+    db.query(query, (err, result, field) => {
+        res.send(result)
+    })
 }
 exports.settings = (req, res) => {
     const query = ``

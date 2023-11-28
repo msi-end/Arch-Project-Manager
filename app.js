@@ -47,7 +47,7 @@ app.use('/apiv1', apiRoute)
 
 
 
-// For Admin
+// For Admin **********
 app.use('/admin', auth)
 app.use('/admin', indexRoutes)
 app.use('/admin', userManager)
@@ -56,7 +56,7 @@ app.use('/apiV1', tasks)
 // app.use('/page', adminPage)
 
 
-// For Employees
+// For Employees ************
 app.use('/', EmployeeAuth)
 
 

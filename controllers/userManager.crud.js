@@ -6,15 +6,15 @@ const { errorHandler } = require('../utils/errorHandler')
 
 exports.add = (req, res) => {
     let password = createHmac('sha256', 'zxcvbnmsdasgdrf').update(req.body.Password).digest('hex')
-    const query = `INSERT INTO employee (name,email,password) VALUES(?,?,?) `
-    db.query(query, [req.body.Name, req.body.Email, password], (err, result, field) => {
+    const query = `INSERT INTO employee (name,email,password,number) VALUES(?,?,?,?) `
+    db.query(query, [req.body.Name, req.body.Email, password,req.body.Number], (err, result, field) => {
         if (err) throw new errorHandler('', err);
         res.status(200).send({ status: true, msg: 'Life success!' })
     })
 }
 
 exports.getOne = (req, res) => {
-    const query = `SELECT name,email,number FROM employee WHERE em_id = ? `
+    const query = `SELECT name,email,number,status FROM employee WHERE em_id = ?  `
     db.query(query, [req.params.id], (err, result, field) => {
         if (err) throw new errorHandler('', err);
         res.status(200).send({ status: true, msg: 'Life success!' ,data:result})
@@ -22,7 +22,7 @@ exports.getOne = (req, res) => {
 }
 //Delete all data of employee from all tables
 exports.Del = (req, res) => {
-    const query = `DELETE FROM employee WHERE  em_id=?; `
+    const query = `UPDATE employee SET status ='inactive' WHERE em_id=?; `
     db.query(query, [req.params.id], (err, result, field) => {
         if (err) throw new errorHandler(err.status, err);
         res.status(200).send({ status: true, msg: 'Life success!' })
