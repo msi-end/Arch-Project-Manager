@@ -3,3 +3,4 @@
 /src/storage/error.log
 /sessions/loginAuth.db
 /test.http
+/config/db.config.js
