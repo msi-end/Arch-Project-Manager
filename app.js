@@ -43,7 +43,6 @@ app.use(cookieParser());
 
 //API for dashboard
 const apiRoute = require('./api/admin/dashboad.api.js')
-
 app.use('/apiv1', apiRoute)
 
 
@@ -57,7 +56,6 @@ app.use('/apiV1', tasks)
 
 // For Employees
 app.use('/', EmployeeAuth)
-
 
 
 app.get('*',(req,res)=>{ 
