@@ -13,14 +13,7 @@ exports.userManager = (req, res) => {
         res.send(result)
     })
 }
-exports.Projects = (req, res) => {
-    const query = ``
-    db.query(query, (err, result, field) => {
-        res.send(result)
-    })
 
-
-}
 exports.finance = (req, res) => {
     const query = ``
     db.query(query, (err, result, field) => {
