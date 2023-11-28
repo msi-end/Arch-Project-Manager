@@ -12,7 +12,6 @@ exports.userManager = (req, res) => {
   , COUNT(normal_project_employee.emid) 
     FROM employee
     INNER JOIN normal_project_employee ON employee.em_id = normal_project_employee.emid
-   
     GROUP BY normal_project_employee.emid
 
     `
