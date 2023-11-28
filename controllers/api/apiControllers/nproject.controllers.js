@@ -1,4 +1,4 @@
-const databaseCon = require('../../config/db.config')
+const databaseCon = require('../../../config/db.config')
 
 exports.getEmployListPerProject = async (req, res)=>{
     const {dealId, catId} = req.params

@@ -22,7 +22,6 @@ app.use(session({
 // Administrator 
 const auth = require('./controllers/adminAuth')
 const tasks = require('./controllers/subdetails')
-const auth = require('./controllers/adminAuth')
 const userManager = require('./routes/admin/userManager.crud.js')
 const adminPage = require('./routes/admin/projectsRoute.js')
 const indexRoutes = require('./routes/admin/indexRoutes')
@@ -42,7 +41,7 @@ app.use(cookieParser());
 
 
 //API for dashboard
-const apiRoute = require('./api/admin/dashboad.api.js')
+const apiRoute = require('./controllers/api/admin/dashboad.api.js')
 
 app.use('/apiv1', apiRoute)
 
