@@ -35,7 +35,7 @@
 - [ ] User Attendance 
 - [ ] Total Project done by each User (with Completed , Pending Projects)
 
-##### 3. Finance :-
+##### 3. Finance :- 
 
 - [ ] Showing list of all Projects with --
 

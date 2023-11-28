@@ -1,6 +1,6 @@
 const express = require('express');
 const api = express.Router();
-const apiController = require('../apiControllers/nproject.controllers')
+const apiController = require('../../controllers/PM.normal.crud')
 
 
 api.get('/employee/:dealId/:catId', apiController.getEmployListPerProject)
@@ -9,6 +9,10 @@ api.get('/get-employee', apiController.getEmployListToaddOrRemove)
 
 api.post('/add-employee-to-project', apiController.addEmployeeToProject)
 
-api.delete('/remove-employee-to-project', apiController.removeEmployeeToProject)
+api.delete('/removeempnp/:dealId/:catId/:emid/:task/:project/:removeDate', apiController.removeEmployeeToProject)
+
+//-------normal project subtask --------
+
+api.post('/addtaskto-nproject', apiController.addNewSubTaskToProject)
 
 module.exports = api
