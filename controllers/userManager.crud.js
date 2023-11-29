@@ -53,6 +53,16 @@ exports.getAttendence = (req, res) => {
 
     
 }
+exports.getCompletePandingWork = (req, res) => {
+    const query = `SELECT COUNT(cat_status) FROM normal_project_cat WHERE category_id IN (select category_id from normal_project_employee WHERE emid='${req.params.id}' ) AND cat_status = 'pending'`
+    db.query(query, (err, result, field) => {
+        res.send(result)
+    })
+
+    
+}
+
+
 //None Use function----------------------------------------
 // exports.getAll = (req, res) => {
 //     const query = `SELECT em_id,name,email, FROM employee`;
