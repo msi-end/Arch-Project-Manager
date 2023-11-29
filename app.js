@@ -26,6 +26,8 @@ const userManager = require('./routes/admin/userManagerRoute.js')
 // const adminPage = require('./routes/admin/projectsRoute.js')
 const indexRoutes = require('./routes/admin/indexRoutes')
 
+const apiRoute = require('./routes/admin/projectRoute.js')
+
 
 // Employees
 const EmployeeAuth = require('./routes/employee/auth.js')
@@ -41,9 +43,7 @@ app.use(cookieParser());
 
 
 //API for dashboard
-const apiRoute = require('./routes/admin/projectRoute.js')
 
-app.use('/apiv1', apiRoute)
 
 
 
@@ -53,10 +53,14 @@ app.use('/admin', indexRoutes)
 app.use('/admin', userManager)
 
 app.use('/apiV1', tasks)
+app.use('/apiv1', apiRoute)
 
 
 // For Employees ************
 app.use('/', EmployeeAuth)
+// app.use('/', indexRoutes)
+
+
 
 
 app.get('*',(req,res)=>{ 

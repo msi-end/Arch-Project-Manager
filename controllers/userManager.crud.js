@@ -54,12 +54,13 @@ exports.getAttendence = (req, res) => {
     
 }
 exports.getCompletePandingWork = (req, res) => {
-    const query = `SELECT COUNT(cat_status) FROM normal_project_cat WHERE category_id IN (select category_id from normal_project_employee WHERE emid='${req.params.id}' ) AND cat_status = 'pending'`
-    db.query(query, (err, result, field) => {
+    const query = `SELECT COUNT(cat_status)/2
+    FROM normal_project_cat 
+    LEFT JOIN normal_project_employee ON normal_project_cat.category_id = normal_project_employee.category_id 
+    WHERE emid=${req.params.id} AND cat_status = 'pending'   `    
+        db.query(query, (err, result, field) => {
         res.send(result)
     })
-
-    
 }
 
 
