@@ -1,18 +1,21 @@
 const express = require('express');
 const api = express.Router();
-const apiController = require('../../controllers/pm.normal.crud')
+const pmNormalAPI = require('../../controllers/PM.normal.crud')
 
-
-api.get('/employee/:dealId/:catId', apiController.getEmployListPerProject)
-
-api.get('/get-employee', apiController.getEmployListToaddOrRemove)
-
-api.post('/add-employee-to-project', apiController.addEmployeeToProject)
-
-api.delete('/removeempnp/:dealId/:catId/:emid/:task/:project/:removeDate', apiController.removeEmployeeToProject)
+//-------normal project employee --------
+api.get('/employee/:dealId/:catId', pmNormalAPI.getEmployListPerProject)
+api.get('/get-employee', pmNormalAPI.getEmployListToaddOrRemove)
+api.post('/add-employee-to-project', pmNormalAPI.addEmployeeToProject)
+api.delete('/removeempnp/:dealId/:catId/:emid/:task/:project/:removeDate', pmNormalAPI.removeEmployeeToProject)
 
 //-------normal project subtask --------
+api.post('/addsubtaskto-nproject', pmNormalAPI.addNewSubTaskToProject)
+api.put('/update-subtask-status', pmNormalAPI.updateSubtaskStatus)
+api.delete('/delete-subtask', pmNormalAPI.deleteSubtask)
 
-api.post('/addtaskto-nproject', apiController.addNewSubTaskToProject)
+//-------normal project task --------
+api.post('/addtaskto-nproject', pmNormalAPI.addNewSubTaskToProject)
+api.put('/update-task-status', pmNormalAPI.updateSubtaskStatus)
+api.delete('/delete-task', pmNormalAPI.deleteTask)
 
 module.exports = api
