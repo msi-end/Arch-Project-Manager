@@ -69,3 +69,7 @@ exports.getEmployListPerProject = async (req, res)=>{
     })
   }
 
+  exports.updateSubtaskStatus = async()=>{
+    let q = `update `
+  }
+
