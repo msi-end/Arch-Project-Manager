@@ -70,6 +70,6 @@ exports.getEmployListPerProject = async (req, res)=>{
   }
 
   exports.updateSubtaskStatus = async()=>{
-    let q = `update `
+    let q = `UPDATE  SET stask_status = value1 WHERE ndeal_id = 1 AND cate;`
   }
 
