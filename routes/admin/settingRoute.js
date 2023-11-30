@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const userManager = require('../../controllers/userManager.crud')
+const settingsMng = require('../../controllers/settingManager.crud')
 
 
-router.get('/get-task', userManager.getTask);
-router.get('/get-subtask', userManager.getSubtask);
-router.get('/get-amountsplit', userManager.getAmountSplit);
-router.post('/set-task', userManager.setTask);
-router.get('/set-subtask', userManager.setSubtask);
-router.get('/set-amountsplit', userManager.setAmountSplit);
+router.get('/get-task', settingsMng.getTask);
+router.get('/get-subtask', settingsMng.getSubtask);
+router.get('/get-amountsplit', settingsMng.getAmountSplit);
+router.post('/set-task', settingsMng.setTask);
+router.get('/set-subtask', settingsMng.setSubtask);
+router.get('/set-amountsplit', settingsMng.setAmountSplit);
 
 
 
