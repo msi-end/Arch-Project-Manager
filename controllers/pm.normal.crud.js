@@ -69,7 +69,13 @@ exports.getEmployListPerProject = async (req, res)=>{
     })
   }
 
-  exports.updateSubtaskStatus = async()=>{
-    let q = `UPDATE  SET stask_status = value1 WHERE ndeal_id = 1 AND cate;`
+  exports.updateSubtaskStatus = async(req, res)=>{
+    const {status, dealId, catId, staskId} = req.body;
+    let q = `UPDATE normal_project_subtask SET stask_status = '${status}' WHERE ndeal_id = ${dealId} AND category_id = ${catId} AND stask_id = ${staskId};`
+    databaseCon.query(q, (err, result)=>{
+      if(!err){
+        res.status(200).send(result)
+      }else{ res.status(500).send({msg: "not updated properly! try again later..."}) }
+    })
   }
 

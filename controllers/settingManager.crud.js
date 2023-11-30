@@ -2,7 +2,7 @@ const databaseCon = require('../config/db.config')
 const express = require('express')
 const router = express.Router();
 
-exports.getTask = async (req, res) => {
+exports.getTasks = async (req, res) => {
    const q = "select * from task"
    await databaseCon.query(q, (err, results) => {
       if (!err) {

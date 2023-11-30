@@ -1,18 +1,19 @@
 const express = require('express');
 const api = express.Router();
-const apiController = require('../../controllers/pm.normal.crud')
+const pmNormalAPI = require('../../controllers/PM.normal.crud')
 
 
-api.get('/employee/:dealId/:catId', apiController.getEmployListPerProject)
+api.get('/employee/:dealId/:catId', pmNormalAPI.getEmployListPerProject)
 
-api.get('/get-employee', apiController.getEmployListToaddOrRemove)
+api.get('/get-employee', pmNormalAPI.getEmployListToaddOrRemove)
 
-api.post('/add-employee-to-project', apiController.addEmployeeToProject)
+api.post('/add-employee-to-project', pmNormalAPI.addEmployeeToProject)
 
-api.delete('/removeempnp/:dealId/:catId/:emid/:task/:project/:removeDate', apiController.removeEmployeeToProject)
+api.delete('/removeempnp/:dealId/:catId/:emid/:task/:project/:removeDate', pmNormalAPI.removeEmployeeToProject)
 
 //-------normal project subtask --------
 
-api.post('/addtaskto-nproject', apiController.addNewSubTaskToProject)
+api.post('/addsubtaskto-nproject', pmNormalAPI.addNewSubTaskToProject)
+api.put('/update-subtask-status', pmNormalAPI.updateSubtaskStatus)
 
 module.exports = api
