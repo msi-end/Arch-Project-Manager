@@ -21,16 +21,19 @@ app.use(session({
 
 // Administrator 
 const auth = require('./controllers/adminAuth')
-const tasks = require('./controllers/subdetails')
-const userManager = require('./routes/admin/userManagerRoute.js')
-// const adminPage = require('./routes/admin/projectsRoute.js')
 const indexRoutes = require('./routes/admin/indexRoutes')
+const userManager = require('./routes/admin/userManagerRoute.js')
+const settings = require('./routes/admin/settingRoute.js')
+const finance = require('./routes/admin/financeRoute')
+const financeExpense = require('./routes/admin/financeRoute.expance')
+
 
 const apiRoute = require('./routes/admin/projectRoute.js')
 
 
 // Employees
-const EmployeeAuth = require('./routes/employee/auth.js')
+const EmployeeAuth = require('./routes/employee/auth.js');
+
 
 
 
@@ -50,9 +53,12 @@ app.use(cookieParser());
 // For Admin **********
 app.use('/admin', auth)
 app.use('/admin', indexRoutes)
-app.use('/admin', userManager)
+app.use('/admin/user-manager', userManager)
+app.use('/admin/settings', settings)
+app.use('/admin/finance', finance)
+app.use('/admin/finance/expense', financeExpense)
 
-app.use('/apiV1', tasks)
+// app.use('/apiV1', tasks)
 app.use('/apiv1', apiRoute)
 
 
