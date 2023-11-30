@@ -8,6 +8,7 @@ router.get('/getOne-User/:id', userManager.getOne);
 router.delete('/del-User/:id', userManager.Del);
 router.put('/Update-User/:id', userManager.Update);
 router.get('/getAttendence/:id', userManager.getAttendence);
+router.get('/getWorkInfo/:id', userManager.getCompletePandingWork);
 
 // router.get('/getAll-User', userManager.getAll);
 // router.get('/getAttendence/:id', userManager.getAttendence);

@@ -1,6 +1,6 @@
 const express = require('express');
 const api = express.Router();
-const apiController = require('../../controllers/PM.normal.crud')
+const apiController = require('../../controllers/pm.normal.crud')
 
 
 api.get('/employee/:dealId/:catId', apiController.getEmployListPerProject)
