@@ -1,6 +1,5 @@
 const databaseCon = require('../config/db.config')
 
-
   //-------normal project employee-------------------
 
 exports.getEmployListPerProject = async (req, res)=>{
@@ -40,7 +39,6 @@ exports.getEmployListPerProject = async (req, res)=>{
    })
   }
 
-  
   exports.removeEmployeeToProject = async (req, res)=>{
     const {dealId, catId, emid, task, project, removeDate} = req.params
     const q = `DELETE FROM normal_project_employee WHERE ndeal_id = ${dealId} AND category_id = ${catId} AND emid = ${emid};`
@@ -55,7 +53,6 @@ exports.getEmployListPerProject = async (req, res)=>{
    })
   }
 
-
   //-------normal project subtask-------------------
 
   exports.addNewSubTaskToProject = async(req, res) => {
@@ -63,9 +60,7 @@ exports.getEmployListPerProject = async (req, res)=>{
     databaseCon.query(q, req.body, (err, results)=>{
       if(!err){
         res.status(200).send(results)
-      }else{
-        res.status(500).send({msg : "not created sorry! try again later..."})
-      }
+      }else{ res.status(500).send({msg : "not created sorry! try again later..."}) }
     })
   }
 
@@ -78,4 +73,47 @@ exports.getEmployListPerProject = async (req, res)=>{
       }else{ res.status(500).send({msg: "not updated properly! try again later..."}) }
     })
   }
+
+  exports.deleteSubtask = async(req, res)=>{
+    const {dealId, catId, staskId} = req.query;
+    let q = `DELETE FROM normal_project_subtask
+    WHERE ndeal_id = ${dealId} AND category_id = ${catId} AND stask_id = ${staskId};`
+    databaseCon.query(q, (err, result)=>{
+      if(!err){
+        res.status(200).send(result)
+      }else{ res.status(500).send({msg: "not deleted! try again later..."}) }
+    })
+  }
+
+    //-------normal project task-------------------
+
+    exports.addNewTaskToProject = async(req, res) => {
+      let q = `insert into normal_project_cat set ?`
+      databaseCon.query(q, req.body, (err, results)=>{
+        if(!err){
+          res.status(200).send(results)
+        }else{res.status(500).send({msg : "not created sorry! try again later..."})}
+      })
+    }
+
+    exports.updatetaskStatus = async(req, res)=>{
+      const {status, dealId, catId, staskId} = req.body;
+      let q = `UPDATE normal_project_cat SET cat_status = '${status}' WHERE ndeal_id = ${dealId} AND category_id = ${catId}`
+      databaseCon.query(q, (err, result)=>{
+        if(!err){
+          res.status(200).send(result)
+        }else{ res.status(500).send({msg: "not updated properly! try again later..."}) }
+      })
+    }
+
+    exports.deleteTask = async(req, res)=>{
+      const {dealId, catId, staskId} = req.query;
+    let q = `DELETE FROM normal_project_cat
+    WHERE ndeal_id = ${dealId} AND category_id = ${catId};`
+    databaseCon.query(q, (err, result)=>{
+      if(!err){
+        res.status(200).send(result)
+      }else{ res.status(500).send({msg: "not deleted! try again later..."}) }
+    })
+    }
 

@@ -2,9 +2,7 @@ const express = require('express');
 const router = express.Router();
 const settingControll = require('../../controllers/settingManager.crud')
 
-console.log(settingControll)
-
-router.get('/get-task', settingControll.getSubtask);
+router.get('/get-task', settingControll.getTask);
 router.get('/get-subtask', settingControll.getSubtask);
 router.get('/get-amountsplit', settingControll.getAmountSplit);
 router.post('/set-task', settingControll.setTask);
