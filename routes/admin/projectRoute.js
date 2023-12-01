@@ -1,6 +1,7 @@
 const express = require('express');
 const api = express.Router();
 const pmNormalAPI = require('../../controllers/PM.normal.crud')
+const pmMiscAPI = require('../../controllers/pm.misc.crud')
 
 //-------normal project employee --------
 api.get('/employee/:dealId/:catId', pmNormalAPI.getEmployListPerProject)
@@ -17,5 +18,12 @@ api.delete('/delete-subtask', pmNormalAPI.deleteSubtask)
 api.post('/addtaskto-nproject', pmNormalAPI.addNewSubTaskToProject)
 api.put('/update-task-status', pmNormalAPI.updateSubtaskStatus)
 api.delete('/delete-task', pmNormalAPI.deleteTask)
+
+
+
+//=================MISC PROJECT ROUTE============================
+
+api.post('/add-employee-to-miscproject', pmMiscAPI.addEmployeeToMisc)
+api.delete('/remove-emp-miscp', pmMiscAPI.removeEmployeeToMisc)
 
 module.exports = api
