@@ -31,6 +31,7 @@ exports.getSubtask = async (req, res) => {
       }
    })
 }
+
 exports.setSubtask = async (req, res) => {
    const q = "INSERT INTO subtask (task_id,sub_task_name) VALUES(?,?)"
    await databaseCon.query(q, [req.body.taskId, req.body.subtaskName], (err, results) => {
@@ -41,6 +42,29 @@ exports.setSubtask = async (req, res) => {
       }
    })
 }
+
+exports.getMiscTask = async (req, res) => {
+   const q = "select * from mis_subtask"
+   await databaseCon.query(q, (err, results) => {
+      if (!err) {
+         res.status(200).send(results)
+      } else {
+         res.status(500).send({ msg: "Internal error occurs!" });
+      }
+   })
+}
+
+exports.setMiscTask = async (req, res) => {
+   const q = "INSERT INTO mis_subtask set ?"
+   await databaseCon.query(q, req.body, (err, results) => {
+      if (!err) {
+         res.status(200).send(results)
+      } else {
+         res.status(500).send({ msg: "Internal error occurs!" });
+      }
+   })
+}
+
 exports.getAmountSplit = async (req, res) => {
    const q = "select splitvalue from amount_split"
    await databaseCon.query(q, (err, results) => {

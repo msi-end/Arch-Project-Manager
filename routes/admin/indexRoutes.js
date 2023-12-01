@@ -3,11 +3,11 @@ const router = express.Router();
 const mainController = require('../../controllers/_index.controller')
 
 // for login and logout, auth 
-router.get('/', mainController.index);
-router.get('/user-manager', mainController.userManager);
-router.get('/finance', mainController.finance);
-router.get('/settings', mainController.settings);
-// router.get('/projects', mainController.Projects);
+// router.get('/', mainController.index);
+// router.get('/user-manager', mainController.userManager);
+// router.get('/finance', mainController.finance);
+// router.get('/settings', mainController.settings);
+router.post('/projects-create', mainController.insertNewDeal);
 
 
 module.exports = router;

@@ -22,6 +22,24 @@ http://localhost:3000/apiv1/delete-task?dealId=1&catId=2
 
 ### API for misc project to add employee - POST
 http://localhost:3000/apiv1/add-employee-to-miscproject
+{
+    "mdeal_id" : 1,
+    "mstask_id" : 1,
+    "mpemid" : 2,
+    "dateofassign" : "23/08/2023",
+    "task" : "ita gotha",
+    "project" : "Latin Bonua"  
+}
 
 ### API for misc project to remove employee - DELETE
 http://localhost:3000/apiv1/remove-emp-miscp?mdeal_id=1&mstask_id=1&mpemid=2&dateofremove=23/09/23&task=ita+gota&project=Latin+bonua
+
+
+### API for update misc projects subtask - UPDATE
+http://localhost:3000/apiv1/update-misctask-status
+{
+  "mdeal_id" : 1,
+  "mstask_id" : 1,
+  "mstask_status" : "completed",
+  "dateofstatus" : "28/03/2033"
+}

@@ -1,6 +1,6 @@
 const dbcon = require('../config/db.config')
 
-
+// misc project employee-------------
 exports.addEmployeeToMisc = async(req, res)=>{
    const {mdeal_id, mstask_id, mpemid, dateofassign, task, project} = req.body
   const q = `insert into misc_project_employee (mdeal_id, mstask_id, mpemid, dateofassign) values(${mdeal_id}, ${mstask_id}, ${mpemid}, '${dateofassign}')`
@@ -16,7 +16,7 @@ exports.addEmployeeToMisc = async(req, res)=>{
 }
 
 exports.removeEmployeeToMisc = async(req, res)=>{
-    const {mdeal_id, mstask_id, mpemid, dateofremove, task, project} = req.query
+   const {mdeal_id, mstask_id, mpemid, dateofremove, task, project} = req.query
    const q = `delete from misc_project_employee where mdeal_id = ${mdeal_id} and mstask_id = ${mstask_id} and mpemid = ${mpemid}`
    await dbcon.query(q, req.body, (err, result)=>{
      if (!err) {
@@ -27,6 +27,18 @@ exports.removeEmployeeToMisc = async(req, res)=>{
          })
      }else {res.status(500).send("Something went wrong!")} 
    })
+ }
+
+ 
+ //-----misc project subtask ---------------
+ exports.updateMiscTaskStatus = async(req, res)=>{
+    const {mdeal_id, mstask_id, mstask_status, dateofstatus} = req.body
+    let q = mstask_status != 'completed' ? `update misc_project_subtask set mstask_status ='${mstask_status}' where mdeal_id=${mdeal_id} and mstask_id=${mstask_id}` : `update misc_project_subtask set mstask_status ='${mstask_status}', dateofcomplete='${dateofstatus}' where mdeal_id=${mdeal_id} and mstask_id=${mstask_id}`
+    await dbcon.query(q, (err, results)=>{
+      if (!err) {
+        res.status(200).send("status updated successfully")
+      }else{ res.status(500).send(err)}
+    })
  }
 
 
