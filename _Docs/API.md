@@ -1,6 +1,7 @@
+# API for NORMAL PROJECT 
+
 ### API for employee list per normal project - GET
 http://localhost:3000/apiv1/employee/1/1
-
 
 ### API for adding employee from normal project - POST
 http://localhost:3000/apiv1/add-employee-to-project
@@ -16,6 +17,16 @@ http://localhost:3000/apiv1/delete-subtask?dealId=1&catId=1&staskId=1
 
 ### API for deleting tasks from normal projects - DELETE
 http://localhost:3000/apiv1/delete-task?dealId=1&catId=2
+
+### API for normal project finance updateing advance pay recieved - PUT
+http://localhost:3000/admin/finance/update-advancepay
+{
+  "amount_got" : 1000,
+  "dateofpay" : "12/02/2023",
+  "modeofpay" : "online",
+  "ndeal_id" : 13,
+  "task" : 2
+} 
 
 
 # API for MISC PROJECT 
@@ -43,3 +54,4 @@ http://localhost:3000/apiv1/update-misctask-status
   "mstask_status" : "completed",
   "dateofstatus" : "28/03/2033"
 }
+

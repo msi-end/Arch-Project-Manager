@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const fControl = require('../../controllers/financeManager.crud')
 
-
-// router.get('/', index);
-// router.get('/user-manager', userManager);
-// router.get('/finance', finance);
-// router.get('/settings', settings);
+router.put('/update-advancepay', fControl.updateAdvanceRecieved)
 
 
 module.exports = router;

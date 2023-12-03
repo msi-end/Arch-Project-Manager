@@ -8,6 +8,7 @@ const mainController = require('../../controllers/_index.controller')
 // router.get('/finance', mainController.finance);
 // router.get('/settings', mainController.settings);
 router.post('/projects-create', mainController.insertNewDeal);
+router.get('/np-form', mainController.renderNormalProjectForm)
 
 
 module.exports = router;

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkbox Example</title>
+</head>
+<body>
+    <h2>Enter new Normal projects</h2>
+    <form action="/admin/projects-create" method="post" style="display: flex; flex-direction : column; gap: 1rem; width: 60%;">
+        <label for="checkbox">Name of the project</label>
+        <input type="text" name="name" placeholder="Enter the name">
+        <label for="checkbox">Refference Number</label>
+        <input type="text" name="rfNo" placeholder="Enter the ref number">
+        <label for="checkbox">Contact number</label>
+        <input type="number" name="contactNo" placeholder="Enter the Contact number">
+        <label for="checkbox">Agreement amount</label>
+        <input type="number" name="agreementAm" placeholder="Enter the Agreement Amount">
+        <label for="checkbox">Work name</label>
+        <input type="text" name="workName" placeholder="Enter the workName">
+        <label for="checkbox">Enter Email</label>
+        <input type="text" name="email" placeholder="Enter the email">
+        <label for="checkbox">Enter City</label>
+        <input type="text" name="city" placeholder="Enter the city">
+        <label for="checkbox">Enter Total Amount</label>
+        <input type="text" name="TotalAm" placeholder="Enter the Total amount">
+        <label for="checkbox">Enter Spilt Ratio</label>
+        <select name="split">
+            <option selected disabled>Select Split value</option>
+            <option value="4:4:2">4:4:2</option>
+            <option value="3:3:4">3:3:4</option>
+        </select>
+        <h4>Select category included</h4>
+        <label for="checkbox">Structural</label>
+        <input type="checkbox" id="checkbox" name="task" value="2">
+        <label for="checkbox">Architectural</label>
+        <input type="checkbox" id="checkbox" name="task" value="1">
+        <label for="task">Designing</label>
+        <input type="checkbox" id="task" name="task" value="3">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

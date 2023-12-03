@@ -64,7 +64,6 @@ app.use('/', EmployeeAuth)
 
 
 
-
 app.get('*',(req,res)=>{ 
     res.render('../views/errorPage.ejs');
     })
