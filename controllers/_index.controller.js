@@ -49,7 +49,7 @@ exports.renderNormalProjectForm = (req, res) => {
     res.render('../views/admin/normalProject.ejs')
 }
 
-exports.insertNewDeal = async (req, res) => {
+exports.insertNewNormalDeal = async (req, res) => {
     db.getConnection((err0, conn) => {
         if (err0) throw err0;
         conn.beginTransaction(function (err) {
@@ -112,3 +112,56 @@ exports.insertNewDeal = async (req, res) => {
     })
 
 }
+
+
+//----------Misc project form work ------------
+
+exports.renderMiscProjectForm = (req, res) => {
+    res.render('../views/admin/normalProject.ejs')
+}
+
+exports.insertNewMiscDeal = async (req, res) => {
+    db.getConnection((err0, conn) => {
+        if (err0) throw err0;
+        conn.beginTransaction(function (err) {
+            if (err) {
+                res.status(500).send("something error occured")
+                return;
+            }
+            const miscDealsTableData = [req.body.name, req.body.rfNo, req.body.contactNo, req.body.agreementAm, req.body.workName, req.body.email, req.body.city, req.body.TotalAm]
+
+            const qTodeal = `insert into single_deal (sdeal_name, reference_no, contact, agreement_amount, work_name, email, city, total_price) values (?,?,?,?,?,?,?,?)`
+
+            conn.query(qTodeal, miscDealsTableData, (err1, response) => {
+                if (err1) {
+                    return conn.rollback(function () {
+                        throw err1;
+                    })
+                }
+                const mdealId = response.insertId
+                const finTableData = [mdealId, req.body.TotalAm, Number(req.body.task)]
+                const qTonpf = `insert into misc_project_finance (mdeal_id, totalamount, task) values (?, ?, ?)`
+                conn.query(qTonpf, finTableData, (err3, response3) => {
+                    if (err3) {
+                        return conn.rollback(function () {
+                            throw err3;
+                        })
+                    }
+                    conn.commit(function (errC) {
+                        if (errC) {
+                            return conn.rollback(function () {
+                                throw errC;
+                            });
+                        }
+                        res.status(200).send("new misc deal entered successfully..😍")
+                    })
+                })   
+
+            })
+
+        })
+    })
+
+}
+
+

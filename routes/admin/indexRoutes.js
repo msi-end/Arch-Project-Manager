@@ -2,13 +2,12 @@ const express = require('express');
 const router = express.Router();
 const mainController = require('../../controllers/_index.controller')
 
-// for login and logout, auth 
-// router.get('/', mainController.index);
-// router.get('/user-manager', mainController.userManager);
-// router.get('/finance', mainController.finance);
-// router.get('/settings', mainController.settings);
-router.post('/projects-create', mainController.insertNewDeal);
+//---normal project ejs routes-----
+router.post('/projects-create', mainController.insertNewNormalDeal );
 router.get('/np-form', mainController.renderNormalProjectForm)
 
+
+//--------Misc project ejs routes-----
+router.post('/misc-project-create', mainController.insertNewMiscDeal)
 
 module.exports = router;

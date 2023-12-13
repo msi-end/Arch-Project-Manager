@@ -150,6 +150,17 @@ create table normal_projects_finance(
   foreign key(task) references task(task_id)
 );
 
+create table misc_project_finance (
+ mfid int primary key auto_increment not null,
+ mdeal_id int not null,
+ totalamount int,
+ task int not null,
+ amount_got int,
+ dateofpay varchar(80) default 0,
+ modeofpay varchar(50),
+ foreign key(mdeal_id) references single_deal(sdid),
+ foreign key(task) references mis_subtask(msub_task_id)
+);
 
 //--------entry atlast------------------------
 
