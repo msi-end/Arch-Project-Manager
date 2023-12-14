@@ -51,7 +51,6 @@ app.use('/admin', indexRoutes)
 app.use('/admin/user-manager', userManager)
 app.use('/admin/settings', settings)
 app.use('/admin/finance', finance)
-// app.use('/admin/finance/expense', financeExpense)
 
 // app.use('/apiV1', tasks)
 app.use('/apiv1', apiRoute)

@@ -3,9 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=h, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/admin/main.css">
+    <link rel="stylesheet" href="../../css/admin/header.css">
+    <link rel="stylesheet" href="../../css/admin/responsive.css">
     <title>Document</title>
 </head>
 <body>
-    <h1>Dashboard</h1>
+    <%- include('../partials/admin.header.ejs') %>
+    <main class="main">
+        <!------------- DATA-OVERALL-------------  -->
+        <div class="main-data flex">
+            <!-- -------TOTAL PROJECTS--------- -->
+            <div class="total-data flex data">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="users-alt" class="svg">
+                    <path fill="##000000"
+                        d="M12.3,12.22A4.92,4.92,0,0,0,14,8.5a5,5,0,0,0-10,0,4.92,4.92,0,0,0,1.7,3.72A8,8,0,0,0,1,19.5a1,1,0,0,0,2,0,6,6,0,0,1,12,0,1,1,0,0,0,2,0A8,8,0,0,0,12.3,12.22ZM9,11.5a3,3,0,1,1,3-3A3,3,0,0,1,9,11.5Zm9.74.32A5,5,0,0,0,15,3.5a1,1,0,0,0,0,2,3,3,0,0,1,3,3,3,3,0,0,1-1.5,2.59,1,1,0,0,0-.5.84,1,1,0,0,0,.45.86l.39.26.13.07a7,7,0,0,1,4,6.38,1,1,0,0,0,2,0A9,9,0,0,0,18.74,11.82Z">
+                    </path>
+                </svg>
+                <div class="total_user_data">
+                    <p class="size">100</p>
+                    <p class="text">Total Projects</p>
+                </div>
+            </div>
+            <!-- ---------------cOMPLETED PROJECTS ------------ -->
+            <div class="in_progress-data flex data">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="users-alt" class="svg">
+                    <path fill="##000000"
+                        d="M12.3,12.22A4.92,4.92,0,0,0,14,8.5a5,5,0,0,0-10,0,4.92,4.92,0,0,0,1.7,3.72A8,8,0,0,0,1,19.5a1,1,0,0,0,2,0,6,6,0,0,1,12,0,1,1,0,0,0,2,0A8,8,0,0,0,12.3,12.22ZM9,11.5a3,3,0,1,1,3-3A3,3,0,0,1,9,11.5Zm9.74.32A5,5,0,0,0,15,3.5a1,1,0,0,0,0,2,3,3,0,0,1,3,3,3,3,0,0,1-1.5,2.59,1,1,0,0,0-.5.84,1,1,0,0,0,.45.86l.39.26.13.07a7,7,0,0,1,4,6.38,1,1,0,0,0,2,0A9,9,0,0,0,18.74,11.82Z">
+                    </path>
+                </svg>
+                <div class="total_user_data">
+                    <p class="size">100</p>
+                    <p class="text">Completed</p>
+                </div>
+            </div>
+            <!-- ---------IN PROGRESS----------- -->
+            <div class="not_start-data flex data">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="users-alt" class="svg">
+                    <path fill="##000000"
+                        d="M12.3,12.22A4.92,4.92,0,0,0,14,8.5a5,5,0,0,0-10,0,4.92,4.92,0,0,0,1.7,3.72A8,8,0,0,0,1,19.5a1,1,0,0,0,2,0,6,6,0,0,1,12,0,1,1,0,0,0,2,0A8,8,0,0,0,12.3,12.22ZM9,11.5a3,3,0,1,1,3-3A3,3,0,0,1,9,11.5Zm9.74.32A5,5,0,0,0,15,3.5a1,1,0,0,0,0,2,3,3,0,0,1,3,3,3,3,0,0,1-1.5,2.59,1,1,0,0,0-.5.84,1,1,0,0,0,.45.86l.39.26.13.07a7,7,0,0,1,4,6.38,1,1,0,0,0,2,0A9,9,0,0,0,18.74,11.82Z">
+                    </path>
+                </svg>
+                <div class="total_user_data">
+                    <p class="size">100</p>
+                    <p class="text">In Progress</p>
+                </div>
+            </div>
+        </div>
+        <!-- ---------ALERT BOX----------- -->
+        <div class="status hide">
+            <div class="alert flex green">
+                <span class="hide">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="exclamation-triangle"
+                        class="alove">
+                        <path fill="##000000"
+                            d="M12,16a1,1,0,1,0,1,1A1,1,0,0,0,12,16Zm10.67,1.47-8.05-14a3,3,0,0,0-5.24,0l-8,14A3,3,0,0,0,3.94,22H20.06a3,3,0,0,0,2.61-4.53Zm-1.73,2a1,1,0,0,1-.88.51H3.94a1,1,0,0,1-.88-.51,1,1,0,0,1,0-1l8-14a1,1,0,0,1,1.78,0l8.05,14A1,1,0,0,1,20.94,19.49ZM12,8a1,1,0,0,0-1,1v4a1,1,0,0,0,2,0V9A1,1,0,0,0,12,8Z">
+                        </path>
+                    </svg>
+                </span>
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="check-circle" class="alove">
+                        <path fill="##000000"
+                            d="M14.72,8.79l-4.29,4.3L8.78,11.44a1,1,0,1,0-1.41,1.41l2.35,2.36a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29l5-5a1,1,0,0,0,0-1.42A1,1,0,0,0,14.72,8.79ZM12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z">
+                        </path>
+                    </svg>
+                </span>
+                <p>Project work is due on <span>19/05/23</span> </p>
+                <span class="caution" onclick="closeAlert()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="times" class="svg">
+                        <path fill="##000000"
+                            d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
+                        </path>
+                    </svg>
+                </span>
+            </div>
+        </div>
+
+        <!-- ----------- DATA TABLE----------- -->
+        <div class="data-info box">
+            <!-- headings -->
+            <div class="info-head grid">
+                <p class="uppercase phead none">Ref. No.</p>
+                <p class="uppercase phead none">CLIENT</p>
+                <p class="uppercase phead none">name of the project</p>
+                <p class="uppercase phead none">deadline</p>
+                <p class="uppercase phead none">status</p>
+                <!-- ------resposnive class------- -->
+                <p class="responsive uppercase phead hide block">project details</p>
+            </div>
+            <!-- ----------project information----------- -->
+            <div class="info-content">
+                <!-- --------1st project----------->
+               
+                <!-- -------------------------------->
+            </div>
+
+            <!-- ----------PAGINATION--------- -->
+            <div class="info_pagination">
+                <div class="pages">
+                    <ul>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-left"
+                                class="svg">
+                                <path fill="##000000"
+                                    d="M11.46,8.29a1,1,0,0,0-1.42,0l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L9.16,12l2.3-2.29A1,1,0,0,0,11.46,8.29ZM14.66,12,17,9.71a1,1,0,0,0-1.42-1.42l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
+                                </path>
+                            </svg>
+                        </li>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>...</li>
+                        <li>10</li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-right"
+                                class="svg">
+                                <path fill="##000000"
+                                    d="M8.46,8.29A1,1,0,1,0,7,9.71L9.34,12,7,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3a1,1,0,0,0,0-1.42Zm8.5,3-3-3a1,1,0,0,0-1.42,1.42L14.84,12l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3A1,1,0,0,0,17,11.29Z">
+                                </path>
+                            </svg>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</section>
+
+
+<!-- JAVASCRIPT -->
+<script src="../../js/admin/header.js"></script>
+<script src="../../js/admin/dashboard.js"></script>
 </body>
 </html>

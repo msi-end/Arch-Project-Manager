@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBAH ERP | Admin</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/admin/header.css">
+    <link rel="stylesheet" href="../../css/admin/responsive.css">
+    <link rel="stylesheet" href="../../css/admin/form.css">
+
+</head>
+
+<body>
+    <%- include('../partials/admin.header.ejs') %> 
+        <!-- MAIN SECTION STARTS HERE  -->
+        <main class="main">
+            <div class="fcontainer">
+                <!-- -----------NEW PROJECT------------ -->
+                <div class="form-header">
+                    <h4 class="uppercase">New Project</h4>
+                    <div class="head-btns flex">
+                        <button class="uppercase green" onclick="toggleForm('normalForm')">default</button>
+                        <button class="uppercase" onclick="toggleForm('misForm')">miscellaneous</button>
+                    </div>
+                </div>
+                <div class="formContainer">
+                    <div class="normalForm" id="normalForm">
+                        <form action="">
+                            <h4 class="uppercase">contact details</h4>
+                            <div class="fgrid">
+                                <div class="field">
+                                    <label for="name">Name</label>
+                                    <input type="text" name="name" id="name" placeholder="Naam tu likhok">
+                                </div>
+                                <div class="field">
+                                    <label for="cnumber">Phone Number</label>
+                                    <input type="text" name="cnumber" id="cnumber" placeholder="number tu likhok whatsapp thaka">
+                                </div>
+                                <div class="field">
+                                    <label for="email">Email</label>
+                                    <input type="text" name="email" id="email" placeholder="email tu ketiaba nholeu hoi jai kintu business t lgibo">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="address">Address</label>
+                                <textarea name="address" id="address"></textarea>
+                            </div>
+                            <!-- ----------------------------------------------------------- -->
+                            <h4 class="uppercase">project details</h4>
+                            <div class="fgrid">
+                                <div class="field">
+                                    <label for="ref">Reference No</label>
+                                    <input type="text" name="ref" id="ref">
+                                </div>
+                                <div class="field">
+                                    <label for="workName">Name of The Project</label>
+                                    <input type="text" name="workName" id="workName">
+                                </div>
+                                <div class="field">
+                                    <label for="projectWork">Work Type</label>
+                                    <div class="ldflex">
+                                        <div class="type">
+                                            <input type="checkbox" name="architecture" id="arch">
+                                            <span>Architecture</span>
+                                        </div>
+                                        <div class="type">
+                                            <input type="checkbox" name="structural" id="arch">
+                                            <span>Structural</span>
+                                        </div>
+                                        <div class="type">
+                                            <input type="checkbox" name="three" id="three">
+                                            <span>3D</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="amount">Agreement Amount</label>
+                                    <input type="text" name="amount" id="amount" placeholder="&#8377;">
+                                </div>
+                                <div class="field">
+                                    <label for="splitRatio">Amount Split Ratio</label>
+                                    <select name="splitRatio" id="splitRatio">
+                                        <option value="1">4:4:2</option>
+                                        <option value="2">4:2:4</option>
+                                        <option value="3">6:2:2</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- ---------- grid ends--------- -->
+                            <div class="field">
+                                <button class="uppercase">submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- miscellaneous FORM  -->
+                    <div class="misForm hide" id="misForm">
+                        <form action="">
+                            <h4><span class="uppercase">contact details</span>  (Misc)</h4>
+                            <div class="fgrid">
+                                <div class="field">
+                                    <label for="name">Name</label>
+                                    <input type="text" name="name" id="name" placeholder="Naam tu likhok">
+                                </div>
+                                <div class="field">
+                                    <label for="cnumber">Phone Number</label>
+                                    <input type="text" name="cnumber" id="cnumber" placeholder="number tu likhok whatsapp thaka">
+                                </div>
+                                <div class="field">
+                                    <label for="email">Email</label>
+                                    <input type="text" name="email" id="email" placeholder="email tu ketiaba nholeu hoi jai kintu business t lgibo">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="address">Address</label>
+                                <textarea name="address" id="address"></textarea>
+                            </div>
+                            <!-- ----------------------------------------------------------- -->
+                            <h4><span class="uppercase">project details</span>  (Misc)</h4>
+                            <div class="fgrid">
+                                <div class="field">
+                                    <label for="ref">Reference No</label>
+                                    <input type="text" name="ref" id="ref">
+                                </div>
+                                <div class="field">
+                                    <label for="workName">Name of The Project</label>
+                                    <input type="text" name="workName" id="workName">
+                                </div>
+                                <div class="field">
+                                    <label for="amount">Agreement Amount</label>
+                                    <input type="text" name="amount" id="amount" placeholder="&#8377;">
+                                </div>
+                                <div class="field">
+                                    <label for="miswork">Types Of Work</label>
+                                    <select name="splitRatio" id="splitRatio">
+                                        <option value="1">Planning</option>
+                                        <option value="2">Structural</option>
+                                        <option value="3">3D(Exterior)</option>
+                                        <option value="4">Plumbing</option>
+                                        <option value="5">Electricity</option>
+                                        <option value="6">Master Plan</option>
+                                        <option value="7">Furniture Layout</option>
+                                        <option value="8">Survey</option>
+                                        <option value="9">Soil Test</option>
+                                        <option value="10">Interior(3D)</option>
+                                        <option value="11">Estimate</option>
+                                        <option value="12">Landscaping</option>
+                                        <option value="13">3D Walkthrough</option>
+                                        <option value="14">Art & Craft</option>
+                                        <option value="15">Supervision</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- ---------- grid ends--------- -->
+                            <div class="field">
+                                <button class="uppercase">submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </section>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="/static/js/main.js"></script>
+    <script src="../../js/admin/form.js"></script>
+</body>
+
+</html>

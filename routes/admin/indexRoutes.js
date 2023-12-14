@@ -10,4 +10,7 @@ router.get('/np-form', mainController.renderNormalProjectForm)
 //--------Misc project ejs routes-----
 router.post('/misc-project-create', mainController.insertNewMiscDeal)
 
+
+//-----admin pages -------------
+router.get('/dashboard', mainController.adminDashboard)
 module.exports = router;

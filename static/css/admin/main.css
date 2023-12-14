@@ -1,0 +1,630 @@
+.main .main-data{
+    flex-wrap: wrap;
+}
+.main .main-data .data{
+    flex-grow: 1;
+    /* justify-content: space-between; */
+    /* height: 5rem; */
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius-2);
+    position: relative;
+    overflow: hidden;
+    background-image: none;
+    color: var(--white);
+    gap: 1.5rem;
+    z-index: 10;
+}
+.main .main-data svg{
+    fill: var(--white);
+    width: 30px;
+    height: 30px;
+}
+.main .main-data .size{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.main .main-data .text{
+    font-size: 14px;
+}
+.main .total-data{
+    background: var(--primary-color);
+}
+.main .total-data::before{
+    content: '';
+    position: absolute;
+    top: -38px;
+    right: -42px;
+    width: 100px;
+    height: 100px;
+    background: hsl(255, 61%, 39%);
+    border-radius: 50%;
+    z-index: -1;
+}
+.main .total-data::after{
+    content: '';
+    position: absolute;
+    top: -42px;
+    right: -15px;
+    width: 100px;
+    height: 100px;
+    background: hsl(255, 61%, 39%);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.5;
+}
+.main .in_progress-data{
+    background: var(--secondary-color);
+}
+.main .in_progress-data::before{
+    content: '';
+    position: absolute;
+    top: -38px;
+    right: -42px;
+    width: 100px;
+    height: 100px;
+    background: hsl(212, 80%, 42%);
+    border-radius: 50%;
+    z-index: -1;
+}
+.main .in_progress-data::after{
+    content: '';
+    position: absolute;
+    top: -42px;
+    right: -15px;
+    width: 100px;
+    height: 100px;
+    background: hsl(212, 80%, 42%);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.5;
+}
+.main .not_start-data{
+    background: var(--tertiary-color);
+}
+.main .not_start-data::before{
+    content: '';
+    position: absolute;
+    top: -38px;
+    right: -42px;
+    width: 100px;
+    height: 100px;
+    background: hsl(0, 100%, 40%);
+    border-radius: 50%;
+    z-index: -1;
+}
+.main .not_start-data::after{
+    content: '';
+    position: absolute;
+    top: -42px;
+    right: -15px;
+    width: 100px;
+    height: 100px;
+    background: hsl(0, 100%, 40%);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.5;
+}
+.main .data div{
+    line-height: 1.5;
+}
+/* ---------------------------------
+        alert
+        ----------------------------- */
+.main .status{
+    position: absolute;
+    background: var(--black-light);
+    /* inset: 0; */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 200;
+    height: 100vh;
+}
+.main .alert.red{
+    border: 1px solid var(--ter-dark-color);
+    background: var(--ter-light-color);
+    color: var(--ter-dark-color);
+}
+.main .alert.green{
+    border: 1px solid var(--green);
+    background: var(--green-light);
+    color: var(--green);
+}
+.status .alert{
+    justify-content: center;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    padding: 20px;
+    border-radius: var(--border-radius-2);
+    z-index: 500;
+}
+.status .alove{
+    width: 40px;
+    height: 40px;
+}
+.main .status p{
+    font-size: 18px;
+    font-weight: 600;
+}
+.main .status span.caution{
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    border-radius: var(--border-radius-1);
+    
+}
+.main .alert.red span.caution{
+    border: 1px solid var(--ter-dark-color);
+}
+.main .alert.green span.caution{
+    border: 1px solid var(--green);
+}
+.main .alert.red svg{
+    fill: var(--ter-dark-color);
+}
+.main .alert.green svg{
+    fill: var(--green);
+}
+/* ----------DATA TABLE------------ */
+.grid{
+    display: grid;
+    grid-template-columns: 4rem repeat(3, minmax(0, 1fr)) 12rem 1.5rem;
+    align-items: center;
+    justify-items: flex-start;
+    gap: 10px;
+}
+.info-head, .info-content p{
+    word-wrap: break-word;
+}
+.main .box{
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: var(--border-radius-2);
+}
+.main .data-info{
+    background: var(--white);
+}
+.data-info .info-head{
+    padding: 0 1.5rem;
+}
+:is(.info-head, .info-content) .phead{
+    color: var(--grey);
+    font-size: 12px;
+    font-weight: 600;
+}
+.data-info .info-content{
+    border: 1px solid var(--green-light);
+    border-radius: var(--border-radius-1);
+    margin: 0.5rem auto;
+    height: 50vh;
+    overflow-y: scroll;
+}
+.info-content .accordion-content{
+    margin: 1rem;
+    padding: 0.8rem 0.5rem;
+    border-radius: var(--border-radius-1);
+    cursor: pointer;
+    transition: var(--transition-1);
+    border: 1px solid var(--sec-light-color);
+    /* overflow: hidden; */
+}
+.info-content .accordion-content:hover{
+    background: var(--bg-2);
+}
+.info-content .accordion-content p{
+    font-size: 14px;
+    font-weight: 600;
+}
+.info-content .accordion-content .stat{
+    width: 80%;
+    font-size: 12px;
+    height: 1.5rem;
+    justify-content: center;
+    border-radius: var(--border-radius-2);
+}
+.info-content .accordion-content .stat.green{
+    background: var(--green-light);
+    color: var(--green);
+}
+.info-content .accordion-content .stat.red{
+    background: var(--ter-light-color);
+    color: var(--ter-dark-color);
+}
+.accordion-content .arrow-down{
+    transition: all 2s ease;
+}
+.accordion-content .arrow-down.open svg{
+    transform: rotate(180deg);
+}
+
+/* HIDDEN CONTENT  */
+.adata{
+    display: none;
+}
+.adata.open{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: block;
+    border-radius: 0 0 8px 8px;
+    margin-top: 1rem;
+}
+.adata p{
+    line-height: 1.8;
+}
+.adata p span:nth-child(1){
+    display: block;
+}
+.adata .add_info{
+    font-size: 12px;
+}
+.adata .address{
+    line-height: 1;
+}
+.assign svg{
+    width: 25px;
+}
+/* --PROJECT EXPAND-- */
+.adata .project_expand{
+    align-items: flex-start;
+    margin-top: 2rem;
+    grid-template-columns: 4rem repeat(3, minmax(0, 1fr));
+}
+.project_expand .badge{
+    width: 90%;
+    /* position: relative; */
+}
+.adata .project_expand .arrow{
+    padding: 0.5rem;
+    border-radius: var(--border-radius-1);  
+}
+.adata .project_expand .phead{
+    font-weight: 700;
+}
+.adata .project_expand .architecture .arrow{
+    border:1px solid var(--primary-color);
+    background: var(--primary-light-color);
+}
+.adata .project_expand .architecture .phead{
+    color: var(--primary-color);
+}
+.adata .project_expand .architecture hr.show{
+    outline: 1px solid var(--primary-color);
+}
+.adata .project_expand .structural .arrow{
+    border: 1px solid var(--secondary-color);
+    background: var(--sec-light-color);
+}
+.adata .project_expand .structural .phead{
+    color: var(--secondary-color);
+}
+.adata .project_expand .structural hr.show{
+    outline: 1px solid var(--secondary-color);
+}
+.adata .project_expand .thrd .arrow{
+    border:1px solid var(--green);
+    background: var(--green-light);
+}
+.adata .project_expand .thrd .phead{
+    color: var(--green);
+}
+.adata .project_expand .thrd hr.show{
+    outline: 1px solid var(--green);
+}
+
+/* ---------Main Task Status--------- */
+.arrow .task-emp-status{
+    overflow: visible;
+    width: 100%;
+}
+.task-emp-status .main-btns{
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 0.5rem;
+}
+.task-emp-status .main-btns button{
+    flex-grow: 1;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0 4px;
+    height: 30px;
+    border-radius: var(--border-radius-1);
+    border: 1px solid var(--primary-color);
+    background: var(--primary-color);
+    color: var(--white);
+    gap: 0;
+    justify-content: space-between;
+    transition: var(--transition-2);
+}
+.task-emp-status .main-btns button:hover{
+    opacity: 0.8;
+}
+.main-btns button:nth-child(2)::after{
+    background: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+}
+.main-btns button:nth-child::after(3){
+    background: var(--green);
+    border: 1px solid var(--green);
+}
+.task-emp-status .main-btns svg{
+    width: 16px;
+    fill: var(--white);
+}
+.task-emp-status .main-dropdown{
+    position: relative;
+}
+.main-dropdown ul li{
+    padding: 4px;
+    border-radius: var(--border-radius-1);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.main-dropdown ul li input{
+    cursor: pointer;
+}
+
+/* --------BUTTONS COLOR---------- */
+.main-btns button.red{
+    color: var(--ter-dark-color);
+    background: var(--ter-light-color);
+    border: 1px solid var(--ter-dark-color);
+}
+.main-btns button.blue{
+    color: var(--secondary-color);
+    background: var(--sec-light-color);
+    border: 1px solid var(--secondary-color);
+}
+.main-btns button.green{
+    color: var(--green);
+    background: var(--green-light);
+    border: 1px solid var(--green);
+}
+.main-btns button:is(.red, .blue, .green) svg{
+    transform: rotate(180deg);
+}
+.task-emp-status .red > svg{
+    fill: var(--ter-dark-color);
+}
+.task-emp-status .blue > svg{
+    fill: var(--secondary-color);
+}
+.task-emp-status .green  > svg{
+    fill: var(--green);
+}
+/* -----------STATUS DROPDOWN MENU ------------- */
+.main-dropdown .status-dropdown-menu{
+    position: absolute;
+    top: 5px;
+    left: 0;
+    background: var(--white);
+    width: 120px;
+    padding: 8px;
+    border-radius: var(--border-radius-1);
+    z-index: 105;
+    display: none;
+}
+.main-dropdown .status-dropdown-menu.active{
+    display: block;
+}
+.status-dropdown-menu ul li{
+    font-weight: 600;
+    font-size: 12px;
+    margin: 5px auto;
+}
+.status-dropdown-menu ul li.red{
+    background: var(--ter-light-color);
+    color: var(--ter-dark-color);
+}
+.status-dropdown-menu ul li.red input{
+    accent-color: var(--ter-dark-color);
+}
+.status-dropdown-menu ul li.blue{
+    color: var(--secondary-color);
+    background: var(--sec-light-color);
+}
+.status-dropdown-menu ul li.blue input{
+    accent-color: var(--secondary-color);
+}
+.status-dropdown-menu ul li.green{
+    background: var(--green-light);
+    color: var(--green);
+}
+.status-dropdown-menu ul li.green input{
+    accent-color: var(--green);
+}
+
+/* ----EMPLOYEE DROPDOWN MENU-------- */
+.main-dropdown .emp-drop-menu{
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 100%;
+    background: var(--sec-light-color);
+    box-shadow: var(--box-shadow-1);
+    padding: 8px;
+    border-radius: var(--border-radius-1);
+    display: none;
+}
+.emp-drop-menu.active{
+    display: block;
+}
+.emp-drop-menu ul{
+    height: 25vh;
+    overflow: scroll;
+    background: var(--secondary-color);
+    padding: 5px;
+    border-radius: var(--border-radius-1);
+}
+.emp-drop-menu ul li{
+    font-size: 12px;
+    font-weight: 600;
+    margin: 10px auto;
+    background: var(--white);
+}
+.emp-drop-menu ul li input:checked ~ span{
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+.emp-drop-menu button{
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-weight: 600;
+    border-radius: var(--border-radius-1);
+    background: var(--secondary-color);
+    color: var(--white);
+    margin: 8px auto;
+}
+.emp-drop-menu button:hover{
+    opacity: 0.8;
+}
+/* -------TASK MENU DROPDOWN-------- */
+.main-dropdown .task-drop-menu{
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 100%;
+    background: var(--green-light);
+    box-shadow: var(--box-shadow-1);
+    padding: 8px;
+    border-radius: var(--border-radius-1);
+    display: none;
+}
+.task-drop-menu.active{
+    display: block;
+}
+.task-drop-menu ul{
+    height: 25vh;
+    overflow: scroll;
+    background: var(--green);
+    padding: 5px;
+    border-radius: var(--border-radius-1);
+}
+.task-drop-menu ul li{
+    font-size: 12px;
+    font-weight: 600;
+    margin: 10px auto;
+    background: var(--white);
+}
+.task-drop-menu ul li input{
+    accent-color: var(--green);
+}
+.task-drop-menu ul li input:checked ~ span{
+    color: var(--green);
+    text-decoration: underline;
+}
+.task-drop-menu button{
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-weight: 600;
+    border-radius: var(--border-radius-1);
+    background: var(--green);
+    color: var(--white);
+    margin: 8px auto;
+}
+.task-drop-menu button:hover{
+    opacity: 0.8;
+}
+/* -----------------------------------
+        SUB-TASKS on add
+------------------------------- */
+.architecture .sbox{
+    border: 1px solid var(--primary-color);
+}
+.structural .sbox{
+    border: 1px solid var(--secondary-color);
+}
+.thrd .sbox{
+    border: 1px solid var(--green);
+}
+.project_expand .sbox{
+    padding: 8px;
+    margin-top: 8px;
+    border-radius: var(--border-radius-1);
+}
+.project_expand .sbox p{
+    color: var(--grey);
+    font-size: 12px;
+}
+.project_expand .sub-tasks ul li{
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.assign-to .eaccordion{
+    justify-content: space-between;
+}
+.assign-to .emp-acc-data{
+    display: none;
+}
+.assign-to .emp-acc-data.open{
+    display: block;
+}
+.eaccordion .right-arr.open{
+    transform: rotate(90deg);
+}
+.architecture .sub-tasks ul li input{
+    accent-color: var(--primary-color);
+}
+.architecture .sub-tasks ul li input:checked ~ span{
+    text-decoration: line-through;
+}
+.structural .sub-tasks ul li input{
+    accent-color: var(--secondary-color);
+}
+.structural .sub-tasks ul li input:checked ~ span{
+    text-decoration: line-through;
+}
+.thrd .sub-tasks ul li input{
+    accent-color: var(--green);
+}
+.thrd .sub-tasks ul li input:checked ~ span{
+    text-decoration: line-through;
+}
+.sub-tasks hr.show{
+    margin: 10px auto;
+}
+
+/* ---------PAGINATION----------- */
+.data-info .info_pagination{
+    margin-top: 1rem;
+}
+.info_pagination .pages ul{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.pages li{
+    display: inline-block;
+    color: var(--primary-color);
+    background: var(--primary-light-color);
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    border-radius: var(--border-radius-1);
+    margin: auto 5px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: var(--transition-2);
+    cursor: pointer;
+}
+.pages li:is(.active, :hover){
+    background: var(--primary-color);
+    color: var(--white);
+}
+.pages li:is(.active, :hover) svg{
+    fill: var(--white);
+}

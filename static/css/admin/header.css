@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+:root{
+    --white: #ffffff;
+    --black: rgb(0, 0, 0);
+    --black-light: rgba(0, 0, 0, 0.4);
+    --black-light-2: rgba(0, 0, 0, 0.8);
+
+    --primary-color: hsl(260, 54%, 45%);
+    --primary-light-color: hsl(261, 54%, 95%);
+    --secondary-color: hsl(208, 79%, 51%);
+    --sec-light-color: hsl(208, 92%, 95%);
+    --tertiary-color: hsl(0, 100%, 45%);
+    --ter-dark-color: hsl(0, 100%, 50%);
+    --ter-light-color: hsl(0, 100%, 95%);
+
+    --green: hsl(160, 100%, 34%);
+    --green-light: hsl(154, 61%, 90%);
+
+    --hover-bg: hsl(208, 79%, 97%);
+
+    --bg-color: hsl(264, 45%, 94%);
+    --bg-2: hsl(210, 40%, 98%);
+    --bg-3: hsl(210, 31%, 95%);
+
+    --grey: rgb(112,116,117);
+
+    --border-radius-1: 4px;
+    --border-radius-2: 8px;
+
+    --transition-1: all 300ms linear;
+    --transition-2: all 300ms ease-in-out;
+
+    --box-shadow-1: rgba(0, 0, 0, 0.24) 0px 8px 8px;
+    
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    border: none;
+    list-style: none;
+    text-decoration: none;
+}
+body{
+    width: 100dvw;
+    height: 100dvh;
+}
+html{
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+}
+::selection{
+    background: var(--green);
+    color: var(--white);
+}
+::-webkit-scrollbar{
+    width: 0;
+}
+button,svg{
+    cursor: pointer;
+}
+/* COMMON CLASSES */
+.container{
+    /* position: relative; */
+    width: 100dvw;
+}
+.svg{
+    width: 25px;
+    height: 25px;
+    fill: var(--primary-color);
+    cursor: pointer;
+}
+.uppercase{
+    text-transform: uppercase;
+}
+.flex{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+img{
+    width: 30px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+.btn{
+    background: var(--bg-color);
+    width: 35px;
+    height: 35px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-2);
+    transition: var(--transition-1);
+}
+.btn:hover{
+    background: var(--primary-color);
+}
+.btn:hover .svg{
+    fill: var(--white);
+}
+.hide{
+    display: none;
+    /* opacity: 0; */
+}
+/* HEADER  */
+
+header{
+    padding-left: 2rem;
+    padding-right: 2rem;
+    height: 5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: auto;
+    width: 100%;
+    z-index: 35;
+    background: var(--white);
+}
+.logo{
+    width: 220px;
+    justify-content: space-between;
+    cursor: pointer;
+}
+/* -----SEARCH BAR----- */
+.search{
+    margin-left: 1rem;
+    width: 450px;
+    position: relative;
+    height: 3rem;
+    border-radius: var(--border-radius-1);
+    z-index: 2;
+}
+.search input{
+    width: 100%;
+    height: 3rem;
+    border-radius: var(--border-radius-1);
+    background: var(--bg-2);
+    outline: 1px solid var(--black-light);
+    animation: var(--animation-1);
+    padding: 0 2.8rem 0 2.3rem ;
+    font-size: 1rem;
+    word-wrap: break-word;
+}
+.search input:hover{
+    outline: 1px solid var(--black-light-2);
+}
+.search input:focus{
+    outline: 2px solid var(--secondary-color);
+}
+.search .open{
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 17px;
+    left: 14px;
+}
+.searchIcon{
+    display: none;
+}
+.searchIcon svg{
+    width: 20px;
+    height: 20px;
+}
+.search .cls{
+    background: var(--ter-light-color);
+    width: 25px;
+    height: 25px;
+    border-radius: var(--border-radius-1);
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    cursor: pointer;
+}
+.search .cls svg{
+    fill: var(--ter-dark-color);
+}
+.search .close{
+    width: 20px;
+    height: 20px;
+}
+
+
+/* -----NOTIFICATION----- */
+.notification{
+    position: absolute;
+    right: 10rem;
+}
+
+/* ------PROFILE---------- */
+.profileIcon{
+    position: absolute;
+    right: 3rem;
+    background: var(--sec-light-color);
+    padding: 10px;
+    border-radius: 30px;
+    transition: var(--transition-1);
+    cursor: pointer;
+}
+.profileIcon:hover{
+    background: var(--secondary-color);
+}
+.profileIcon:hover svg{
+    fill: var(--white);
+}
+.profileIcon svg{
+    fill: var(--secondary-color);
+}
+
+.isaio{
+    overflow: hidden;
+    width: 100dvw;
+    position: relative;
+    z-index: 30;
+}
+/* ---ASIDE MENU---- */
+aside{
+    z-index: inherit;
+    width: 100%;
+}
+nav{
+    width: 250px;
+    height: 100vh;
+    padding-left: 1rem;
+    padding-top: 2rem;
+}
+/* ---------hamburger------ */
+nav.width{
+    width: 70px;
+}
+nav h3{
+    padding-left: 1rem;
+    opacity: 0;
+}
+nav .nav-lists{
+    margin-top: 2rem;
+    cursor: pointer;
+}
+nav .nav-lists hr{
+    outline: 1px solid var(--sec-light-color);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+nav .nav-lists svg{
+    fill: var(--black);
+}
+.nav-lists ul span.namue{
+    /* padding-left: -1rem !important; */
+    font-size: 15px;
+    font-weight: 500;
+}
+.nav-lists ul a{
+    height: 3rem;
+    padding-left: 1rem;
+    margin-top: 0.5rem;
+    border-radius: var(--border-radius-2);
+    font-size: 14px;
+    transition: var(--transition-1);
+}
+.nav-lists ul a:is(:hover, .active){
+    color: var(--primary-color);
+    background: var(--bg-color);
+}
+.nav-lists ul a:is(:hover, .active) svg{
+    fill: var(--primary-color);
+}
+
+/* ------MAIN SECTION-------- */
+.main{
+    background: var(--bg-3);
+    /* flex-grow: 1; */
+    position: absolute;
+    margin-top: 5rem;
+    top: 0;
+    right: 1rem;
+    width: 81%;
+    border-radius: 8px 8px 0 0 ;
+    height: 90vh;
+    padding: 20px;
+    overflow: scroll;
+    scroll-behavior: smooth;
+    z-index: inherit;
+}
+.main.width{
+    width: 93%;
+}

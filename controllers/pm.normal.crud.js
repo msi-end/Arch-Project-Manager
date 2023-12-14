@@ -117,3 +117,10 @@ exports.getEmployListPerProject = async (req, res)=>{
     })
     }
 
+
+//     SELECT deals.*, normal_project_cat.category_id, task.task_name, normal_project_cat.cat_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline, 
+// normal_project_cat.dateofcomplete
+// FROM normal_project_cat
+// INNER JOIN deals ON normal_project_cat.ndeal_id = deals.id
+// INNER JOIN task ON normal_project_cat.category_id = task.task_id;
+

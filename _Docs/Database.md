@@ -52,6 +52,7 @@ create table normal_project_cat (
     foreign key(ndeal_id) references deals(id)
 );
 
+
 create table normal_project_subtask (
     npstid int primary key auto_increment,
     ndeal_id bigint,
@@ -60,6 +61,7 @@ create table normal_project_subtask (
     stask_status varchar(50) default "not started",
     dateofcomplete varchar(50) default 0,
     foreign key(ndeal_id) references deals(id),
+    foreign key(category_id) references task(task_id),
     foreign key(stask_id) references subtask(sub_task_id)
 );
 
