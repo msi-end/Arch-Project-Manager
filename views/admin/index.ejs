@@ -94,7 +94,9 @@
             <!-- ----------project information----------- -->
             <div class="info-content">
                 <!-- --------1st project----------->
-               
+                <%  for (const key in grouped) { %>
+                    <%- include('../partials/np.ejs', {pdata : grouped[key]}) %>
+                <% } %>
                 <!-- -------------------------------->
             </div>
 
