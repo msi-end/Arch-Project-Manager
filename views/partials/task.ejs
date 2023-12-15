@@ -1,6 +1,6 @@
 <div class="architecture badge">
     <div class="arrow">
-        <p class="uppercase phead"><%= el.task_name %></p>
+        <p class="uppercase phead"><%= cat.name %></p>
         <div class="task-emp-status">
             <div class="main-btns flex">
                 <button class="status-btn flex" onclick="ChangeTaskStatus(this)">
@@ -100,30 +100,13 @@
         <div class="tasks-added">
             <p class="uppercase phead">tasks</p>
             <ul>
+                <% cat.sub?.forEach((el)=>{ 
+                if(el){  %>
                 <li class="stasks">
-                    <input type="checkbox" name="plumbing" class="">
-                    <span>Plumbing</span>
+                    <input type="checkbox" name="plumbing" class="" <%= `checked`%>>
+                    <span><%= el %></span>
                 </li>
-                <li class="stasks">
-                    <input type="checkbox" name="electricity" id="">
-                    <span>Electricity</span>
-                </li>
-                <li class="stasks">
-                    <input type="checkbox" name="plumbing" class="">
-                    <span>Plumbing</span>
-                </li>
-                <li class="stasks">
-                    <input type="checkbox" name="electricity" id="">
-                    <span>Electricity</span>
-                </li>
-                <li class="stasks">
-                    <input type="checkbox" name="plumbing" class="">
-                    <span>Plumbing</span>
-                </li>
-                <li class="stasks">
-                    <input type="checkbox" name="electricity" id="">
-                    <span>Electricity</span>
-                </li>
+                <% }}) %>
             </ul>
         </div>
     </div>

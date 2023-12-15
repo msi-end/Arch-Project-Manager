@@ -2,18 +2,18 @@
     <div class="ahead grid">
         <p class="ref">
             <span class="uppercase hide block phead">Ref. No.</span>
-            <span><%= pdata[0].reference_no %></span>
+            <span><%= pdata.reference_no %></span>
         </p>
-        <p class="cli none"><%= pdata[0].deal_name %></p>
+        <p class="cli none"><%= pdata.deal_name %></p>
         <p class="pro">
             <span class="uppercase hide block phead">name of work</span>
-            <span><%= pdata[0].work_name %></span>
+            <span><%= pdata.work_name %></span>
         </p>
         <p class="emp_date">
             <span class="uppercase hide block phead">Deadline</span>
             <span>12/06/26</span>
         </p>
-        <p class="stat flex red">Pending</p>
+        <p class="stat flex red"><%= pdata.project_status %></p>
         <p class="arrow-down">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-down"
                 class="svg">
@@ -29,32 +29,27 @@
             <p></p>
             <p class="contact">
                 <span class="uppercase phead">contact No</span>
-                <span class="contact_no"><%= pdata[0].contact %></span>
+                <span class="contact_no"><%= pdata.contact %></span>
             </p>
             <p class="e-mail">
                 <span class="uppercase phead">email</span>
-                <span class="g-mail"><%= pdata[0].email %></span>
+                <span class="g-mail"><%= pdata.email %></span>
             </p>
             <p class="agreement">
                 <span class="uppercase phead">Agreement Amount</span>
-                <span class="amount">&#8377; <%= pdata[0].agreement_amount %></span>
+                <span class="amount">&#8377; <%= pdata.agreement_amount %></span>
             </p>
             <p class="address">
                 <span class="uppercase phead">address</span>
-                <span class="add_info"><%= pdata[0].city %></span>
+                <span class="add_info"><%= pdata.city %></span>
             </p>
             <p></p>
         </div>
         <div class="project_expand grid">
             <p class="none"></p>
             <!-- tasks  --> 
-            <% const unique = pdata.filter(
-                (obj, index, array) =>
-                  index === array.findIndex((o) => o.task_name === obj.task_name)
-              );
-
-            unique.forEach((el)=>{ %>
-                <%- include('./task.ejs', {el} )%> 
+            <% pdata.category.forEach((task)=>{ %>
+            <%- include('./task.ejs', {cat: task} )%>
             <% }) %>
         </div>
 

@@ -1,4 +1,5 @@
 const db = require('../config/db.config')
+const dataUnity  = require('../utils/arrange')
 
 
 exports.index = (req, res) => {
@@ -156,14 +157,19 @@ exports.adminDashboard = async (req, res) => {
     LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id`
     db.query(q, (err, results) => {
         const grouped = {};
+        const sentData = []
         if (!err) {
             results.forEach(element => {
               const key = element.id.toString();
-              if (!grouped[key]) { grouped[key] = [] }
-              grouped[key].push(element);
-            });
-            console.log(grouped['1'])
-           res.status(200).render('../views/admin/index.ejs', {grouped})
+            if (!grouped[key]) { grouped[key] = [] }
+            grouped[key].push(element);
+        })
+
+        for (const key in grouped) { dataUnity(grouped[key]) }
+        
+        for (const key in grouped) { sentData.push(grouped[key][0]) }
+        // res.status(200).send({data : sentData});
+        res.status(200).render('../views/admin/index.ejs', {sentData})
         }
     })
 }
