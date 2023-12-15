@@ -28,7 +28,7 @@
                 </div>
                 <div class="formContainer">
                     <div class="normalForm" id="normalForm">
-                        <form action="">
+                        <form action="/admin/projects-create" method="post">
                             <h4 class="uppercase">contact details</h4>
                             <div class="fgrid">
                                 <div class="field">
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="field">
                                     <label for="cnumber">Phone Number</label>
-                                    <input type="text" name="cnumber" id="cnumber" placeholder="number tu likhok whatsapp thaka">
+                                    <input type="text" name="contactNo" id="cnumber" placeholder="number tu likhok whatsapp thaka">
                                 </div>
                                 <div class="field">
                                     <label for="email">Email</label>
@@ -46,14 +46,14 @@
                             </div>
                             <div class="field">
                                 <label for="address">Address</label>
-                                <textarea name="address" id="address"></textarea>
+                                <textarea name="city" id="address"></textarea>
                             </div>
                             <!-- ----------------------------------------------------------- -->
                             <h4 class="uppercase">project details</h4>
                             <div class="fgrid">
                                 <div class="field">
                                     <label for="ref">Reference No</label>
-                                    <input type="text" name="ref" id="ref">
+                                    <input type="text" name="rfNo" id="ref">
                                 </div>
                                 <div class="field">
                                     <label for="workName">Name of The Project</label>
@@ -63,35 +63,40 @@
                                     <label for="projectWork">Work Type</label>
                                     <div class="ldflex">
                                         <div class="type">
-                                            <input type="checkbox" name="architecture" id="arch">
+                                            <input type="checkbox" name="task" id="arch" value="1">
                                             <span>Architecture</span>
                                         </div>
                                         <div class="type">
-                                            <input type="checkbox" name="structural" id="arch">
+                                            <input type="checkbox" name="task" id="arch" value="2">
                                             <span>Structural</span>
                                         </div>
                                         <div class="type">
-                                            <input type="checkbox" name="three" id="three">
+                                            <input type="checkbox" name="task" id="three" value="3">
                                             <span>3D</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="field">
+                                    <label for="amount">Total Amount</label>
+                                    <input type="text" name="TotalAm" id="amount" placeholder="&#8377;">
+                                </div>
+                                <div class="field">
                                     <label for="amount">Agreement Amount</label>
-                                    <input type="text" name="amount" id="amount" placeholder="&#8377;">
+                                    <input type="text" name="agreementAm" id="amount" placeholder="&#8377;">
                                 </div>
                                 <div class="field">
                                     <label for="splitRatio">Amount Split Ratio</label>
-                                    <select name="splitRatio" id="splitRatio">
-                                        <option value="1">4:4:2</option>
-                                        <option value="2">4:2:4</option>
-                                        <option value="3">6:2:2</option>
+                                    <select name="split" id="splitRatio">
+                                        <option value="4:4:2">4:4:2</option>
+                                        <option value="4:2:4">4:2:4</option>
+                                        <option value="6:2:2">6:2:2</option>
                                     </select>
                                 </div>
                             </div>
                             <!-- ---------- grid ends--------- -->
                             <div class="field">
-                                <button class="uppercase">submit</button>
+                                <button type="submit" class="uppercase">submit</button>
+                                <!-- <input type="submit" name="submit" id="" value="submit"> -->
                             </div>
                         </form>
                     </div>

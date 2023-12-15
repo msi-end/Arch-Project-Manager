@@ -19,8 +19,6 @@ app.use(session({
 }));
 
 
-
-
 // Administrator 
 const auth = require('./controllers/adminAuth')
 const indexRoutes = require('./routes/admin/indexRoutes')
@@ -35,16 +33,12 @@ const apiRoute = require('./routes/admin/projectRoute.js')
 // Employees
 const EmployeeAuth = require('./routes/employee/auth.js');
 
-
-
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'static')))
 app.set('views', __dirname + '/views')
 app.set('view engine', ejs)
 app.use(cookieParser());
-
 
 
 // For Admin **********
@@ -58,10 +52,8 @@ app.use('/admin/finance', finance)
 app.use('/apiv1', apiRoute)
 
 
-
 // For Employees ************
 app.use('/', EmployeeAuth)
-// app.use('/', indexRoutes)
 
 
 

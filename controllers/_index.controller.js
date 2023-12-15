@@ -155,7 +155,7 @@ exports.adminDashboard = async (req, res) => {
     INNER JOIN task ON normal_project_cat.category_id = task.task_id 
     LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id 
     LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id`
-    db.query(q, (err, results) => {
+    await db.query(q, (err, results) => {
         const grouped = {};
         const sentData = []
         if (!err) {
