@@ -186,4 +186,10 @@ exports.renderMiscProjectForm = (req, res) => {
     res.render('../views/admin/normalProject.ejs')
 }
 
+// SELECT deals.deal_name, normal_project_cat.project_status
+// FROM deals 
+// INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id
+// WHERE normal_project_cat.project_status = "pending"
+// GROUP BY normal_project_cat.ndeal_id, normal_project_cat.project_status
+
 

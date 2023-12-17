@@ -1,7 +1,31 @@
+const callApi = async (url, method, body) => {
+    if (method == 'GET') {
+        const fet = await fetch(url, {
+            method: method
+        })
+        const res = await fet.json()
+        return res;
+    }else if (method == 'POST' && body != undefined) {
+        const fet = await fetch(url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify(body)
+        })
+        const res = await fet.json()
+        console.log(res) 
+        return res;
+    }else {
+        throw new Error('Invalid request !')
+    }
+   
+}
+
+
 // ACCORDION
 document.querySelectorAll(`.accordion-content`).forEach((item, index) =>{
     let header = item.querySelector(".ahead");
-    console.log(header);
     header.addEventListener("click", () => {
         item.classList.toggle("open");
         let description = item.querySelector(".adata");
@@ -9,8 +33,7 @@ document.querySelectorAll(`.accordion-content`).forEach((item, index) =>{
         if(item.classList.contains("open")){
             // description.style.height = `${description.scrollHeight}px`;
             description.classList.add(`open`);
-            darr.classList.add(`open`);
-            
+            darr.classList.add(`open`);    
         }else{
             // description.style.height = "0px";
             description.classList.remove(`open`);
@@ -34,78 +57,63 @@ function removeOpen(index1){
 // EMPLOYEE ACCORDION
 document.querySelectorAll(`.assign-to`).forEach((item, index) =>{
     let header = item.querySelector(".eaccordion");
-    header.addEventListener("click", () => {
+    header.addEventListener("click", async () => {
+        const renderId = item.querySelector('#emp-in-np')
+        renderId.innerHTML = ''
+        const empNp = await callApi('http://localhost:3000/apiv1/employee/1/1', 'GET');
+        empNp.forEach((item) =>{
+            const html = `<li class="add-empl">${item.name}</li>`
+            renderId.innerHTML += html
+        })
         item.classList.toggle("open");
         let description = item.querySelector(".emp-acc-data");
         let arr = item.querySelector(`.right-arr`);
         if(item.classList.contains("open")){
             // description.style.height = `${description.scrollHeight}px`;
             description.classList.add(`open`);
-            arr.classList.add(`open`);
-            
+            arr.classList.add(`open`);    
         }else{
             // description.style.height = "0px";
             description.classList.remove(`open`);
             arr.classList.remove(`open`);
         }
-        removeEmp(index);
+     
     })
 })
-function removeEmp(index){
-    document.querySelectorAll(`.assign-to`).forEach((item2, index2) => {
-        if (index != index2) {
-            item2.classList.remove ("open");
-            let des = item2.querySelector(".eaccordion");
-            des.classList.remove(`open`);
-        }
-    })
-}
-// STATUS DROPDOWN
-
-
-function ChangeTaskStatus(ev) {
-    const dropDown = ev.parentNode.childNodes[3];
-    console.log(dropDown.childNodes);
-    dropDown.classList.toggle(`active`);
-    const listItems = dropDown.childNodes;
-    listItems.forEach(listItem =>{
-        listItem.addEventListener('click', (e)=>{
-            const addClass = e.target.parentNode;
-            console.log(addClass);
-            const mClass = addClass.parentNode;
-            console.log(mClass);
-            mClass.parentNode.childNodes[1].classList.add(e.target.parentNode.classList[0]);
-            ev.parentNode.childNodes[1].childNodes[1].textContent = listItem.textContent;
-            dropDown.classList.remove(`active`);
-        });
-    });
-}
 
 
 //EMPLOYEE LISTS AND SUBTASKS
 function empPopup(){
-    document.querySelector(`.emp-drop-menu`).classList.toggle(`active`);   
+    document.querySelector(`.emp-drop-menu`).classList.toggle(`active`);  
 }
 function empRemove(){
     document.querySelector(`.emp-drop-menu`).classList.remove(`active`);   
 }
-function subPopup(){
-    document.querySelector(`.task-drop-menu`).classList.toggle(`active`);
+
+function renderHTML(arr, targetId, htmlData) {
+    const target = document.querySelector(`#${targetId}`)
+    target.innerHTML = ''
+    arr.forEach((item)=>{
+        const html = htmlData
+        target.innerHTML += html
+
+    })
+}
+
+subPopup = async ()=> {
+    const dropDownTarget = document.querySelector(`.task-drop-menu`)
+    dropDownTarget.classList.toggle(`active`);
+    const subtasks = await callApi('http://localhost:3000/admin/settings/get-subtask', 'GET')
+    const renderTarget = dropDownTarget.querySelector('#subtasks-list')
+    renderTarget.innerHTML = ''
+    // subtasks.forEach((item)=>{
+        const htmlD = `<li class="stasks" dataset-subtaskId = ${item.sub_task_id}>
+        <input type="checkbox" name="electricity" id="">
+        <span>${item.sub_task_name}</span>
+    </li>`
+    // renderTarget.innerHTML += html
+    // })
+    renderHTML(subtasks, 'subtasks-list', htmlD)
 }
 
 
-function toggleDiv(divId) {
-    const divs = document.querySelectorAll('.dropdown-box');
-    divs.forEach(div => {
-      if (div.id === divId) {
-        div.classList.remove('hide');
-      } else {
-        div.classList.add('hide');
-      }
-    });
-  }
-
-
-function closeAlert(){
-    document.querySelector(`.status`).style.display = `none`;
-}

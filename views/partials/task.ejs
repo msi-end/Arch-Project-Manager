@@ -1,6 +1,6 @@
 <div class="architecture badge">
     <div class="arrow">
-        <p class="uppercase phead"><%= cat.name %></p>
+        <p class="uppercase phead" dataset-taskId="<%= cat.cat_id %>"><%= cat.name %></p>
         <div class="task-emp-status">
             <div class="main-btns flex">
                 <button class="status-btn flex" onclick="ChangeTaskStatus(this)">
@@ -66,14 +66,10 @@
                     <button class="uppercase">update</button>
                 </div>
                 <div class="task-drop-menu">
-                    <ul>
+                    <ul id="subtasks-list">
                         <li class="stasks">
                             <input type="checkbox" name="plumbing" id="">
                             <span>Plumbing</span>
-                        </li>
-                        <li class="stasks">
-                            <input type="checkbox" name="electricity" id="">
-                            <span>Electricity</span>
                         </li>
                     </ul>
                     <button class="uppercase">update</button>
@@ -91,16 +87,15 @@
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-right" class="svg"><path fill="##000000" d="M8.46,8.29A1,1,0,1,0,7,9.71L9.34,12,7,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3a1,1,0,0,0,0-1.42Zm8.5,3-3-3a1,1,0,0,0-1.42,1.42L14.84,12l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3A1,1,0,0,0,17,11.29Z"></path></svg>
                 </span>
             </div>
-            <ul class="emp-acc-data">
-                <li class="add-empl">Sri Venkataraman Venugopal Iyer</li>
-                <li class="add-empl">Sri Venkataraman Venugopal Iyer</li>
+            <ul class="emp-acc-data" id="emp-in-np">
+                <!-- <li class="add-empl">Sri Venkataraman Venugopal Iyer</li> --> 
             </ul>
         </div>
         <hr class="show">
         <div class="tasks-added">
             <p class="uppercase phead">tasks</p>
             <ul>
-                <% cat.sub?.forEach((el)=>{ 
+             <% cat.sub?.forEach((el)=>{ 
                 if(el){  %>
                 <li class="stasks">
                     <input type="checkbox" name="plumbing" class="" <%= `checked`%>>

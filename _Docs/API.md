@@ -9,6 +9,9 @@ http://localhost:3000/apiv1/add-employee-to-project
 ### API for removing employee from normal project - DELETE
 http://localhost:3000/apiv1//removeempnp/1/1/1/structural/hospital/23/03/2303
 
+### API for getting all subtasks for normal project - GET
+http://localhost:3000/admin/settings/get-subtask
+
 ### API for deleting subtasks from normal project - DELETE
 http://localhost:3000/apiv1/delete-subtask?dealId=1&catId=1&staskId=1
 
