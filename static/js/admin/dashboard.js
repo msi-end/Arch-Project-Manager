@@ -1,29 +1,5 @@
-const callApi = async (url, method, body) => {
-    if (method == 'GET') {
-        const fet = await fetch(url, {
-            method: method
-        })
-        const res = await fet.json()
-        return res;
-    }else if (method == 'POST' && body != undefined) {
-        const fet = await fetch(url, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body : JSON.stringify(body)
-        })
-        const res = await fet.json()
-        console.log(res) 
-        return res;
-    }else {
-        throw new Error('Invalid request !')
-    }
-   
-}
-
-
 // ACCORDION
+const feature = new DataCall()
 document.querySelectorAll(`.accordion-content`).forEach((item, index) =>{
     let header = item.querySelector(".ahead");
     header.addEventListener("click", () => {
@@ -60,7 +36,7 @@ document.querySelectorAll(`.assign-to`).forEach((item, index) =>{
     header.addEventListener("click", async () => {
         const renderId = item.querySelector('#emp-in-np')
         renderId.innerHTML = ''
-        const empNp = await callApi('http://localhost:3000/apiv1/employee/1/1', 'GET');
+        const empNp = await feature.GET_POST('http://localhost:3000/apiv1/employee/1/1', 'GET');
         empNp.forEach((item) =>{
             const html = `<li class="add-empl">${item.name}</li>`
             renderId.innerHTML += html
@@ -83,37 +59,65 @@ document.querySelectorAll(`.assign-to`).forEach((item, index) =>{
 
 
 //EMPLOYEE LISTS AND SUBTASKS
-function empPopup(){
-    document.querySelector(`.emp-drop-menu`).classList.toggle(`active`);  
-}
-function empRemove(){
-    document.querySelector(`.emp-drop-menu`).classList.remove(`active`);   
-}
 
-function renderHTML(arr, targetId, htmlData) {
-    const target = document.querySelector(`#${targetId}`)
-    target.innerHTML = ''
-    arr.forEach((item)=>{
-        const html = htmlData
-        target.innerHTML += html
 
+subPopup = async (target)=> {
+    const getId = target.parentNode.dataset
+    const mainDrop = document.querySelector('.main-dropdown')
+    mainDrop.innerHTML = ''
+    const subPopupBox = `<div class="task-drop-menu common_dropdown">
+    <ul id="subtasks-list">
+        <li class="stasks">
+            <!-- <input type="checkbox" name="plumbing" id="sub-t">
+            <span>Plumbing</span> -->
+        </li>
+    </ul>
+    <button data-taskid="${getId.taskid}" data-ndealid="${getId.ndealid}" class="uppercase" onclick="addNewSubtasks(this)">update</button>
+</div>`
+    mainDrop.innerHTML = subPopupBox
+    mainDrop.classList.toggle('active')
+    const dropDownTarget = document.querySelector(`.task-drop-menu`)
+    const subtasks = await feature.GET_POST('http://localhost:3000/admin/settings/get-subtask', 'GET')
+    dropDownTarget.classList.toggle(`active`);
+    const renderTarget = dropDownTarget.querySelector('#subtasks-list')
+    renderTarget.innerHTML = ''
+    subtasks.forEach((item)=>{
+        const html = `<li class="stasks">
+        <input type="checkbox" name="subtasks" id="sub-t" value="${item.sub_task_id}">
+        <span>${item.sub_task_name}</span>
+    </li>`
+    renderTarget.innerHTML += html
     })
 }
 
-subPopup = async ()=> {
-    const dropDownTarget = document.querySelector(`.task-drop-menu`)
-    dropDownTarget.classList.toggle(`active`);
-    const subtasks = await callApi('http://localhost:3000/admin/settings/get-subtask', 'GET')
-    const renderTarget = dropDownTarget.querySelector('#subtasks-list')
-    renderTarget.innerHTML = ''
-    // subtasks.forEach((item)=>{
-        const htmlD = `<li class="stasks" dataset-subtaskId = ${item.sub_task_id}>
-        <input type="checkbox" name="electricity" id="">
-        <span>${item.sub_task_name}</span>
-    </li>`
-    // renderTarget.innerHTML += html
-    // })
-    renderHTML(subtasks, 'subtasks-list', htmlD)
+function closeSubBox() {
+    const mainDrop = document.querySelector('.main-dropdown')
+    mainDrop.classList.remove('active')  
 }
+
+
+function ChangeTaskStatus(ev) {
+    const dropDown = ev.parentNode.childNodes[3];
+    console.log(dropDown.childNodes);
+    dropDown.classList.toggle(`active`);
+    const listItems = dropDown.childNodes;
+    listItems.forEach(listItem =>{
+        listItem.addEventListener('click', (e)=>{
+            const addClass = e.target.parentNode;
+            console.log(addClass);
+            const mClass = addClass.parentNode;
+            console.log(mClass);
+            mClass.parentNode.childNodes[1].classList.add(e.target.parentNode.classList[0]);
+            ev.parentNode.childNodes[1].childNodes[1].textContent = listItem.textContent;
+            dropDown.classList.remove(`active`);
+        });
+    });
+}
+
+addNewSubtasks = async (param)=>{
+  const target = param.dataset
+  console.log(param.parentNode.querySelectorAll('#sub-t'))
+}
+
 
 

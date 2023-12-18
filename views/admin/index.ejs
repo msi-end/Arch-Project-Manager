@@ -6,6 +6,12 @@
     <link rel="stylesheet" href="../../css/admin/main.css">
     <link rel="stylesheet" href="../../css/admin/header.css">
     <link rel="stylesheet" href="../../css/admin/responsive.css">
+    <link rel="stylesheet" href="sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../js/admin/dashboard.module.js"></script>
+    <!-- <link href="
+    https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css
+    " rel="stylesheet"> -->
     <title>Document</title>
 </head>
 <body>
@@ -79,6 +85,7 @@
             </div>
         </div>
 
+
         <!-- ----------- DATA TABLE----------- -->
         <div class="data-info box">
             <!-- headings -->
@@ -93,8 +100,35 @@
             </div>
             <!-- ----------project information----------- -->
             <div class="info-content">
+                <div class="main-dropdown" onclick="closeSubBox()">
+                    <!-- <div class="status-dropdown-menu common_dropdown">
+                        <ul>
+                            <li class="red">
+                                <input type="radio" name="start">
+                                <span data-name="start">Not Started</span>
+                            </li>
+                            <li class="blue">
+                                <input type="radio" name="start">
+                                <span>In Progress</span>
+                            </li>
+                            <li class="green">
+                                <input type="radio" name="start">
+                                <span>Completed</span>
+                            </li>
+                        </ul>
+                    </div> -->
+                    <!-- <div class="emp-drop-menu common_dropdown">
+                        <ul>
+                            <li>
+                                <input type="checkbox" name="employee">
+                                <span>Anand Kumar</span>
+                            </li>
+                        </ul>
+                        <button class="uppercase">update</button>
+                    </div> -->
+                </div>
                 <!-- --------1st project----------->
-                <%  sentData.forEach((el)=>{ %>
+                <%  sentData?.forEach((el)=>{ %>
                     <%- include('../partials/np.ejs', {pdata: el }) %>
                 <% }) %>
                 <!-- -------------------------------->
@@ -135,6 +169,7 @@
 
 
 <!-- JAVASCRIPT -->
+
 <script src="../../js/admin/header.js"></script>
 <script src="../../js/admin/dashboard.js"></script>
 </body>

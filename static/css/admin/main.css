@@ -181,6 +181,7 @@
 .info-head, .info-content p{
     word-wrap: break-word;
 }
+
 .main .box{
     margin-top: 2rem;
     padding: 1.5rem;
@@ -200,6 +201,7 @@
 .data-info .info-content{
     border: 1px solid var(--green-light);
     border-radius: var(--border-radius-1);
+    position: relative;
     margin: 0.5rem auto;
     height: 50vh;
     overflow-y: scroll;
@@ -355,8 +357,25 @@
     width: 16px;
     fill: var(--white);
 }
-.task-emp-status .main-dropdown{
-    position: relative;
+.info-content .main-dropdown{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--black-light);
+}
+
+.main-dropdown.active {
+    display: block
+}
+
+.main-dropdown .common_dropdown{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .main-dropdown ul li{
     padding: 4px;
@@ -399,9 +418,6 @@
 }
 /* -----------STATUS DROPDOWN MENU ------------- */
 .main-dropdown .status-dropdown-menu{
-    position: absolute;
-    top: 5px;
-    left: 0;
     background: var(--white);
     width: 120px;
     padding: 8px;
@@ -441,10 +457,7 @@
 
 /* ----EMPLOYEE DROPDOWN MENU-------- */
 .main-dropdown .emp-drop-menu{
-    position: absolute;
-    top: 5px;
-    left: 0;
-    width: 100%;
+    width: 300px;
     background: var(--sec-light-color);
     box-shadow: var(--box-shadow-1);
     padding: 8px;
@@ -462,6 +475,7 @@
     border-radius: var(--border-radius-1);
 }
 .emp-drop-menu ul li{
+    text-wrap: wrap;
     font-size: 12px;
     font-weight: 600;
     margin: 10px auto;
@@ -486,10 +500,7 @@
 }
 /* -------TASK MENU DROPDOWN-------- */
 .main-dropdown .task-drop-menu{
-    position: absolute;
-    top: 5px;
-    left: 0;
-    width: 100%;
+    width: 200px;
     background: var(--green-light);
     box-shadow: var(--box-shadow-1);
     padding: 8px;
@@ -507,6 +518,7 @@
     border-radius: var(--border-radius-1);
 }
 .task-drop-menu ul li{
+    text-wrap: wrap;
     font-size: 12px;
     font-weight: 600;
     margin: 10px auto;

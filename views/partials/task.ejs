@@ -1,8 +1,8 @@
 <div class="architecture badge">
     <div class="arrow">
-        <p class="uppercase phead" dataset-taskId="<%= cat.cat_id %>"><%= cat.name %></p>
+        <p class="uppercase phead" id="cat-name"><%= cat.name %></p>
         <div class="task-emp-status">
-            <div class="main-btns flex">
+            <div class="main-btns flex" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>">
                 <button class="status-btn flex" onclick="ChangeTaskStatus(this)">
                     <span class="status_project">Status</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -13,68 +13,7 @@
                     </svg>
                 </button>
                 <button class="" onclick="empPopup()">Employee</button>
-                <button class="" onclick="subPopup()">Tasks</button>
-            </div>
-            <div class="main-dropdown">
-                <div class="status-dropdown-menu">
-                    <ul>
-                        <li class="red">
-                            <input type="radio" name="start">
-                            <span data-name="start">Not Started</span>
-                        </li>
-                        <li class="blue">
-                            <input type="radio" name="start">
-                            <span>In Progress</span>
-                        </li>
-                        <li class="green">
-                            <input type="radio" name="start">
-                            <span>Completed</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="emp-drop-menu">
-                    <ul>
-                        <li>
-                            <input type="checkbox" name="employee">
-                            <span>Anand Kumar</span>
-                        </li>
-                        <li>
-                            <input type="checkbox" name="employee">
-                            <span>Vishal Langthasa</span>
-                        </li>
-                        <li>
-                            <input type="checkbox" name="employee">
-                            <span>Gaurav Mukherjee</span>
-                        </li>
-                        <li>
-                            <input type="checkbox" name="employee">
-                            <span>Aryan Kahdri</span>
-                        </li>
-                        <li>
-                            <input type="checkbox" name="employee">
-                            <span>Vashu Saksena</span>
-                        </li>
-                        <li>
-                            <input type="checkbox" name="employee">
-                            <span>Surya Singham</span>
-                        </li>
-                        <li>
-                            <input type="checkbox" name="employee">
-                            <span>Khatam Tata</span>
-                        </li>
-                    </ul>
-                    <button class="uppercase">update</button>
-                </div>
-                <div class="task-drop-menu">
-                    <ul id="subtasks-list">
-                        <li class="stasks">
-                            <input type="checkbox" name="plumbing" id="">
-                            <span>Plumbing</span>
-                        </li>
-                    </ul>
-                    <button class="uppercase">update</button>
-                </div>
-
+                <button class="" onclick="subPopup(this)">Tasks</button>
             </div>
         </div>
     </div>
