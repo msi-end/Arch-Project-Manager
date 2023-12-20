@@ -34,9 +34,10 @@ function removeOpen(index1){
 document.querySelectorAll(`.assign-to`).forEach((item, index) =>{
     let header = item.querySelector(".eaccordion");
     header.addEventListener("click", async () => {
+        console.log(item.dataset)
         const renderId = item.querySelector('#emp-in-np')
         renderId.innerHTML = ''
-        const empNp = await feature.GET_POST('http://localhost:3000/apiv1/employee/1/1', 'GET');
+        const empNp = await feature.GET_POST(`apiv1/employee/${item.dataset.ndealid}/${item.dataset.taskid}`, 'GET');
         empNp.forEach((item) =>{
             const html = `<li class="add-empl">${item.name}</li>`
             renderId.innerHTML += html
@@ -56,39 +57,6 @@ document.querySelectorAll(`.assign-to`).forEach((item, index) =>{
      
     })
 })
-
-
-//EMPLOYEE LISTS AND SUBTASKS
-
-
-subPopup = async (target)=> {
-    const getId = target.parentNode.dataset
-    const mainDrop = document.querySelector('.main-dropdown')
-    mainDrop.innerHTML = ''
-    const subPopupBox = `<div class="task-drop-menu common_dropdown">
-    <ul id="subtasks-list">
-        <li class="stasks">
-            <!-- <input type="checkbox" name="plumbing" id="sub-t">
-            <span>Plumbing</span> -->
-        </li>
-    </ul>
-    <button data-taskid="${getId.taskid}" data-ndealid="${getId.ndealid}" class="uppercase" onclick="addNewSubtasks(this)">update</button>
-</div>`
-    mainDrop.innerHTML = subPopupBox
-    mainDrop.classList.toggle('active')
-    const dropDownTarget = document.querySelector(`.task-drop-menu`)
-    const subtasks = await feature.GET_POST('http://localhost:3000/admin/settings/get-subtask', 'GET')
-    dropDownTarget.classList.toggle(`active`);
-    const renderTarget = dropDownTarget.querySelector('#subtasks-list')
-    renderTarget.innerHTML = ''
-    subtasks.forEach((item)=>{
-        const html = `<li class="stasks">
-        <input type="checkbox" name="subtasks" id="sub-t" value="${item.sub_task_id}">
-        <span>${item.sub_task_name}</span>
-    </li>`
-    renderTarget.innerHTML += html
-    })
-}
 
 function closeSubBox() {
     const mainDrop = document.querySelector('.main-dropdown')
@@ -114,9 +82,21 @@ function ChangeTaskStatus(ev) {
     });
 }
 
-addNewSubtasks = async (param)=>{
+addNewSubtasks = async (param, e)=>{
+  e.preventDefault();
   const target = param.dataset
-  console.log(param.parentNode.querySelectorAll('#sub-t'))
+  const addSubtaskNp = new FormData(document.getElementById('all-subtask'));
+  console.log(target)
+  addSubtaskNp.append('ndeal_id',  Number(target.ndeal_id));
+  addSubtaskNp.append('category_id', Number(target.category_id));
+  feature.GET_POST('apiv1/addsubtaskto-nproject', 'POST', addSubtaskNp, 'form')
+  closeSubBox()
+}
+
+
+addNewEmp = async (param, e) => {
+  const exdata = {taskName: "architechture", project: "Hospital Work", assignDate: "20/02/2023" }
+  await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id'], 'apiv1/add-employee-to-project', closeSubBox, exdata)
 }
 
 

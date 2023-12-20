@@ -1,7 +1,8 @@
 # API for NORMAL PROJECT 
 
 ### API for employee list per normal project - GET
-http://localhost:3000/apiv1/employee/1/1
+http://localhost:3000/apiv1/employee/1/1    
+<!-- :dealId/:catId -->
 
 ### API for adding employee from normal project - POST
 http://localhost:3000/apiv1/add-employee-to-project
@@ -11,6 +12,14 @@ http://localhost:3000/apiv1//removeempnp/1/1/1/structural/hospital/23/03/2303
 
 ### API for getting all subtasks for normal project - GET
 http://localhost:3000/admin/settings/get-subtask
+
+### API for adding subtasks to normal project - POST
+http://localhost:3000/apiv1/addsubtaskto-nproject
+{
+  "ndeal_id" : 1,
+  "category_id" : 1,
+  "stask_id" : 1
+}
 
 ### API for deleting subtasks from normal project - DELETE
 http://localhost:3000/apiv1/delete-subtask?dealId=1&catId=1&staskId=1

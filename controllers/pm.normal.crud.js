@@ -26,23 +26,41 @@ exports.getEmployListPerProject = async (req, res)=>{
   }
 
   exports.addEmployeeToProject = async (req, res)=>{
-    const {dealId, catId, emid, task, project, assignDate} = req.body
-    const q = `INSERT INTO normal_project_employee (ndeal_id, category_id, emid, dateofassign) VALUES (${dealId}, ${catId}, ${emid}, "${assignDate}");`
-    databaseCon.query(q, (err1, data) => {
-      if (!err1) {
-        res.status(200).send(data);
-        let q2 = `INSERT INTO emp_task_notify (emid, task, project, dateofnotify) VALUES (${emid}, "${task}", "${project}", "${assignDate}");`
-        databaseCon.query(q2, (err2, results) => {
-            if (!err2) {return;}else{ res.status(500).send({msg : err2}) }
-        })
-      }else{ res.status(500).send({msg : err1}) }
-   })
+    const {ndeal_id, category_id, emid, taskName, project, assignDate} = req.body
+    if(req.body.emid && typeof req.body.emid === "string"){
+      const q = `INSERT INTO normal_project_employee (ndeal_id, category_id, emid, dateofassign) VALUES (${ndeal_id}, ${category_id}, ${emid}, "${assignDate}");`
+      await databaseCon.query(q, (err1, data) => {
+        if (!err1) {
+          res.status(200).send(data);
+          let q2 = `INSERT INTO emp_task_notify (emid, task, project, dateofnotify) VALUES (${emid}, "${taskName}", "${project}", "${assignDate}");`
+          databaseCon.query(q2, (err2, results) => {
+              if (!err2) {return;}else{ res.status(500).send({msg : err2}) }
+          })
+        }else{ res.status(500).send({msg : err1}) }
+     })
+    }else if (req.body.emid) {
+      const np_emp_data = []
+      const np_emp_notify = []
+      req.body.emid.forEach((el)=>{ np_emp_data.push([req.body.ndeal_id, req.body.category_id, el, assignDate ])})
+      req.body.emid.forEach((el)=>{ np_emp_notify.push([el, taskName, project, assignDate]) })
+      const q = `INSERT INTO normal_project_employee (ndeal_id, category_id, emid, dateofassign) VALUES ?`
+      await databaseCon.query(q, [np_emp_data], (err1, data) => {
+        if (!err1) {
+          res.status(200).send(data);
+          let q2 = `INSERT INTO emp_task_notify (emid, task, project, dateofnotify) VALUES ?`
+          databaseCon.query(q2, [np_emp_notify], (err2, results) => {
+              if (!err2) {return;}else{ res.status(500).send({msg : err2}) }
+          })
+        }else{ res.status(500).send({msg : err1}) }
+     })
+    }
+
   }
 
   exports.removeEmployeeToProject = async (req, res)=>{
     const {dealId, catId, emid, task, project, removeDate} = req.params
     const q = `DELETE FROM normal_project_employee WHERE ndeal_id = ${dealId} AND category_id = ${catId} AND emid = ${emid};`
-    databaseCon.query(q, (err1, data) => {
+    await databaseCon.query(q, (err1, data) => {
       if (!err1) {
         res.status(200).send(data);
         let q2 = `INSERT INTO emp_task_notify (emid, task, project, dateofnotify) VALUES (${emid}, "${task}", "${project}", "${removeDate}");`
@@ -56,12 +74,26 @@ exports.getEmployListPerProject = async (req, res)=>{
   //-------normal project subtask-------------------
 
   exports.addNewSubTaskToProject = async(req, res) => {
-    let q = `insert into normal_project_subtask set ?`
-    databaseCon.query(q, req.body, (err, results)=>{
-      if(!err){
-        res.status(200).send(results)
-      }else{ res.status(500).send({msg : "not created sorry! try again later..."}) }
-    })
+    if(req.body.stask_id && typeof req.body.stask_id === "string"){
+      const q = `insert into normal_project_subtask (ndeal_id, category_id, stask_id) values(${req.body.ndeal_id}, ${req.body.category_id}, ${req.body.stask_id})`
+      await databaseCon.query(q, (err, results)=>{
+        if(!err){
+          res.status(200).send(results)
+        }else{ res.status(500).send({msg : "not created sorry! try again later..."}) }
+      })
+    }else if (req.body.stask_id) {
+      const sub_task_data = []
+      req.body.stask_id.forEach((el)=>{
+        sub_task_data.push([req.body.ndeal_id, req.body.category_id, el ])
+      })
+      const q = `insert into normal_project_subtask (ndeal_id, category_id, stask_id) values ?`
+      await databaseCon.query(q, [sub_task_data], (err, results)=>{
+        if(!err){
+          res.status(200).send(results)
+        }else{ res.status(500).send({msg : "not created sorry! try again later..."}) }
+      })
+    }
+ 
   }
 
   exports.updateSubtaskStatus = async(req, res)=>{

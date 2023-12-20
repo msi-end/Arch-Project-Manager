@@ -40,7 +40,6 @@ app.set('views', __dirname + '/views')
 app.set('view engine', ejs)
 app.use(cookieParser());
 
-
 // For Admin **********
 app.use('/admin', auth)
 app.use('/admin', indexRoutes)
@@ -54,6 +53,9 @@ app.use('/apiv1', apiRoute)
 
 // For Employees ************
 app.use('/', EmployeeAuth)
+
+//testing------------------------
+
 
 
 

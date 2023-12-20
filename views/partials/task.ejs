@@ -12,14 +12,14 @@
                         </path>
                     </svg>
                 </button>
-                <button class="" onclick="empPopup()">Employee</button>
+                <button class="" onclick="empPopup(this)">Employee</button>
                 <button class="" onclick="subPopup(this)">Tasks</button>
             </div>
         </div>
     </div>
 
     <div class="sub-tasks sbox">
-        <div class="assign-to">
+        <div class="assign-to" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>">
             <div class="eaccordion flex">
                 <p class="uppercase phead">assigned to</p>
                 <span class="right-arr">
