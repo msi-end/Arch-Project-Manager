@@ -1,9 +1,9 @@
 class DataCall {
+  urlHead = 'http://localhost:3000/'
   GET_POST = async (url, method, body, type) => {
-    const urlHead = 'http://localhost:3000/'
         if (method == 'GET') {
            try {
-            const fet = await fetch(urlHead + url, { method: method })
+            const fet = await fetch(this.urlHead + url, { method: method })
             const res = await fet.json()
             return res;
            } catch (error) {
@@ -11,7 +11,7 @@ class DataCall {
            }
         }else if (method == 'POST' && body != undefined && type === undefined) {
           try {
-            const fet = await fetch(urlHead + url, {
+            const fet = await fetch(this.urlHead + url, {
                 method: method,
                 headers: {
                     'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ class DataCall {
         }else if(type && type == 'form' && body != undefined) {
            try {
             const payload = new URLSearchParams(body);
-            const fet = await fetch(urlHead + url, {
+            const fet = await fetch(this.urlHead + url, {
              method: 'POST',
              body: payload
             })
@@ -43,6 +43,35 @@ class DataCall {
         }
        
     }
+
+    async DEL_UPD(url, method, body, type){
+      if (method == 'DELETE') {
+        console.log("deleted")
+        // try {
+        //  const fet = await fetch(this.urlHead + url, { method: method })
+        //  const res = await fet.json()
+        //  return res;
+        // } catch (error) {
+        //  throw new Error('request not proceed !' + error.message)
+        // }
+     }else if (method == 'PUT' && body != undefined && type === undefined) {
+       try {
+         const fet = await fetch(this.urlHead + url, {
+             method: method,
+             headers: {
+                 'Content-Type': 'application/json'
+             },
+             body : JSON.stringify(body)
+         })
+         const res = await fet.json()
+         this.GET_Notify('Updated Successfully', res.msg, 'success') 
+         return res;
+       } catch (err) {
+         this.GET_Notify('Something Error', 'Invalid Request!', 'error')
+         throw new Error('request not proceed !' + err.message)
+       }
+    }
+  }
 
 
     GET_HTML_content(targetInfo, method, val){

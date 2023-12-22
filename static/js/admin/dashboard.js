@@ -82,8 +82,9 @@ addNewEmp = async (param, e) => {
 }
 
 async function addTaskStatus(target) {
-    console.log("task status changed")
-    console.log(target.value)
+    const dataSet = target.parentNode.dataset
+    const body = {status: target.value, dealId: Number(dataSet.ndealid), catId: Number(dataSet.taskid)}
+    await feature.DEL_UPD('apiv1/update-task-status', "PUT", body)
 }
 
 
