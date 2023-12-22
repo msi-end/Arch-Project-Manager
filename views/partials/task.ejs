@@ -3,7 +3,7 @@
         <p class="uppercase phead" id="cat-name"><%= cat.name %></p>
         <div class="task-emp-status">
             <div class="main-btns flex" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>">
-                <button class="status-btn flex" onclick="ChangeTaskStatus(this)">
+                <!-- <button class="status-btn flex" onclick="ChangeTaskStatus(this)">
                     <span class="status_project">Status</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                         id="arrow-circle-down">
@@ -11,7 +11,12 @@
                             d="M11.29,15.71a1,1,0,0,0,.33.21,1,1,0,0,0,.76,0,1,1,0,0,0,.33-.21l3-3a1,1,0,0,0-1.42-1.42L13,12.59V9a1,1,0,0,0-2,0v3.59l-1.29-1.3a1,1,0,0,0-1.42,0,1,1,0,0,0,0,1.42ZM12,22A10,10,0,1,0,2,12,10,10,0,0,0,12,22ZM12,4a8,8,0,1,1-8,8A8,8,0,0,1,12,4Z">
                         </path>
                     </svg>
-                </button>
+                </button> -->
+                <select data-taskstatus="<%= cat.cat_status %>" class="status-dropdown-menu common_dropdown" name="status" id="" onchange="addTaskStatus(this)">
+                    <option value="Not Started" <%= cat.cat_status == "Not started" ? "selected" : ""%>>Not started</option>
+                    <option value="On Progress" <%= cat.cat_status == "On Progress" ? "selected" : ""%>>On Progress</option>
+                    <option value="Completed" <%= cat.cat_status == "Completed" ? "selected" : ""%>>Completed</option>
+                </select>
                 <button class="" onclick="empPopup(this)">Employee</button>
                 <button class="" onclick="subPopup(this)">Tasks</button>
             </div>

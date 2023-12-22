@@ -129,7 +129,7 @@ exports.getEmployListPerProject = async (req, res)=>{
     }
 
     exports.updatetaskStatus = async(req, res)=>{
-      const {status, dealId, catId, staskId} = req.body;
+      const {status, dealId, catId} = req.body;
       let q = `UPDATE normal_project_cat SET cat_status = '${status}' WHERE ndeal_id = ${dealId} AND category_id = ${catId}`
       databaseCon.query(q, (err, result)=>{
         if(!err){

@@ -1,6 +1,6 @@
 const express = require('express');
 const api = express.Router();
-const pmNormalAPI = require('../../controllers/PM.normal.crud')
+const pmNormalAPI = require('../../controllers/pm.normal.crud')
 const pmMiscAPI = require('../../controllers/pm.misc.crud')
 
 //-------normal project employee --------
@@ -16,7 +16,7 @@ api.delete('/delete-subtask', pmNormalAPI.deleteSubtask)
 
 //-------normal project task --------
 // api.post('/addtaskto-nproject', pmNormalAPI.addNewSubTaskToProject)
-api.put('/update-task-status', pmNormalAPI.updateSubtaskStatus)
+api.put('/update-task-status', pmNormalAPI.updatetaskStatus)
 api.delete('/delete-task', pmNormalAPI.deleteTask)
 
 

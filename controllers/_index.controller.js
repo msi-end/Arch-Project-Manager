@@ -164,11 +164,11 @@ exports.adminDashboard = async (req, res) => {
             if (!grouped[key]) { grouped[key] = [] }
             grouped[key].push(element);
         })
-
         for (const key in grouped) { dataUnity(grouped[key]) }
         
         for (const key in grouped) { sentData.push(grouped[key][0]) }
         // res.status(200).send({data : sentData});
+        // console.log(sentData)
         res.status(200).render('../views/admin/index.ejs', {sentData})
         }
     })
