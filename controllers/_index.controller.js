@@ -1,5 +1,5 @@
 const db = require('../config/db.config')
-const dataUnity  = require('../utils/arrange')
+const dataUnity = require('../utils/arrange')
 
 
 exports.index = (req, res) => {
@@ -13,24 +13,6 @@ exports.userManager = (req, res) => {
     , COUNT(normal_project_employee.emid) FROM employee
       INNER JOIN normal_project_employee ON employee.em_id = normal_project_employee.emid
       GROUP BY normal_project_employee.emid;`
-    db.query(query, (err, result, field) => {
-        res.send(result)
-    })
-}
-exports.finance = (req, res) => {
-    const query = ``
-    db.query(query, (err, result, field) => {
-        res.send(result)
-    })
-}
-exports.expense = (req, res) => {
-    const query = ``
-    db.query(query, (err, result, field) => {
-        res.send(result)
-    })
-}
-exports.settings = (req, res) => {
-    const query = ``
     db.query(query, (err, result, field) => {
         res.send(result)
     })
@@ -137,7 +119,7 @@ exports.insertNewMiscDeal = async (req, res) => {
                         }
                         res.status(200).send("new misc deal entered successfully..😍")
                     })
-                })   
+                })
 
             })
 
@@ -147,6 +129,8 @@ exports.insertNewMiscDeal = async (req, res) => {
 }
 
 //===========index pages=================
+
+//---normal projects controll------
 
 exports.adminDashboard = async (req, res) => {
     const q = `SELECT deals.*, normal_project_cat.category_id, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline
@@ -160,21 +144,42 @@ exports.adminDashboard = async (req, res) => {
         const sentData = []
         if (!err) {
             results.forEach(element => {
-              const key = element.id.toString();
-            if (!grouped[key]) { grouped[key] = [] }
-            grouped[key].push(element);
-        })
-        for (const key in grouped) { dataUnity(grouped[key]) }
-        
-        for (const key in grouped) { sentData.push(grouped[key][0]) }
-        // res.status(200).send({data : sentData});
-        // console.log(sentData)
-        res.status(200).render('../views/admin/index.ejs', {sentData})
+                const key = element.id.toString();
+                if (!grouped[key]) { grouped[key] = [] }
+                grouped[key].push(element);
+            })
+            for (const key in grouped) { dataUnity(grouped[key]) }
+
+            for (const key in grouped) { sentData.push(grouped[key][0]) }
+            // res.status(200).send({data : sentData});
+            // console.log(sentData)
+            res.status(200).render('../views/admin/index.ejs', { sentData })
         }
     })
 }
 
-//---normal projects form------
+
+
+exports.renderNormalProjectFinance = async (req, res) => {
+    const q = `SELECT deals.id, deals.reference_no, deals.city, deals.deal_name, deals.split, normal_projects_finance.task, task.task_name, normal_projects_finance.totalamount, normal_projects_finance.amount_got FROM normal_projects_finance INNER JOIN deals ON deals.id = normal_projects_finance.ndeal_id INNER JOIN task ON task.task_id = normal_projects_finance.task ORDER BY deals.deal_name;`
+    await db.query(q, (err, result) => {
+        if (!err) {
+            const grouped = {};
+            const sentData = []
+            result.forEach(element => {
+                const key = element.id.toString();
+                if (!grouped[key]) { grouped[key] = [] }
+                grouped[key].push(element);
+            })
+            for (const key in grouped) { sentData.push(grouped[key]) }
+            // res.status(200).send(sentData);
+            res.render('../views/admin/np.finance.ejs', {sentData}); 
+        } else {
+            res.status(500).send({ msg: "Internal server error!!!" })
+        }
+    })
+
+}
 
 exports.renderNormalProjectForm = (req, res) => {
     res.render('../views/admin/np.form.ejs')
@@ -183,7 +188,7 @@ exports.renderNormalProjectForm = (req, res) => {
 //----------Misc project page Controll ------------
 
 exports.renderMiscProjectDashboard = (req, res) => {
-    res.render('../views/admin/miscDash.ejs') 
+    res.render('../views/admin/miscDash.ejs')
 }
 
 exports.renderMiscProjectForm = (req, res) => {
@@ -191,7 +196,7 @@ exports.renderMiscProjectForm = (req, res) => {
 }
 
 // SELECT deals.deal_name, normal_project_cat.project_status
-// FROM deals 
+// FROM deals
 // INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id
 // WHERE normal_project_cat.project_status = "pending"
 // GROUP BY normal_project_cat.ndeal_id, normal_project_cat.project_status

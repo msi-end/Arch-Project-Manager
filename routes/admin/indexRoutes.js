@@ -4,8 +4,9 @@ const mainController = require('../../controllers/_index.controller')
 
 //---normal project ejs routes-----
 router.get('/dashboard', mainController.adminDashboard)
-router.post('/projects-create', mainController.insertNewNormalDeal );
+router.get('/np-finance', mainController.renderNormalProjectFinance )
 router.get('/np-form', mainController.renderNormalProjectForm)
+router.post('/projects-create', mainController.insertNewNormalDeal );
 
 
 //--------Misc project ejs routes-----

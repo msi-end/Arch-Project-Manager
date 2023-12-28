@@ -9,7 +9,7 @@ exports.updateNpAmountRecieved = async (req, res) => {
     if (err) {
       res.status(500).send("some error occurred!..");
     }
-    res.status(200).send("added successfully...")
+    res.status(200).send({msg: "added successfully"})
   })
 }
 

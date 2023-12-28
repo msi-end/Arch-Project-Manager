@@ -1,0 +1,195 @@
+.main .total-amount{
+    background: var(--green);
+}
+.main .total-amount::before{
+    content: '';
+    position: absolute;
+    top: -38px;
+    right: -42px;
+    width: 100px;
+    height: 100px;
+    background: hsl(160, 100%, 40%);
+    border-radius: 50%;
+    z-index: -1;
+}
+.main .total-amount::after{
+    content: '';
+    position: absolute;
+    top: -42px;
+    right: -15px;
+    width: 100px;
+    height: 100px;
+    background: hsl(160, 100%, 40%);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.5;
+}
+.main .amount_in-bank{
+    background: var(--primary-color);
+}
+.main .amount_in-bank::before{
+    content: '';
+    position: absolute;
+    top: -38px;
+    right: -42px;
+    width: 100px;
+    height: 100px;
+    background: hsl(255, 61%, 39%);
+    border-radius: 50%;
+    z-index: -1;
+}
+.main .amount_in-bank::after{
+    content: '';
+    position: absolute;
+    top: -42px;
+    right: -15px;
+    width: 100px;
+    height: 100px;
+    background: hsl(255, 61%, 39%);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.5;
+}
+.main .cash_in-hand{
+    background: var(--secondary-color);
+}
+.main .cash_in-hand::before{
+    content: '';
+    position: absolute;
+    top: -38px;
+    right: -42px;
+    width: 100px;
+    height: 100px;
+    background: hsl(212, 80%, 42%);
+    border-radius: 50%;
+    z-index: -1;
+}
+.main .cash_in-hand::after{
+    content: '';
+    position: absolute;
+    top: -42px;
+    right: -15px;
+    width: 100px;
+    height: 100px;
+    background: hsl(212, 80%, 42%);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.5;
+}
+/* --------FINANCE TABLE------------ */
+.data-info .finegrid{
+    display: grid;
+    grid-template-columns: 4rem repeat(6, minmax(0, 1fr)) 1.5rem;
+    align-items: center;
+    justify-items: flex-start;
+    gap: 10px;
+}
+.architecture .amount-sub{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+    /* align-items: flex-start; */
+}
+.architecture .amount-sub > div{
+    padding: 8px;
+    border-radius: var(--border-radius-1);
+}
+.architecture .flex{
+    justify-content: space-between;
+}
+.architecture .flex .adv-rec{
+    display: flex;
+    flex-direction: column;
+}
+.info-content .architecture .fstat{
+    background: var(--primary-color);
+    margin-top: 8px;
+    text-align: center;
+    border-radius: var(--border-radius-1);
+    font-size: 12px;
+    padding: 5px;
+    color: var(--white);
+}
+.architecture .spl{
+    background: var(--green);
+}
+.architecture .sadv{
+    background: var(--primary-color);
+}
+.architecture .sblnc{
+    background: var(--secondary-color);
+}
+.amount-sub p{
+    display: inline-flex;
+}
+.adata .architecture .amount-sub p.uppercase{
+    color: var(--white);
+    font-size: 13px;
+}
+.amount-sub .teamou{
+    color: var(--black);
+}
+.fdata.open{
+    margin-top: 0;
+}
+.main-dropdown .finance-dropdown{
+    background: var(--white);
+    padding: 10px;
+    border-radius: var(--border-radius-1);
+    width: 300px;
+}
+.main-dropdown .finance-dropdown .flex{
+   margin-top: 16px;
+}
+.main-dropdown .finance-dropdown .flex p{
+   width: 100%;
+   color: black;
+   font-weight: 600;
+}
+.main-dropdown .finance-dropdown :is(input, select){
+    height: 30px;
+    width: 100%;
+    border-radius: var(--border-radius-1);
+    background: var(--bg-2);
+    outline: 1px solid var(--black-light);
+    animation: var(--animation-1);
+    padding: 0 8px;
+    font-size: 14px;
+    word-wrap: break-word;
+    font-weight: 500;
+}
+.main-dropdown .finance-dropdown input:hover{
+    outline: 1px solid var(--black-light-2);
+}
+.main-dropdown .finance-dropdown input:focus{
+    outline: 2px solid var(--secondary-color);
+}
+.main-dropdown .finance-dropdown button{
+    height: 30px;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0 4px;
+    border-radius: var(--border-radius-1);
+    border: 1px solid var(--secondary-color);
+    background: var(--secondary-color);
+    color: var(--white);
+    transition: var(--transition-2)
+}
+.main-dropdown .finance-dropdown button:hover{
+    opacity: 0.8;
+}
+
+
+
+
+
+
+/* ------------RESONSIVE KIHINI IYAT LIKHISU DEII-------------------- */
+@media only screen and (max-width : 768px){
+    .data-info .finegrid{
+        grid-template-columns: 1fr;
+    }
+}

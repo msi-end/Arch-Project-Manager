@@ -1,0 +1,47 @@
+<div class="accordion-content">
+    <div class="ahead finegrid">
+        <p class="ref">
+            <span class="uppercase hide block phead">Ref. No.</span>
+            <span><%= fdata[0].reference_no %></span>
+        </p>
+        <p class="pro">
+            <span class="uppercase hide block phead">name of work</span>
+            <span><%= fdata[0].deal_name %></span>
+        </p>
+        <p class="emp_date">
+            <span class="uppercase hide block phead">location</span>
+            <span><%= fdata[0].city %></span>
+        </p>
+        <p class="totalf">
+            <span class="uppercase hide block phead">project amount</span>
+            &#8377;<span><%= fdata[0].totalamount %></span>/-
+        </p>
+        <p class="totalf none">&#8377;<span>60,000</span>/-</p>
+        <p class="totalf none">&#8377;<span>40,000</span>/-</p>
+        <p class="split">
+            <span class="uppercase hide block phead">Split ratio</span>
+            <%= fdata[0].split %>
+        </p>
+        <!-- <p class="farch cuck">&#8377;<span>40,000</span>/-</p>
+        <p class="fstru cuck">&#8377;<span>40,000</span>/-</p>
+        <p class="fthrd cuck">&#8377;<span>20,000</span>/-</p> -->
+        <p class="arrow-down">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-down"
+                class="svg">
+                <path fill="##000000"
+                    d="M11.29,11.46a1,1,0,0,0,1.42,0l3-3A1,1,0,1,0,14.29,7L12,9.34,9.71,7A1,1,0,1,0,8.29,8.46Zm3,1.08L12,14.84l-2.29-2.3A1,1,0,0,0,8.29,14l3,3a1,1,0,0,0,1.42,0l3-3a1,1,0,0,0-1.42-1.42Z">
+                </path>
+            </svg>
+        </p>
+    </div>
+    <!-- ----------open data for accordion---------- -->
+    <div class="adata fdata">
+        <div class="project_expand grid">
+            <p class="none"></p>
+            <!-- tasks  -->
+            <% fdata?.forEach((task)=>{ %>
+                <%- include('../partials/task.fin.ejs', {task: task, ratio: task.split.split(':')}) %> 
+                <% }) %>   
+        </div>
+    </div>
+</div>

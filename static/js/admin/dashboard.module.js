@@ -26,11 +26,11 @@ class DataCall {
       try {
         const payload = new URLSearchParams(body);
         const fet = await fetch(this.urlHead + url, {
-          method: 'POST',
+          method: method,
           body: payload
         })
         const res = await fet.json()
-        this.GET_Notify('Successfully Done', res.msg, 'success')
+        this.GET_Notify('Successfully Done', 'Successfull', 'success')
         return res;
       } catch (err) {
         throw new Error('request not proceed !' + err.message)
