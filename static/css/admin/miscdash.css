@@ -1,0 +1,143 @@
+.main :is(.form-header,.formContainer){
+    background: var(--white);
+    border-radius: var(--border-radius-2);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+.form-header button{
+    padding: 8px;
+    border-radius: var(--border-radius-1);
+    background: var(--primary-color);
+    color: var(--white);
+    font-weight: 600;
+    transition: var(--transition-2);
+    flex-grow: 1;
+}
+.form-header button:hover{
+    opacity: 0.8;
+}
+
+/* Container  */
+
+.formContainer :is(.normalForm, .misForm){
+    width: 100%;
+}
+form h4{
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+form .fgrid{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+form .field{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+form .field label{
+    font-size: 15px;
+    font-weight: 500;
+}
+form .field :is(input, select):not(input[type="checkbox"]){
+    width: 100%;
+    height: 3rem;
+    border-radius: var(--border-radius-1);
+    background: var(--bg-2);
+    outline: 1px solid var(--black-light);
+    animation: var(--animation-1);
+    padding: 0 1rem;
+    margin-top: 5px;
+    font-size: 1rem;
+    word-wrap: break-word;
+    font-weight: 500;
+}
+form .field textarea{
+    width: 100%;
+    height: 6rem;
+    padding: 1rem;
+    border-radius: var(--border-radius-1);
+    background: var(--bg-2);
+    outline: 1px solid var(--black-light);
+    animation: var(--animation-1);
+    margin-bottom: 1rem;
+    margin-top: 5px;
+    font-size: 1rem;
+    word-wrap: break-word;
+    font-weight: 500;
+    resize: none;
+}
+form .field :is(input,textarea, select):not(input[type="checkbox"]):hover{
+    outline: 1px solid var(--black-light-2);
+}
+form .field :is(input,textarea,select):not(input[type="checkbox"]):focus{
+    outline: 2px solid var(--primary-color);
+}
+.field .ldflex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.ldflex .type{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.type span{
+    font-weight: 600;
+}
+.type input{
+    width: 15px;
+    height: 15px;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+.field select option{
+    padding: 4px;
+}
+form button{
+    padding: 12px;
+    border-radius: var(--border-radius-1);
+    background: var(--green-light);
+    color: var(--green);
+    font-size: 16px;
+    font-weight: 700;
+    transition: var(--transition-2);
+    margin-top: 10px;
+}
+form button:hover{
+    color: var(--white);
+    background: var(--green);
+    opacity: 0.8;
+}
+
+
+
+
+
+
+
+/* ------------RESONSIVE KIHINI IYAT LIKHISU DEII-------------------- */
+@media only screen and (max-width : 768px){
+    form .fgrid{
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    .main .fcontainer{
+        padding: 10px;
+    }
+    .form-header{
+        flex-direction: column;
+        gap: 15px;
+    }
+    .form-header .flex{
+        width: 100%;
+    }
+}

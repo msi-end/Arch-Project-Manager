@@ -7,7 +7,7 @@ const pmMiscAPI = require('../../controllers/pm.misc.crud')
 api.get('/employee/:dealId/:catId', pmNormalAPI.getEmployListPerProject)
 api.get('/get-employee', pmNormalAPI.getEmployListToaddOrRemove)
 api.post('/add-employee-to-project', pmNormalAPI.addEmployeeToProject)
-api.delete('/removeempnp/:dealId/:catId/:emid/:task/:project/:removeDate', pmNormalAPI.removeEmployeeToProject)
+api.delete('/removeempnp', pmNormalAPI.removeEmployeeToProject)
 
 //-------normal project subtask --------
 api.post('/addsubtaskto-nproject', pmNormalAPI.addNewSubTaskToProject)

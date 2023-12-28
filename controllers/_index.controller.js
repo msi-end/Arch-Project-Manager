@@ -180,7 +180,11 @@ exports.renderNormalProjectForm = (req, res) => {
     res.render('../views/admin/np.form.ejs')
 }
 
-//----------Misc project form page ------------
+//----------Misc project page Controll ------------
+
+exports.renderMiscProjectDashboard = (req, res) => {
+    res.render('../views/admin/miscDash.ejs') 
+}
 
 exports.renderMiscProjectForm = (req, res) => {
     res.render('../views/admin/normalProject.ejs')

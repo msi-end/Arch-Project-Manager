@@ -39,7 +39,7 @@ document.querySelectorAll(`.assign-to`).forEach((item, index) =>{
         renderId.innerHTML = ''
         const empNp = await feature.GET_POST(`apiv1/employee/${item.dataset.ndealid}/${item.dataset.taskid}`, 'GET');
         empNp.forEach((item) =>{
-            const html = `<li class="add-empl">${item.name}</li>`
+            const html = `<li class="add-empl"><div style="display:flex; gap:4rem"><span>${item.name}</span> <span style="color: red;" data-ndealid=${item.ndeal_id} data-catid=${item.category_id} data-emid=${item.em_id} onclick="removeEmpNp(this)">remove-</span></div></li>`
             renderId.innerHTML += html
         })
         item.classList.toggle("open");
@@ -85,6 +85,12 @@ async function addTaskStatus(target) {
     const dataSet = target.parentNode.dataset
     const body = {status: target.value, dealId: Number(dataSet.ndealid), catId: Number(dataSet.taskid)}
     await feature.DEL_UPD('apiv1/update-task-status', "PUT", body)
+}
+
+async function removeEmpNp(data){
+   const dataSet = data.dataset;
+   const date = new Date().toDateString();
+   await feature.DEL_UPD(`apiv1/removeempnp?dealId=${Number(dataSet.ndealid)}&catId=${Number(dataSet.catid)}&emid=${Number(dataSet.emid)}&removeDate=${date}`, 'DELETE');
 }
 
 

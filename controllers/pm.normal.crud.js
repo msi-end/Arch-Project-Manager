@@ -58,12 +58,12 @@ exports.getEmployListPerProject = async (req, res)=>{
   }
 
   exports.removeEmployeeToProject = async (req, res)=>{
-    const {dealId, catId, emid, task, project, removeDate} = req.params
+    const {dealId, catId, emid, removeDate} = req.query;
     const q = `DELETE FROM normal_project_employee WHERE ndeal_id = ${dealId} AND category_id = ${catId} AND emid = ${emid};`
     await databaseCon.query(q, (err1, data) => {
       if (!err1) {
         res.status(200).send(data);
-        let q2 = `INSERT INTO emp_task_notify (emid, task, project, dateofnotify) VALUES (${emid}, "${task}", "${project}", "${removeDate}");`
+        let q2 = `INSERT INTO emp_task_notify (emid, task, project, dateofnotify) VALUES (${emid}, "${catId}", "${dealId}", "${removeDate}");`
         databaseCon.query(q2, (err2, results) => {
             if (!err2) {return;}else{ res.status(500).send({msg : err2}) }
         })

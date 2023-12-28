@@ -12,7 +12,7 @@ http://localhost:3000/apiv1/update-task-status
 <!-- status, dealId, catId -->
 
 ### API for removing employee from normal project - DELETE
-http://localhost:3000/apiv1//removeempnp/1/1/1/structural/hospital/23/03/2303
+http://localhost:3000/apiv1/removeempnp?dealId=18&catId=1&emid=1&removeDate=23/09/2002
 
 ### API for getting all subtasks for normal project - GET
 http://localhost:3000/admin/settings/get-subtask
