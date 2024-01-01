@@ -60,5 +60,15 @@ async function removeEmpNp(data){
    await feature.DEL_UPD(`apiv1/removeempnp?dealId=${Number(dataSet.ndealid)}&catId=${Number(dataSet.catid)}&emid=${Number(dataSet.emid)}&removeDate=${date}`, 'DELETE');
 }
 
+async function updateSubtaskStatus(data){
+    alert("Do you want to Update???")
+    const {taskid, ndealid} = data.parentNode.dataset
+    let status = null;
+    if (data.checked) { status = "Completed"
+    }else { status = "not started" }
+    const body = {status: status, catId:taskid, dealId:ndealid, staskId:data.dataset.subtaskid }
+    await feature.DEL_UPD('apiv1/update-subtask-status', 'PUT', body)
+}
+
 
 

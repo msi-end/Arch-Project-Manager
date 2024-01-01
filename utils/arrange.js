@@ -7,15 +7,15 @@ function dataUnity(arr) {
     
       filterTask.forEach((el)=>{ finalTaskData.push({cat_id : el.category_id, name: el.task_name, cat_status: el.cat_status}) })
     
-      arr.forEach((el)=>{ finalSubTaskData.push({ t_name : el.task_name, st_id : el.stask_id, name: el.sub_task_name}) })
+      arr.forEach((el)=>{ finalSubTaskData.push({ t_name : el.task_name, st_id: el.stask_id, name: el.sub_task_name, st_status: el.stask_status}) })
     
       finalSubTaskData.forEach((el)=>{
         finalTaskData.forEach((task)=>{
             if (task.name == el.t_name) {
-                if (task['sub']) { task.sub.push(el.name) 
+                if (task['sub']) { task.sub.push({s_name: el.name, s_id: el.st_id, s_status: el.st_status}) 
                 }else{
                     task['sub'] = []
-                    task['sub'].push(el.name)
+                    task['sub'].push({s_name: el.name, s_id: el.st_id, s_status: el.st_status})
                 }
             }
         })

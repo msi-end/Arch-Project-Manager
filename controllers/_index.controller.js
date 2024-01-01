@@ -130,6 +130,10 @@ exports.insertNewMiscDeal = async (req, res) => {
 
 //===========index pages=================
 
+exports.renderEmpAction = async (req, res)=>{
+    res.status(200).render('../views/admin/emp.action.ejs')
+}
+
 //---normal projects controll------
 
 exports.adminDashboard = async (req, res) => {

@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const mainController = require('../../controllers/_index.controller')
 
+// ----index pages-----
+
+router.get('/emp-action', mainController.renderEmpAction)
+
 //---normal project ejs routes-----
 router.get('/dashboard', mainController.adminDashboard)
 router.get('/np-finance', mainController.renderNormalProjectFinance )

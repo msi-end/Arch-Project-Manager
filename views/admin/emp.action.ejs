@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBAH ERP | Admin</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/admin/main.css">
+    <link rel="stylesheet" href="../../css/admin/header.css">
+    <link rel="stylesheet" href="../../css/admin/responsive.css">
+    <link rel="stylesheet" href="../../css/admin/empact.css">
+
+</head>
+
+<body>
+    <%- include('../partials/admin.header.ejs') %>
+        <!-- MAIN SECTION STARTS HERE  -->
+        <main class="main">
+            <div class="ucontainer">
+                <div class="userContainer uform">
+                    <h4 class="uppercase">user</h4>
+                    <button class="uppercase" onclick="empAdd()" id="userbtn">
+                        <span>Add user</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="plus-circle"><path fill="##000000" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H13V8a1,1,0,0,0-2,0v3H8a1,1,0,0,0,0,2h3v3a1,1,0,0,0,2,0V13h3a1,1,0,0,0,0-2Z"></path></svg>
+                    </button>
+                </div>
+    
+                <!-- -------------------User form--------------------------- -->
+                <div class="userform hide">
+                    <form action="">
+                        <h4 class="uppercase">User details</h4>
+                        <div class="ugrid">
+                            <div class="field">
+                                <label for="name">Name</label>
+                                <input type="text" name="name" id="name" placeholder="Name">
+                            </div>
+                            <div class="field">
+                                <label for="cnumber">Phone Number</label>
+                                <input type="text" name="cnumber" id="cnumber" placeholder="Number">
+                            </div>
+                            <div class="field">
+                                <label for="email">Email</label>
+                                <input type="text" name="email" id="email" placeholder="email">
+                            </div>
+                        </div>
+                        <!-- ------button---- -->
+                        <div class="user-btns">
+                            <button class="uppercase" onclick="useraction()">submit</button>
+                            <button class="uppercase" onclick="useraction()">cancel</button>
+                        </div>
+                    
+                    </form>
+                </div>
+
+                <!-- ----------------users------------------------------- -->
+                <div class="userbox">
+                    <div class="userheader">
+                        <h4 class="uppercase">profiles</h4>
+                        <div class="usersearch">
+                            <input type="text" name="usearch" id="usearch" placeholder="Search">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search" class="svg">
+                                <path fill="##000000"
+                                    d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <!-- --------------User 1--------------------------  -->
+                    <div class="user-list flex">
+                        <div class="user-profile flex">
+                            <div class="user-img flex">
+                                <img src="../../img/employees.png" alt="profile" class="red">
+                            </div>
+                            <div class="user-details">
+                                <p class="username">Panchanan Deka</p>
+                                <p class="userdesignation">Software Developer</p>
+                            </div>
+                        </div>
+                        <!-- -------------------  -->
+                        <div class="user-contact-info">
+                            <div class="user-phone">
+                                <p class="usphone">Phone</p>
+                                <p class="uphone">+91 6000192289</p>
+                            </div>
+                            <div class="user-email">
+                                <p class="usemail">Email</p>
+                                <p class="uemail">panchanandeka1596@gmail.com</p>
+                            </div>
+                        </div>
+                        <!-- ----------------------------------  -->
+                        <div class="user-attendance">
+                            <p>Attendance</p>
+                            <p>96%</p>
+                        </div>
+                        <!-- ---------------------------------  -->
+                        <div class="user-work">
+                            <p class="uwork">Work Status</p>
+                            <p class="ustatus green"><span>Completed</span></p>
+                            <!-- <p class="ustatus red"><span>In Progress</span></p>                                 -->
+                        </div>
+                        <!-- ---------------------------------  -->
+                        <div class="user-status">
+                            <p class="urstatus">Status</p>
+                            <!-- <p class="ustatus green"><span>Online</span></p> -->
+                            <p class="ustatus red"><span>Offline</span></p>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- ----------------------------------------------  -->
+                    
+
+                    <div class="user-pagination">
+                        <div class="pages">
+                            <ul>
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-left"
+                                        class="svg">
+                                        <path fill="##000000"
+                                            d="M11.46,8.29a1,1,0,0,0-1.42,0l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L9.16,12l2.3-2.29A1,1,0,0,0,11.46,8.29ZM14.66,12,17,9.71a1,1,0,0,0-1.42-1.42l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
+                                        </path>
+                                    </svg>
+                                </li>
+                                <li>1</li>
+                                <li>2</li>
+                                <li>3</li>
+                                <li>...</li>
+                                <li>10</li>
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-right"
+                                        class="svg">
+                                        <path fill="##000000"
+                                            d="M8.46,8.29A1,1,0,1,0,7,9.71L9.34,12,7,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3a1,1,0,0,0,0-1.42Zm8.5,3-3-3a1,1,0,0,0-1.42,1.42L14.84,12l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3A1,1,0,0,0,17,11.29Z">
+                                        </path>
+                                    </svg>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </section>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="../../js/admin/common.js"></script>
