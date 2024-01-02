@@ -2,12 +2,33 @@ const db = require('../config/db.config')
 const dataUnity = require('../utils/arrange')
 
 
-// exports.index = (req, res) => {
-//     const query = ``
-//     db.query(query, (err, result, field) => {
-//         res.send(result)
-//     })
-// }
+exports.indexDeshboard = async (req, res) => {
+    const q = `SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline
+    FROM deals 
+    INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id 
+    INNER JOIN task ON normal_project_cat.category_id = task.task_id 
+    LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id 
+    LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id`
+    await db.query(q, (err, results) => {
+        // console.log(results);
+        const grouped = {};
+        const sentData = []
+        if (!err) {
+            results.forEach(element => {
+                const key = element.id.toString();
+                if (!grouped[key]) { grouped[key] = [] }
+                grouped[key].push(element);
+            })
+            for (const key in grouped) { dataUnity(grouped[key]) }
+
+            for (const key in grouped) { sentData.push(grouped[key][0]) }
+            // res.status(200).send({data : sentData});
+            // console.log(sentData)
+            res.status(200).render('../views/admin/index.ejs', { sentData })
+        }
+    })
+}
+
 exports.userManager = (req, res) => {
     const query = `SELECT employee.em_id, employee.name ,employee.number, employee.email,employee.job_role, employee.lastLoginAt ,employee.lastLogoutAt , employee.status 
     , COUNT(normal_project_employee.emid) FROM employee
@@ -23,6 +44,9 @@ exports.settings = (req, res) => {
         res.send(result)
     })
 }
+
+
+
 // ------------------Normal project form works--------------------------
 
 exports.insertNewNormalDeal = async (req, res) => {
@@ -133,42 +157,7 @@ exports.insertNewMiscDeal = async (req, res) => {
 
 }
 
-//===========index pages=================
-
-exports.renderEmpAction = async (req, res)=>{
-    res.status(200).render('../views/admin/emp.action.ejs')
-}
-
 //---normal projects controll------
-
-exports.adminDashboard = async (req, res) => {
-    const q = `SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline
-    FROM deals 
-    INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id 
-    INNER JOIN task ON normal_project_cat.category_id = task.task_id 
-    LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id 
-    LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id`
-    await db.query(q, (err, results) => {
-        // console.log(results);
-        const grouped = {};
-        const sentData = []
-        if (!err) {
-            results.forEach(element => {
-                const key = element.id.toString();
-                if (!grouped[key]) { grouped[key] = [] }
-                grouped[key].push(element);
-            })
-            for (const key in grouped) { dataUnity(grouped[key]) }
-
-            for (const key in grouped) { sentData.push(grouped[key][0]) }
-            // res.status(200).send({data : sentData});
-            // console.log(sentData)
-            res.status(200).render('../views/admin/index.ejs', { sentData })
-        }
-    })
-}
-
-
 
 exports.renderNormalProjectFinance = async (req, res) => {
     const q = `SELECT deals.id, deals.reference_no, deals.city, deals.deal_name, deals.split, normal_projects_finance.task, task.task_name, normal_projects_finance.totalamount, normal_projects_finance.amount_got FROM normal_projects_finance INNER JOIN deals ON deals.id = normal_projects_finance.ndeal_id INNER JOIN task ON task.task_id = normal_projects_finance.task ORDER BY deals.deal_name;`
@@ -195,6 +184,7 @@ exports.renderNormalProjectForm = (req, res) => {
     res.render('../views/admin/np.form.ejs')
 }
 
+
 //----------Misc project page Controll ------------
 
 exports.renderMiscProjectDashboard = (req, res) => {
@@ -205,10 +195,6 @@ exports.renderMiscProjectForm = (req, res) => {
     res.render('../views/admin/normalProject.ejs')
 }
 
-// SELECT deals.deal_name, normal_project_cat.project_status
-// FROM deals
-// INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id
-// WHERE normal_project_cat.project_status = "pending"
-// GROUP BY normal_project_cat.ndeal_id, normal_project_cat.project_status
+
 
 
