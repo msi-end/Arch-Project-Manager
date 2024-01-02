@@ -2,7 +2,7 @@
     <div class="arrow">
         <p class="uppercase phead" id="cat-name"><%= cat.name %></p>
         <div class="task-emp-status">
-            <div class="main-btns flex" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>">
+            <div class="main-btns flex" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>" data-npcid="<%= cat.npcid %>">
                 <!-- <button class="status-btn flex" onclick="ChangeTaskStatus(this)">
                     <span class="status_project">Status</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -24,7 +24,7 @@
     </div>
 
     <div class="sub-tasks sbox">
-        <div class="assign-to" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>">
+        <div class="assign-to" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>" >
             <div class="eaccordion flex">
                 <p class="uppercase phead">assigned to</p>
                 <span class="right-arr">

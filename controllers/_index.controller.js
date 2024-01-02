@@ -2,22 +2,27 @@ const db = require('../config/db.config')
 const dataUnity = require('../utils/arrange')
 
 
-exports.index = (req, res) => {
+// exports.index = (req, res) => {
+//     const query = ``
+//     db.query(query, (err, result, field) => {
+//         res.send(result)
+//     })
+// }
+exports.userManager = (req, res) => {
+    const query = `SELECT employee.em_id, employee.name ,employee.number, employee.email,employee.job_role, employee.lastLoginAt ,employee.lastLogoutAt , employee.status 
+    , COUNT(normal_project_employee.emid) FROM employee
+      INNER JOIN normal_project_employee ON employee.em_id = normal_project_employee.emid
+      GROUP BY normal_project_employee.emid;`
+    db.query(query, (err, result, field) => {
+        res.status(200).render('../views/admin/user.ejs')
+    })
+}
+exports.settings = (req, res) => {
     const query = ``
     db.query(query, (err, result, field) => {
         res.send(result)
     })
 }
-exports.userManager = (req, res) => {
-    const query = `SELECT employee.em_id, employee.name ,employee.number, employee.email, employee.lastLoginAt ,employee.lastLogoutAt , employee.status 
-    , COUNT(normal_project_employee.emid) FROM employee
-      INNER JOIN normal_project_employee ON employee.em_id = normal_project_employee.emid
-      GROUP BY normal_project_employee.emid;`
-    db.query(query, (err, result, field) => {
-        res.send(result)
-    })
-}
-
 // ------------------Normal project form works--------------------------
 
 exports.insertNewNormalDeal = async (req, res) => {
@@ -137,13 +142,14 @@ exports.renderEmpAction = async (req, res)=>{
 //---normal projects controll------
 
 exports.adminDashboard = async (req, res) => {
-    const q = `SELECT deals.*, normal_project_cat.category_id, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline
+    const q = `SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline
     FROM deals 
     INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id 
     INNER JOIN task ON normal_project_cat.category_id = task.task_id 
     LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id 
     LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id`
     await db.query(q, (err, results) => {
+        // console.log(results);
         const grouped = {};
         const sentData = []
         if (!err) {

@@ -45,7 +45,7 @@ addNewSubtasks = async (param, e)=>{
 
 addNewEmp = async (param, e) => {
   const exdata = {taskName: "architechture", project: "Hospital Work", assignDate: "20/02/2023" }
-  await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id'], 'apiv1/add-employee-to-project', closeSubBox, exdata)
+  await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id','category_id','npcid'], 'apiv1/add-employee-to-project', closeSubBox, exdata)
 }
 
 async function addTaskStatus(target) {

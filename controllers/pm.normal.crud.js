@@ -1,3 +1,4 @@
+const { log } = require('winston')
 const databaseCon = require('../config/db.config')
 
   //-------normal project employee-------------------
@@ -26,9 +27,9 @@ exports.getEmployListPerProject = async (req, res)=>{
   }
 
   exports.addEmployeeToProject = async (req, res)=>{
-    const {ndeal_id, category_id, emid, taskName, project, assignDate} = req.body
+    const {ndeal_id, npcid,category_id, emid, taskName, project, assignDate} = req.body
     if(req.body.emid && typeof req.body.emid === "string"){
-      const q = `INSERT INTO normal_project_employee (ndeal_id, category_id, emid, dateofassign) VALUES (${ndeal_id}, ${category_id}, ${emid}, "${assignDate}");`
+      const q = `INSERT INTO normal_project_employee (ndeal_id,npcid ,category_id, emid, dateofassign) VALUES (${ndeal_id},${Number(npcid)}, ${category_id}, ${emid}, "${assignDate}");`
       await databaseCon.query(q, (err1, data) => {
         if (!err1) {
           res.status(200).send(data);
@@ -41,15 +42,18 @@ exports.getEmployListPerProject = async (req, res)=>{
     }else if (req.body.emid) {
       const np_emp_data = []
       const np_emp_notify = []
-      req.body.emid.forEach((el)=>{ np_emp_data.push([req.body.ndeal_id, req.body.category_id, el, assignDate ])})
-      req.body.emid.forEach((el)=>{ np_emp_notify.push([el, taskName, project, assignDate]) })
-      const q = `INSERT INTO normal_project_employee (ndeal_id, category_id, emid, dateofassign) VALUES ?`
+      req.body.emid.forEach((el)=>{ np_emp_data.push([req.body.ndeal_id,req.body.npcid, req.body.category_id, el, assignDate ])})
+      req.body.emid.forEach((el)=>{ np_emp_notify.push([el,npcid, taskName, project, assignDate]) })
+      const q = `INSERT INTO normal_project_employee (ndeal_id,npcid, category_id, emid, dateofassign) VALUES ?`
       await databaseCon.query(q, [np_emp_data], (err1, data) => {
         if (!err1) {
           res.status(200).send(data);
           let q2 = `INSERT INTO emp_task_notify (emid, task, project, dateofnotify) VALUES ?`
           databaseCon.query(q2, [np_emp_notify], (err2, results) => {
-              if (!err2) {return;}else{ res.status(500).send({msg : err2}) }
+              if (!err2) {return;}
+              else{ 
+                // res.status(500).send({msg : err2}) 
+              }
           })
         }else{ res.status(500).send({msg : err1}) }
      })

@@ -171,4 +171,22 @@ ALTER TABLE deals ADD split varchar(100);
 
 
 
+--------------Employee Attendance Table =========
 
+CREATE TABLE empAttendance (
+    empID INT PRIMARY KEY,
+    empName VARCHAR(100),
+    January CHAR(1),
+    February CHAR(1),
+    March CHAR(1),
+    April CHAR(1),
+    May CHAR(1),
+    June CHAR(1),
+    July CHAR(1),
+    August CHAR(1),
+    September CHAR(1),
+    October CHAR(1),
+    November CHAR(1),
+    December CHAR(1),
+    Holidays CHAR(1)
+);

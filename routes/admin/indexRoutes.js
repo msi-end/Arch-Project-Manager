@@ -8,6 +8,9 @@ router.get('/emp-action', mainController.renderEmpAction)
 
 //---normal project ejs routes-----
 router.get('/dashboard', mainController.adminDashboard)
+router.get('/user-manager', mainController.userManager)
+router.get('/settings', mainController.settings)
+
 router.get('/np-finance', mainController.renderNormalProjectFinance )
 router.get('/np-form', mainController.renderNormalProjectForm)
 router.post('/projects-create', mainController.insertNewNormalDeal );
