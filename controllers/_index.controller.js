@@ -1,7 +1,7 @@
 const db = require('../config/db.config')
 const dataUnity = require('../utils/arrange')
 
-
+// All Index routes
 exports.indexDeshboard = async (req, res) => {
     const q = `SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline
     FROM deals 
@@ -38,6 +38,7 @@ exports.userManager = (req, res) => {
         res.status(200).render('../views/admin/user.ejs')
     })
 }
+
 exports.settings = (req, res) => {
     const query = ``
     db.query(query, (err, result, field) => {
@@ -47,8 +48,7 @@ exports.settings = (req, res) => {
 
 
 
-// ------------------Normal project form works--------------------------
-
+//---Normal project form works-------
 exports.insertNewNormalDeal = async (req, res) => {
     db.getConnection((err0, conn) => {
         if (err0) throw err0;
@@ -157,8 +157,9 @@ exports.insertNewMiscDeal = async (req, res) => {
 
 }
 
-//---normal projects controll------
 
+
+//---normal projects controll-------
 exports.renderNormalProjectFinance = async (req, res) => {
     const q = `SELECT deals.id, deals.reference_no, deals.city, deals.deal_name, deals.split, normal_projects_finance.task, task.task_name, normal_projects_finance.totalamount, normal_projects_finance.amount_got FROM normal_projects_finance INNER JOIN deals ON deals.id = normal_projects_finance.ndeal_id INNER JOIN task ON task.task_id = normal_projects_finance.task ORDER BY deals.deal_name;`
     await db.query(q, (err, result) => {
@@ -172,7 +173,7 @@ exports.renderNormalProjectFinance = async (req, res) => {
             })
             for (const key in grouped) { sentData.push(grouped[key]) }
             // res.status(200).send(sentData);
-            res.render('../views/admin/np.finance.ejs', {sentData}); 
+            res.render('../views/admin/np.finance.ejs', { sentData });
         } else {
             res.status(500).send({ msg: "Internal server error!!!" })
         }
@@ -185,8 +186,7 @@ exports.renderNormalProjectForm = (req, res) => {
 }
 
 
-//----------Misc project page Controll ------------
-
+//---Misc project page Controll -----
 exports.renderMiscProjectDashboard = (req, res) => {
     res.render('../views/admin/miscDash.ejs')
 }

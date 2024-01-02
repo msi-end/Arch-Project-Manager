@@ -3,13 +3,10 @@ const router = express.Router();
 const mainController = require('../../controllers/_index.controller')
 
 // ----index pages-----
-
-
 //---normal project ejs routes-----
 router.get('/dashboard', mainController.indexDeshboard)
 router.get('/user-manager', mainController.userManager)
 router.get('/settings', mainController.settings)
-
 router.get('/finance', mainController.renderNormalProjectFinance )
 router.get('/np-form', mainController.renderNormalProjectForm)
 router.post('/projects-create', mainController.insertNewNormalDeal );
