@@ -30,8 +30,13 @@ function removeOpen(index1){
 }
 
 
-// SELECT deals.deal_name, task.task_name, normal_projects_finance.totalamount, normal_projects_finance.amount_got
-// FROM normal_projects_finance
-// INNER JOIN deals ON deals.id = normal_projects_finance.ndeal_id
-// INNER JOIN task ON task.task_id = normal_projects_finance.task
-// ORDER BY deals.deal_name;
+    function useraction(){
+        userform.classList.add(`hide`);
+    }
+
+    function empAdd() {
+        const userform= document.querySelector(`.userform`); 
+        userform.classList.toggle(`hide`);
+    }
+
+

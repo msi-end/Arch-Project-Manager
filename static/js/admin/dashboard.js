@@ -45,7 +45,7 @@ addNewSubtasks = async (param, e)=>{
 
 addNewEmp = async (param, e) => {
   const exdata = {taskName: "architechture", project: "Hospital Work", assignDate: "20/02/2023" }
-  await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id'], 'apiv1/add-employee-to-project', closeSubBox, exdata)
+  await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id','category_id','npcid'], 'apiv1/add-employee-to-project', closeSubBox, exdata)
 }
 
 async function addTaskStatus(target) {
@@ -58,6 +58,16 @@ async function removeEmpNp(data){
    const dataSet = data.dataset;
    const date = new Date().toDateString();
    await feature.DEL_UPD(`apiv1/removeempnp?dealId=${Number(dataSet.ndealid)}&catId=${Number(dataSet.catid)}&emid=${Number(dataSet.emid)}&removeDate=${date}`, 'DELETE');
+}
+
+async function updateSubtaskStatus(data){
+    alert("Do you want to Update???")
+    const {taskid, ndealid} = data.parentNode.dataset
+    let status = null;
+    if (data.checked) { status = "Completed"
+    }else { status = "not started" }
+    const body = {status: status, catId:taskid, dealId:ndealid, staskId:data.dataset.subtaskid }
+    await feature.DEL_UPD('apiv1/update-subtask-status', 'PUT', body)
 }
 
 

@@ -17,7 +17,7 @@ class DataCall {
           body: JSON.stringify(body)
         })
         const res = await fet.json()
-        this.GET_Notify('Successfully Done', res.msg, 'success')
+        if (fet.ok) { this.GET_Notify('Successfully Done', 'Successfull', 'success') }
         return res;
       } catch (err) {
         throw new Error('request not proceed !' + err.message)
@@ -30,7 +30,7 @@ class DataCall {
           body: payload
         })
         const res = await fet.json()
-        this.GET_Notify('Successfully Done', 'Successfull', 'success')
+        if (fet.ok) { this.GET_Notify('Successfully Done', 'Successfull', 'success') }
         return res;
       } catch (err) {
         throw new Error('request not proceed !' + err.message)
@@ -48,7 +48,7 @@ class DataCall {
         try {
           const fet = await fetch(this.urlHead + url, { method: method })
           const res = await fet.json()
-          this.GET_Notify('Removed successfully', 'Successfull', 'success')
+          if (fet.ok) { this.GET_Notify('Removed Successfully', 'Successfull', 'success') }
           return res;
         } catch (error) {
           this.GET_Notify('Something Error', 'Invalid Request!', 'error')
@@ -64,7 +64,7 @@ class DataCall {
           body: JSON.stringify(body)
         })
         const res = await fet.json()
-        this.GET_Notify('Updated Successfully', res.msg, 'success')
+        if (fet.ok) { this.GET_Notify('Updated Successfully', 'Successfull', 'success') }
         return res;
       } catch (err) {
         this.GET_Notify('Something Error', 'Invalid Request!', 'error')

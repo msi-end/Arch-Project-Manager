@@ -7,7 +7,7 @@ const { createHmac } = require('crypto')
 
 route.get('/', (req, res) => {
     if (req.session.isLoggedIn == true) {
-        res.status(200).render('../views/admin/index.ejs')
+        res.redirect(`/admin/dashboard`)
     } else {
         res.redirect(`/admin/login`)
     }

@@ -1,6 +1,6 @@
 /node_modules
+/config/db.config.js
 /test.js
 /src/storage/error.log
 /sessions/loginAuth.db
 /test.http
-/config/db.config.js

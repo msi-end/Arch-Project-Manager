@@ -77,6 +77,7 @@ create table normal_project_employee (
     foreign key(emid) references employee(em_id)
 );
 
+
 //----------------miscelleneous task work------------------
 
 create table single_deal(
@@ -164,11 +165,32 @@ create table misc_project_finance (
  foreign key(task) references mis_subtask(msub_task_id)
 );
 
+
+<!-- //////ALTER  -->
 //--------entry atlast------------------------
 
 ALTER TABLE deals ADD split varchar(100);
 
 
+ALTER TALBE normal_project_employee ADD npcid INT(11)
 
+--------------Employee Attendance Table =========
 
-
+CREATE TABLE empAttendance (
+    id INT PRIMARY KEY auto_increment not null,
+    empName VARCHAR(100),
+    January CHAR(1),
+    February CHAR(1),
+    March CHAR(1),
+    April CHAR(1),
+    May CHAR(1),
+    June CHAR(1),
+    July CHAR(1),
+    August CHAR(1),
+    September CHAR(1),
+    October CHAR(1),
+    November CHAR(1),
+    December CHAR(1),
+    empID INT(11),
+    date VARCHAR(10)
+);

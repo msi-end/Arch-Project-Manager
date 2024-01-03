@@ -2,7 +2,7 @@
     <div class="arrow">
         <p class="uppercase phead" id="cat-name"><%= cat.name %></p>
         <div class="task-emp-status">
-            <div class="main-btns flex" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>">
+            <div class="main-btns flex" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>" data-npcid="<%= cat.npcid %>">
                 <!-- <button class="status-btn flex" onclick="ChangeTaskStatus(this)">
                     <span class="status_project">Status</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -24,7 +24,7 @@
     </div>
 
     <div class="sub-tasks sbox">
-        <div class="assign-to" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>">
+        <div class="assign-to" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>" >
             <div class="eaccordion flex">
                 <p class="uppercase phead">assigned to</p>
                 <span class="right-arr">
@@ -32,7 +32,7 @@
                 </span>
             </div>
             <ul class="emp-acc-data" id="emp-in-np">
-                <!-- <li class="add-empl">Sri Venkataraman Venugopal Iyer</li> --> 
+                <!-- <li class="add-empl">Sri Venkataraman Venugopal Iyer</li>  --> 
             </ul>
         </div>
         <hr class="show">
@@ -40,10 +40,10 @@
             <p class="uppercase phead">tasks</p>
             <ul>
              <% cat.sub?.forEach((el)=>{ 
-                if(el){  %>
-                <li class="stasks">
-                    <input type="checkbox" name="plumbing" class="" <%= `checked`%>>
-                    <span><%= el %></span>
+                if(el.s_name){  %>
+                <li class="stasks" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>">
+                    <input type="checkbox" name="plumbing" data-subtaskid="<%= el.s_id %>" onchange="updateSubtaskStatus(this)" <%= el.s_status == "Completed" ? `checked` : "" %>>
+                    <span><%= el.s_name %></span>
                 </li>
                 <% }}) %>
             </ul>

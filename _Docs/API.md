@@ -19,11 +19,15 @@ http://localhost:3000/admin/settings/get-subtask
 
 ### API for adding subtasks to normal project - POST
 http://localhost:3000/apiv1/addsubtaskto-nproject
-{
+<!-- {
   "ndeal_id" : 1,
   "category_id" : 1,
   "stask_id" : 1
-}
+} -->
+
+### API for updating subtask status in normal project - PUT
+http://localhost:3000/apiv1/update-subtask-status
+<!-- status, dealId, catId, staskId -->
 
 ### API for deleting subtasks from normal project - DELETE
 http://localhost:3000/apiv1/delete-subtask?dealId=1&catId=1&staskId=1

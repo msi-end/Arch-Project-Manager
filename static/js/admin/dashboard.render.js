@@ -11,7 +11,7 @@ async function empPopup(target) {
             <span>Plumbing</span> -->
         </li>
     </ul>
-    <button data-category_id="${getId.taskid}" data-ndeal_id="${getId.ndealid}" class="uppercase" onclick="addNewEmp(this, event)">update</button>
+    <button data-category_id="${getId.taskid}" data-ndeal_id="${getId.ndealid}" data-npcid="${getId.npcid}" class="uppercase" onclick="addNewEmp(this, event)">update</button>
     </form>
 </div>`
     mainDrop.innerHTML = empHtml
