@@ -13,7 +13,7 @@ router.post('/projects-create', mainController.insertNewNormalDeal );
 
 
 //--------Misc project ejs routes-----
-router.get('/misc-dashboard', mainController.renderMiscProjectDashboard)
+router.get('/dashboard/misc', mainController.renderMiscProjectDashboard)
 router.post('/misc-project-create', mainController.insertNewMiscDeal)
 
 module.exports = router;
