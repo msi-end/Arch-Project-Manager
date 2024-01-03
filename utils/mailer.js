@@ -1,7 +1,7 @@
 const nmailer = require('nodemailer');
 const { errHandler } = require('../utils/errorHandler')
 const { email: config } = require('../config/mail.config');
-const fs = require('fs')
+const fs = require('fs');
 
 const transporter = nmailer.createTransport(
     {
