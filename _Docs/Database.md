@@ -166,7 +166,7 @@ create table misc_project_finance (
 );
 
 
-<!-- //////ALTER  -->
+<!-- //////ALTER////// -->
 //--------entry atlast------------------------
 
 ALTER TABLE deals ADD split varchar(100);
@@ -194,3 +194,4 @@ CREATE TABLE empAttendance (
     empID INT(11),
     date VARCHAR(10)
 );
+
