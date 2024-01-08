@@ -574,7 +574,20 @@
     line-height: 1.5;
     display: flex;
     align-items: center;
-    gap: 5px;
+    justify-content: space-between;
+}
+.add-empl span.icon{
+    width: 25px;
+    height: 25px;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.add-empl span.icon svg{
+    width: 20px;
+    fill: var(--primary-color);
 }
 .assign-to .eaccordion{
     justify-content: space-between;
