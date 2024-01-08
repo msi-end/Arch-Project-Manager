@@ -47,6 +47,9 @@ body{
     width: 100dvw;
     height: 100dvh;
 }
+body.flow{
+    overflow: hidden;
+}
 html{
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;

@@ -27,9 +27,10 @@ exports.getEmployListPerProject = async (req, res)=>{
   }
 
   exports.addEmployeeToProject = async (req, res)=>{
+    console.log(req.body);
     const {ndeal_id, npcid,category_id, emid, taskName, project, assignDate} = req.body
     if(req.body.emid && typeof req.body.emid === "string"){
-      const q = `INSERT INTO normal_project_employee (ndeal_id,npcid ,category_id, emid, dateofassign) VALUES (${ndeal_id},${Number(npcid)}, ${category_id}, ${emid}, "${assignDate}");`
+      const q = `INSERT INTO normal_project_employee (ndeal_id, npcid ,category_id, emid, dateofassign) VALUES (${ndeal_id},${Number(npcid)}, ${category_id}, ${emid}, "${assignDate}");`
       await databaseCon.query(q, (err1, data) => {
         if (!err1) {
           res.status(200).send(data);
@@ -55,7 +56,9 @@ exports.getEmployListPerProject = async (req, res)=>{
                 // res.status(500).send({msg : err2}) 
               }
           })
-        }else{ res.status(500).send({msg : err1}) }
+        }else{ 
+          console.log(err);
+          res.status(500).send({msg : err1}) }
      })
     }
 
