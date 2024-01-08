@@ -327,8 +327,9 @@
     justify-content: space-between;
     gap: 10px;
     margin-top: 0.5rem;
+    flex-wrap: wrap;
 }
-.task-emp-status .main-btns button{
+.task-emp-status .main-btns :is(button, select){
     flex-grow: 1;
     font-size: 12px;
     font-weight: 600;
@@ -341,8 +342,9 @@
     gap: 0;
     justify-content: space-between;
     transition: var(--transition-2);
+    cursor: pointer;
 }
-.task-emp-status .main-btns button:hover{
+.task-emp-status .main-btns :is(button, select):hover{
     opacity: 0.8;
 }
 .main-btns button:nth-child(2)::after{
@@ -357,7 +359,7 @@
     width: 16px;
     fill: var(--white);
 }
-.info-content .main-dropdown{
+.main .main-dropdown{
     display: none;
     position: absolute;
     top: 0;
@@ -365,6 +367,7 @@
     width: 100%;
     height: 100vh;
     background: var(--black-light);
+    z-index: 100;
 }
 
 .main-dropdown.active {
@@ -373,7 +376,7 @@
 
 .main-dropdown .common_dropdown{
     position: absolute;
-    top: 30%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }

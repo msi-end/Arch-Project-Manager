@@ -40,3 +40,16 @@ function removeOpen(index1){
     }
 
 
+function hideMainDropdown(event) {
+  const mainDropdown = event.target.closest(".main-dropdown");
+  if (mainDropdown) {
+    if (!mainDropdown.contains(event.target)) {
+      mainDropdown.style.display = "none";
+    }
+  }
+}
+
+const mainDropdowns = document.querySelectorAll(".main-dropdown");
+mainDropdowns.forEach(dropdown => {
+  dropdown.addEventListener("click", hideMainDropdown);
+});

@@ -29,7 +29,7 @@ document.querySelectorAll(`.assign-to`).forEach((item, index) =>{
 
 function closeSubBox() {
     const mainDrop = document.querySelector('.main-dropdown')
-    mainDrop.classList.remove('active')  
+    mainDrop.classList.remove('active') 
 }
 
 addNewSubtasks = async (param, e)=>{

@@ -62,3 +62,16 @@ subPopup = async (target)=> {
     })
 }
 
+function hideMainDropdown(event) {
+    let mainDrops = event.target.closest(".main-dropdown");
+    if (mainDrops) {
+      if (!mainDrops.contains(event.target)) {
+        mainDrops.style.display = "none";
+      }
+    }
+  }
+  
+  const mainDrop = document.querySelectorAll(".main-dropdown");
+  mainDrop.forEach(dropdown => {
+    dropdown.addEventListener("click", hideMainDropdown);
+  });
