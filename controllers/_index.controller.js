@@ -140,13 +140,23 @@ exports.insertNewMiscDeal = async (req, res) => {
                             throw err3;
                         })
                     }
-                    conn.commit(function (errC) {
-                        if (errC) {
+                    const taskTableData = [mdealId, Number(req.body.task), '30/09/2013']
+                    const qTonpSt = `insert into misc_project_subtask (mdeal_id, mstask_id, dateofdeadline) values (?, ?, ?)`
+                    conn.query(qTonpSt, taskTableData, (err4, response4)=>{
+                        if (err4) {
                             return conn.rollback(function () {
-                                throw errC;
-                            });
+                                throw err4;
+                            })  
                         }
-                        res.status(200).send("new misc deal entered successfully..😍")
+                        conn.commit(function (errC) {
+                            if (errC) {
+                                return conn.rollback(function () {
+                                    throw errC;
+                                });
+                            }
+                            res.status(200).send("new misc deal entered successfully..😍")
+                        })
+
                     })
                 })
 
@@ -181,14 +191,32 @@ exports.renderNormalProjectFinance = async (req, res) => {
 
 }
 
-exports.renderNormalProjectForm = (req, res) => {
-    res.render('../views/admin/np.form.ejs')
+exports.renderNormalProjectForm = async (req, res) => {
+    const q = `select * from mis_subtask`
+    await db.query(q, (err, results) => {
+        if (!err) {
+            res.status(200).render('../views/admin/np.form.ejs', { results })
+        } else {
+            res.status(500).send({ msg: "Some internal error has occurred !!" })
+        }
+    })
+
 }
 
 
 //---Misc project page Controll -----
-exports.renderMiscProjectDashboard = (req, res) => {
-    res.render('../views/admin/miscDash.ejs')
+exports.renderMiscProjectDashboard = async (req, res) => {
+    const q = `select single_deal.reference_no, single_deal.contact, single_deal.email, single_deal.sdeal_name, single_deal.work_name, single_deal.agreement_amount, single_deal.total_price, mis_subtask.msub_task_name,
+    misc_project_subtask.mstask_status
+    from misc_project_subtask
+    inner join single_deal on single_deal.sdid = misc_project_subtask.mdeal_id
+    inner join mis_subtask on mis_subtask.msub_task_id = misc_project_subtask.mstask_id;`
+    await db.query(q, (err, result) => {
+        if (!err) {
+            res.status(200).render('../views/admin/miscDash.ejs', { result })
+        }
+    })
+
 }
 
 exports.renderMiscProjectForm = (req, res) => {

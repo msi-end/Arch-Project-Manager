@@ -20,10 +20,10 @@
             <div class="fcontainer">
                 <!-- -----------NEW PROJECT------------ -->
                 <div class="form-header">
-                    <h4 class="uppercase">New Project</h4>
+                    <h4 class="uppercase" id="p-name">Normal Project</h4>
                     <div class="head-btns flex">
-                        <button class="uppercase green" onclick="toggleForm('normalForm')">default</button>
-                        <button class="uppercase" onclick="toggleForm('misForm')">miscellaneous</button>
+                        <button class="uppercase green" onclick="toggleForm('normalForm', this)" id="Normal Project">default</button>
+                        <button class="uppercase" onclick="toggleForm('misForm', this)" id="Misc Project">miscellaneous</button>
                     </div>
                 </div>
                 <div class="formContainer">
@@ -102,7 +102,7 @@
                     </div>
                     <!-- miscellaneous FORM  -->
                     <div class="misForm hide" id="misForm">
-                        <form action="">
+                        <form action="/admin/misc-project-create" method="post">
                             <h4><span class="uppercase">contact details</span>  (Misc)</h4>
                             <div class="fgrid">
                                 <div class="field">
@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="field">
                                     <label for="cnumber">Phone Number</label>
-                                    <input type="text" name="cnumber" id="cnumber" placeholder="number tu likhok whatsapp thaka">
+                                    <input type="text" name="contactNo" id="cnumber" placeholder="number tu likhok whatsapp thaka">
                                 </div>
                                 <div class="field">
                                     <label for="email">Email</label>
@@ -120,27 +120,34 @@
                             </div>
                             <div class="field">
                                 <label for="address">Address</label>
-                                <textarea name="address" id="address"></textarea>
+                                <textarea name="city" id="address"></textarea>
                             </div>
                             <!-- ----------------------------------------------------------- -->
-                            <h4><span class="uppercase">project details</span>  (Misc)</h4>
+                            <h4><span class="uppercase">project details</span> (Misc)</h4>
                             <div class="fgrid">
                                 <div class="field">
                                     <label for="ref">Reference No</label>
-                                    <input type="text" name="ref" id="ref">
+                                    <input type="text" name="rfNo" id="ref">
                                 </div>
                                 <div class="field">
                                     <label for="workName">Name of The Project</label>
                                     <input type="text" name="workName" id="workName">
                                 </div>
                                 <div class="field">
+                                    <label for="amount">Total Amount</label>
+                                    <input type="text" name="TotalAm" id="amount" placeholder="&#8377;">
+                                </div>
+                                <div class="field">
                                     <label for="amount">Agreement Amount</label>
-                                    <input type="text" name="amount" id="amount" placeholder="&#8377;">
+                                    <input type="text" name="agreementAm" id="amount" placeholder="&#8377;">
                                 </div>
                                 <div class="field">
                                     <label for="miswork">Types Of Work</label>
-                                    <select name="splitRatio" id="splitRatio">
-                                        <option value="1">Planning</option>
+                                    <select name="task" id="splitRatio">
+                                        <% results?.forEach((val)=>{ %>
+                                            <option value="<%= val.msub_task_id %>"><%= val.msub_task_name %></option>
+                                        <% }) %>
+                                        <!-- <option value="1">Planning</option>
                                         <option value="2">Structural</option>
                                         <option value="3">3D(Exterior)</option>
                                         <option value="4">Plumbing</option>
@@ -154,13 +161,13 @@
                                         <option value="12">Landscaping</option>
                                         <option value="13">3D Walkthrough</option>
                                         <option value="14">Art & Craft</option>
-                                        <option value="15">Supervision</option>
+                                        <option value="15">Supervision</option> -->
                                     </select>
                                 </div>
                             </div>
                             <!-- ---------- grid ends--------- -->
                             <div class="field">
-                                <button class="uppercase">submit</button>
+                                <button type="submit" class="uppercase">submit</button>
                             </div>
                         </form>
                     </div>
