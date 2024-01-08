@@ -1,0 +1,136 @@
+:root{
+    --primary-color: hsl(260, 54%, 45%);
+    --primary-bg: hsl(260, 54%, 93%);
+    --primary-bgr: hsl(260, 54%, 88%);
+}
+
+.main .mixes{
+    align-items: flex-start;
+}
+.main .miscel-task{
+    /* height: 10vh; */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: var(--border-radius-2);
+    flex-grow: 1;
+    background-color: var(--primary-bg);
+    overflow: hidden;
+}
+.main .miscel-task:hover{
+    background: var(--primary-bg);
+}
+.miscel-task .heading{
+    justify-content: space-between;
+    background: var(--primary-color);
+    padding: 12px;
+}
+.miscel-task .flexion{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.flexion p{
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--white);
+}
+.contentset.open{
+    margin-top: 0;
+}
+.contentset .btin{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 12px;
+}
+.btin input{
+    width: 100%;
+    height: 2.5rem;
+    border-radius: var(--border-radius-1);
+    /* background: ; */
+    outline: 1px solid var(--black-light);
+    padding: 0 1rem;
+    font-size: 1rem;
+    word-wrap: break-word;
+    font-weight: 500;
+}
+.btin input:hover{
+    /* background: var(--bg-2); */
+    outline: 1px solid var(--black-light-2);
+}
+.btin input:focus{
+    background: var(--bg-2);
+    outline: 2px solid var(--primary-color);
+}
+.btin button{
+    height: 2.5rem;
+    padding: 10px;
+    border-radius: var(--border-radius-1);
+    background: var(--primary-color);
+    color: var(--white);
+    font-weight: 600;
+    transition: var(--transition-2);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.btin button:hover{
+    opacity: 0.8;
+}
+.main-data .btin button svg{
+    width: 20px;
+}
+.contentset .btasks{
+    margin: 10px auto;
+    padding: 0 12px;
+    overflow: scroll;
+    height: 50vh;
+}
+.btasks ul li{
+    background: var(--primary-bgr);
+    outline: 1px solid hsl(260, 54%, 85%);
+    border-radius: var(--border-radius-1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    font-weight: 600;
+    color: var(--white);
+    position: relative;
+    color: var(--primary-color);
+    margin-top: 10px;
+}
+.btasks ul li:hover{
+    background: var(--white);
+}
+.btasks ul li span.icon{
+    width: 25px;
+    height: 25px;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    /* line-height: 20px; */
+}
+.btasks ul li:hover span.icon{
+    border: 1px solid hsl(260, 54%, 85%);
+}
+.main-data .btasks ul li span svg{
+    width: 15px;
+    fill: var(--primary-color);
+}
+.btasks ul li span.icon:hover{
+    background: var(--primary-bg);
+}
+.btasks li .icon1{
+    position: absolute;
+    right: 48px;
+    /* top: 0; */
+}
+.btasks li .ttext{
+    width: 80%;
+}

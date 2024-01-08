@@ -40,9 +40,10 @@ exports.userManager = (req, res) => {
 }
 
 exports.settings = (req, res) => {
-    const query = ``
+    const query = `select * from subtask;select * from mis_subtask;select splitvalue from amount_split`
     db.query(query, (err, result, field) => {
-        res.send(result)
+      res.status(200).render('../views/admin/settings.ejs',{data:result})
+    console.log(result);
     })
 }
 
