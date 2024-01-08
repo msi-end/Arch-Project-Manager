@@ -14,6 +14,7 @@ router.post('/projects-create', mainController.insertNewNormalDeal );
 
 //--------Misc project ejs routes-----
 router.get('/dashboard/misc', mainController.renderMiscProjectDashboard)
+router.get('/finance/misc', mainController.miscProjectFinance)
 router.post('/misc-project-create', mainController.insertNewMiscDeal)
 
 module.exports = router;

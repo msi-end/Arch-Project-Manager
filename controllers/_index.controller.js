@@ -24,7 +24,7 @@ exports.indexDeshboard = async (req, res) => {
             for (const key in grouped) { sentData.push(grouped[key][0]) }
             // res.status(200).send({data : sentData});
             // console.log(sentData)
-            res.status(200).render('../views/admin/index.ejs', { sentData })
+            res.status(200).render('../views/admin/_index.ejs', { sentData })
         }
     })
 }
@@ -42,8 +42,7 @@ exports.userManager = (req, res) => {
 exports.settings = (req, res) => {
     const query = `select * from subtask;select * from mis_subtask;select splitvalue from amount_split`
     db.query(query, (err, result, field) => {
-      res.status(200).render('../views/admin/settings.ejs',{data:result})
-    console.log(result);
+        res.status(200).render('../views/admin/settings.ejs', { data: result })
     })
 }
 
@@ -143,11 +142,11 @@ exports.insertNewMiscDeal = async (req, res) => {
                     }
                     const taskTableData = [mdealId, Number(req.body.task), '30/09/2013']
                     const qTonpSt = `insert into misc_project_subtask (mdeal_id, mstask_id, dateofdeadline) values (?, ?, ?)`
-                    conn.query(qTonpSt, taskTableData, (err4, response4)=>{
+                    conn.query(qTonpSt, taskTableData, (err4, response4) => {
                         if (err4) {
                             return conn.rollback(function () {
                                 throw err4;
-                            })  
+                            })
                         }
                         conn.commit(function (errC) {
                             if (errC) {
@@ -192,6 +191,7 @@ exports.renderNormalProjectFinance = async (req, res) => {
 
 }
 
+
 exports.renderNormalProjectForm = async (req, res) => {
     const q = `select * from mis_subtask`
     await db.query(q, (err, results) => {
@@ -219,7 +219,17 @@ exports.renderMiscProjectDashboard = async (req, res) => {
     })
 
 }
+exports.miscProjectFinance = async (req, res) => {
+    const q = ``
+    await db.query(q, (err, result) => {
+        if (!err) {
+            res.render('../views/admin/mp.finance.ejs', { data: 'adf' });
+        } else {
+            res.status(500).send({ msg: "Internal server error!!!" })
+        }
+    })
 
+}
 exports.renderMiscProjectForm = (req, res) => {
     res.render('../views/admin/normalProject.ejs')
 }
