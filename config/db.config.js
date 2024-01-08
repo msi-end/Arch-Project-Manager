@@ -3,7 +3,7 @@ let con = mysql.createPool({
     host:'localhost',
     user:'root',
     password:'',
-    port : 3307,
+//     port : 3307,
     database:'ArchDB',
     multipleStatements: true,
 })
