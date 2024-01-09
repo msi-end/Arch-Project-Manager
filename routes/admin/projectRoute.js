@@ -30,4 +30,7 @@ api.delete('/remove-emp-miscp', pmMiscAPI.removeEmployeeToMisc)
 
 api.put('/update-misctask-status', pmMiscAPI.updateMiscTaskStatus)
 
+api.get('/getProjectStatus', pmNormalAPI.getEmployListPerProject)
+
+
 module.exports = api
