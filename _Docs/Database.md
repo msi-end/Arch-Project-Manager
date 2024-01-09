@@ -1,4 +1,4 @@
-# Ebah_database
+9# Ebah_database
 
 create table adminauth(
  adm_id int primary key auto_increment,
@@ -178,7 +178,8 @@ ALTER TALBE normal_project_employee ADD npcid INT(11)
 
 CREATE TABLE empAttendance (
     id INT PRIMARY KEY auto_increment not null,
-    empName VARCHAR(100),
+    empID INT(11),
+    date VARCHAR(10),
     January CHAR(1),
     February CHAR(1),
     March CHAR(1),
@@ -191,7 +192,5 @@ CREATE TABLE empAttendance (
     October CHAR(1),
     November CHAR(1),
     December CHAR(1),
-    empID INT(11),
-    date VARCHAR(10)
 );
 
