@@ -45,6 +45,12 @@ exports.settings = (req, res) => {
         res.status(200).render('../views/admin/settings.ejs', { data: result })
     })
 }
+exports.expense = (req, res) => {
+    const query = ``
+    db.query(query, (err, result, field) => {
+        res.status(200).render('../views/admin/expense.finance.ejs', { data: 'result' })
+    })
+}
 
 
 
