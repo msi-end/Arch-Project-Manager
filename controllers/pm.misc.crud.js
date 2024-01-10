@@ -42,7 +42,7 @@ exports.updateMiscTaskStatus = async (req, res) => {
 }
 
 exports.getProjectsStaus = (req, res) => {
-  let q = 'SELECT deals.id ,normal_project_cat.project_status FROM `deals` INNER JOIN normal_project_cat on deals.id =normal_project_cat.ndeal_id GROUP BY normal_project_cat.ndeal_id;'
+  let q = 'SELECT misc_project_subtask.mdeal_id ,misc_project_subtask.mstask_status FROM `single_deal` INNER JOIN misc_project_subtask on single_deal.sdid =misc_project_subtask.mdeal_id GROUP BY misc_project_subtask.mdeal_id'
   dbcon.query(q, (err, result) => {
     if (!err) {
       res.status(200).send({ status: true, msg: 'Successfully data retrieve', data: result})
