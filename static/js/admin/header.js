@@ -58,3 +58,8 @@ if(window.innerWidth < 780){
         document.querySelector(`.searchIcon`).style.display = `block`;   
     }
 }
+
+
+function openProfile(){
+    document.querySelector(`.profile-log-out`).classList.toggle(`hide`);
+}

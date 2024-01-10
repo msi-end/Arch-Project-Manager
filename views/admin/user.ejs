@@ -86,25 +86,26 @@
 
                     <hr>
                     <!-- --------------User 1--------------------------  -->
-                    <div class="user-list flex">
+                    <% data.forEach(user=>{ %>
+                    <div class="user-list flex" data-id="<%= user.em_id  %>">
                         <div class="user-profile flex">
                             <div class="user-img flex">
-                                <img src="/static/img/avatar12.jpg" alt="profile" class="green">
+                                <img src="/img/employee.jpg" alt="profile" class="green">
                             </div>
                             <div class="user-details">
-                                <p class="username">Panchanan Deka</p>
-                                <p class="userdesignation">Software Developer</p>
+                                <p class="username"><%= user.name %></p>
+                                <p class="userdesignation"><%= user.job_role  %></p>
                             </div>
                         </div>
                         <!-- -------------------  -->
                         <div class="user-contact-info">
                             <div class="user-phone">
                                 <p class="usphone">Phone</p>
-                                <p class="uphone">+91 6000192289</p>
+                                <p class="uphone"><%= user.number==''?'N/A':user.number %></p>
                             </div>
                             <div class="user-email">
                                 <p class="usemail">Email</p>
-                                <p class="uemail">panchanandeka1596@gmail.com</p>
+                                <p class="uemail"><%= user.email  %></p>
                             </div>
                         </div>
                         <!-- ----------------------------------  -->
@@ -115,15 +116,15 @@
                         <!-- ---------------------------------  -->
                         <div class="data-status">
                             <p class="log">Last Login</p>
-                            <p class="data-log">2023-12-23 15:57:51</p>
+                            <p class="data-log"><%= user.lastLoginAt  %></p>
                             <p class="log">Last Logout</p>
-                            <p class="data-log">2023-12-23 15:57:51</p>
+                            <p class="data-log"><%= user.lastLogoutAt  %></p>
                         </div>
                         <!-- ---------------------------------  -->
                         <div class="user-status">
                             <p class="urstatus">Status</p>
                             <!-- <p class="ustatus green"><span>Online</span></p> -->
-                            <p class="ustatus red"><span>Offline</span></p>
+                            <p class="ustatus red"><span><%= user.status %></span></p>
                         </div>
                         <div class="user-edit">
                             <a class="uicon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="pen">
@@ -135,6 +136,8 @@
                         </div>
                     </div>
                     <hr>
+           <%     }) %>
+
                     <!-- ----------------------------------------------  -->
 
 
@@ -293,9 +296,7 @@
     <script src="/js/admin/main.js"></script>
     <script src="/js/admin/user.js"></script>
     <script src="../../js/admin/header.js"></script>
-    <script src="../../js/admin/common.js"></script>
-    <script src="../../js/admin/dashboard.render.js"></script>
-    <script src="../../js/admin/dashboard.js"></script>
+ 
 </body>
 
 </html>

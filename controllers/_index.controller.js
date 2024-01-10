@@ -35,12 +35,13 @@ exports.userManager = (req, res) => {
       INNER JOIN normal_project_employee ON employee.em_id = normal_project_employee.emid
       GROUP BY normal_project_employee.emid;`
     db.query(query, (err, result, field) => {
-        res.status(200).render('../views/admin/user.ejs')
+        res.status(200).render('../views/admin/user.ejs', {data: result })
+        // res.send(result)
     })
 }
 
 exports.settings = (req, res) => {
-    const query = `select * from subtask;select * from mis_subtask;select splitvalue from amount_split`
+    const query = `select * from subtask;select * from mis_subtask;select * from amount_split`
     db.query(query, (err, result, field) => {
         res.status(200).render('../views/admin/settings.ejs', { data: result })
     })
