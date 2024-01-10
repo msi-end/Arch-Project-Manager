@@ -225,6 +225,31 @@ header{
     position: relative;
     z-index: 30;
 }
+
+.account-settings{
+    position: absolute;
+    right: 1rem;
+    top: 6rem;
+    width: 150px;
+    background: var(--white);
+    height: 3rem;
+    border-radius: var(--border-radius-2);
+    font-size: 14px;
+    padding-left: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding-top: 11px;
+}
+.account-settings svg{
+    fill: var(--black);
+}
+.account-settings:hover{
+    color: var(--primary-color);
+    background: var(--bg-color);
+}
+.account-settings:hover svg{
+    fill: var(--primary-color);
+}
 /* ---ASIDE MENU---- */
 aside{
     z-index: inherit;

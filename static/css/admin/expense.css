@@ -1,0 +1,203 @@
+.expensebox{
+    margin-top: 1rem;
+    background: var(--white);
+    border-radius: var(--border-radius-2);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+.expenseheader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+}
+.expensebox hr{
+    border-width: 0px 0px thin;
+    border-style: solid;
+    border-color: rgb(227, 232, 239);
+}
+.expenseheader button{
+    padding: 8px;
+    border-radius: var(--border-radius-1);
+    background: var(--primary-color);
+    color: var(--white);
+    font-weight: 600;
+    transition: var(--transition-2);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.expenseheader button:hover {
+    opacity: 0.8;
+}
+
+.expenseheader button svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--white);
+}
+
+/* -------EXPENSE LIST-------- */
+.expense-page{
+    margin: 0.5rem auto;
+    height: 50vh;
+    overflow-y: scroll;
+}
+.expense-list{
+    gap: 5rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 1rem;
+    transition: var(--animation-1);
+}
+.expense-list:hover{
+    background: var(--bg-3);
+    cursor: pointer;
+}
+.expense-list div p:first-child{
+    color: var(--grey);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.75;
+}
+.expense-list div p:not(:first-child){
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--designation-color);
+}
+.expense-edit{
+    height: 25px;
+    width: 25px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 300ms ease-out;
+    overflow: hidden;
+    outline: 1px solid hsl(260, 92%, 95%);
+}
+.expense-edit svg{
+    fill: var(--primary-color);
+    width: 13px;
+    display: inline-block;
+    margin-left: 6px;
+}
+.expense-edit:hover{
+    background: hsl(260, 92%, 90%);
+    width: 65px;
+}
+.expense-edit:hover svg{
+    margin-left: 0px;
+    fill: var(--white);
+}
+.expense-edit:hover a.eicon{
+    background: var(--primary-color);
+}
+.expense-edit a.eicon{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.expense-edit span.edit{
+    /* display: inline-block; */
+    font-weight: 500;
+    font-size: 13px;
+    margin-left: 5px;
+    color: var(--primary-color);
+}
+.expense-pagination{
+    margin-top: 1rem;
+}
+.expense-pagination .pages ul{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+/* --------------ADD EXPENSE MODAL-------- */
+.addexpense{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    height: 100vh;
+    background: var(--black-light);
+}
+.expense-addition-box{
+    max-width: 450px;
+    width: 100%;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-40%,-50%);
+    background: var(--white);
+    padding: 1rem;
+    border-radius: var(--border-radius-1);
+}
+.expense-addition-box p:first-child{
+    font-weight: 500;
+}
+.expense-addition-box .flex{
+    margin-top: 1rem;
+}
+.expense-addition-box .flex :is(input, select){
+    width: 100%;
+    height: 2.5rem;
+    border-radius: var(--border-radius-1);
+    background: var(--bg-2);
+    outline: 1px solid var(--black-light);
+    animation: var(--animation-1);
+    padding: 0 1rem;
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.expense-addition-box button{
+    padding: 12px;
+    border-radius: var(--border-radius-1);
+    font-size: 16px;
+    font-weight: 700;
+    transition: var(--transition-2);
+    margin-top: 1rem;
+    width: 100%;
+    background: var(--secondary-color);
+    color: var(--white);
+}
+.expense-addition-box button:hover{
+    opacity: 0.8;
+}
+.expense-addition-box p.head{
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+.expense-addition-box hr{
+    border-width: 0px 0px thin;
+    border-style: solid;
+    border-color: rgb(227, 232, 239);
+    margin: 10px auto;
+}
+
+
+
+@media screen and (max-width:768px) {
+    .expensebox{
+        padding: 10px;
+    }
+    .expense-addition-box{
+        left: 40%;
+    }
+    .expense-list{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}

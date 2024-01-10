@@ -1,5 +1,4 @@
-const { log } = require('winston')
-const databaseCon = require('../config/db.config')
+const databaseCon = require('../config/db.config.js')
 
 //-------normal project employee-------------------
 
@@ -157,11 +156,11 @@ exports.deleteTask = async (req, res) => {
   })
 }
 
-exports.getProjectsStaus = () => {
+exports.getProjectsStaus = (req, res) => {
   let q = 'SELECT deals.id ,normal_project_cat.project_status FROM `deals` INNER JOIN normal_project_cat on deals.id =normal_project_cat.ndeal_id GROUP BY normal_project_cat.ndeal_id;'
   databaseCon.query(q, (err, result) => {
     if (!err) {
-      res.status(200).send({ status: true, msg: 'Successfully data retrieve', data: results })
+      res.status(200).send({ status: true, msg: 'Successfully data retrieve', data: result })
 
     } else {res.status(500).send({ status: false, msg: "Internal error occurs!" });
   }

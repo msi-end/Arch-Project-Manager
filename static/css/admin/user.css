@@ -1,10 +1,15 @@
-:root{
+:root {
     --designation-color: rgb(105, 117, 134);
+}
+
+.ucontainer {
+    position: relative;
 }
 
 .userContainer,
 .userform,
-.userbox {
+.userbox,
+.user-profile-settings {
     background: var(--white);
     border-radius: var(--border-radius-2);
     padding: 1rem;
@@ -44,8 +49,25 @@
 }
 
 /* forms  */
-.userform {
+.usform,
+.uprofile-settings {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    z-index: 10;
+    height: 100vh;
+    background: var(--black-light);
+}
+
+.userform,
+.user-profile-settings {
+    width: 97%;
+    position: absolute;
+    top: 3rem;
+    right: 1rem;
+    left: 1rem;
+    /* z-index: -1; */
 }
 
 .userform form h4 {
@@ -59,19 +81,20 @@
     gap: 10px;
 }
 
-.userform form .field {
+:is(.userform form, .profile-details .profile-grid) .field {
     width: 100%;
     display: flex;
     flex-direction: column;
     margin-top: 10px;
 }
 
-.userform form .field label {
-    font-size: 15px;
+:is(.userform form, .profile-details .profile-grid) .field label {
+    font-size: 13px;
     font-weight: 500;
+    color: var(--grey);
 }
 
-.userform form .field input {
+:is(.userform form, .profile-details .profile-grid) .field input {
     width: 100%;
     height: 3rem;
     border-radius: var(--border-radius-1);
@@ -85,15 +108,15 @@
     font-weight: 500;
 }
 
-.userform form .field input:hover {
+:is(.userform form, .profile-details .profile-grid) .field input:hover {
     outline: 1px solid var(--black-light-2);
 }
 
-.userform form .field input:focus {
-    outline: 2px solid var(--primary-color);
+:is(.userform form, .profile-details .profile-grid) .field input:focus {
+    outline: 2px solid var(--secondary-color);
 }
 
-.user-btns button {
+:is(.user-btns, .profile-details .profile-grid) button {
     padding: 12px;
     border-radius: var(--border-radius-1);
     font-size: 16px;
@@ -125,12 +148,14 @@
 
 
 /* profiles */
-.userbox{
+.userbox {
     padding: 0;
 }
-.userheader{
+
+.userheader {
     padding: 1rem;
 }
+
 .usersearch {
     width: 200px;
     position: relative;
@@ -163,75 +188,92 @@
     left: 10px;
 }
 
-.userbox hr {
+:is(.userbox, .user-profile-settings) hr {
     border-width: 0px 0px thin;
     border-style: solid;
     border-color: rgb(227, 232, 239);
 }
 
 /* users */
-.user-list{
+.user-list {
     /* gap: 5rem; */
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 1rem 2rem;
     transition: var(--animation-1);
 }
-.user-list:hover{
+
+.user-list:hover {
     background: var(--bg-3);
     cursor: pointer;
 }
-.user-img img{
+
+.user-img img {
     width: 40px;
 }
-.user-img img.green{
+
+.user-img img.green {
     outline: 3px solid var(--green);
 }
-.user-img img.red{
+
+.user-img img.red {
     outline: 3px solid var(--ter-dark-color);
 }
-.user-details :nth-child(1){
+
+.user-details :nth-child(1) {
     font-weight: 500;
     font-size: 14px;
     line-height: 1.75;
     color: var(--black);
 }
-.user-profile :nth-child(2){
+
+.user-profile :nth-child(2) {
     font-size: 12px;
     color: var(--designation-color);
 }
-:is(.user-contact-info, .user-attendance) p{
+
+:is(.user-contact-info, .user-attendance) p ,.data-status .data-log{
     font-size: 12px;
 }
-:is(.user-phone, .user-email, .user-attendance) :nth-child(1){
+
+:is(.user-phone, .user-email, .user-attendance) :nth-child(1) {
     font-weight: 400;
     line-height: 1.66;
     color: var(--designation-color);
 }
-:is(.user-phone, .user-email, .user-attendance) :nth-child(2){
+
+:is(.user-phone, .user-email, .user-attendance) :nth-child(2) {
     font-weight: 500;
     line-height: 1.6;
 }
-:is(.user-status,.user-work) p{
+.data-status .data-log{
+    font-weight: 500;
+    line-height: 1.6;
+}
+:is(.user-status) p,
+.profile-status .ustatus {
     /* display: inline-block; */
     padding: 5px 10px;
     border-radius: 20px;
 }
-:is(.user-status,.user-work) p.green{
+
+:is(.user-status, .profile-status) p.green {
     background: var(--green-light);
     color: var(--green);
 }
-:is(.user-status,.user-work) p.red{
+
+:is(.user-status, .profile-status) p.red {
     background: var(--ter-light-color);
     color: var(--ter-dark-color);
 }
 
-:is(.user-status,.user-work) p span{
+:is(.user-status, .profile-status) p span {
     font-size: 12px;
     font-weight: 500;
     display: flex;
 }
-.user-work .uwork{
+
+.data-status .log {
     display: inline-block;
     padding: 0;
     font-size: 12px;
@@ -239,46 +281,247 @@
     line-height: 2.5;
     color: var(--designation-color);
 }
-.user-status .urstatus{
+
+:is(.user-status) .urstatus {
     font-size: 12px;
     color: var(--designation-color);
-    line-height: 2.5;
     font-weight: 500;
 }
+
+:is(.profile-status, .profile-log-out, .profile-log-in) p:first-child {
+    font-weight: 600;
+    font-size: 14px;
+}
+:is(.profile-log-out, .profile-log-in) p:last-child {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--primary-color);
+}
+.user-edit{
+    height: 25px;
+    width: 25px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 300ms ease-out;
+    overflow: hidden;
+    outline: 1px solid hsl(260, 92%, 95%);
+}
+.user-edit svg{
+    fill: var(--primary-color);
+    width: 13px;
+    display: inline-block;
+    margin-left: 6px;
+}
+.user-edit:hover{
+    background: hsl(260, 92%, 90%);
+    width: 65px;
+}
+.user-edit:hover svg{
+    margin-left: 0px;
+    fill: var(--white);
+}
+.user-edit:hover a.uicon{
+    background: var(--primary-color);
+}
+.user-edit a.uicon{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.user-edit span.edit{
+    /* display: inline-block; */
+    font-weight: 500;
+    font-size: 13px;
+    margin-left: 5px;
+    color: var(--primary-color);
+}
 /* --------------PAGINATION---------------------- */
-.user-pagination{
+.user-pagination {
     padding: 1rem;
 }
-.user-pagination ul{
+
+.user-pagination ul {
     display: flex;
     align-items: center;
 }
-.user-pagination ul li{
+
+.user-pagination ul li {
     border-radius: 50%;
     color: var(--secondary-color);
     background: var(--sec-light-color);
 }
-.user-pagination ul li svg{
+
+.user-pagination ul li svg {
     fill: var(--secondary-color);
 }
-.user-pagination li:is(.active, :hover){
+
+.user-pagination li:is(.active, :hover) {
     background: var(--secondary-color);
     color: var(--white);
 }
-.user-pagination li:is(.active, :hover) svg{
+
+.user-pagination li:is(.active, :hover) svg {
     fill: var(--white);
 }
 
+/* ------------USER POPUP-------------- */
+.user-profile-settings .userheader button{
+    padding: 7px 12px;
+    font-weight: 600;
+    border-radius: var(--border-radius-1);
+    background: var(--green);
+    color: var(--white);
+}
+.user-profile-settings .userheader button:hover{
+    background: hsl(160, 100%, 39%);
+}
+.user-profile-settings .flex-box {
+    margin-top: 1rem;
+}
 
+.user-profile-settings .flex-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    /* flex-wrap: wrap; */
+}
+.profile-details .profile-img{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.profile-img img {
+    width: 50px;
+}
+.profile-img button{
+    padding: 5px 12px;
+    font-weight: 500;
+    border-radius: var(--border-radius-1);
+    border: 1px solid var(--secondary-color);
+    background: transparent;
+    color: var(--secondary-color);
+}
+.profile-img button:hover{
+    background: hsl(206, 28%, 95%);
+}
+.profile-details .profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
 
+.flex-box .profile-details,
+.profile-project-details {
+    flex: 1;
+    width: 100%;
+}
 
+.profile-status,
+.profile-log-out,
+.profile-log-in {
+    margin-top: 1rem;
+    justify-content: space-between;
+}
 
-
-
-
-
-
-
+.profile-project-details .profile-main{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.profile-main .profile-main-project{
+    display: flex;
+    align-items: center;
+    /* gap: 5px; */
+}
+.profile-main .profile-main-project p:first-child{
+    font-weight: 600;
+    /* font-size: 16px; */
+}
+.profile-main .profile-main-project p:last-child span{
+    /* display: block; */
+    font-size: 15px;
+    font-weight: 500;
+}
+.profile-main .profile-main-project p.primary{
+    padding: 5px;
+    border-radius: var(--border-radius-1);
+    color: var(--primary-color);
+    cursor: pointer;
+}
+.profile-main .profile-main-project p.primary:hover{
+    background: var(--primary-light-color);
+}
+.profile-main .profile-main-project p.blue{
+    padding: 5px;
+    border-radius: var(--border-radius-1);
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+.profile-main .profile-main-project p.blue:hover{
+    background: var(--sec-light-color);
+}
+.profile-main .profile-main-project p.red{
+    padding: 5px;
+    border-radius: var(--border-radius-1);
+    color: var(--tertiary-color);
+    cursor: pointer;
+}
+.profile-main .profile-main-project p.red:hover{
+    background: var(--ter-light-color);
+}
+.profile-project-menu{
+    margin-top: 1rem;
+    outline: 1px solid var(--primary-light-color);
+    padding: 1rem;
+    border-radius: var(--border-radius-1);
+}
+.profile-project-menu p.uppercase{
+    font-weight: 600;
+}
+.profile-project-menu hr.line{
+    /* margin-bottom: 1rem; */
+    margin-top: 1rem;
+}
+.profile-project-menu .project-column{
+    overflow: scroll;
+    height: 40vh;
+    cursor: pointer;
+}
+.project-column p{
+    padding: 10px 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.project-column p:hover{
+    background: var(--sec-light-color);
+}
+.project-column p span:first-child{
+    font-size: 14px;
+    display: inline-block;
+    width: 80%;
+}
+.project-column p span:last-child{
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+.project-column p span.green{
+    background: var(--green-light);
+    color: var(--green);
+}
+.project-column p span.red{
+    background: var(--ter-light-color);
+    color: var(--ter-dark-color);
+}
 
 
 @media only screen and (max-width : 768px) {
@@ -287,14 +530,65 @@
         gap: 0;
     }
 
+    .userform{
+        width: 90%;
+    }
+
     .main .ucontainer {
         padding: 10px;
     }
-    .user-list{
+
+    .user-list {
         flex-direction: column;
         align-items: flex-start;
+        position: relative;
     }
-    .user-status{
+
+    .user-status {
+        /* display: none; */
+        position: absolute;
+        top: 1.6rem;
+        right: 1rem;
+    }
+    .user-status .urstatus{
         display: none;
+    }
+    .user-edit{
+        position: absolute;
+        bottom: 1.6rem;
+        right: 1rem;
+    }
+    .user-list{
+        gap: 0.5rem;
+    }
+    .uprofile-settings{
+        height: 155vh;
+    }
+    .user-profile-settings{
+        width: 95%;
+        right: 0.5rem;
+        left: 0.5rem;
+    }
+    .user-profile-settings .flex-box{
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile-details .profile-grid{
+        grid-template-columns: 1fr;
+        gap: 0px;
+    }
+    .profile-grid .field{
+        display: inline-block;
+
+    }
+    .profile-project-details .profile-main{
+        flex-direction: column;
+        /* justify-content: unset; */
+        align-items: flex-start;
+    }
+    .profile-main .profile-main-project{
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        width: 100%;
     }
 }

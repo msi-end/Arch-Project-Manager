@@ -19,6 +19,8 @@ api.delete('/delete-subtask', pmNormalAPI.deleteSubtask)
 api.put('/update-task-status', pmNormalAPI.updatetaskStatus)
 api.delete('/delete-task', pmNormalAPI.deleteTask)
 
+api.get('/ngetProjectStatus', pmNormalAPI.getProjectsStaus)
+
 
 
 //=================MISC PROJECT ROUTE============================
@@ -30,7 +32,7 @@ api.delete('/remove-emp-miscp', pmMiscAPI.removeEmployeeToMisc)
 
 api.put('/update-misctask-status', pmMiscAPI.updateMiscTaskStatus)
 
-api.get('/getProjectStatus', pmNormalAPI.getEmployListPerProject)
+api.get('/mgetProjectStatus', pmMiscAPI.getProjectsStaus)
 
 
 module.exports = api

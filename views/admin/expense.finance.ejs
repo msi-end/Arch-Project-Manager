@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="../../css/admin/header.css">
     <link rel="stylesheet" href="../../css/admin/responsive.css">
     <link rel="stylesheet" href="../../css/admin/np.finance.css">
+    <link rel="stylesheet" href="../../css/admin/expense.css">
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../js/admin/dashboard.module.js"></script>
 </head>
@@ -18,10 +20,168 @@
 <body>
     <%- include('../partials/admin.header.ejs') %>
         <!-- MAIN SECTION STARTS HERE  -->
-     
+        <main class="main">
+            <!------------- EXPENSES-OVERALL-------------  -->
+            <div class="main-data flex">
+                <!-- -------TOTAL AMOUNT--------- -->
+                <div class="total-amount flex data ">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
+                        <path fill="##000000"
+                            d="M20,1H4A3,3,0,0,0,1,4V20a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V4A3,3,0,0,0,20,1ZM8,21H4a1,1,0,0,1-1-1V18.82A3,3,0,0,0,4,19H8Zm0-4H4a1,1,0,0,1-1-1V14.82A3,3,0,0,0,4,15H8Zm0-4H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H8Zm6,8H10V15h4Zm0-8H10V3h4Zm7,7a1,1,0,0,1-1,1H16V19h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V15h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V3h4a1,1,0,0,1,1,1ZM18,7a1,1,0,1,0,1,1A1,1,0,0,0,18,7ZM6,9A1,1,0,1,0,5,8,1,1,0,0,0,6,9Z">
+                        </path>
+                    </svg>
+                    <div class="total_user_data">
+                        <p class="size">&#8377;<span>5,00,000</span>/-</p>
+                        <p class="text">Total Amount</p>
+                    </div>
+                </div>
+                <!-- ---------------AMOUNT IN BANK ------------ -->
+                <div class="amount_in-bank flex data">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
+                        <path fill="##000000"
+                            d="M20,1H4A3,3,0,0,0,1,4V20a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V4A3,3,0,0,0,20,1ZM8,21H4a1,1,0,0,1-1-1V18.82A3,3,0,0,0,4,19H8Zm0-4H4a1,1,0,0,1-1-1V14.82A3,3,0,0,0,4,15H8Zm0-4H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H8Zm6,8H10V15h4Zm0-8H10V3h4Zm7,7a1,1,0,0,1-1,1H16V19h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V15h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V3h4a1,1,0,0,1,1,1ZM18,7a1,1,0,1,0,1,1A1,1,0,0,0,18,7ZM6,9A1,1,0,1,0,5,8,1,1,0,0,0,6,9Z">
+                        </path>
+                    </svg>
+                    <div class="total_user_data">
+                        <p class="size">&#8377;<span>2,00,000</span>/-</p>
+                        <p class="text">Cash in Hand</p>
+                    </div>
+                </div>
+                <!-- ---------CASH IN HAND----------- -->
+                <div class="cash_in-hand flex data">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
+                        <path fill="##000000"
+                            d="M20,1H4A3,3,0,0,0,1,4V20a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V4A3,3,0,0,0,20,1ZM8,21H4a1,1,0,0,1-1-1V18.82A3,3,0,0,0,4,19H8Zm0-4H4a1,1,0,0,1-1-1V14.82A3,3,0,0,0,4,15H8Zm0-4H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H8Zm6,8H10V15h4Zm0-8H10V3h4Zm7,7a1,1,0,0,1-1,1H16V19h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V15h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V3h4a1,1,0,0,1,1,1ZM18,7a1,1,0,1,0,1,1A1,1,0,0,0,18,7ZM6,9A1,1,0,1,0,5,8,1,1,0,0,0,6,9Z">
+                        </path>
+                    </svg>
+                    <div class="total_user_data">
+                        <p class="size">&#8377;<span>3,00,000</span>/-</p>
+                        <p class="text">Amount in Bank</p>
+                    </div>
+                </div>
+            </div>
 
+            <!-- ----------- EXPENSES TABLE----------- -->
+            <div class="expensebox">
+                <div class="expenseheader">
+                    <h4 class="uppercase">expenses</h4>
+                    <button class="uppercase">
+                        <span>Add expense</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="plus-circle">
+                            <path fill="##000000"
+                                d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H13V8a1,1,0,0,0-2,0v3H8a1,1,0,0,0,0,2h3v3a1,1,0,0,0,2,0V13h3a1,1,0,0,0,0-2Z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
 
+                <hr>
+                <div class="expense-page">
+                    <!-- --------------Expense 1--------------------------  -->
+                    <div class="expense-list flex">
+                        <div class="expense-ref">
+                            <p class="uppercase exp-ref">Ref. no.</p>
+                            <p class="exp-refn">1</p>
+                        </div>
+                        <!-- -------------------  -->
+                        <div class="expense-name">
+                            <p class="uppercase exp-name">expense name</p>
+                            <p class="exp-name-data">Russian</p>
+                        </div>
+                        <!-- ----------------------------------  -->
+                        <div class="expense-amount">
+                            <p class="uppercase exp-amo">Amount</p>
+                            <p class="exp-amo-data">&#8377; <span>6,000</span></p>
+                        </div>
+                        <!-- ----------------------------------  -->
+                        <div class="expense-date">
+                            <p class="uppercase exp-date">date</p>
+                            <p class="exp-date-data">19/06/08</p>
+                        </div>
+                        <!-- ----------------------------------  -->
+                        <div class="expense-mode">
+                            <p class="uppercase exp-mode">mode of payment</p>
+                            <p class="exp-mode-data">Cash</p>
+                        </div>
+                        <!-- ---------------------------------  -->
+                        <div class="expense-remarks">
+                            <p class="uppercase exp-rem">remarks</p>
+                            <p class="exp-rem-content">Panchanan gave me &#8377; 6000</p>
+                            <!-- <p class="exp-rem-content">Mohibul gave me &#8377; 6000</p>
+                            <p class="exp-rem-content">Mintu gave me &#8377; 6000</p> -->
+                        </div>
+                        <!-- ---------------------------------  -->
+                        <div class="expense-edit">
+                            <a class="eicon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="pen">
+                                    <path fill="##000000"
+                                        d="M22,7.24a1,1,0,0,0-.29-.71L17.47,2.29A1,1,0,0,0,16.76,2a1,1,0,0,0-.71.29L13.22,5.12h0L2.29,16.05a1,1,0,0,0-.29.71V21a1,1,0,0,0,1,1H7.24A1,1,0,0,0,8,21.71L18.87,10.78h0L21.71,8a1.19,1.19,0,0,0,.22-.33,1,1,0,0,0,0-.24.7.7,0,0,0,0-.14ZM6.83,20H4V17.17l9.93-9.93,2.83,2.83ZM18.17,8.66,15.34,5.83l1.42-1.41,2.82,2.82Z">
+                                    </path>
+                                </svg></a>
+                            <span class="edit">Edit</span>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- ----------------------------------------------  -->
+                <hr>
 
+                <div class="expense-pagination">
+                    <div class="pages">
+                        <ul>
+                            <li>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-left"
+                                    class="svg">
+                                    <path fill="##000000"
+                                        d="M11.46,8.29a1,1,0,0,0-1.42,0l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L9.16,12l2.3-2.29A1,1,0,0,0,11.46,8.29ZM14.66,12,17,9.71a1,1,0,0,0-1.42-1.42l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
+                                    </path>
+                                </svg>
+                            </li>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>...</li>
+                            <li>10</li>
+                            <li>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-right"
+                                    class="svg">
+                                    <path fill="##000000"
+                                        d="M8.46,8.29A1,1,0,1,0,7,9.71L9.34,12,7,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3a1,1,0,0,0,0-1.42Zm8.5,3-3-3a1,1,0,0,0-1.42,1.42L14.84,12l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3A1,1,0,0,0,17,11.29Z">
+                                    </path>
+                                </svg>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- --------ADD AN EXPENSE-----------  -->
+            <div class="addexpense hide">
+                <div class="expense-addition-box">
+                    <p class="uppercase head">Expense</p>
+                    <hr>
+                    <div class="flex">
+                        <p class="uppercase">amount</p>
+                        <input type="text" name="" id="">
+                    </div>
+                    <div class="flex">
+                        <p class="uppercase">payment mode</p>
+                        <select name="" id="">
+                            <option value="">Cash</option>
+                            <option value="">Online</option>
+                        </select>
+                    </div>
+                    <div class="flex">
+                        <p class="uppercase">Date of payment</p>
+                        <input type="date" name="" id="">
+                    </div>
+                    <div class="flex">
+                        <p class="uppercase">remarks</p>
+                        <input type="text" name="" id="">
+                    </div>
+                    <button class="uppercase">update</button>
+                </div>
+            </div>
+        </main>
     </section>
 
 

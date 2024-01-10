@@ -1,13 +1,14 @@
-:root{
+:root {
     --primary-color: hsl(260, 54%, 45%);
     --primary-bg: hsl(260, 54%, 93%);
     --primary-bgr: hsl(260, 54%, 88%);
 }
 
-.main .mixes{
+.main .mixes {
     align-items: flex-start;
 }
-.main .miscel-task{
+
+.main .miscel-task {
     /* height: 10vh; */
     display: flex;
     justify-content: center;
@@ -17,36 +18,43 @@
     background-color: var(--primary-bg);
     overflow: hidden;
 }
-.main .miscel-task:hover{
+
+.main .miscel-task:hover {
     background: var(--primary-bg);
 }
-.miscel-task .heading{
+
+.miscel-task .heading {
     justify-content: space-between;
     background: var(--primary-color);
     padding: 12px;
 }
-.miscel-task .flexion{
+
+.miscel-task .flexion {
     display: flex;
     align-items: center;
     gap: 8px;
 }
-.flexion p{
+
+.flexion p {
     font-size: 1.1rem;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--white);
 }
-.contentset.open{
+
+.contentset.open {
     margin-top: 0;
 }
-.contentset .btin{
+
+.contentset .btin {
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 0 12px;
 }
-.btin input{
+
+.btin input {
     width: 100%;
     height: 2.5rem;
     border-radius: var(--border-radius-1);
@@ -57,15 +65,18 @@
     word-wrap: break-word;
     font-weight: 500;
 }
-.btin input:hover{
+
+.btin input:hover {
     /* background: var(--bg-2); */
     outline: 1px solid var(--black-light-2);
 }
-.btin input:focus{
+
+.btin input:focus {
     background: var(--bg-2);
     outline: 2px solid var(--primary-color);
 }
-.btin button{
+
+.btin button {
     height: 2.5rem;
     padding: 10px;
     border-radius: var(--border-radius-1);
@@ -77,19 +88,23 @@
     align-items: center;
     gap: 5px;
 }
-.btin button:hover{
+
+.btin button:hover {
     opacity: 0.8;
 }
-.main-data .btin button svg{
+
+.main-data .btin button svg {
     width: 20px;
 }
-.contentset .btasks{
+
+.contentset .btasks {
     margin: 10px auto;
     padding: 0 12px;
     overflow: scroll;
     height: 50vh;
 }
-.btasks ul li{
+
+.btasks ul li {
     background: var(--primary-bgr);
     outline: 1px solid hsl(260, 54%, 85%);
     border-radius: var(--border-radius-1);
@@ -103,10 +118,12 @@
     color: var(--primary-color);
     margin-top: 10px;
 }
-.btasks ul li:hover{
+
+.btasks ul li:hover {
     background: var(--white);
 }
-.btasks ul li span.icon{
+
+.btasks ul li span.icon {
     width: 25px;
     height: 25px;
     background: var(--white);
@@ -116,21 +133,110 @@
     border-radius: 50%;
     /* line-height: 20px; */
 }
-.btasks ul li:hover span.icon{
+
+.btasks ul li:hover span.icon {
     border: 1px solid hsl(260, 54%, 85%);
 }
-.main-data .btasks ul li span svg{
+
+.main-data .btasks ul li span svg {
     width: 15px;
     fill: var(--primary-color);
 }
-.btasks ul li span.icon:hover{
+
+.btasks ul li span.icon:hover {
     background: var(--primary-bg);
 }
-.btasks li .icon1{
+
+.btasks li .icon1 {
     position: absolute;
     right: 48px;
     /* top: 0; */
 }
-.btasks li .ttext{
+
+.btasks li .ttext {
     width: 80%;
+}
+
+.modal {
+    position: absolute;
+    background: var(--black-light);
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 20;
+    height: 90vh;
+}
+.modal-window{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: var(--border-radius-2);
+    background: var(--white);
+    overflow: hidden;
+    padding: 2rem;
+    width: 90%;
+}
+.modal-window .field{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+.modal-window .field label{
+    /* font-size: 13px; */
+    font-weight: 600;
+    color: var(--secondary-color);
+    text-align: center;
+}
+.modal-window .field input{
+    margin-top: 1rem;
+    width: 100%;
+    height: 3rem;
+    border-radius: var(--border-radius-1);
+    background: var(--bg-2);
+    outline: 1px solid var(--black-light);
+    animation: var(--animation-1);
+    padding: 0 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.modal-window .field input:hover{
+    outline: 1px solid var(--black-light-2);
+}
+
+.modal-window .field input:focus{
+    outline: 2px solid var(--secondary-color);
+}
+.modal-btn{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.modal-btn button{
+    flex: 1;
+    width: 100%;
+    padding: 12px;
+    border-radius: var(--border-radius-1);
+    font-size: 16px;
+    font-weight: 700;
+    transition: var(--transition-2);
+}
+.modal-btn :nth-child(1){
+    background: var(--green-light);
+    color: var(--green);
+}
+.modal-btn :nth-child(1):hover{
+    color: var(--white);
+    background: var(--green);
+    opacity: 0.8;
+}
+.modal-btn :nth-child(2){
+    background: var(--ter-light-color);
+    color: var(--ter-dark-color);
+}
+.modal-btn :nth-child(2):hover{
+    color: var(--white);
+    background: var(--tertiary-color);
+    opacity: 0.8;
 }

@@ -34,30 +34,40 @@
                 </div>
 
                 <!-- -------------------User form--------------------------- -->
-                <div class="userform hide">
-                    <form action="">
-                        <h4 class="uppercase">User details</h4>
-                        <div class="ugrid">
-                            <div class="field">
-                                <label for="name">Name</label>
-                                <input type="text" name="name" id="name" placeholder="Name">
+                <div class="usform hide">
+                    <div class="userform">
+                        <form action="">
+                            <h4 class="uppercase">User details</h4>
+                            <div class="ugrid">
+                                <div class="field">
+                                    <label for="name">Name</label>
+                                    <input type="text" name="name" id="name" placeholder="Name">
+                                </div>
+                                <div class="field">
+                                    <label for="cnumber">Phone Number</label>
+                                    <input type="text" name="cnumber" id="cnumber" placeholder="Number">
+                                </div>
+                                <div class="field">
+                                    <label for="email">Email</label>
+                                    <input type="text" name="email" id="email" placeholder="Email">
+                                </div>
+                                <div class="field">
+                                    <label for="email">Designation</label>
+                                    <input type="text" name="designation" id="designation" placeholder="Designation">
+                                </div>
+                                <div class="field">
+                                    <label for="email">Password</label>
+                                    <input type="text" name="password" id="password" placeholder="Password">
+                                </div>
                             </div>
-                            <div class="field">
-                                <label for="cnumber">Phone Number</label>
-                                <input type="text" name="cnumber" id="cnumber" placeholder="Number">
+                            <!-- ------button---- -->
+                            <div class="user-btns">
+                                <button class="uppercase" onclick="useraction()">submit</button>
+                                <button class="uppercase" onclick="useraction()">cancel</button>
                             </div>
-                            <div class="field">
-                                <label for="email">Email</label>
-                                <input type="text" name="email" id="email" placeholder="email">
-                            </div>
-                        </div>
-                        <!-- ------button---- -->
-                        <div class="user-btns">
-                            <button class="uppercase" onclick="useraction()">submit</button>
-                            <button class="uppercase" onclick="useraction()">cancel</button>
-                        </div>
 
-                    </form>
+                        </form>
+                    </div>
                 </div>
 
                 <!-- ----------------users------------------------------- -->
@@ -79,7 +89,7 @@
                     <div class="user-list flex">
                         <div class="user-profile flex">
                             <div class="user-img flex">
-                                <img src="/img/employees.png" alt="profile" class="red">
+                                <img src="/static/img/avatar12.jpg" alt="profile" class="green">
                             </div>
                             <div class="user-details">
                                 <p class="username">Panchanan Deka</p>
@@ -103,16 +113,25 @@
                             <p>96%</p>
                         </div>
                         <!-- ---------------------------------  -->
-                        <div class="user-work">
-                            <p class="uwork">Work Status</p>
-                            <p class="ustatus green"><span>Completed</span></p>
-                            <!-- <p class="ustatus red"><span>In Progress</span></p>                                 -->
+                        <div class="data-status">
+                            <p class="log">Last Login</p>
+                            <p class="data-log">2023-12-23 15:57:51</p>
+                            <p class="log">Last Logout</p>
+                            <p class="data-log">2023-12-23 15:57:51</p>
                         </div>
                         <!-- ---------------------------------  -->
                         <div class="user-status">
                             <p class="urstatus">Status</p>
                             <!-- <p class="ustatus green"><span>Online</span></p> -->
                             <p class="ustatus red"><span>Offline</span></p>
+                        </div>
+                        <div class="user-edit">
+                            <a class="uicon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="pen">
+                                <path fill="##000000"
+                                    d="M22,7.24a1,1,0,0,0-.29-.71L17.47,2.29A1,1,0,0,0,16.76,2a1,1,0,0,0-.71.29L13.22,5.12h0L2.29,16.05a1,1,0,0,0-.29.71V21a1,1,0,0,0,1,1H7.24A1,1,0,0,0,8,21.71L18.87,10.78h0L21.71,8a1.19,1.19,0,0,0,.22-.33,1,1,0,0,0,0-.24.7.7,0,0,0,0-.14ZM6.83,20H4V17.17l9.93-9.93,2.83,2.83ZM18.17,8.66,15.34,5.83l1.42-1.41,2.82,2.82Z">
+                                </path>
+                            </svg></a>
+                            <span class="edit">Edit</span>
                         </div>
                     </div>
                     <hr>
@@ -144,6 +163,124 @@
                                     </svg>
                                 </li>
                             </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- -----------user-profile----------------- -->
+                <div class="uprofile-settings hide">
+                    <div class="user-profile-settings">
+                        <div class="userheader">
+                            <h4 class="uppercase">user profile</h4>
+                            <button class="update">Update</button>
+                        </div>
+                        <hr>
+                        <div class="flex-box">
+                            <div class="profile-details">
+                                <div class="profile-img">
+                                    <img src="/static/img/avatar12.jpg" alt="profile">
+                                    <button>Edit</button>
+                                </div>
+                                <div class="profile-grid">
+                                    <div class="field">
+                                        <label for="name">Name</label>
+                                        <input type="text" name="name" id="name" placeholder="Name">
+                                    </div>
+                                    <div class="field">
+                                        <label for="cnumber">Phone Number</label>
+                                        <input type="text" name="cnumber" id="cnumber" placeholder="Number">
+                                    </div>
+                                    <div class="field">
+                                        <label for="email">Email</label>
+                                        <input type="text" name="email" id="email" placeholder="Email">
+                                    </div>
+                                    <div class="field">
+                                        <label for="email">Designation</label>
+                                        <input type="text" name="designation" id="designation"
+                                            placeholder="Designation">
+                                    </div>
+                                </div>
+                                <div class="profile-status flex">
+                                    <p class="urstatus">Status</p>
+                                    <p class="ustatus red"><span>Offline</span></p>
+                                </div>
+                                <div class="profile-log-out flex">
+                                    <p class="pro-logout">Last Login</p>
+                                    <p class="pro-logout-status">2023-12-23 15:57:51</p>
+                                </div>
+                                <div class="profile-log-in flex">
+                                    <p class="pro-login">Last Logout</p>
+                                    <p class="pro-login-status">2023-12-23 15:57:51</p>
+                                </div>
+                            </div>
+                            <div class="profile-project-details">
+                                <div class="profile-main">
+                                    <div class="profile-main-project">
+                                        <p class="primary">100</p>
+                                        <p>
+                                            <span>Completed </span>
+                                            <span>Projects</span>
+                                        </p>
+                                    </div>
+                                    <div class="profile-main-project">
+                                        <p class="blue">100</p>
+                                        <p>
+                                            <span>Pending</span>
+                                            <span>Projects</span>
+                                        </p>
+                                    </div>
+                                    <div class="profile-main-project">
+                                        <p class="red">100</p>
+                                        <p>
+                                            <span>In Progress</span>
+                                            <span>Projects</span>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="profile-project-menu">
+                                    <p class="uppercase">Assigned Projects</p>
+                                    <hr class="line">
+                                    <div class="project-column">
+                                        <p class="project-name">
+                                            <span>Architecture and Multinational Expulsion in Marketing &
+                                                Development</span>
+                                            <span class="green">Active</span>
+                                        </p>
+                                        <hr>
+                                        <p class="project-name">
+                                            <span>Architecture and Multinational Expulsion in Marketing &
+                                                Development</span>
+                                            <span class="red">Active</span>
+                                        </p>
+                                        <hr>
+                                        <p class="project-name">
+                                            <span>Architecture and Multinational Expulsion in Marketing &
+                                                Development</span>
+                                            <span>Active</span>
+                                        </p>
+                                        <hr>
+                                        <p class="project-name">
+                                            <span>Architecture and Multinational Expulsion in Marketing &
+                                                Development</span>
+                                            <span>Active</span>
+                                        </p>
+                                        <hr>
+                                        <p class="project-name">
+                                            <span>Architecture and Multinational Expulsion in Marketing &
+                                                Development</span>
+                                            <span>Active</span>
+                                        </p>
+                                        <hr>
+                                        <p class="project-name">
+                                            <span>Architecture and Multinational Expulsion in Marketing &
+                                                Development</span>
+                                            <span>Active</span>
+                                        </p>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
