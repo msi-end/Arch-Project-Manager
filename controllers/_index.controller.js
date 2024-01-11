@@ -35,9 +35,11 @@ exports.userManager = (req, res) => {
       INNER JOIN normal_project_employee ON employee.em_id = normal_project_employee.emid
       GROUP BY normal_project_employee.emid;`
     db.query(query, (err, result, field) => {
+        console.log(result)
         res.status(200).render('../views/admin/user.ejs', {data: result })
         // res.send(result)
     })
+    // res.status(200).render('../views/admin/user.ejs')
 }
 
 exports.settings = (req, res) => {
@@ -54,7 +56,6 @@ exports.expense = (req, res) => {
 
     })
 }
-
 
 
 //---Normal project form works-------

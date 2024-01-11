@@ -86,7 +86,7 @@
 
                     <hr>
                     <!-- --------------User 1--------------------------  -->
-                    <% data.forEach(user=>{ %>
+                    <% data?.forEach(user=>{ %>
                     <div class="user-list flex" data-id="<%= user.em_id  %>">
                         <div class="user-profile flex">
                             <div class="user-img flex">
@@ -293,7 +293,7 @@
 
 
     <!-- JAVASCRIPT -->
-    <script src="/js/admin/main.js"></script>
+    <!-- <script src="/js/admin/main.js"></script> -->
     <script src="/js/admin/user.js"></script>
     <script src="../../js/admin/header.js"></script>
  

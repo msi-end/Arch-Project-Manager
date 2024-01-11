@@ -49,6 +49,24 @@ function hideMainDropdown(event) {
   }
 }
 
+function paginationFun(target) {
+   if(target.id) {
+    document.getElementById('2num').style.display = "none"
+    document.querySelectorAll('.pagin').forEach((el)=>{
+      el.style.display =  `flex`
+    })
+    const pageNo = Number(target.innerHTML);
+    const lastPageNo = Number(document.getElementById('last-box').innerHTML)
+    if (pageNo + 1 < lastPageNo && pageNo - 1 > 2) {
+      document.getElementById('f-box').innerHTML = pageNo - 1  
+      document.getElementById('m-box').innerHTML = pageNo
+      document.getElementById('l-box').innerHTML = pageNo + 1 
+    }
+   
+
+   } 
+}
+
 const mainDropdowns = document.querySelectorAll(".main-dropdown");
 mainDropdowns.forEach(dropdown => {
   dropdown.addEventListener("click", hideMainDropdown);

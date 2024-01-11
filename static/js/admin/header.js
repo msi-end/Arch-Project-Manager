@@ -61,5 +61,5 @@ if(window.innerWidth < 780){
 
 
 function openProfile(){
-    document.querySelector(`.profile-log-out`).classList.toggle(`hide`);
+    document.querySelector(`.account-settings`).classList.toggle(`hide`);
 }
