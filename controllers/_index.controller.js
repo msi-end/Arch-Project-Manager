@@ -30,10 +30,9 @@ exports.indexDeshboard = async (req, res) => {
 }
 
 exports.userManager = (req, res) => {
-    const query = `SELECT employee.em_id, employee.name ,employee.number, employee.email,employee.job_role, employee.lastLoginAt ,employee.lastLogoutAt , employee.status 
-    , COUNT(normal_project_employee.emid) FROM employee
-      INNER JOIN normal_project_employee ON employee.em_id = normal_project_employee.emid
-      GROUP BY normal_project_employee.emid;`
+    const query = `SELECT em_id, name ,number, email,job_role, lastLoginAt ,lastLogoutAt , status FROM employee`
+    // INNER JOIN normal_project_employee ON employee.em_id = normal_project_employee.emid
+    // GROUP BY normal_project_employee.emid;
     db.query(query, (err, result, field) => {
         console.log(result)
         res.status(200).render('../views/admin/user.ejs', {data: result })

@@ -7,7 +7,7 @@ const { errorHandler } = require('../utils/errorHandler')
 exports.add = (req, res) => {
     let password = createHmac('sha256', 'zxcvbnmsdasgdrf').update(req.body.Password).digest('hex')
     const query = `INSERT INTO employee (name,email,password,number,job_role) VALUES(?,?,?,?,?)  `
-    db.query(query, [req.body.Name, req.body.Email, password, req.body.Number], (err, result, field) => {
+    db.query(query, [req.body.Name, req.body.Email, password, req.body.Number, req.body.jobRole], (err, result, field) => {
         if (err) throw new errorHandler('', err);
         res.status(200).send({ status: true, msg: 'Life success!' })
     })
@@ -27,6 +27,15 @@ exports.Del = (req, res) => {
         res.status(200).send({ status: true, msg: 'Life success!' })
     })
 }
+exports.Del = (req, res) => {
+    let password = createHmac('sha256', 'zxcvbnmsdasgdrf').update(req.body.Password).digest('hex')
+    const query = `UPDATE employee SET status ='inactive' WHERE em_id=?; `
+    db.query(query, [ password,], (err, result, field) => {
+        if (err) throw new errorHandler('', err);
+        res.status(200).send({ status: true, msg: 'Life success!' })
+    })
+}
+
 
 // Updating all kind Coulmns in DB (no need to change)
 exports.Update = (req, res) => {
@@ -37,6 +46,7 @@ exports.Update = (req, res) => {
         if (index < arr.length - 1) { query += ','; }
     });
     query += 'WHERE em_id =?'; val.push(req.params.id)
+    console.log(query,val);
     db.query(query, val, (err, result, field) => {
         if (err) throw new errorHandler(err.statusCode, err);
         res.status(200).send({ status: true, msg: 'Life success!' })
@@ -51,7 +61,7 @@ exports.getAttendence = (req, res) => {
     })
 }
 exports.setAttendence = (req, res) => {
-    let date = (new Date).toLocaleDateString('en-GB', {year: 'numeric',month: '2-digit',day: '2-digit',});
+    let date = (new Date).toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit', });
     let month = (new Date).getUTCMonth()
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const query = `INSERT INTO empAttendance (empID,date,${monthNames[month]}) VALUE(${req.params.id},${date},'P');`
