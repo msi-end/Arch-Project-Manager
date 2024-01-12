@@ -82,14 +82,16 @@
                     <%  sentData?.forEach((el)=>{ %>
                         <%- include('../partials/np.fin.ejs', {fdata: el }) %>
                     <% }) %>
-                    <div class="main-dropdown hide">
-                        
-                    </div>
                     <!-- ------------------------------ -->
                 </div>
 
                 <!-- ----------PAGINATION--------- -->
                 <%- include('../partials/pagin.ejs') %>
+            </div>
+
+            <!-- -----DROPDOWN----- -->
+            <div class="main-dropdown hide">
+                        
             </div>
 
         </main>

@@ -222,6 +222,9 @@
     font-size: 14px;
     font-weight: 600;
 }
+.accordion-content .e-mail{
+    width: 80%;
+}
 .info-content .accordion-content .stat{
     width: 80%;
     font-size: 12px;
@@ -379,9 +382,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    max-width: 100%;
+    width: 90%;
 }
 .main-dropdown ul li{
-    padding: 4px;
+    padding: 8px;
     border-radius: var(--border-radius-1);
     display: flex;
     align-items: center;
@@ -422,7 +427,7 @@
 /* -----------STATUS DROPDOWN MENU ------------- */
 .main-dropdown .status-dropdown-menu{
     background: var(--white);
-    width: 120px;
+    /* width: 120px; */
     padding: 8px;
     border-radius: var(--border-radius-1);
     z-index: 105;
@@ -460,7 +465,7 @@
 
 /* ----EMPLOYEE DROPDOWN MENU-------- */
 .main-dropdown .emp-drop-menu{
-    width: 300px;
+    /* width: 300px; */
     background: var(--sec-light-color);
     box-shadow: var(--box-shadow-1);
     padding: 8px;
@@ -479,8 +484,8 @@
 }
 .emp-drop-menu ul li{
     text-wrap: wrap;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     margin: 10px auto;
     background: var(--white);
 }
@@ -503,7 +508,7 @@
 }
 /* -------TASK MENU DROPDOWN-------- */
 .main-dropdown .task-drop-menu{
-    width: 200px;
+    /* width: 200px; */
     background: var(--green-light);
     box-shadow: var(--box-shadow-1);
     padding: 8px;
@@ -522,8 +527,8 @@
 }
 .task-drop-menu ul li{
     text-wrap: wrap;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     margin: 10px auto;
     background: var(--white);
 }
@@ -574,8 +579,14 @@
     line-height: 1.5;
     display: flex;
     align-items: center;
+}
+.sub-tasks ul .add-empl{
     justify-content: space-between;
 }
+.stasks{
+    gap: 10px;
+}
+
 .add-empl span.icon{
     width: 25px;
     height: 25px;

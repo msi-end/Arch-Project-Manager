@@ -65,7 +65,7 @@
             <div class="expensebox">
                 <div class="expenseheader">
                     <h4 class="uppercase">expenses</h4>
-                    <button class="uppercase">
+                    <button class="uppercase" onclick="addExpense()">
                         <span>Add expense</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="plus-circle">
                             <path fill="##000000"
@@ -111,7 +111,7 @@
                             <p class="exp-rem-content">Mintu gave me &#8377; 6000</p> -->
                         </div>
                         <!-- ---------------------------------  -->
-                        <div class="expense-edit">
+                        <div class="expense-edit" onclick="editExpense()">
                             <a class="eicon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="pen">
                                     <path fill="##000000"
                                         d="M22,7.24a1,1,0,0,0-.29-.71L17.47,2.29A1,1,0,0,0,16.76,2a1,1,0,0,0-.71.29L13.22,5.12h0L2.29,16.05a1,1,0,0,0-.29.71V21a1,1,0,0,0,1,1H7.24A1,1,0,0,0,8,21.71L18.87,10.78h0L21.71,8a1.19,1.19,0,0,0,.22-.33,1,1,0,0,0,0-.24.7.7,0,0,0,0-.14ZM6.83,20H4V17.17l9.93-9.93,2.83,2.83ZM18.17,8.66,15.34,5.83l1.42-1.41,2.82,2.82Z">
@@ -152,7 +152,39 @@
                         <p class="uppercase">remarks</p>
                         <input type="text" name="" id="">
                     </div>
-                    <button class="uppercase">update</button>
+                    <button class="uppercase" onclick="updateAddExpense()">update</button>
+                </div>
+            </div>
+
+            <!-- --------EDIT EXPENSE----------- -->
+            <div class="editexpense hide">
+                <div class="expense-grid">
+                    <div class="egrid">
+                        <div class="field">
+                            <label for="name">Expense Name</label>
+                            <input type="text" name="expname" placeholder="Expense Name">
+                        </div>
+                        <div class="field">
+                            <label for="cnumber">Amount</label>
+                            <input type="text" name="expamount" placeholder="Amount">
+                        </div>
+                        <div class="field">
+                            <label for="email">Mode of Payment</label>
+                            <select name="" id="">
+                                <option value="">Cash</option>
+                                <option value="">Online</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="date">Date of Expense</label>
+                            <input type="date" name="" id="">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="remarks">Remarks</label>
+                        <textarea></textarea>
+                    </div>
+                    <button class="uppercase" onclick="updateEditExpense()">update</button>
                 </div>
             </div>
         </main>
@@ -160,6 +192,8 @@
 
 
     <!-- JAVASCRIPT -->
+    <script src="../../js/admin/main.js"></script>
+    <script src="../../js/admin/expense.js"></script>
     <!-- <script src="../../js/admin/main.js"></script> -->
     <script src="../../js/admin/common.js"></script>
 </body>
