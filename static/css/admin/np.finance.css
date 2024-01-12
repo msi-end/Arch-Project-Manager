@@ -137,7 +137,7 @@
     background: var(--white);
     padding: 10px;
     border-radius: var(--border-radius-1);
-    width: 300px;
+    /* width: 300px; */
 }
 .main-dropdown .finance-dropdown .flex{
    margin-top: 16px;

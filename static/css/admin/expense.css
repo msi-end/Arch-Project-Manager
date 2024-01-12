@@ -52,6 +52,7 @@
     flex-wrap: wrap;
     padding: 1rem;
     transition: var(--animation-1);
+    position: relative;
 }
 .expense-list:hover{
     background: var(--bg-3);
@@ -68,6 +69,10 @@
     font-weight: 500;
     color: var(--designation-color);
 }
+.expense-remarks{
+    width: 80%;
+}
+/* ---EDIT EXPENSE BUTTON---S */
 .expense-edit{
     height: 25px;
     width: 25px;
@@ -121,7 +126,7 @@
     justify-content: flex-end;
 }
 /* --------------ADD EXPENSE MODAL-------- */
-.addexpense{
+.addexpense, .editexpense{
     position: absolute;
     top: 0;
     left: 0;
@@ -131,8 +136,8 @@
     background: var(--black-light);
 }
 .expense-addition-box{
-    max-width: 450px;
-    width: 100%;
+    max-width: 100%;
+    width: 90%;
     position: absolute;
     top: 40%;
     left: 50%;
@@ -143,6 +148,7 @@
 }
 .expense-addition-box p:first-child{
     font-weight: 500;
+    font-size: 14px;
 }
 .expense-addition-box .flex{
     margin-top: 1rem;
@@ -185,7 +191,75 @@
     border-color: rgb(227, 232, 239);
     margin: 10px auto;
 }
+/* ----------EDIT EXPENSE------------ */
+.expense-grid{
+    background: var(--white);
+    position: absolute;
+    top: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem;
+    border-radius: var(--border-radius-1);
+    flex-wrap: wrap;
+    max-width: 100%;
+    width: 90%;
+}
+.egrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem; 
+}
+.expense-grid .field{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.expense-grid .field label{
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--grey);
+}
+.expense-grid .field :is(input, select){
+    width: 100%;
+    height: 3rem;
+    border-radius: var(--border-radius-1);
+    background: var(--bg-2);
+    outline: 1px solid var(--black-light);
+    animation: var(--animation-1);
+    padding: 0 1rem;
+    margin-top: 5px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
 
+.expense-grid .field textarea{
+    resize: none;
+    width: 100%;
+    height: 15vh;
+    border-radius: var(--border-radius-2);
+    background: var(--bg-2);
+    outline: 1px solid var(--black-light);
+    animation: var(--animation-1);
+    padding: 1rem;
+    margin-top: 5px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.expense-grid button{
+    padding: 12px;
+    border-radius: var(--border-radius-1);
+    font-size: 16px;
+    font-weight: 700;
+    transition: var(--transition-2);
+    margin-top: 1rem;
+    width: 100%;
+    background: var(--green);
+    color: var(--white);
+}
+.expense-grid button:hover{
+    opacity: 0.8;
+}
 
 
 @media screen and (max-width:768px) {
@@ -199,5 +273,13 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
+    }
+    .expense-edit{
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+    }
+    .egrid{
+        grid-template-columns: 1fr;
     }
 }
