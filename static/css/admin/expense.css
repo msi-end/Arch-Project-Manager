@@ -117,7 +117,7 @@
     margin-left: 5px;
     color: var(--primary-color);
 }
-.expense-pagination{
+.expensebox .info_pagination{
     margin-top: 1rem;
 }
 .expense-pagination .pages ul{

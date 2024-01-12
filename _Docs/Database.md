@@ -194,3 +194,10 @@ CREATE TABLE empAttendance (
     December CHAR(1),
 );
 
+ALTER TABLE employee 
+ADD number  VARCHAR(15),
+ADD job_role VARCHAR(30), 
+ADD lastLoginAt VARCHAR(50), 
+ADD lastLogoutAt VARCHAR(50), 
+ADD status  VARCHAR(50);
+

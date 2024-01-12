@@ -13,6 +13,10 @@
 
     <link rel="stylesheet" href="/css/admin/user.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="
+    https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css
+    " rel="stylesheet">
 </head>
 
 <body>
@@ -23,7 +27,7 @@
             <div class="ucontainer">
                 <div class="userContainer uform">
                     <h4 class="uppercase">user</h4>
-                    <button class="uppercase" onclick="addUser()" id="userbtn">
+                    <button class="uppercase" onclick="Opn_UserCtn('.usform')" id="userbtn">
                         <span>Add user</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="plus-circle">
                             <path fill="##000000"
@@ -61,12 +65,12 @@
                                 </div>
                             </div>
                             <!-- ------button---- -->
+                        </form>
                             <div class="user-btns">
-                                <button class="uppercase" onclick="useraction()">submit</button>
-                                <button class="uppercase" onclick="useraction()">cancel</button>
+                                <button class="uppercase" onclick="addUser()" >submit</button>
+                                <button class="uppercase" onclick="Cls_UserCtn('.usform')">cancel</button>
                             </div>
 
-                        </form>
                     </div>
                 </div>
 
@@ -86,7 +90,7 @@
 
                     <hr>
                     <!-- --------------User 1--------------------------  -->
-                    <% data.forEach(user=>{ %>
+                    <% data?.forEach(user=>{ %>
                     <div class="user-list flex" data-id="<%= user.em_id  %>">
                         <div class="user-profile flex">
                             <div class="user-img flex">
@@ -123,10 +127,10 @@
                         <!-- ---------------------------------  -->
                         <div class="user-status">
                             <p class="urstatus">Status</p>
-                            <!-- <p class="ustatus green"><span>Online</span></p> -->
-                            <p class="ustatus red"><span><%= user.status %></span></p>
+                            <!-- <p class="ustatus red"><span>Online</span></p> -->
+                            <p class="ustatus green"><span><%= user.status %></span></p>
                         </div>
-                        <div class="user-edit">
+                        <div class="user-edit" onclick="Opn_UserCtn('.uprofile-settings',this)">
                             <a class="uicon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="pen">
                                 <path fill="##000000"
                                     d="M22,7.24a1,1,0,0,0-.29-.71L17.47,2.29A1,1,0,0,0,16.76,2a1,1,0,0,0-.71.29L13.22,5.12h0L2.29,16.05a1,1,0,0,0-.29.71V21a1,1,0,0,0,1,1H7.24A1,1,0,0,0,8,21.71L18.87,10.78h0L21.71,8a1.19,1.19,0,0,0,.22-.33,1,1,0,0,0,0-.24.7.7,0,0,0,0-.14ZM6.83,20H4V17.17l9.93-9.93,2.83,2.83ZM18.17,8.66,15.34,5.83l1.42-1.41,2.82,2.82Z">
@@ -175,33 +179,34 @@
                     <div class="user-profile-settings">
                         <div class="userheader">
                             <h4 class="uppercase">user profile</h4>
-                            <button class="update">Update</button>
+                            <button class="update" onclick="Cls_UserCtn('.uprofile-settings')">Close</button>
                         </div>
                         <hr>
-                        <div class="flex-box">
+                        <div class="flex-box" data-id="">
                             <div class="profile-details">
                                 <div class="profile-img">
-                                    <img src="/static/img/avatar12.jpg" alt="profile">
-                                    <button>Edit</button>
+                                    <img src="/img/employee.jpg" alt="profile">
+                                    <button onclick="Disable_BtnHandler('.profile-grid',true)" >Edit</button>
                                 </div>
                                 <div class="profile-grid">
                                     <div class="field">
                                         <label for="name">Name</label>
-                                        <input type="text" name="name" id="name" placeholder="Name">
+                                        <input type="text" name="name" id="name" disabled placeholder="Name">
                                     </div>
                                     <div class="field">
                                         <label for="cnumber">Phone Number</label>
-                                        <input type="text" name="cnumber" id="cnumber" placeholder="Number">
+                                        <input type="text" name="cnumber" id="cnumber" disabled placeholder="Number">
                                     </div>
                                     <div class="field">
                                         <label for="email">Email</label>
-                                        <input type="text" name="email" id="email" placeholder="Email">
+                                        <input type="text" name="email" id="email" disabled placeholder="Email">
                                     </div>
                                     <div class="field">
                                         <label for="email">Designation</label>
-                                        <input type="text" name="designation" id="designation"
+                                        <input type="text" name="designation" disabled id="designation"
                                             placeholder="Designation">
                                     </div>
+                                    <button type="button" style="background: var(--primary-color);color: white;" class="hide" onclick="updUser()"> Update Info.</button>
                                 </div>
                                 <div class="profile-status flex">
                                     <p class="urstatus">Status</p>
@@ -293,7 +298,7 @@
 
 
     <!-- JAVASCRIPT -->
-    <script src="/js/admin/main.js"></script>
+    <!-- <script src="/js/admin/main.js"></script> -->
     <script src="/js/admin/user.js"></script>
     <script src="../../js/admin/header.js"></script>
  
