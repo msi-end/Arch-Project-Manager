@@ -40,4 +40,3 @@ expensePopup.addEventListener("click", handleExpenseClick);
 expenseAddBox.addEventListener("click", handleExpenseClick);
 editExpPopup.addEventListener("click", handleExpenseClick);
 editExpenseBox.addEventListener("click", handleExpenseClick);
-
