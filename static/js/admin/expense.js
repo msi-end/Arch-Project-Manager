@@ -100,3 +100,9 @@ function updExpense() {
             console.log('Error(fn-UserUpdate):', err);
         })
 }
+
+expensePopup.addEventListener("click", handleExpenseClick);
+expenseAddBox.addEventListener("click", handleExpenseClick);
+editExpPopup.addEventListener("click", handleExpenseClick);
+editExpenseBox.addEventListener("click", handleExpenseClick);
+

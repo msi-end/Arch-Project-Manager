@@ -9,7 +9,8 @@
 .userContainer,
 .userform,
 .userbox,
-.user-profile-settings {
+.user-profile-settings,
+.password-fields {
     background: var(--white);
     border-radius: var(--border-radius-2);
     padding: 1rem;
@@ -50,7 +51,8 @@
 
 /* forms  */
 .usform,
-.uprofile-settings {
+.uprofile-settings,
+.password-settings {
     position: absolute;
     top: 0;
     left: 0;
@@ -61,7 +63,8 @@
 }
 
 .userform,
-.user-profile-settings {
+.user-profile-settings,
+.password-fields {
     width: 97%;
     position: absolute;
     top: 3rem;
@@ -81,20 +84,21 @@
     gap: 10px;
 }
 
-:is(.userform form, .profile-details .profile-grid) .field {
+:is(.userform form, .profile-details .profile-grid, 
+.password-fields) .field {
     width: 100%;
     display: flex;
     flex-direction: column;
     margin-top: 10px;
 }
 
-:is(.userform form, .profile-details .profile-grid) .field label {
+:is(.userform form, .profile-details .profile-grid, .password-fields) .field label {
     font-size: 13px;
     font-weight: 500;
     color: var(--grey);
 }
 
-:is(.userform form, .profile-details .profile-grid) .field input {
+:is(.userform form, .profile-details .profile-grid, .password-fields) .field input {
     width: 100%;
     height: 3rem;
     border-radius: var(--border-radius-1);
@@ -108,15 +112,15 @@
     font-weight: 500;
 }
 
-:is(.userform form, .profile-details .profile-grid) .field input:hover {
+:is(.userform form, .profile-details .profile-grid, .password-fields) .field input:hover {
     outline: 1px solid var(--black-light-2);
 }
 
-:is(.userform form, .profile-details .profile-grid) .field input:focus {
+:is(.userform form, .profile-details .profile-grid, .password-fields) .field input:focus {
     outline: 2px solid var(--secondary-color);
 }
 
-:is(.user-btns, .profile-details .profile-grid) button {
+:is(.user-btns, .profile-details .profile-grid,.password-fields) button {
     padding: 12px;
     border-radius: var(--border-radius-1);
     font-size: 16px;
@@ -126,26 +130,28 @@
     flex-grow: 1;
 }
 
-.user-btns :nth-child(1) {
+:is(.user-btns, .password-btns) :nth-child(1) {
     background: var(--green-light);
     color: var(--green);
 }
 
-.user-btns :nth-child(1):hover {
+:is(.user-btns, .password-btns) :nth-child(1):hover {
     background: var(--green);
     color: var(--white);
 }
 
-.user-btns :nth-child(2) {
+:is(.user-btns, .password-btns) :nth-child(2) {
     background: var(--ter-light-color);
     color: var(--ter-dark-color);
 }
 
-.user-btns :nth-child(2):hover {
+:is(.user-btns, .password-btns) :nth-child(2):hover {
     background: var(--tertiary-color);
     color: var(--white);
 }
-
+.password-fields h4{
+    color: var(--secondary-color);
+}
 
 /* profiles */
 .userbox {
@@ -159,11 +165,11 @@
 .usersearch {
     width: 200px;
     position: relative;
-    height: 3rem;
+    /* height: 3rem; */
     border-radius: var(--border-radius-1);
 }
 
-.usersearch input {
+:is(.usersearch, .pr-search) input {
     width: 100%;
     height: 2.5rem;
     border-radius: var(--border-radius-1);
@@ -173,15 +179,15 @@
     font-weight: 500;
 }
 
-.usersearch input:hover {
+:is(.usersearch, .pr-search) input:hover {
     outline: 1px solid var(--black-light-2)
 }
 
-.usersearch input:focus {
+:is(.usersearch, .pr-search) input:focus {
     outline: 2px solid var(--secondary-color);
 }
 
-.usersearch svg {
+:is(.usersearch) svg {
     width: 15px;
     position: absolute;
     top: 7px;
@@ -400,6 +406,19 @@
 .profile-img img {
     width: 50px;
 }
+.profile-img p{
+    font-size: 14px;
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+.profile-img p:hover{
+    text-decoration: underline;
+}
+.profile-img div{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
 .profile-img button{
     padding: 5px 12px;
     font-weight: 500;
@@ -476,49 +495,88 @@
 .profile-main .profile-main-project p.red:hover{
     background: var(--ter-light-color);
 }
-.profile-project-menu{
+.profile-project-menu, .profile-attendance{
     margin-top: 1rem;
     outline: 1px solid var(--primary-light-color);
     padding: 1rem;
     border-radius: var(--border-radius-1);
 }
-.profile-project-menu p.uppercase{
+.topper{
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.profile-column{
+    justify-content: space-between;
+}
+.profile-column select{
+    /* flex-grow: 1; */
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0 4px;
+    height: 30px;
+    border-radius: var(--border-radius-1);
+    outline: 1px solid var(--secondary-color);
+    /* background: var(--primary-color); */
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+.pr-search{
+    position: relative;
+}
+.pr-search input{
+    height: 30px;
+    /* width: 50px; */
+    padding: 1rem;
+    transition: width 300ms ease-out;
+    background: var(--secondary-color);
+}
+.pr-search svg{
+    width: 15px;
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    fill: var(--white);
+    outline: none;
+}
+
+:is(.profile-project-menu, .profile-attendance) p.uppercase{
     font-weight: 600;
 }
-.profile-project-menu hr.line{
+:is(.profile-project-menu, .profile-attendance) hr.line{
     /* margin-bottom: 1rem; */
     margin-top: 1rem;
 }
-.profile-project-menu .project-column{
+.profile-project-menu .project-column, .profile-attendance .attendance-column{
     overflow: scroll;
     height: 40vh;
     cursor: pointer;
 }
-.project-column p{
+:is(.project-column, .attendance-column) p{
     padding: 10px 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.project-column p:hover{
+:is(.project-column, .attendance-column) p:hover{
     background: var(--sec-light-color);
 }
-.project-column p span:first-child{
+:is(.project-column, .attendance-column) p span:first-child{
     font-size: 14px;
     display: inline-block;
     width: 80%;
 }
-.project-column p span:last-child{
+:is(.project-column, .attendance-column) p span:last-child{
     font-size: 12px;
     font-weight: 500;
-    padding: 5px 10px;
-    border-radius: 20px;
+    padding: 5px 8px;
+    border-radius: 50%;
 }
-.project-column p span.green{
+:is(.project-column, .attendance-column) p span.green{
     background: var(--green-light);
     color: var(--green);
 }
-.project-column p span.red{
+:is(.project-column, .attendance-column) p span.red{
     background: var(--ter-light-color);
     color: var(--ter-dark-color);
 }

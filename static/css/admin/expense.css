@@ -47,7 +47,7 @@
     overflow-y: scroll;
 }
 .expense-list{
-    gap: 5rem;
+    gap: 1rem;
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 1rem;
@@ -57,6 +57,9 @@
 .expense-list:hover{
     background: var(--bg-3);
     cursor: pointer;
+}
+.expense-list div{
+    
 }
 .expense-list div p:first-child{
     color: var(--grey);

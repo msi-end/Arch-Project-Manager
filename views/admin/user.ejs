@@ -185,7 +185,10 @@
                             <div class="profile-details">
                                 <div class="profile-img">
                                     <img src="/img/employee.jpg" alt="profile">
-                                    <button onclick="Disable_BtnHandler('.profile-grid',true)" >Edit</button>
+                                    <div>
+                                        <p class="cliche">Change Password</p>
+                                        <button onclick="Disable_BtnHandler('.profile-grid',true)" >Edit</button>
+                                    </div>
                                 </div>
                                 <div class="profile-grid">
                                     <div class="field">
@@ -245,7 +248,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="profile-project-menu">
+                                <!-- <div class="profile-project-menu">
                                     <p class="uppercase">Assigned Projects</p>
                                     <hr class="line">
                                     <div class="project-column">
@@ -286,8 +289,75 @@
                                         </p>
                                         <hr>
                                     </div>
+                                </div> -->
+                                <div class="profile-attendance">
+                                    <div class="profile-column flex">
+                                        <div>
+                                            <p class="uppercase">Attendance</p>
+                                            <p class="topper hide">
+                                                <span>Attendance</span>
+                                                <span>4/30</span>
+                                            </p>
+                                        </div>
+                                        <div class="flex">
+                                            <select name="" id="">
+                                                <option value="">January</option>
+                                                <option value="">February</option>
+                                                <option value="">March</option>
+                                                <option value="">April</option>
+                                                <option value="">May</option>
+                                                <option value="">June</option>
+                                                <option value="">July</option>
+                                                <option value="">August</option>
+                                                <option value="">September</option>
+                                                <option value="">October</option>
+                                                <option value="">November</option>
+                                                <option value="">December</option>
+                                            </select>
+                                            <div class="pr-search">
+                                                <input type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search" class="svg">
+                                                    <path fill="##000000"
+                                                        d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="line">
+                                    <div class="attendance-column">
+                                        <p class="attendance-name">
+                                            <span>1 January 2023</span>
+                                            <span class="green">P</span>
+                                        </p>
+                                        <hr>
+                                        <p class="attendance-name">
+                                            <span>2 January 2023</span>
+                                            <span class="red">A</span>
+                                        </p>
+                                        <hr>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- --------------password settings------------------- -->
+                <div class="password-settings hide">
+                    <div class="password-fields">
+                        <h4>Mintu Sharma</h4>
+                        <div class="field">
+                            <label for="newPassword">New Password</label>
+                            <input type="text" name="" id="">
+                        </div>
+                        <div class="field">
+                            <label for="newPassword">Re-Enter New Password</label>
+                            <input type="text" name="" id="">
+                        </div>
+                        <div class="password-btns flex">
+                            <button class="uppercase">Update</button>
+                            <button class="uppercase">Cancel</button>
                         </div>
                     </div>
                 </div>
