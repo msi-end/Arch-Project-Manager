@@ -36,9 +36,7 @@ exports.userManager = (req, res) => {
     db.query(query, (err, result, field) => {
         console.log(result)
         res.status(200).render('../views/admin/user.ejs', {data: result })
-        // res.send(result)
     })
-    // res.status(200).render('../views/admin/user.ejs')
 }
 
 exports.settings = (req, res) => {
@@ -50,8 +48,8 @@ exports.settings = (req, res) => {
 exports.expense = (req, res) => {
     const query = `SELECT * FROM expenses;SELECT 'misc_project_finance' AS tName, SUM(totalamount) AS total_sum, SUM(amount_got) AS total_amount_got, SUM(CASE WHEN modeofpay='online' THEN amount_got ELSE 0 END) AS online_sum, SUM(CASE WHEN modeofpay='cash' THEN amount_got ELSE 0 END) AS cash_sum FROM misc_project_finance GROUP BY tName UNION ALL SELECT 'normal_projects_finance' AS tName, SUM(totalamount) AS total_sum, SUM(amount_got) AS total_amount_got, SUM(CASE WHEN modeofpay='online' THEN amount_got ELSE 0 END) AS online_sum, SUM(CASE WHEN modeofpay='cash' THEN amount_got ELSE 0 END) AS cash_sum FROM normal_projects_finance GROUP BY tName`
     db.query(query, (err, result, field) => {
-        res.status(200).render('../views/admin/expense.finance.ejs', { data: 'result' })
-        // res.send(result)
+        // res.status(200).render('../views/admin/expense.finance.ejs', { data: 'result' })
+        res.send(result)
 
     })
 }

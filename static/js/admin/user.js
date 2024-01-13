@@ -1,5 +1,5 @@
 let BASE_URL = location.href;
-let ReqURI = { addUser: BASE_URL + `/add-User`, updUser: BASE_URL + `/Update-User/`,updSubTask: BASE_URL + `/upd-password/` }
+let ReqURI = { addUser: BASE_URL + `/add-User`, updUser: BASE_URL + `/Update-User/`, updSubTask: BASE_URL + `/upd-password/` }
 function Disable_BtnHandler(e, ep) {
     if (ep) {
         let elmCtn = document.querySelector(e)
@@ -37,6 +37,7 @@ function Cls_UserCtn(e) {
 function AlertNotifier(status, msg, icon) {
     Swal.fire({ title: status ? 'Sucess' : 'Error', text: msg, icon: icon, confirmButtonText: 'Done' });
 }
+
 // ReqHandler Data  
 // User Requestes To API
 let ReqHandler = {
@@ -87,11 +88,10 @@ function addUser() {
                 AlertNotifier(res.status, res.msg, 'success');
                 Cls_UserCtn('.uprofile-settings')
                 Disable_BtnHandler('.profile-grid', false)
-                // let elm = mainCtn.getElementsByClassName('listContainer')[0]
-                // let html = elm.outerHTML
-                // let changedHtml = html.replace(elm.getElementsByClassName('ttext')[0].innerHTML, inputValue.value);
-                // taskCtn.innerHTML += changedHtml;
-                // inputValue.value = '';
+                Cls_UserCtn('.usform')
+                setTimeout(() => {
+                    location.reload()
+                }, 2000);
             } else {
                 AlertNotifier(res.status, res.msg, 'error');
             }
@@ -108,16 +108,14 @@ function updUser() {
         number: user.querySelector('#cnumber').value,
         email: user.querySelector('#email').value,
     }
-    ReqHandler.PUT(ReqURI.updUser+u_id, dataObj)
+    ReqHandler.PUT(ReqURI.updUser + u_id, dataObj)
         .then((res) => {
             console.log(res);
             if (res.status == true) {
                 AlertNotifier(res.status, res.msg, 'success');
-                // let elm = mainCtn.getElementsByClassName('listContainer')[0]
-                // let html = elm.outerHTML
-                // let changedHtml = html.replace(elm.getElementsByClassName('ttext')[0].innerHTML, inputValue.value);
-                // taskCtn.innerHTML += changedHtml;
-                // inputValue.value = '';
+                setTimeout(() => {
+                    location.reload()
+                }, 2000);
             } else {
                 AlertNotifier(res.status, res.msg, 'error');
             }
@@ -129,21 +127,13 @@ function updUserPwd() {
     let user = document.getElementsByClassName('profile-grid')[0]
     let u_id = user.parentElement.parentElement.dataset.id
     let dataObj = {
-        name: user.querySelector('#name').value,
-        job_role: user.querySelector('#designation').value,
-        number: user.querySelector('#cnumber').value,
-        email: user.querySelector('#email').value,
+        Password: user.querySelector('#password').value,
     }
-    ReqHandler.PUT(ReqURI.updUser+u_id, dataObj)
+    ReqHandler.PUT(ReqURI.updUser + u_id, dataObj)
         .then((res) => {
             console.log(res);
             if (res.status == true) {
-                AlertNotifier(res.status, res.msg, 'success');
-                // let elm = mainCtn.getElementsByClassName('listContainer')[0]
-                // let html = elm.outerHTML
-                // let changedHtml = html.replace(elm.getElementsByClassName('ttext')[0].innerHTML, inputValue.value);
-                // taskCtn.innerHTML += changedHtml;
-                // inputValue.value = '';
+                AlertNotifier(res.status, res.msg, 'success')
             } else {
                 AlertNotifier(res.status, res.msg, 'error');
             }
