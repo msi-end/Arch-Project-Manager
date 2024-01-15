@@ -214,7 +214,6 @@ exports.renderNormalProjectFinance = async (req, res) => {
     }
 }
 
-
 exports.renderNormalProjectForm = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
         const q = `select * from mis_subtask`
@@ -247,10 +246,10 @@ exports.renderMiscProjectDashboard = async (req, res) => {
 }
 exports.miscProjectFinance = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const q = ``
+        const q = `SELECT 'Hello' AS msg;        `
         await db.query(q, (err, result) => {
             if (!err) {
-                res.render('../views/admin/mp.finance.ejs', { data: 'adf' });
+                res.status(200).render('../views/admin/mp.finance.ejs', { data: 'adf' });
             } else {
                 res.status(500).send({ msg: "Internal server error!!!" })
             }
