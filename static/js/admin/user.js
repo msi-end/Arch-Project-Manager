@@ -152,6 +152,7 @@ function updUserPwd() {
 }
 function GetUserDetailsReq(e) {
     let AttenCtn = document.querySelector('.attendance-column');
+    let WrokStatusCtn = document.querySelectorAll('.profile-main');
     let year = (new Date).getFullYear()
     let month = (new Date).getUTCMonth()
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -176,8 +177,13 @@ function GetUserDetailsReq(e) {
         })
     ReqHandler.GET(ReqURI.getWorkInfo + e)
         .then((res) => {
-            if (res.status == true) {
-               console.log(res);
+            if (res.status) {
+               WrokStatusCtn[0].querySelector('.primary').innerText=res.data[1].length
+               WrokStatusCtn[0].querySelector('.blue').innerText=res.data[0][0].total_cats
+               WrokStatusCtn[0].querySelector('.red').innerText=res.data[0][0].total_cats-res.data[0][0].num_cats_completed
+               WrokStatusCtn[1].querySelector('.primary').innerText=res.data[3].length
+               WrokStatusCtn[1].querySelector('.blue').innerText=res.data[2][0].total_mtask
+               WrokStatusCtn[1].querySelector('.red').innerText=res.data[2][0].total_mtask-res.data[2][0].num_task_completed
             }
         }).catch(err => {
             console.log('Error(fn-getAtten):', err);
