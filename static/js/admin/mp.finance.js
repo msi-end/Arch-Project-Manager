@@ -13,3 +13,12 @@ function toggleForm(formId) {
  function openDick(){
   document.querySelector(`.main-dropdown`).style.display = `block`;
  }
+ function GetIncExp() {
+  let Ctn = document.getElementsByClassName('total_user_data')
+  ReqHandler.GET(location.origin + '/admin/finance/get-income-expense').then((res) => {
+      if (res.status) {
+          Ctn[0].children[0].children[0].innerText = res.data[1].total_sum
+          Ctn[1].children[0].children[0].innerText = res.data[1].cash_sum
+          Ctn[2].children[0].children[0].innerText = res.data[1].online_sum}
+  }).catch(err => {console.log('Error(fn-ExpsUpdate):', err);})}
+GetIncExp()

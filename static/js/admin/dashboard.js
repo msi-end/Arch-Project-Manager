@@ -71,21 +71,15 @@ async function updateSubtaskStatus(data) {
     await feature.DEL_UPD('apiv1/update-subtask-status', 'PUT', body)
 }
 
-async function getNProjectsStatus() {
-    let [completed, panding] = [0, 0]
+async function getProjectsStatus() {
+    (location.pathname.match('/m') == null) ? EndPoint = 'ngetProjectStatus' : EndPoint = 'mgetProjectStatus'
+    let [completed, pending] = [0, 0]
     let project_status_ctn = document.getElementsByClassName('total_user_data')
-    let e = await feature.GET_POST('apiv1/ngetProjectStatus', 'GET')
-    (e.data).forEach(e => { e.project_status == 'completed' ? completed++ : panding++ });
-    project_status_ctn[0].children[0].innerText = e.data.length
-    project_status_ctn[1].children[0].innerText = completed
-    project_status_ctn[2].children[0].innerText = panding
-}
-async function getMProjectsStatus() {
-    let [completed, panding] = [0, 0]
-    let project_status_ctn = document.getElementsByClassName('total_user_data');
-    let e = await feature.GET_POST('apiv1/mgetProjectStatus', 'GET');
-    (e.data).forEach(e => { e.project_status == 'completed' ? completed++ : panding++ });
-    project_status_ctn[0].children[0].innerText = e.data.length
-    project_status_ctn[1].children[0].innerText = completed
-    project_status_ctn[2].children[0].innerText = panding
-}
+    try {
+        let e = await feature.GET_POST(`apiv1/${EndPoint}`, 'GET');
+        e.data.forEach(e => {e.project_status === 'completed' ? completed++ : pending++;});
+        project_status_ctn[0].children[0].innerText = e.data.length;
+        project_status_ctn[1].children[0].innerText = completed;
+        project_status_ctn[2].children[0].innerText = pending;
+    } catch (err) {console.error('Error project status:', err);}}
+setTimeout(()=>{getProjectsStatus()},1500) 

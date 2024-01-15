@@ -47,40 +47,6 @@ function AlertNotifier(status, msg, icon) {
     Swal.fire({ title: status ? 'Sucess' : 'Error', text: msg, icon: icon, confirmButtonText: 'Done' });
 }
 
-// ReqHandler Data  
-// User Requestes To API
-let ReqHandler = {
-    GET: async function (url) {
-        const response = await fetch(url, {
-            method: "GET",
-            headers: { "Content-Type": "application/json; charset=UTF-8" }
-        });
-        return response.json();
-    }, POST: async function (url, data) {
-        const response = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json; charset=UTF-8" },
-            body: JSON.stringify(data)
-        });
-        return response.json();
-    }, PUT: async function (url, data) {
-
-        console.log(JSON.stringify(data));
-        const response = await fetch(url, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json; charset=UTF-8" },
-            body: JSON.stringify(data)
-        });
-        return response.json();
-    }, DEL: async function (url) {
-        const response = await fetch(url, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json; charset=UTF-8" }
-        });
-        return response.json();
-    }
-}
-
 function addUser() {
     let user = document.getElementsByClassName('userform')[0]
     let dataObj = {
