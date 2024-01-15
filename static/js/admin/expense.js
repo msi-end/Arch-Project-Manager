@@ -1,9 +1,9 @@
 let BASE_URL = location.href;
-let ReqURI = { addUser: BASE_URL + `/add-User`, updUser: BASE_URL + `/Update-User/`, updSubTask: BASE_URL + `/upd-password/` }
+let ReqURI = { addExps: BASE_URL + `/add-Exps`, updExps: BASE_URL + `/expsUpdate/` }
 
-function Opn_ExpenseCtn(e,elm) {
+function Opn_ExpenseCtn(e, elm) {
     (document.querySelector(`${e}`)).classList.remove(`hide`);
-    e == '.uprofile-settings' ? setExpenseToModel(elm) : null
+    e == '.editexpense' ? setExpenseToModel(elm) : null
 }
 function Cls_ExpenseCtn(e) {
     (document.querySelector(`${e}`)).classList.add(`hide`);
@@ -13,8 +13,16 @@ function AlertNotifier(status, msg, icon) {
     Swal.fire({ title: status ? 'Sucess' : 'Error', text: msg, icon: icon, confirmButtonText: 'Done' });
 }
 function setExpenseToModel(e) {
+    let ExpsCtn = e.parentElement.parentElement
+    let editCtn = document.querySelector('.editexpense')
+      editCtn.children[0].dataset.exps_id =ExpsCtn.dataset.exps_id
+    console.log(e.dataset.exps_id);
+    editCtn.querySelector('#exp-name').value = ExpsCtn.querySelector('.exp-name-data').innerText
+    editCtn.querySelector('#amount').value = ExpsCtn.querySelector('.exp-amount-data').innerText
+    editCtn.querySelector('#date').value = date_Split(`${ExpsCtn.querySelector('.exp-date-data').innerText}`, '/', false)
+    editCtn.querySelector('#mode').value = ExpsCtn.querySelector('.exp-mode-data').innerText
+    editCtn.querySelector('#remark').value = ExpsCtn.querySelector('.exp-rem-content').innerText
 }
-
 // ReqHandler Data  
 // User Requestes To API
 let ReqHandler = {
@@ -50,15 +58,15 @@ let ReqHandler = {
 }
 
 function addExpense() {
-    let user = document.getElementsByClassName('userform')[0]
+    let expAddCtn = document.getElementsByClassName('addexpense')[0]
     let dataObj = {
-        Name: user.querySelector('#name').value,
-        jobRole: user.querySelector('#designation').value,
-        Number: user.querySelector('#cnumber').value,
-        Email: user.querySelector('#email').value,
-        Password: user.querySelector('#password').value
+        title: expAddCtn.querySelector('#exp-name').value,
+        amount: expAddCtn.querySelector('#amount').value,
+        mode: expAddCtn.querySelector('#mode').value,
+        remark: expAddCtn.querySelector('#remark').value,
+        date: expAddCtn.querySelector('#date').value,
     }
-    ReqHandler.POST(ReqURI.addUser, dataObj)
+    ReqHandler.POST(ReqURI.addExps, dataObj)
         .then((res) => {
             console.log(res);
             if (res.status == true) {
@@ -73,19 +81,20 @@ function addExpense() {
                 AlertNotifier(res.status, res.msg, 'error');
             }
         }).catch(err => {
-            console.log('Error(fn-UserAdd):', err);
+            console.log('Error(fn-ExpsAdd):'+ err);
         })
 }
 function updExpense() {
-    let user = document.getElementsByClassName('profile-grid')[0]
-    let u_id = user.parentElement.parentElement.dataset.id
+    let editCtn = document.querySelector('.editexpense')
+    let exp_id = editCtn.children[0].dataset.exps_id
     let dataObj = {
-        name: user.querySelector('#name').value,
-        job_role: user.querySelector('#designation').value,
-        number: user.querySelector('#cnumber').value,
-        email: user.querySelector('#email').value,
+        title: editCtn.querySelector('#exp-name').value,
+        amount: editCtn.querySelector('#amount').value,
+        mode: editCtn.querySelector('#mode').value,
+        remark: editCtn.querySelector('#remark').value,
+        date: date_Split(editCtn.querySelector('#date').value,'-',true)
     }
-    ReqHandler.PUT(ReqURI.updUser + u_id, dataObj)
+    ReqHandler.PUT(ReqURI.updExps + exp_id, dataObj)
         .then((res) => {
             console.log(res);
             if (res.status == true) {
@@ -97,12 +106,7 @@ function updExpense() {
                 AlertNotifier(res.status, res.msg, 'error');
             }
         }).catch(err => {
-            console.log('Error(fn-UserUpdate):', err);
+            console.log('Error(fn-ExpsUpdate):', err);
         })
 }
-
-expensePopup.addEventListener("click", handleExpenseClick);
-expenseAddBox.addEventListener("click", handleExpenseClick);
-editExpPopup.addEventListener("click", handleExpenseClick);
-editExpenseBox.addEventListener("click", handleExpenseClick);
 

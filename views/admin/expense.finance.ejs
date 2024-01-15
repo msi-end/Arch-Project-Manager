@@ -24,6 +24,7 @@
             <!------------- EXPENSES-OVERALL-------------  -->
             <div class="main-data flex">
                 <!-- -------TOTAL AMOUNT--------- -->
+             
                 <div class="total-amount flex data ">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
                         <path fill="##000000"
@@ -31,7 +32,7 @@
                         </path>
                     </svg>
                     <div class="total_user_data">
-                        <p class="size">&#8377;<span>5,00,000</span>/-</p>
+                        <p class="size">&#8377;<span><%= data[1][0].total_sum + data[1][1].total_sum   %></span>/-</p>
                         <p class="text">Total Amount</p>
                     </div>
                 </div>
@@ -43,7 +44,7 @@
                         </path>
                     </svg>
                     <div class="total_user_data">
-                        <p class="size">&#8377;<span>2,00,000</span>/-</p>
+                        <p class="size">&#8377;<span><%=  data[1][0].cash_sum + data[1][1].cash_sum %></span>/-</p>
                         <p class="text">Cash in Hand</p>
                     </div>
                 </div>
@@ -55,7 +56,7 @@
                         </path>
                     </svg>
                     <div class="total_user_data">
-                        <p class="size">&#8377;<span>3,00,000</span>/-</p>
+                        <p class="size">&#8377;<span><%= data[1][0].online_sum + data[1][1].online_sum %></span>/-</p>
                         <p class="text">Amount in Bank</p>
                     </div>
                 </div>
@@ -78,39 +79,40 @@
                 <hr>
                 <div class="expense-page">
                     <!-- --------------Expense 1--------------------------  -->
-                    <div class="expense-list flex" data-exps_id="">
+                    <% data[0]?.forEach(exps=>{ %>
+                    <div class="expense-list flex" data-exps_id="<%= exps.id  %>">
                         <div class="expense-ref">
                             <p class="uppercase exp-ref">Ref. no.</p>
-                            <p class="exp-refn">1</p>
+                            <p class="exp-refn"><%= exps.id  %></p>
                         </div>
                         <!-- -------------------  -->
                         <div class="expense-name">
                             <p class="uppercase exp-name">expense name</p>
-                            <p class="exp-name-data">Russian</p>
+                            <p class="exp-name-data"><%= exps.title  %></p>
                         </div>
                         <!-- ----------------------------------  -->
                         <div class="expense-amount">
                             <p class="uppercase exp-amo">Amount</p>
-                            <p class="exp-amo-data">&#8377; <span>6,000</span></p>
+                            <p class="exp-amo-data">&#8377; <span class="exp-amount-data"><%= exps.amount  %></span></p>
                         </div>
                         <!-- ----------------------------------  -->
                         <div class="expense-date">
                             <p class="uppercase exp-date">date</p>
-                            <p class="exp-date-data">19/06/08</p>
+                            <p class="exp-date-data"><%= exps.date  %></p>
                         </div>
                         <!-- ----------------------------------  -->
                         <div class="expense-mode">
                             <p class="uppercase exp-mode">mode of payment</p>
-                            <p class="exp-mode-data">Cash</p>
+                            <p class="exp-mode-data"><%= exps.md_type  %></p>
                         </div>
                         <!-- ---------------------------------  -->
                         <div class="expense-remarks">
                             <p class="uppercase exp-rem">remarks</p>
-                            <p class="exp-rem-content">Panchanan gave me &#8377; 6000</p>
+                            <p class="exp-rem-content"><%= exps.remark  %></p>
 
                         </div>
                         <!-- ---------------------------------  -->
-                        <div class="expense-edit" onclick="editExpense()">
+                        <div class="expense-edit">
                             <a class="eicon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="pen">
                                     <path fill="##000000"
                                         d="M22,7.24a1,1,0,0,0-.29-.71L17.47,2.29A1,1,0,0,0,16.76,2a1,1,0,0,0-.71.29L13.22,5.12h0L2.29,16.05a1,1,0,0,0-.29.71V21a1,1,0,0,0,1,1H7.24A1,1,0,0,0,8,21.71L18.87,10.78h0L21.71,8a1.19,1.19,0,0,0,.22-.33,1,1,0,0,0,0-.24.7.7,0,0,0,0-.14ZM6.83,20H4V17.17l9.93-9.93,2.83,2.83ZM18.17,8.66,15.34,5.83l1.42-1.41,2.82,2.82Z">
@@ -120,6 +122,7 @@
                         </div>
                     </div>
                     <hr>
+                    <% }) %>
                 </div>
                 <!-- ----------------------------------------------  -->
                 <hr>
@@ -128,36 +131,43 @@
             </div>
             <!-- --------ADD AN EXPENSE-----------  -->
             <div class="addexpense hide">
-                <div class="expense-addition-box">
-                    <p class="uppercase head">Expense</p>
-                    <hr>
-                    <div class="flex">
-                        <p class="uppercase">amount</p>
-                        <input type="text" name="" id="">
+                <div class="expense-grid" data-exps_id="">
+                    <div class="egrid">
+                        <div class="field">
+                            <label for="name">Expense Name</label>
+                            <input type="text" name="expname" id="exp-name" placeholder="Expense Name">
+                        </div>
+                        <div class="field">
+                            <label for="cnumber">Amount</label>
+                            <input type="text" name="expamount" id="amount" placeholder="Amount">
+                        </div>
+                        <div class="field">
+                            <label for="email">Mode of Payment</label>
+                            <select name="modeOfPays" id="mode">
+                                <option value="cash">Cash</option>
+                                <option value="online">Online</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="date">Date of Expense</label>
+                            <input type="date" name="date" id="date" >
+                        </div>
                     </div>
-                    <div class="flex">
-                        <p class="uppercase">payment mode</p>
-                        <select name="" id="">
-                            <option value="">Cash</option>
-                            <option value="">Online</option>
-                        </select>
+                    <div class="field">
+                        <label for="remarks">Remarks</label>
+                        <textarea id="remark"></textarea>
                     </div>
-                    <div class="flex">
-                        <p class="uppercase">Date of payment</p>
-                        <input type="date" name="" id="">
+                    <div class="flex user-btns">
+                        <button class="uppercase" onclick="addExpense()">update</button>
+                        <button class="uppercase" onclick="Cls_ExpenseCtn('.addexpense')">Close</button>
                     </div>
-                    <div class="flex">
-                        <p class="uppercase">remarks</p>
-                        <input type="text" name="" id="">
-                    </div>
-                    <button class="uppercase" onclick="addExpense()">update</button>
-                    <button class="uppercase" onclick="Cls_ExpenseCtn('.addexpense')">Close</button>
                 </div>
             </div>
 
             <!-- --------EDIT EXPENSE----------- -->
             <div class="editexpense hide">
                 <div class="expense-grid" data-exps_id="">
+                    <h3>Update Expense</h3>
                     <div class="egrid">
                         <div class="field">
                             <label for="name">Expense Name</label>
@@ -183,8 +193,10 @@
                         <label for="remarks">Remarks</label>
                         <textarea id="remark"></textarea>
                     </div>
-                    <button class="uppercase" onclick="updExpense(this)">update</button>
-                    <button class="uppercase" onclick="Cls_ExpenseCtn('.editexpense')">Close</button>
+                    <div class="flex user-btns">
+                        <button class="uppercase" onclick="updExpense(this)">update</button>
+                        <button class="uppercase" onclick="Cls_ExpenseCtn('.editexpense')">Close</button>
+                    </div>
                 </div>
             </div>
         </main>

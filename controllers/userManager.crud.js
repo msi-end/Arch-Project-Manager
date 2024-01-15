@@ -55,18 +55,41 @@ exports.Update = (req, res) => {
 exports.getAttendence = (req, res) => {
     let month = (new Date).getUTCMonth()
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const query = `SELECT COUNT(${monthNames[month]}) FROM empAttendance WHERE empID = ${req.params.id} `
-    db.query(query, (err, result, field) => {
-        res.send(result)
+    const query = `SELECT COUNT(${monthNames[month]}) AS totalAtten FROM empAttendance WHERE empID = ${req.params.id} ;`
+    db.query(query, (err, data, field) => {
+        if (!err) {
+            res.status(200).send({ status: true,data })
+         } else {
+            res.status(500).send({ status: false, msg: "Internal error occurs!" });
+         }
+    })
+}
+exports.getAttendenceByMonth = (req, res) => {
+    let month = (new Date).getUTCMonth()
+    let year =(new Date).getFullYear()
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const query = `SELECT date, ${monthNames[month]} FROM empAttendance WHERE empID = ${req.params.id} AND year = '${year}' `
+    db.query(query, (err, data, field) => {
+        if (!err) {
+            res.status(200).send({ status: true,data })
+         } else {
+            res.status(500).send({ status: false, msg: "Internal error occurs!" });
+         }
     })
 }
 exports.setAttendence = (req, res) => {
-    let date = (new Date).toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit', });
+    let date = (new Date).getDate()
     let month = (new Date).getUTCMonth()
+    let year = (new Date).getFullYear()
+
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const query = `INSERT INTO empAttendance (empID,date,${monthNames[month]}) VALUE(${req.params.id},${date},'P');`
+    const query = `INSERT INTO empAttendance (empID,date,${monthNames[month]},year) VALUE(${req.params.id},${date},'P',${year});`
     db.query(query, (err, result, field) => {
-        res.send(result)
+        if (!err) {
+            res.status(200).send({ status: true, msg: 'Successfully Password Updated ',date:result })
+         } else {
+            res.status(500).send({ status: false, msg: "Internal error occurs!" });
+         }
     })
 }
 exports.getCompletePandingWork = (req, res) => {
@@ -77,13 +100,16 @@ exports.getCompletePandingWork = (req, res) => {
         res.status(200).send({ status: true, msg: 'Life success!', data: result })
     })
 }
+exports.ChangePwd = (req, res) => {
+    let password = createHmac('sha256', 'zxcvbnmsdasgdrf').update(req.body.Password).digest('hex')
+    const query = `UPDATE employee SET password=? WHERE em_id=${req.params.id} `
+    db.query(query, [password], (err, result, field) => {
+        if (!err) {
+            res.status(200).send({ status: true, msg: 'Successfully Password Updated ' })
+         } else {
+            res.status(500).send({ status: false, msg: "Internal error occurs!" });
+         }
+    })
+}
 
 
-//None Use function----------------------------------------
-// exports.getAll = (req, res) => {
-//     const query = `SELECT em_id,name,email, FROM employee`;
-//     db.query(query, [req.body.Name, req.body.Email, password], (err, result, field) => {
-//         if(err) throw new errorHandler('',err) ;
-//         res.status(200).send({status:true,msg:'Life success!'})
-//     })
-// }

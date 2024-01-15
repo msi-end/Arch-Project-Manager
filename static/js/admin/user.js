@@ -1,5 +1,5 @@
 let BASE_URL = location.href;
-let ReqURI = { addUser: BASE_URL + `/add-User`, updUser: BASE_URL + `/Update-User/`, updSubTask: BASE_URL + `/upd-password/` }
+let ReqURI = { addUser: BASE_URL + `/add-User`, updUser: BASE_URL + `/Update-User/`, updUserPwd: BASE_URL + `/upd-password/`, getUserAtten: BASE_URL + `/getAttendence/`, getUserAttenyMth: BASE_URL + `/getAttenMonth/`,getWorkInfo:BASE_URL+'/getWorkInfo/' }
 function Disable_BtnHandler(e, ep) {
     if (ep) {
         let elmCtn = document.querySelector(e)
@@ -24,7 +24,16 @@ function setUserToModel(e) {
     uProfileMdl.querySelector('#email').value = usrCtn.getElementsByClassName('uemail')[0].innerText
     uProfileMdl.querySelector('.pro-logout-status').innerText = usrCtn.getElementsByClassName('data-log')[0].innerText
     uProfileMdl.querySelector('.pro-login-status').innerText = usrCtn.getElementsByClassName('data-log')[1].innerText
-    uProfileMdl.querySelector('.ustatus').innerText = usrCtn.getElementsByClassName('ustatus')[0].innerText
+    uProfileMdl.querySelector('.ustatus').innerText = usrCtn.getElementsByClassName('ustatus')[0].innerText;
+    GetUserDetailsReq(usrCtn.dataset.id)
+}
+function setUserToMdl_pwd(e, elm) {
+    (document.querySelector(`${e}`)).classList.remove(`hide`);
+    Cls_UserCtn('.uprofile-settings')
+    let ParentElm = document.querySelector('.uprofile-settings')
+    let pwdCtn = document.querySelector('.password-settings')
+    pwdCtn.children[0].children[0].innerText = ParentElm.querySelector('#name').value
+    pwdCtn.children[0].dataset.id = ParentElm.querySelector('.flex-box').dataset.id
 }
 function Opn_UserCtn(e, elm) {
     (document.querySelector(`${e}`)).classList.remove(`hide`);
@@ -48,7 +57,6 @@ let ReqHandler = {
         });
         return response.json();
     }, POST: async function (url, data) {
-        console.log(url, data);
         const response = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json; charset=UTF-8" },
@@ -56,6 +64,7 @@ let ReqHandler = {
         });
         return response.json();
     }, PUT: async function (url, data) {
+
         console.log(JSON.stringify(data));
         const response = await fetch(url, {
             method: "PUT",
@@ -124,20 +133,53 @@ function updUser() {
         })
 }
 function updUserPwd() {
-    let user = document.getElementsByClassName('profile-grid')[0]
-    let u_id = user.parentElement.parentElement.dataset.id
+    let user = document.querySelector('.password-settings')
+    let u_id = user.children[0].dataset.id
     let dataObj = {
-        Password: user.querySelector('#password').value,
+        Password: user.querySelector('#password2').value,
     }
-    ReqHandler.PUT(ReqURI.updUser + u_id, dataObj)
+    ReqHandler.PUT(ReqURI.updUserPwd + u_id, dataObj)
         .then((res) => {
-            console.log(res);
             if (res.status == true) {
                 AlertNotifier(res.status, res.msg, 'success')
+                Cls_UserCtn('.password-settings')
             } else {
                 AlertNotifier(res.status, res.msg, 'error');
             }
         }).catch(err => {
             console.log('Error(fn-UserUpdate):', err);
+        })
+}
+function GetUserDetailsReq(e) {
+    let AttenCtn = document.querySelector('.attendance-column');
+    let year = (new Date).getFullYear()
+    let month = (new Date).getUTCMonth()
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    ReqHandler.GET(ReqURI.getUserAtten + e)
+        .then((res) => {
+            if (res.status == true) {
+                document.querySelector('#month').innerHTML = `${res.data[0].totalAtten} in Day ${monthNames[month]}`
+            }
+        }).catch(err => {
+            console.log('Error(fn-getAtten):', err);
+        })
+    ReqHandler.GET(ReqURI.getUserAttenyMth + e)
+        .then((res) => {
+            if (res.status == true) {
+                AttenCtn.innerHTML = '';
+                for (let i = 0; i < res.data.length; i++) {
+                    AttenCtn.innerHTML += ` <p class="attendance-name"><span>${res.data[i].date} ${monthNames[month]} ${year}</span><span class="green">${res.data[i][monthNames[month]]}</span> </p>`
+                }
+            }
+        }).catch(err => {
+            console.log('Error(fn-GetAttenByM):', err);
+        })
+    ReqHandler.GET(ReqURI.getWorkInfo + e)
+        .then((res) => {
+            if (res.status == true) {
+               console.log(res);
+            }
+        }).catch(err => {
+            console.log('Error(fn-getAtten):', err);
         })
 }

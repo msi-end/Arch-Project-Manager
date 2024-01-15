@@ -71,3 +71,4 @@ const mainDropdowns = document.querySelectorAll(".main-dropdown");
 mainDropdowns.forEach(dropdown => {
   dropdown.addEventListener("click", hideMainDropdown);
 });
+function date_Split(val, p, t) { let [d, m, y] = val.split(p); return t ? `${y}/${m}/${d}` : `${y}-${m}-${d}` }

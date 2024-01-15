@@ -180,6 +180,7 @@ CREATE TABLE empAttendance (
     id INT PRIMARY KEY auto_increment not null,
     empID INT(11),
     date VARCHAR(10),
+    year VARCHAR(6),
     January CHAR(1),
     February CHAR(1),
     March CHAR(1),
