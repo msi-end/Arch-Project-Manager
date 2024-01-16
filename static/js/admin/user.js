@@ -1,5 +1,5 @@
 let BASE_URL = location.href;
-let ReqURI = { addUser: BASE_URL + `/add-User`, updUser: BASE_URL + `/Update-User/`,updSubTask: BASE_URL + `/upd-password/` }
+let ReqURI = { addUser: BASE_URL + `/add-User`, updUser: BASE_URL + `/Update-User/`, updUserPwd: BASE_URL + `/upd-password/`, getUserAtten: BASE_URL + `/getAttendence/`, getUserAttenyMth: BASE_URL + `/getAttenMonth/`,getWorkInfo:BASE_URL+'/getWorkInfo/' }
 function Disable_BtnHandler(e, ep) {
     if (ep) {
         let elmCtn = document.querySelector(e)
@@ -24,7 +24,16 @@ function setUserToModel(e) {
     uProfileMdl.querySelector('#email').value = usrCtn.getElementsByClassName('uemail')[0].innerText
     uProfileMdl.querySelector('.pro-logout-status').innerText = usrCtn.getElementsByClassName('data-log')[0].innerText
     uProfileMdl.querySelector('.pro-login-status').innerText = usrCtn.getElementsByClassName('data-log')[1].innerText
-    uProfileMdl.querySelector('.ustatus').innerText = usrCtn.getElementsByClassName('ustatus')[0].innerText
+    uProfileMdl.querySelector('.ustatus').innerText = usrCtn.getElementsByClassName('ustatus')[0].innerText;
+    GetUserDetailsReq(usrCtn.dataset.id)
+}
+function setUserToMdl_pwd(e, elm) {
+    (document.querySelector(`${e}`)).classList.remove(`hide`);
+    Cls_UserCtn('.uprofile-settings')
+    let ParentElm = document.querySelector('.uprofile-settings')
+    let pwdCtn = document.querySelector('.password-settings')
+    pwdCtn.children[0].children[0].innerText = ParentElm.querySelector('#name').value
+    pwdCtn.children[0].dataset.id = ParentElm.querySelector('.flex-box').dataset.id
 }
 function Opn_UserCtn(e, elm) {
     (document.querySelector(`${e}`)).classList.remove(`hide`);
@@ -36,39 +45,6 @@ function Cls_UserCtn(e) {
 }
 function AlertNotifier(status, msg, icon) {
     Swal.fire({ title: status ? 'Sucess' : 'Error', text: msg, icon: icon, confirmButtonText: 'Done' });
-}
-// ReqHandler Data  
-// User Requestes To API
-let ReqHandler = {
-    GET: async function (url) {
-        const response = await fetch(url, {
-            method: "GET",
-            headers: { "Content-Type": "application/json; charset=UTF-8" }
-        });
-        return response.json();
-    }, POST: async function (url, data) {
-        console.log(url, data);
-        const response = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json; charset=UTF-8" },
-            body: JSON.stringify(data)
-        });
-        return response.json();
-    }, PUT: async function (url, data) {
-        console.log(JSON.stringify(data));
-        const response = await fetch(url, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json; charset=UTF-8" },
-            body: JSON.stringify(data)
-        });
-        return response.json();
-    }, DEL: async function (url) {
-        const response = await fetch(url, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json; charset=UTF-8" }
-        });
-        return response.json();
-    }
 }
 
 function addUser() {
@@ -87,11 +63,10 @@ function addUser() {
                 AlertNotifier(res.status, res.msg, 'success');
                 Cls_UserCtn('.uprofile-settings')
                 Disable_BtnHandler('.profile-grid', false)
-                // let elm = mainCtn.getElementsByClassName('listContainer')[0]
-                // let html = elm.outerHTML
-                // let changedHtml = html.replace(elm.getElementsByClassName('ttext')[0].innerHTML, inputValue.value);
-                // taskCtn.innerHTML += changedHtml;
-                // inputValue.value = '';
+                Cls_UserCtn('.usform')
+                setTimeout(() => {
+                    location.reload()
+                }, 2000);
             } else {
                 AlertNotifier(res.status, res.msg, 'error');
             }
@@ -108,16 +83,14 @@ function updUser() {
         number: user.querySelector('#cnumber').value,
         email: user.querySelector('#email').value,
     }
-    ReqHandler.PUT(ReqURI.updUser+u_id, dataObj)
+    ReqHandler.PUT(ReqURI.updUser + u_id, dataObj)
         .then((res) => {
             console.log(res);
             if (res.status == true) {
                 AlertNotifier(res.status, res.msg, 'success');
-                // let elm = mainCtn.getElementsByClassName('listContainer')[0]
-                // let html = elm.outerHTML
-                // let changedHtml = html.replace(elm.getElementsByClassName('ttext')[0].innerHTML, inputValue.value);
-                // taskCtn.innerHTML += changedHtml;
-                // inputValue.value = '';
+                setTimeout(() => {
+                    location.reload()
+                }, 2000);
             } else {
                 AlertNotifier(res.status, res.msg, 'error');
             }
@@ -126,28 +99,59 @@ function updUser() {
         })
 }
 function updUserPwd() {
-    let user = document.getElementsByClassName('profile-grid')[0]
-    let u_id = user.parentElement.parentElement.dataset.id
+    let user = document.querySelector('.password-settings')
+    let u_id = user.children[0].dataset.id
     let dataObj = {
-        name: user.querySelector('#name').value,
-        job_role: user.querySelector('#designation').value,
-        number: user.querySelector('#cnumber').value,
-        email: user.querySelector('#email').value,
+        Password: user.querySelector('#password2').value,
     }
-    ReqHandler.PUT(ReqURI.updUser+u_id, dataObj)
+    ReqHandler.PUT(ReqURI.updUserPwd + u_id, dataObj)
         .then((res) => {
-            console.log(res);
             if (res.status == true) {
-                AlertNotifier(res.status, res.msg, 'success');
-                // let elm = mainCtn.getElementsByClassName('listContainer')[0]
-                // let html = elm.outerHTML
-                // let changedHtml = html.replace(elm.getElementsByClassName('ttext')[0].innerHTML, inputValue.value);
-                // taskCtn.innerHTML += changedHtml;
-                // inputValue.value = '';
+                AlertNotifier(res.status, res.msg, 'success')
+                Cls_UserCtn('.password-settings')
             } else {
                 AlertNotifier(res.status, res.msg, 'error');
             }
         }).catch(err => {
             console.log('Error(fn-UserUpdate):', err);
+        })
+}
+function GetUserDetailsReq(e) {
+    let AttenCtn = document.querySelector('.attendance-column');
+    let WrokStatusCtn = document.querySelectorAll('.profile-main');
+    let year = (new Date).getFullYear()
+    let month = (new Date).getUTCMonth()
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    ReqHandler.GET(ReqURI.getUserAtten + e)
+        .then((res) => {
+            if (res.status == true) {
+                document.querySelector('#month').innerHTML = `${res.data[0].totalAtten} in Day ${monthNames[month]}`
+            }
+        }).catch(err => {
+            console.log('Error(fn-getAtten):', err);
+        })
+    ReqHandler.GET(ReqURI.getUserAttenyMth + e)
+        .then((res) => {
+            if (res.status == true) {
+                AttenCtn.innerHTML = '';
+                for (let i = 0; i < res.data.length; i++) {
+                    AttenCtn.innerHTML += ` <p class="attendance-name"><span>${res.data[i].date} ${monthNames[month]} ${year}</span><span class="green">${res.data[i][monthNames[month]]}</span> </p>`
+                }
+            }
+        }).catch(err => {
+            console.log('Error(fn-GetAttenByM):', err);
+        })
+    ReqHandler.GET(ReqURI.getWorkInfo + e)
+        .then((res) => {
+            if (res.status) {
+               WrokStatusCtn[0].querySelector('.primary').innerText=res.data[1].length
+               WrokStatusCtn[0].querySelector('.blue').innerText=res.data[0][0].total_cats
+               WrokStatusCtn[0].querySelector('.red').innerText=res.data[0][0].total_cats-res.data[0][0].num_cats_completed
+               WrokStatusCtn[1].querySelector('.primary').innerText=res.data[3].length
+               WrokStatusCtn[1].querySelector('.blue').innerText=res.data[2][0].total_mtask
+               WrokStatusCtn[1].querySelector('.red').innerText=res.data[2][0].total_mtask-res.data[2][0].num_task_completed
+            }
+        }).catch(err => {
+            console.log('Error(fn-getAtten):', err);
         })
 }

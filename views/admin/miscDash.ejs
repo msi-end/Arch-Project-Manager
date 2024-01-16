@@ -29,7 +29,7 @@
                         </path>
                     </svg>
                     <div class="total_user_data">
-                        <p class="size">100</p>
+                        <p class="size"></p>
                         <p class="text">Total Projects</p>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                         </path>
                     </svg>
                     <div class="total_user_data">
-                        <p class="size">100</p>
+                        <p class="size"></p>
                         <p class="text">Completed</p>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                         </path>
                     </svg>
                     <div class="total_user_data">
-                        <p class="size">100</p>
+                        <p class="size"></p>
                         <p class="text">In Progress</p>
                     </div>
                 </div>
@@ -87,6 +87,34 @@
                 <!-- ----------PAGINATION--------- -->
                 <%- include('../partials/pagin.ejs') %>
             </div>
+            <!-- ----------POPUPS----------------- -->
+        <div class="main-dropdown">
+          <div class="status-dropdown-menu common_dropdown">
+                <ul>
+                    <li class="red">
+                        <input type="radio" name="start">
+                        <span data-name="start">Not Started</span>
+                    </li>
+                    <li class="blue">
+                        <input type="radio" name="start">
+                        <span>In Progress</span>
+                    </li>
+                    <li class="green">
+                        <input type="radio" name="start">
+                        <span>Completed</span>
+                    </li>
+                </ul>
+            </div> 
+            <!-- <div class="emp-drop-menu common_dropdown">
+                <ul>
+                    <li>
+                        <input type="checkbox" name="employee">
+                        <span>Anand Kumar</span>
+                    </li>
+                </ul>
+                <button class="uppercase">update</button>
+            </div> -->
+        </div>
 
         </main>
     </section>

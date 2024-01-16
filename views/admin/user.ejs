@@ -70,7 +70,6 @@
                                 <button class="uppercase" onclick="addUser()" >submit</button>
                                 <button class="uppercase" onclick="Cls_UserCtn('.usform')">cancel</button>
                             </div>
-
                     </div>
                 </div>
 
@@ -187,7 +186,7 @@
                                 <div class="profile-img">
                                     <img src="/img/employee.jpg" alt="profile">
                                     <div>
-                                        <p class="cliche">Change Password</p>
+                                        <p class="cliche" onclick="setUserToMdl_pwd('.password-settings', this) ">Change Password</p>
                                         <button onclick="Disable_BtnHandler('.profile-grid',true)" >Edit</button>
                                     </div>
                                 </div>
@@ -227,27 +226,53 @@
                             <div class="profile-project-details">
                                 <div class="profile-main">
                                     <div class="profile-main-project">
-                                        <p class="primary">100</p>
+                                        <p class="primary"></p>
                                         <p>
-                                            <span>Completed </span>
+                                            <span>Involved</span>
                                             <span>Projects</span>
                                         </p>
                                     </div>
                                     <div class="profile-main-project">
                                         <p class="blue">100</p>
                                         <p>
-                                            <span>Pending</span>
-                                            <span>Projects</span>
+                                            <span>Involved</span>
+                                            <span>Tasks</span>
                                         </p>
                                     </div>
                                     <div class="profile-main-project">
                                         <p class="red">100</p>
                                         <p>
-                                            <span>In Progress</span>
-                                            <span>Projects</span>
+                                            <span>Pending</span>
+                                            <span>Task</span>
 
                                         </p>
                                     </div>
+                                    
+                                </div>
+                                <div class="profile-main">
+                                    <div class="profile-main-project">
+                                        <p class="primary"></p>
+                                        <p>
+                                            <span>Involved</span>
+                                            <span>Project</span>
+                                        </p>
+                                    </div>
+                                    <div class="profile-main-project">
+                                        <p class="blue">100</p>
+                                        <p>
+                                            <span>Involved</span>
+                                            <span>Tasks</span>
+                                        </p>
+                                    </div>
+                                    <div class="profile-main-project">
+                                        <p class="red">100</p>
+                                        <p>
+                                            <span>Pending</span>
+                                            <span>Tasks</span>
+
+                                        </p>
+                                    </div>
+                                    
                                 </div>
                                 <!-- <div class="profile-project-menu">
                                     <p class="uppercase">Assigned Projects</p>
@@ -301,7 +326,8 @@
                                             </p>
                                         </div>
                                         <div class="flex">
-                                            <select name="" id="">
+                                            <p id="month">-</p>
+                                            <!-- <select name="" id="">
                                                 <option value="">January</option>
                                                 <option value="">February</option>
                                                 <option value="">March</option>
@@ -322,20 +348,12 @@
                                                         d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z">
                                                     </path>
                                                 </svg>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                     <hr class="line">
                                     <div class="attendance-column">
-                                        <p class="attendance-name">
-                                            <span>1 January 2023</span>
-                                            <span class="green">P</span>
-                                        </p>
                                         <hr>
-                                        <p class="attendance-name">
-                                            <span>2 January 2023</span>
-                                            <span class="red">A</span>
-                                        </p>
                                         <hr>
                                     </div>
                                 </div>
@@ -346,19 +364,19 @@
 
                 <!-- --------------password settings------------------- -->
                 <div class="password-settings hide">
-                    <div class="password-fields">
-                        <h4>Mintu Sharma</h4>
+                    <div class="password-fields" data-id="">
+                        <h4> </h4>
                         <div class="field">
                             <label for="newPassword">New Password</label>
-                            <input type="text" name="" id="">
+                            <input type="text" id="password">
                         </div>
                         <div class="field">
                             <label for="newPassword">Re-Enter New Password</label>
-                            <input type="text" name="" id="">
+                            <input type="text" id="password2">
                         </div>
                         <div class="password-btns flex">
-                            <button class="uppercase">Update</button>
-                            <button class="uppercase">Cancel</button>
+                            <button class="uppercase" onclick="updUserPwd()">Update</button>
+                            <button class="uppercase" onclick="Cls_UserCtn('.password-settings') ">Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -368,9 +386,9 @@
 
 
     <!-- JAVASCRIPT -->
-    <!-- <script src="/js/admin/main.js"></script> -->
-    <script src="/js/admin/user.js"></script>
     <script src="../../js/admin/header.js"></script>
+    <script src="/js/admin/common.js"></script>
+    <script src="/js/admin/user.js"></script>
  
 </body>
 
