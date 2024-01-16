@@ -198,7 +198,77 @@ header{
     position: absolute;
     right: 10rem;
 }
-
+.notification.active{
+    background: var(--primary-color);
+}
+.notification.active svg{
+    fill: var(--white);
+}
+.notification.red{
+    background: var(--ter-light-color);
+}
+.notification.red svg{
+    fill: var(--ter-dark-color);
+}
+.notification.red:hover{
+    background: var(--ter-dark-color);
+}
+/* ----LIST notification---- */
+.notification-list{
+    position: absolute;
+    top: 5rem;
+    right: 10rem;
+    max-width: 300px;
+    width: 100%;
+    background: var(--white);
+    outline: 1px solid var(--primary-light-color);
+    border-radius: var(--border-radius-1);
+}
+.notification-list p.uppercase{
+    font-weight: 600;
+    padding: 1rem;
+}
+hr{
+    border-width: 0px 0px thin;
+    border-style: solid;
+    border-color: rgb(227, 232, 239);
+}
+.notification-column{
+    overflow: scroll;
+    height: 50vh;
+    cursor: pointer;
+    /* padding: 0 5px; */
+}
+.notification-column p{
+    font-weight: 500;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 5px;
+}
+.notification-column p:hover{
+    background: var(--sec-light-color);
+}
+.notification-column p span:nth-child(1){
+    display: inline-block;
+    padding: 5px 7px;
+    color: var(--primary-color);
+    background: var(--primary-light-color);
+    border-radius: 50%;
+}
+.notification-column p span:last-child{
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+.notification-column p span.green{
+    background: var(--green-light);
+    color: var(--green);
+}
+.notification-column p span.red{
+    background: var(--ter-light-color);
+    color: var(--ter-dark-color);
+}
 /* ------PROFILE---------- */
 .profileIcon{
     position: absolute;
@@ -239,6 +309,7 @@ header{
     font-weight: 500;
     cursor: pointer;
     padding-top: 11px;
+    outline: 1px solid var(--primary-light-color);
 }
 .account-settings svg{
     fill: var(--black);

@@ -7,7 +7,15 @@
 .main .mixes {
     align-items: flex-start;
 }
+.misContainer{
+    background: var(--white);
+    border-radius: var(--border-radius-2);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    margin-top: 1rem;
 
+}
 .main .miscel-task {
     /* height: 10vh; */
     display: flex;

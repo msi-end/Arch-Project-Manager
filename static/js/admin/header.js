@@ -63,3 +63,7 @@ if(window.innerWidth < 780){
 function openProfile(){
     document.querySelector(`.account-settings`).classList.toggle(`hide`);
 }
+function openNotification(){
+    document.querySelector(`.notification-list`).classList.toggle(`hide`);
+    document.querySelector(`.notification`).classList.toggle(`active`);
+}
