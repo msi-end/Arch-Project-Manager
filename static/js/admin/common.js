@@ -74,6 +74,7 @@ mainDropdowns.forEach(dropdown => {
 function date_Split(val, p, t) { let [d, m, y] = val.split(p); return t ? `${y}/${m}/${d}` : `${y}-${m}-${d}` }
 // ReqHandler Data  
 // User Requestes To API
+let BASE_URL = location.href;
 let ReqHandler = {
   GET: async function (url) {
       const response = await fetch(url, {
