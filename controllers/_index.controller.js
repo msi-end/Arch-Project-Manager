@@ -231,11 +231,10 @@ exports.renderNormalProjectForm = async (req, res) => {
 //---Misc project page Controll -----
 exports.renderMiscProjectDashboard = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const q = `select single_deal.reference_no, single_deal.contact, single_deal.email, single_deal.sdeal_name, single_deal.work_name, single_deal.agreement_amount, single_deal.total_price, mis_subtask.msub_task_name,
-    misc_project_subtask.mstask_status
-    from misc_project_subtask
-    inner join single_deal on single_deal.sdid = misc_project_subtask.mdeal_id
-    inner join mis_subtask on mis_subtask.msub_task_id = misc_project_subtask.mstask_id;`
+        const q = `select single_deal.reference_no, single_deal.contact, single_deal.email, single_deal.sdeal_name, single_deal.work_name, single_deal.agreement_amount, single_deal.total_price, single_deal.city,  mis_subtask.msub_task_name, misc_project_subtask.mstask_status, misc_project_subtask.dateofdeadline
+        from misc_project_subtask 
+        inner join single_deal on single_deal.sdid = misc_project_subtask.mdeal_id 
+        inner join mis_subtask on mis_subtask.msub_task_id = misc_project_subtask.mstask_id;`
         await db.query(q, (err, result) => {
             if (!err) {
                 res.status(200).render('../views/admin/miscDash.ejs', { result })
@@ -246,10 +245,13 @@ exports.renderMiscProjectDashboard = async (req, res) => {
 }
 exports.miscProjectFinance = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const q = `SELECT 'Hello' AS msg;        `
+        const q = `select single_deal.reference_no, single_deal.sdeal_name, single_deal.work_name, single_deal.city, single_deal.total_price, single_deal.agreement_amount, mis_subtask.*, misc_project_finance.*
+        from misc_project_finance 
+        inner join single_deal on single_deal.sdid = misc_project_finance.mdeal_id 
+        inner join mis_subtask on mis_subtask.msub_task_id = misc_project_finance.task;`
         await db.query(q, (err, result) => {
             if (!err) {
-                res.status(200).render('../views/admin/mp.finance.ejs', { data: 'adf' });
+                res.status(200).render('../views/admin/mp.finance.ejs', { result });
             } else {
                 res.status(500).send({ msg: "Internal server error!!!" })
             }
