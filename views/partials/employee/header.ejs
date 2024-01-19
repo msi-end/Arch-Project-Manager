@@ -33,12 +33,38 @@
             </svg>
         </span>
     </div>
-    <div class="notification btn">
+    <div class="notification btn" onclick="openNotification()">
         <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="bell" class="svg">
             <path fill="##000000"
                 d="M18,13.18V10a6,6,0,0,0-5-5.91V3a1,1,0,0,0-2,0V4.09A6,6,0,0,0,6,10v3.18A3,3,0,0,0,4,16v2a1,1,0,0,0,1,1H8.14a4,4,0,0,0,7.72,0H19a1,1,0,0,0,1-1V16A3,3,0,0,0,18,13.18ZM8,10a4,4,0,0,1,8,0v3H8Zm4,10a2,2,0,0,1-1.72-1h3.44A2,2,0,0,1,12,20Zm6-3H6V16a1,1,0,0,1,1-1H17a1,1,0,0,1,1,1Z">
             </path>
         </svg>
+    </div>
+    <div class="notification-list hide">
+        <div class="notification-list-menu">
+            <p class="uppercase">Notifications</p>
+            <hr class="line">
+            <div class="notification-column">
+                <p class="notification-name">
+                    <span>Architecture and Multinational Expulsion in Marketing &
+                        Development</span>
+                    <span class="actionBtn">
+                        <span class="n-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24"
+                                viewBox="0 -960 960 960" width="24">
+                                <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
+                            </svg>
+                        </span>|
+                        <span class="n-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24"
+                                viewBox="0 -960 960 960" width="24">
+                                <path
+                                    d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                            </svg>
+                        </span>
+                    </span>
+                </p>
+                <hr>
+            </div>
+        </div>
     </div>
     <div class="profileIcon flex" onclick="openProfile()">
         <img src="/img/admin.jpg" alt="profile" loading="lazy">
@@ -49,7 +75,8 @@
         </svg>
     </div>
     <div class="account-settings hide" >
-        <a class="flex" >
+
+       <a class="flex" href="logout">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="signout" class="svg">
                 <path fill="##000000"
                     d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z">
