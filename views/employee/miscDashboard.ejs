@@ -61,62 +61,37 @@
                 <h4 class="uppercase">Miscellaneous Project</h4>
             </div> -->
 
-<div class="data-info box">
-    <!-- headings -->
-    <div class="info-head grid">
-        <p class="uppercase phead none">Ref. No.</p>
-        <p class="uppercase phead none">CLIENT</p>
-        <p class="uppercase phead none">name of the project</p>
-        <p class="uppercase phead none">deadline</p>
-        <p class="uppercase phead none">status</p>
-        <!-- ------resposnive class------- -->
-        <p class="responsive uppercase phead hide block">project details</p>
-    </div>
-    <!-- ----------project information----------- -->
-    <div class="info-content">
-        <!-- --------1st project---------  -->
-        <% result?.forEach((data)=>{ %>
-          <%- include('../partials/employee/mp.ejs', {data: data}) %>  
-        <% }) %>
-        <!-- ------------------------------ -->
-    </div>
+            <div class="data-info box">
+                <!-- headings -->
+                <div class="info-head grid">
+                    <p class="uppercase phead none">Ref. No.</p>
+                    <p class="uppercase phead none">CLIENT</p>
+                    <p class="uppercase phead none">name of the project</p>
+                    <p class="uppercase phead none">deadline</p>
+                    <p class="uppercase phead none">status</p>
+                    <!-- ------resposnive class------- -->
+                    <p class="responsive uppercase phead hide block">project details</p>
+                </div>
+                <!-- ----------project information----------- -->
+                <div class="info-content">
+                    <!-- --------1st project---------  -->
+                    <% result?.forEach((data)=>{ %>
+                        <%- include('../partials/employee/mp.ejs', {data: data}) %>
+                            <% }) %>
+                                <!-- ------------------------------ -->
+                </div>
 
-    <!-- ----------PAGINATION--------- -->
-    <%- include('../partials/employee/pagin.ejs') %>
-    <div class="main-dropdown">
-        <div class="status-dropdown-menu common_dropdown">
-              <ul>
-                  <li class="red">
-                      <input type="radio" name="start">
-                      <span data-name="start">Not Started</span>
-                  </li>
-                  <li class="blue">
-                      <input type="radio" name="start">
-                      <span>In Progress</span>
-                  </li>
-                  <li class="green">
-                      <input type="radio" name="start">
-                      <span>Completed</span>
-                  </li>
-              </ul>
-          </div> 
-          <!-- <div class="emp-drop-menu common_dropdown">
-              <ul>
-                  <li>
-                      <input type="checkbox" name="employee">
-                      <span>Anand Kumar</span>
-                  </li>
-              </ul>
-              <button class="uppercase">update</button>
-          </div> -->
-      </div>
+                <!-- ----------PAGINATION--------- -->
+                <%- include('../partials/employee/pagin.ejs') %>
 
-      </main>
-  </section>
+            </div>
+
+        </main>
+        </section>
 
 
-  <!-- JAVASCRIPT -->
-  <script src="/js/employee/emp.js"></script>
+        <!-- JAVASCRIPT -->
+        <script src="/js/employee/emp.js"></script>
 </body>
 
 </html>

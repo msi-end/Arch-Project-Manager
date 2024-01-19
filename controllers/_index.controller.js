@@ -47,7 +47,6 @@ exports.userManager = (req, res) => {
 
 exports.settings = (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-
         const query = `select * from subtask;select * from mis_subtask;select * from amount_split`
         db.query(query, (err, result, field) => {
             res.status(200).render('../views/admin/settings.ejs', { data: result })
