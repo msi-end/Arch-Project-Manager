@@ -34,6 +34,7 @@ const apiRoute = require('./routes/admin/projectRoute.js')
 // Employees
 const EmployeeAuth = require('./routes/employee/auth.js');
 const EmpMainRoute = require('./routes/employee/indexRoutes');
+const EmpNitify = require('./routes/employee/notificationRoute');
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -58,6 +59,7 @@ app.use('/apiv1', nitify)
 // For Employees ************
 app.use('/', EmployeeAuth)
 app.use('/', EmpMainRoute)
+app.use('/apiv1', EmpNitify)
 
 //testing------------------------
 

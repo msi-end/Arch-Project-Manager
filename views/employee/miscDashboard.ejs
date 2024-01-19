@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBAH ERP | Admin</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/employee/main.css">
+    <link rel="stylesheet" href="/css/employee/responsive.css">
+
+</head>
+
+<body>
+    <%- include('../partials/employee/header.ejs') %>
+        <!-- ASIDE SECTION  -->
+        <!-- MAIN SECTION STARTS HERE  -->
+        <main class="main" data-app-id="<%=  sentData[1].id %>">
+            <!------------- DATA-OVERALL-------------  -->
+            <div class="main-data flex">
+                <!-- -------TOTAL PROJECTS--------- -->
+                <div class="total-data flex data">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="users-alt" class="svg">
+                        <path fill="##000000"
+                            d="M12.3,12.22A4.92,4.92,0,0,0,14,8.5a5,5,0,0,0-10,0,4.92,4.92,0,0,0,1.7,3.72A8,8,0,0,0,1,19.5a1,1,0,0,0,2,0,6,6,0,0,1,12,0,1,1,0,0,0,2,0A8,8,0,0,0,12.3,12.22ZM9,11.5a3,3,0,1,1,3-3A3,3,0,0,1,9,11.5Zm9.74.32A5,5,0,0,0,15,3.5a1,1,0,0,0,0,2,3,3,0,0,1,3,3,3,3,0,0,1-1.5,2.59,1,1,0,0,0-.5.84,1,1,0,0,0,.45.86l.39.26.13.07a7,7,0,0,1,4,6.38,1,1,0,0,0,2,0A9,9,0,0,0,18.74,11.82Z">
+                        </path>
+                    </svg>
+                    <div class="total_user_data">
+                        <p class="size"></p>
+                        <p class="text">Total Projects</p>
+                    </div>
+                </div>
+                <!-- ---------------cOMPLETED PROJECTS ------------ -->
+                <div class="in_progress-data flex data">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="users-alt" class="svg">
+                        <path fill="##000000"
+                            d="M12.3,12.22A4.92,4.92,0,0,0,14,8.5a5,5,0,0,0-10,0,4.92,4.92,0,0,0,1.7,3.72A8,8,0,0,0,1,19.5a1,1,0,0,0,2,0,6,6,0,0,1,12,0,1,1,0,0,0,2,0A8,8,0,0,0,12.3,12.22ZM9,11.5a3,3,0,1,1,3-3A3,3,0,0,1,9,11.5Zm9.74.32A5,5,0,0,0,15,3.5a1,1,0,0,0,0,2,3,3,0,0,1,3,3,3,3,0,0,1-1.5,2.59,1,1,0,0,0-.5.84,1,1,0,0,0,.45.86l.39.26.13.07a7,7,0,0,1,4,6.38,1,1,0,0,0,2,0A9,9,0,0,0,18.74,11.82Z">
+                        </path>
+                    </svg>
+                    <div class="total_user_data">
+                        <p class="size"></p>
+                        <p class="text">Completed</p>
+                    </div>
+                </div>
+                <!-- ---------IN PROGRESS----------- -->
+                <div class="not_start-data flex data">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="users-alt" class="svg">
+                        <path fill="##000000"
+                            d="M12.3,12.22A4.92,4.92,0,0,0,14,8.5a5,5,0,0,0-10,0,4.92,4.92,0,0,0,1.7,3.72A8,8,0,0,0,1,19.5a1,1,0,0,0,2,0,6,6,0,0,1,12,0,1,1,0,0,0,2,0A8,8,0,0,0,12.3,12.22ZM9,11.5a3,3,0,1,1,3-3A3,3,0,0,1,9,11.5Zm9.74.32A5,5,0,0,0,15,3.5a1,1,0,0,0,0,2,3,3,0,0,1,3,3,3,3,0,0,1-1.5,2.59,1,1,0,0,0-.5.84,1,1,0,0,0,.45.86l.39.26.13.07a7,7,0,0,1,4,6.38,1,1,0,0,0,2,0A9,9,0,0,0,18.74,11.82Z">
+                        </path>
+                    </svg>
+                    <div class="total_user_data">
+                        <p class="size"></p>
+                        <p class="text">In Progress</p>
+                    </div>
+                </div>
+            </div>
+            <!-- ---------Information Container----------- -->
+            <!-- <div class="misContainer">
+                <h4 class="uppercase">Miscellaneous Project</h4>
+            </div> -->
+
+<div class="data-info box">
+    <!-- headings -->
+    <div class="info-head grid">
+        <p class="uppercase phead none">Ref. No.</p>
+        <p class="uppercase phead none">CLIENT</p>
+        <p class="uppercase phead none">name of the project</p>
+        <p class="uppercase phead none">deadline</p>
+        <p class="uppercase phead none">status</p>
+        <!-- ------resposnive class------- -->
+        <p class="responsive uppercase phead hide block">project details</p>
+    </div>
+    <!-- ----------project information----------- -->
+    <div class="info-content">
+        <!-- --------1st project---------  -->
+        <% result?.forEach((data)=>{ %>
+          <%- include('../partials/employee/mp.ejs', {data: data}) %>  
+        <% }) %>
+        <!-- ------------------------------ -->
+    </div>
+
+    <!-- ----------PAGINATION--------- -->
+    <%- include('../partials/employee/pagin.ejs') %>
+    <div class="main-dropdown">
+        <div class="status-dropdown-menu common_dropdown">
+              <ul>
+                  <li class="red">
+                      <input type="radio" name="start">
+                      <span data-name="start">Not Started</span>
+                  </li>
+                  <li class="blue">
+                      <input type="radio" name="start">
+                      <span>In Progress</span>
+                  </li>
+                  <li class="green">
+                      <input type="radio" name="start">
+                      <span>Completed</span>
+                  </li>
+              </ul>
+          </div> 
+          <!-- <div class="emp-drop-menu common_dropdown">
+              <ul>
+                  <li>
+                      <input type="checkbox" name="employee">
+                      <span>Anand Kumar</span>
+                  </li>
+              </ul>
+              <button class="uppercase">update</button>
+          </div> -->
+      </div>
+
+      </main>
+  </section>
+
+
+  <!-- JAVASCRIPT -->
+  <script src="/js/employee/emp.js"></script>
+</body>
+
+</html>
+</div>
