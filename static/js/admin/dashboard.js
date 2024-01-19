@@ -48,10 +48,15 @@ addNewEmp = async (param, e) => {
     await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id', 'npcid'], 'apiv1/add-employee-to-project', closeSubBox, exdata)
 }
 
-async function addTaskStatus(target) {
+async function addTaskStatus(target, type, route) {
+    let body = null;
     const dataSet = target.parentNode.dataset
-    const body = { status: target.value, dealId: Number(dataSet.ndealid), catId: Number(dataSet.taskid) }
-    await feature.DEL_UPD('apiv1/update-task-status', "PUT", body)
+    if(type === 'normal'){
+        body = { status: target.value, dealId: Number(dataSet.ndealid), catId: Number(dataSet.taskid) }
+    }else{
+       body = { mstask_status: target.value, mdeal_id: Number(dataSet.ndealid), mstask_id: Number(dataSet.taskid), dateofstatus : "28/03/2033",  } 
+    }
+    await feature.DEL_UPD(route, "PUT", body)
 }
 
 async function removeEmpNp(data) {
@@ -113,7 +118,7 @@ async function CheckNotification() {
     let nCtn = document.querySelector('.notification-column')
     await ReqHandler.GET(location.origin + '/apiv1/get-notifi').then(res => {
         if (res.status) {
-            nCtn.innerHTML=''
+            nCtn.innerHTML = ''
             for (const e of res.data) {
                 nCtn.innerHTML += ` <p class="notification-name ${e.status}" data-nId="${e.notid}"><span>${e.title}</span>
         <span class="actionBtn"><span class="n-icon" onclick="UpdateNotify('read',${e.notid})"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
@@ -126,13 +131,11 @@ async function CheckNotification() {
 }
 
 async function UpdateNotify(act, e) {
-    await ReqHandler.GET(location.origin +'/apiv1/upd-notifi/'+e+`?act=`+act).then(res => {
-        if (res.status) {  CheckNotification()}
+    await ReqHandler.GET(location.origin + '/apiv1/upd-notifi/' + e + `?act=` + act).then(res => {
+        if (res.status) { CheckNotification() }
     })
 
 }
-
-
 
 CheckDeadline()
 CheckNotification()

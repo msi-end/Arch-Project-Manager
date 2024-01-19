@@ -12,7 +12,7 @@
                         </path>
                     </svg>
                 </button> -->
-                <select data-taskstatus="<%= cat.cat_status %>" class="status-dropdown-menu common_dropdown" name="status" id="" onchange="addTaskStatus(this)">
+                <select data-taskstatus="<%= cat.cat_status %>" class="status-dropdown-menu common_dropdown" name="status" id="" onchange="addTaskStatus(this, 'normal', 'apiv1/update-task-status')">
                     <option value="Not Started" <%= cat.cat_status == "Not started" ? "selected" : ""%>>Not started</option>
                     <option value="On Progress" <%= cat.cat_status == "On Progress" ? "selected" : ""%>>On Progress</option>
                     <option value="Completed" <%= cat.cat_status == "Completed" ? "selected" : ""%>>Completed</option>

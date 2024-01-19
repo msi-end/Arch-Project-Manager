@@ -26,8 +26,9 @@ exports.indexDeshboard = async (req, res) => {
 
                 for (const key in grouped) { sentData.push(grouped[key][0]) }
                 // res.status(200).send({data : sentData});
-                console.log(sentData)
-                res.status(200).render('../views/admin/_index.ejs', { sentData })
+                const sortedData = sentData.sort((a, b) => b.id - a.id);
+                // console.log(sortedData)
+                res.status(200).render('../views/admin/_index.ejs', { sortedData })
             }
         })
     }
@@ -233,7 +234,7 @@ exports.renderNormalProjectForm = async (req, res) => {
 //---Misc project page Controll -----
 exports.renderMiscProjectDashboard = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const q = `select single_deal.reference_no, single_deal.contact, single_deal.email, single_deal.sdeal_name, single_deal.work_name, single_deal.agreement_amount, single_deal.total_price, single_deal.city,  mis_subtask.msub_task_name, misc_project_subtask.mstask_status, misc_project_subtask.dateofdeadline
+        const q = `select single_deal.reference_no, single_deal.contact, single_deal.email, single_deal.sdeal_name, single_deal.work_name, single_deal.agreement_amount, single_deal.total_price, single_deal.city, misc_project_subtask.mstask_id, misc_project_subtask.mdeal_id, mis_subtask.msub_task_name, misc_project_subtask.mstask_status, misc_project_subtask.dateofdeadline 
         from misc_project_subtask 
         inner join single_deal on single_deal.sdid = misc_project_subtask.mdeal_id 
         inner join mis_subtask on mis_subtask.msub_task_id = misc_project_subtask.mstask_id;`
