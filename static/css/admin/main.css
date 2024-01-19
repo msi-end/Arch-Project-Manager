@@ -299,6 +299,7 @@
 }
 .adata .project_expand .architecture hr.show{
     outline: 1px solid var(--primary-color);
+    border: none;
 }
 .adata .project_expand .structural .arrow{
     border: 1px solid var(--secondary-color);
@@ -339,7 +340,7 @@
     padding: 0 4px;
     height: 30px;
     border-radius: var(--border-radius-1);
-    border: 1px solid var(--primary-color);
+    outline: 1px solid var(--primary-color);
     background: var(--primary-color);
     color: var(--white);
     gap: 0;
@@ -349,6 +350,21 @@
 }
 .task-emp-status .main-btns :is(button, select):hover{
     opacity: 0.8;
+}
+.task-emp-status .main-btns select.red{
+    background: var(--ter-light-color);
+    color: var(--ter-dark-color);
+    outline: 1px solid var(--ter-dark-color);
+}
+.task-emp-status .main-btns select.blue{
+    background: var(--sec-light-color);
+    color: var(--secondary-color);
+    outline: 1px solid var(--secondary-color);
+}
+.task-emp-status .main-btns select.green{
+    background: var(--green-light);
+    color: var(--green);
+    outline: 1px solid var(--green);
 }
 .main-btns button:nth-child(2)::after{
     background: var(--secondary-color);
@@ -476,7 +492,7 @@
     display: block;
 }
 .emp-drop-menu ul{
-    height: 25vh;
+    height: 50vh;
     overflow: scroll;
     background: var(--secondary-color);
     padding: 5px;
@@ -519,7 +535,7 @@
     display: block;
 }
 .task-drop-menu ul{
-    height: 25vh;
+    height: 50vh;
     overflow: scroll;
     background: var(--green);
     padding: 5px;
