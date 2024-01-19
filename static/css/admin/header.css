@@ -495,3 +495,6 @@ nav .nav-lists svg {
 .main.width {
     width: 93%;
 }
+.main.flow{
+    overflow: hidden;
+}

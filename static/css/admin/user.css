@@ -202,9 +202,9 @@
 
 /* users */
 .user-list {
-    /* gap: 5rem; */
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr) 3rem;
+    align-items: center;
     padding: 1rem 2rem;
     transition: var(--animation-1);
 }
@@ -255,6 +255,7 @@
 .data-status .data-log{
     font-weight: 500;
     line-height: 1.6;
+    width: 80%;
 }
 :is(.user-status) p,
 .profile-status .ustatus {
@@ -262,7 +263,9 @@
     padding: 5px 10px;
     border-radius: 20px;
 }
-
+.user-status .ustatus{
+    display: inline-block;
+}
 :is(.user-status, .profile-status) p.green {
     background: var(--green-light);
     color: var(--green);
@@ -278,7 +281,9 @@
     font-weight: 500;
     display: flex;
 }
-
+.profile-status .ustatus{
+    font-size: 12px;
+}
 .data-status .log {
     display: inline-block;
     padding: 0;
@@ -297,6 +302,7 @@
 :is(.profile-status, .profile-log-out, .profile-log-in) p:first-child {
     font-weight: 600;
     font-size: 14px;
+    width: 50%;
 }
 :is(.profile-log-out, .profile-log-in) p:last-child {
     font-weight: 600;
@@ -597,8 +603,7 @@
     }
 
     .user-list {
-        flex-direction: column;
-        align-items: flex-start;
+        grid-template-columns: 1fr;
         position: relative;
     }
 
