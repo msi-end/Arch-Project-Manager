@@ -349,31 +349,31 @@
     color: var(--primary-color);
 }
 /* --------------PAGINATION---------------------- */
-.user-pagination {
+.info_pagination {
     padding: 1rem;
 }
 
-.user-pagination ul {
+.info_pagination ul {
     display: flex;
     align-items: center;
 }
 
-.user-pagination ul li {
+.info_pagination ul li {
     border-radius: 50%;
     color: var(--secondary-color);
     background: var(--sec-light-color);
 }
 
-.user-pagination ul li svg {
+.info_pagination ul li svg {
     fill: var(--secondary-color);
 }
 
-.user-pagination li:is(.active, :hover) {
+.info_pagination li:is(.active, :hover) {
     background: var(--secondary-color);
     color: var(--white);
 }
 
-.user-pagination li:is(.active, :hover) svg {
+.info_pagination li:is(.active, :hover) svg {
     fill: var(--white);
 }
 

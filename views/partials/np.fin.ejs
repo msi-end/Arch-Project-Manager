@@ -16,8 +16,9 @@
             <span class="uppercase hide block phead">project amount</span>
             &#8377;<span><%= fdata[0].totalamount %></span>/-
         </p>
-        <p class="totalf none">&#8377;<span>60,000</span>/-</p>
-        <p class="totalf none">&#8377;<span>40,000</span>/-</p>
+        <%  const rAmount = fdata?.reduce((acc, curr) => acc + curr.amount_got, 0); %>
+        <p class="totalf none">&#8377;<span><%= rAmount %></span>/-</p>
+        <p class="totalf none">&#8377;<span><%= fdata[0]?.totalamount - rAmount %></span>/-</p>
         <p class="split">
             <span class="uppercase hide block phead">Split ratio</span>
             <%= fdata[0].split %>
