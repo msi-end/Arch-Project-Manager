@@ -46,7 +46,7 @@
             &#8377; <%= data.total_price %><span></span>/-
         </p>
         <p class="totalf none">&#8377;<span><%= data.agreement_amount %></span>/-</p>
-        <p class="totalf none">&#8377;<span>40,000</span>/-</p>
+        <p class="totalf none">&#8377;<span><%= data.total_price - data.agreement_amount %></span>/-</p>
         <p class="split">
             <span class="uppercase hide block phead">Split ratio</span>
             4:4:2

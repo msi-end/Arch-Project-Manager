@@ -10,10 +10,9 @@
     <link rel="stylesheet" href="/css/employee/main.css">
     <link rel="stylesheet" href="/css/employee/responsive.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <%- include('../partials/employee/header.ejs') %>
-<main class="main">
+<main class="main" data-app-id="<%=  sentData[1].id %>">
     <!------------- DATA-OVERALL-------------  -->
     <div class="main-data flex">
         <!-- -------TOTAL PROJECTS--------- -->
@@ -102,7 +101,7 @@
             <% }) %>
             <!-- -------------------------------->
                 <!-- ----------PAGINATION--------- -->
-                <%- include('../partials/pagin.ejs') %>
+                <%- include('../partials/employee/pagin.ejs') %>
         </div>
 </main>
 </section>

@@ -10,7 +10,8 @@ exports.indexDeshboard = async (req, res) => {
     INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id 
     INNER JOIN task ON normal_project_cat.category_id = task.task_id 
     LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id 
-    LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id`
+    LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id
+    ORDER BY deals.id DESC`
         await db.query(q, (err, results) => {
             // console.log(results);
             const grouped = {};
@@ -25,7 +26,7 @@ exports.indexDeshboard = async (req, res) => {
 
                 for (const key in grouped) { sentData.push(grouped[key][0]) }
                 // res.status(200).send({data : sentData});
-                // console.log(sentData)
+                console.log(sentData)
                 res.status(200).render('../views/admin/_index.ejs', { sentData })
             }
         })
@@ -46,7 +47,6 @@ exports.userManager = (req, res) => {
 
 exports.settings = (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-
         const query = `select * from subtask;select * from mis_subtask;select * from amount_split`
         db.query(query, (err, result, field) => {
             res.status(200).render('../views/admin/settings.ejs', { data: result })
@@ -205,6 +205,7 @@ exports.renderNormalProjectFinance = async (req, res) => {
                 })
                 for (const key in grouped) { sentData.push(grouped[key]) }
                 // res.status(200).send(sentData);
+                // console.log(sentData)
                 res.render('../views/admin/np.finance.ejs', { sentData });
             } else {
                 res.status(500).send({ msg: "Internal server error!!!" })

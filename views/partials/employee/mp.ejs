@@ -13,7 +13,7 @@
             <span class="uppercase hide block phead">Deadline</span>
             <span><%= data.dateofdeadline %></span>
         </p>
-        <p class="<%= data.mstask_status === 'completed' ? 'stat flex green': 'stat flex red'%>"><%= data.mstask_status %></p>
+        <p class="stat flex red"><%= data.mstask_status %></p>
         <p class="arrow-down">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-down" class="svg">
                 <path fill="##000000"
@@ -24,26 +24,6 @@
     </div>
     <!-- ----------open data for accordion---------- -->
     <div class="adata">
-        <div class="oth-info grid none">
-            <p></p>
-            <p class="contact">
-                <span class="uppercase phead">contact No</span>
-                <span class="contact_no"><%= data.contact %></span>
-            </p>
-            <p class="e-mail">
-                <span class="uppercase phead">email</span>
-                <span class="g-mail"><%= data.email %></span>
-            </p>
-            <p class="agreement">
-                <span class="uppercase phead">Agreement Amount</span>
-                <span class="amount">&#8377;<%= data.agreement_amount %></span>
-            </p>
-            <p class="address">
-                <span class="uppercase phead">address</span>
-                <span class="add_info"><%= data.city %></span>
-            </p>
-            <p></p>
-        </div>
         <div class="project_expand grid">
             <p class="none"></p>
             <!-- ARCHITECTURE  -->
@@ -57,7 +37,6 @@
                                 <option value="On Progress">On Progress</option>
                                 <option value="Completed">Completed</option>
                             </select>
-                            <!-- <button class="" onclick="empPopup()">Employee</button> -->
                         </div>
 
                     </div>
@@ -93,7 +72,7 @@
                                 <option value="On Progress">On Progress</option>
                                 <option value="Completed">Completed</option>
                             </select>
-                            <!-- <button class="" onclick="empPopup()">Employee</button> -->
+                            
                         </div>
 
                     </div>
