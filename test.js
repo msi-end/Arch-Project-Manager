@@ -14,8 +14,6 @@ const main = async () => {
         const text = ' email.';
         const htmlFile = path.join(__dirname, './src/email-templates/email.html');
         const htmlData = { name: 'John' };
-
-
         await EmailNotifier(email, subject, text, htmlFile,htmlData);
     } catch (error) {
        console.log(error);

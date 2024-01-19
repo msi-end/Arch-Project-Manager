@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const ejs = require('ejs');
-require('dotenv').config()
+require('dotenv').config();
 const PORT = process.env.PORT || 8000;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -26,12 +26,14 @@ const userManager = require('./routes/admin/userManagerRoute.js')
 const settings = require('./routes/admin/settingRoute.js')
 const finance = require('./routes/admin/financeRoute')
 const financeExpense = require('./routes/admin/financeRoute.expance')
+const nitify = require('./routes/admin/notificationRoute')
 
 const apiRoute = require('./routes/admin/projectRoute.js')
 
 
 // Employees
 const EmployeeAuth = require('./routes/employee/auth.js');
+const EmpMainRoute = require('./routes/employee/indexRoutes');
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -50,10 +52,12 @@ app.use('/admin/finance/expenses', financeExpense)
 
 // app.use('/apiV1', tasks)
 app.use('/apiv1', apiRoute)
+app.use('/apiv1', nitify)
 
 
 // For Employees ************
 app.use('/', EmployeeAuth)
+app.use('/', EmpMainRoute)
 
 //testing------------------------
 

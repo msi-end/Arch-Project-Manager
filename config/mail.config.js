@@ -1,9 +1,11 @@
+require('dotenv').config();
+
 module.exports = {
     email: {
-        host: process.env.EMAIL_HOST,
-        port: process.env.EMAIL_PORT,
-        secure: process.env.EMAIL_SECURE,
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.Email_user,
+        clientID: process.env.Email_clientId,
+        clientSecret: process.env.Email_clientSecret,
+        refreshToken: process.env.Email_refreshToken,
+        redirectURI:process.env.Email_redirectURI,
     },
 };

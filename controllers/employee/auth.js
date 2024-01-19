@@ -4,7 +4,7 @@ const { createHmac } = require('crypto');
 
 exports.CheckLoginServe = (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'employee') {
-        res.status(200).render('../views/employee/dashboard.ejs')
+        res.redirect('/dashboard')
     } else {
         res.status(200).render('../views/employee/login.ejs')
     }

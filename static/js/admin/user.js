@@ -1,4 +1,4 @@
-let BASE_URL = location.href;
+
 let ReqURI = { addUser: BASE_URL + `/add-User`, updUser: BASE_URL + `/Update-User/`, updUserPwd: BASE_URL + `/upd-password/`, getUserAtten: BASE_URL + `/getAttendence/`, getUserAttenyMth: BASE_URL + `/getAttenMonth/`,getWorkInfo:BASE_URL+'/getWorkInfo/' }
 function Disable_BtnHandler(e, ep) {
     if (ep) {
