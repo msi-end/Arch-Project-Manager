@@ -91,7 +91,6 @@ async function getProjectsStatus() {
 setTimeout(() => { getProjectsStatus() }, 1500)
 
 async function CheckDeadline() {
-    alert('ok')
     let ctn = document.getElementsByClassName('ahead')
     var crDate = new Date();
     var [y, m, d] = [crDate.getFullYear(), (crDate.getMonth() + 1).toString().padStart(2, '0'), crDate.getDate().toString().padStart(2, '0')]
