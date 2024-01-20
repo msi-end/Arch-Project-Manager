@@ -3,13 +3,13 @@ const { createHmac } = require('crypto')
 const { errorHandler } = require('../utils/errorHandler')
 
 function insertAttendanceData(empID) {
-    let arr =''
+    let arr ='';
     for (let i = 2; i <=31; i++) {
          arr +=`,(${empID},${i})`
     }
     let query2 = `INSERT INTO empAttendance (empID,date) VALUES (${empID},'1')${arr};`
     db.query(query2,(err, result, field) => {
-        if (err) throw new errorHandler('', err);
+        if (err) throw new errorHandler(500,'There is an Error in Usermanager.crud ln:12 data not inserting.'+err);
     })
 }
 

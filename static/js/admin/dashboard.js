@@ -91,6 +91,7 @@ async function getProjectsStatus() {
 setTimeout(() => { getProjectsStatus() }, 1500)
 
 async function CheckDeadline() {
+    alert('ok')
     let ctn = document.getElementsByClassName('ahead')
     var crDate = new Date();
     var [y, m, d] = [crDate.getFullYear(), (crDate.getMonth() + 1).toString().padStart(2, '0'), crDate.getDate().toString().padStart(2, '0')]
@@ -102,23 +103,17 @@ async function CheckDeadline() {
         let date = date_Split(e.querySelector('.emp_date').innerText, '/', false).replaceAll('-', '/')
         NewDate = new Date(`20${date}`)
         if (status == 'pending' && NewDate.getTime() === upcDate.getTime()) {
-            data = {
-                id: 0, date: `${d}/${m}/${y}`,
-                title: `Project With Refno.${e.querySelector('.ref').children[1].innerText} ,Name:${e.querySelector('.pro').children[1].innerText} is near to it's Deadline.`,
-            }
+            data = {id: 0, date: `${d}/${m}/${y}`,
+                title: `Project With Refno.${e.querySelector('.ref').children[1].innerText} ,Name:${e.querySelector('.pro').children[1].innerText} is near to it's Deadline.`,}
             await ReqHandler.POST(location.origin + '/apiv1/set-notifi', data).then(res => {
-                console.log(res);
-            })
-        } else {
-            console.log('No work has close to Deadline');
-        }
+                console.log(res);})
+        } else {console.log('No work has close to Deadline'); }
     }
 }
 async function CheckNotification() {
     let nCtn = document.querySelector('.notification-column')
     await ReqHandler.GET(location.origin + '/apiv1/get-notifi').then(res => {
-        if (res.status) {
-            nCtn.innerHTML = ''
+        if (res.status) {nCtn.innerHTML = '';
             for (const e of res.data) {
                 nCtn.innerHTML += ` <p class="notification-name ${e.status}" data-nId="${e.notid}"><span>${e.title}</span>
         <span class="actionBtn"><span class="n-icon" onclick="UpdateNotify('read',${e.notid})"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
