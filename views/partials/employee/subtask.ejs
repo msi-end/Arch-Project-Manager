@@ -3,12 +3,7 @@
         <p class="uppercase phead" id="cat-name"> <%= subdata.msub_task_name %></p>
         <div class="task-emp-status">
             <div class="main-btns flex" data-taskid="<%= subdata.mstask_id %>" data-ndealid="<%= subdata.mdeal_id %>" data-npcid="">
-                <select data-taskstatus="" class="status-dropdown-menu common_dropdown" name="status" id="" onchange="addTaskStatus(this, 'misc', 'apiv1/update-misctask-status')">
-                    <option value="Not Started" <%= subdata.mstask_status == "not started" ? "selected" : ""%>>Not started</option>
-                    <option value="On Progress" <%= subdata.mstask_status == "On Progress" ? "selected" : ""%>>On Progress</option>
-                    <option value="Completed" <%= subdata.mstask_status == "Completed" ? "selected" : ""%>>Completed</option>
-                </select>
-                <button class="" onclick="empPopup(this)">Employee</button>
+                   <p><span>Task Status:</span> <%= subdata.mstask_status %></p>
             </div>
         </div>
     </div>
@@ -22,7 +17,6 @@
                 </span>
             </div>
             <ul class="emp-acc-data" id="emp-in-np">
-                <!-- <li class="add-empl">Sri Venkataraman Venugopal Iyer</li>  --> 
             </ul>
         </div>
      
