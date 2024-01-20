@@ -90,7 +90,7 @@
                     <hr>
                     <!-- --------------User 1--------------------------  -->
                     <% data?.forEach(user=>{ %>
-                    <div class="user-list flex" data-id="<%= user.em_id  %>">
+                    <div class="user-list" data-id="<%= user.em_id  %>">
                         <div class="user-profile flex">
                             <div class="user-img flex">
                                 <img src="/img/employee.jpg" alt="profile" class="green">
@@ -182,7 +182,7 @@
                                         <input type="text" name="designation" disabled id="designation"
                                             placeholder="Designation">
                                     </div>
-                                    <button type="button" style="background: var(--primary-color);color: white;" class="hide" onclick="updUser()"> Update Info.</button>
+                                    <button type="button" style="background: var(--primary-color);color: white;" class="hide uppercase" onclick="updUser()"> Update Info.</button>
                                 </div>
                                 <div class="profile-status flex">
                                     <p class="urstatus">Status</p>

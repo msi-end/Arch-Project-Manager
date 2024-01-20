@@ -299,6 +299,7 @@
 }
 .adata .project_expand .architecture hr.show{
     outline: 1px solid var(--primary-color);
+    border: none;
 }
 .adata .project_expand .structural .arrow{
     border: 1px solid var(--secondary-color);
@@ -339,7 +340,7 @@
     padding: 0 4px;
     height: 30px;
     border-radius: var(--border-radius-1);
-    border: 1px solid var(--primary-color);
+    outline: 1px solid var(--primary-color);
     background: var(--primary-color);
     color: var(--white);
     gap: 0;
@@ -349,6 +350,21 @@
 }
 .task-emp-status .main-btns :is(button, select):hover{
     opacity: 0.8;
+}
+.task-emp-status .main-btns select.red{
+    background: var(--ter-light-color);
+    color: var(--ter-dark-color);
+    outline: 1px solid var(--ter-dark-color);
+}
+.task-emp-status .main-btns select.blue{
+    background: var(--sec-light-color);
+    color: var(--secondary-color);
+    outline: 1px solid var(--secondary-color);
+}
+.task-emp-status .main-btns select.green{
+    background: var(--green-light);
+    color: var(--green);
+    outline: 1px solid var(--green);
 }
 .main-btns button:nth-child(2)::after{
     background: var(--secondary-color);
@@ -379,7 +395,7 @@
 
 .main-dropdown .common_dropdown{
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     max-width: 100%;
@@ -395,7 +411,10 @@
 .main-dropdown ul li input{
     cursor: pointer;
 }
-
+.main-dropdown .drop-btn button:nth-child(2){
+    /* color: var(--ter-dark-color); */
+    background: var(--ter-dark-color);
+}
 /* --------BUTTONS COLOR---------- */
 .main-btns button.red{
     color: var(--ter-dark-color);
@@ -476,7 +495,7 @@
     display: block;
 }
 .emp-drop-menu ul{
-    height: 25vh;
+    height: 50vh;
     overflow: scroll;
     background: var(--secondary-color);
     padding: 5px;
@@ -519,7 +538,7 @@
     display: block;
 }
 .task-drop-menu ul{
-    height: 25vh;
+    height: 50vh;
     overflow: scroll;
     background: var(--green);
     padding: 5px;
@@ -550,6 +569,35 @@
     margin: 8px auto;
 }
 .task-drop-menu button:hover{
+    opacity: 0.8;
+}
+
+/* -------DEADLINE MENU DROPDOWN-------- */
+.deadline-drop-menu p{
+    margin-bottom: 10px;
+}
+.deadline-drop-menu input{
+    width: 100%;
+    height: 3rem;
+    border-radius: var(--border-radius-1);
+    background: var(--bg-2);
+    outline: 1px solid var(--black-light);
+    padding: 0 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+.deadline-drop-menu button{
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-weight: 600;
+    border-radius: var(--border-radius-1);
+    background: var(--green);
+    color: var(--white);
+    margin: 8px auto;
+}
+.deadline-drop-menu button:hover{
     opacity: 0.8;
 }
 /* -----------------------------------
@@ -586,7 +634,13 @@
 .stasks{
     gap: 10px;
 }
-
+.task-deadline{
+    justify-content: space-between;
+    gap: 0;
+}
+.task-deadline p:last-child{
+   color: var(--black); 
+}
 .add-empl span.icon{
     width: 25px;
     height: 25px;

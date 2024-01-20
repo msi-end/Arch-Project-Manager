@@ -11,8 +11,11 @@ async function empPopup(target) {
             <span>Plumbing</span> -->
         </li>
     </ul>
+    <div class="drop-btn flex">
     <button data-category_id="${getId.taskid}" data-ndeal_id="${getId.ndealid}" data-npcid="${getId.npcid}" class="uppercase" onclick="addNewEmp(this, event)">update</button>
+    <button class="uppercase">Cancel</button>
     </form>
+    </div>
 </div>`
     mainDrop.innerHTML = empHtml
     mainDrop.classList.toggle('active')
@@ -43,7 +46,10 @@ subPopup = async (target)=> {
             <span>Plumbing</span> -->
         </li>
     </ul>
+    <div class="drop-btn flex">
     <button data-category_id="${getId.taskid}" data-ndeal_id="${getId.ndealid}" class="uppercase" onclick="addNewSubtasks(this, event)">update</button>
+    <button class="uppercase">Cancel</button>
+    </div>
     </form>
 </div>`
     mainDrop.innerHTML = subPopupBox
