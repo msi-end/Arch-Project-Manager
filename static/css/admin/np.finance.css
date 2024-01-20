@@ -187,7 +187,18 @@
     opacity: 0.8;
 }
 
-
+.totalf{
+    position: relative;
+}
+.totalf span.maka{
+    /* width: 15px; */
+    /* display: inline-block; */
+    /* position: absolute; */
+    /* top: 1px; */
+    font-size: 10px;
+    display: block;
+    color: var(--grey);
+}
 
 
 
