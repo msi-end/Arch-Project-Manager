@@ -36,7 +36,7 @@ exports.updateMiscTaskStatus = async (req, res) => {
   let q = mstask_status != 'completed' ? `update misc_project_subtask set mstask_status ='${mstask_status}' where mdeal_id=${mdeal_id} and mstask_id=${mstask_id}` : `update misc_project_subtask set mstask_status ='${mstask_status}', dateofcomplete='${dateofstatus}' where mdeal_id=${mdeal_id} and mstask_id=${mstask_id}`
   await dbcon.query(q, (err, results) => {
     if (!err) {
-      res.status(200).send("status updated successfully")
+      res.status(200).send({msg: "status updated successfully"})
     } else { res.status(500).send(err) }
   })
 }

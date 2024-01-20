@@ -66,7 +66,7 @@ http://localhost:3000/apiv1/add-employee-to-miscproject
 http://localhost:3000/apiv1/remove-emp-miscp?mdeal_id=1&mstask_id=1&mpemid=2&dateofremove=23/09/23&task=ita+gota&project=Latin+bonua
 
 
-### API for update misc projects subtask - UPDATE
+### API for update misc projects subtask status - UPDATE
 http://localhost:3000/apiv1/update-misctask-status
 {
   "mdeal_id" : 1,

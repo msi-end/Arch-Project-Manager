@@ -1,0 +1,30 @@
+<div class="architecture badge">
+    <div class="arrow">
+        <p class="uppercase phead" id="cat-name"> <%= subdata.msub_task_name %></p>
+        <div class="task-emp-status">
+            <div class="main-btns flex" data-taskid="<%= subdata.mstask_id %>" data-ndealid="<%= subdata.mdeal_id %>" data-npcid="">
+                <select data-taskstatus="" class="status-dropdown-menu common_dropdown" name="status" id="" onchange="addTaskStatus(this, 'misc', 'apiv1/update-misctask-status')">
+                    <option value="Not Started" <%= subdata.mstask_status == "not started" ? "selected" : ""%>>Not started</option>
+                    <option value="On Progress" <%= subdata.mstask_status == "On Progress" ? "selected" : ""%>>On Progress</option>
+                    <option value="Completed" <%= subdata.mstask_status == "Completed" ? "selected" : ""%>>Completed</option>
+                </select>
+                <button class="" onclick="empPopup(this)">Employee</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="sub-tasks sbox">
+        <div class="assign-to" data-taskid="" data-ndealid="" >
+            <div class="eaccordion flex">
+                <p class="uppercase phead">assigned to</p>
+                <span class="right-arr">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-right" class="svg"><path fill="##000000" d="M8.46,8.29A1,1,0,1,0,7,9.71L9.34,12,7,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3a1,1,0,0,0,0-1.42Zm8.5,3-3-3a1,1,0,0,0-1.42,1.42L14.84,12l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3A1,1,0,0,0,17,11.29Z"></path></svg>
+                </span>
+            </div>
+            <ul class="emp-acc-data" id="emp-in-np">
+                <!-- <li class="add-empl">Sri Venkataraman Venugopal Iyer</li>  --> 
+            </ul>
+        </div>
+     
+    </div>
+</div>

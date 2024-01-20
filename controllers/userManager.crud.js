@@ -2,20 +2,25 @@ const db = require('../config/db.config')
 const { createHmac } = require('crypto')
 const { errorHandler } = require('../utils/errorHandler')
 
+function insertAttendanceData(empID) {
+    let arr ='';
+    for (let i = 2; i <=31; i++) {
+         arr +=`,(${empID},${i})`
+    }
+    let query2 = `INSERT INTO empAttendance (empID,date) VALUES (${empID},'1')${arr};`
+    db.query(query2,(err, result, field) => {
+        if (err) throw new errorHandler(500,'There is an Error in Usermanager.crud ln:12 data not inserting.'+err);
+    })
+}
 
-
-exports.add = (req, res) => {
+exports.add = async (req, res) => {
     let password = createHmac('sha256', 'zxcvbnmsdasgdrf').update(req.body.Password).digest('hex')
-    const query = `INSERT INTO employee (name,email,password,number,job_role) VALUES(?,?,?,?,?);  `
-    db.query(query, [req.body.Name, req.body.Email, password, req.body.Number, req.body.jobRole], (err, result, field) => {
+    const query = `INSERT INTO employee (name,email,password,number,job_role) VALUES(?,?,?,?,?);`
+    await db.query(query, [req.body.Name, req.body.Email, password, req.body.Number, req.body.jobRole], (err, result, field) => {
         if (err) throw new errorHandler('', err);
-        res.status(200).send({ status: true, msg: 'Life success!' })
+        res.status(200).send({ status: true, msg: 'Life success!' });
+     insertAttendanceData(result.insertId)
     })
-    let query2 = ``
-    db.query(query2, [], (err, result, field) => {
-        if (err) throw new errorHandler('', err);
-    })
-
 }
 exports.getOne = (req, res) => {
     const query = `SELECT name,email,number,status FROM employee WHERE em_id = ?  `
@@ -73,7 +78,7 @@ exports.getAttendenceByMonth = (req, res) => {
     let month = (new Date).getUTCMonth()
     let year = (new Date).getFullYear()
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const query = `SELECT date, ${monthNames[month]} FROM empAttendance WHERE empID = ${req.params.id} AND year = '${year}' `
+    const query = `SELECT date, ${monthNames[month]} FROM empAttendance WHERE empID = ${req.params.id} AND year = '${year}' AND  ${monthNames[month]} ='P' `
     db.query(query, (err, data, field) => {
         if (!err) {
             res.status(200).send({ status: true, data })
@@ -82,13 +87,12 @@ exports.getAttendenceByMonth = (req, res) => {
         }
     })
 }
-exports.setAttendence = (req, res) => {
+exports.setAttendence = (req, res,empId) => {
     let date = (new Date).getDate()
     let month = (new Date).getUTCMonth()
     let year = (new Date).getFullYear()
-
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const query = `INSERT INTO empAttendance (empID,date,${monthNames[month]},year) VALUE(${req.params.id},${date},'P',${year});`
+    const query = `UPDATE empAttendance  SET empID=${req.params.id||empId} ,date='${date}',${monthNames[month]}='P',year='${year}');`
     db.query(query, (err, result, field) => {
         if (!err) {
             res.status(200).send({ status: true, msg: 'Successfully Password Updated ', date: result })

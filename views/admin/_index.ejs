@@ -100,7 +100,7 @@
             <!-- ----------project information----------- -->
             <div class="info-content">
                 <!-- --------1st project----------->
-                <%  sentData?.forEach((el)=>{ %>
+                <%  sortedData?.forEach((el)=>{ %>
                     <%- include('../partials/np.ejs', {pdata: el }) %>
                 <% }) %>
                 <!-- -------------------------------->
@@ -154,7 +154,6 @@
 <!-- JAVASCRIPT -->
 
 <script src="../../js/admin/header.js"></script>
-<!-- <script src="../../js/admin/main.js"></script> -->
 <script src="../../js/admin/common.js"></script>
 <script src="../../js/admin/dashboard.render.js"></script>
 <script src="../../js/admin/dashboard.js"></script>

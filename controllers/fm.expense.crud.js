@@ -22,7 +22,6 @@ exports.expenseUpdater = (req, res) => {
         if (!err) {
             res.status(200).send({ status: true, msg: 'Successfully Expense Updated' })
         } else {
-            throw err;
             res.status(500).send({ status: false, msg: "Internal error occurs! \n "+err })
         }
     })
