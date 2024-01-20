@@ -671,7 +671,7 @@ nav .nav-lists svg {
     grid-template-columns: 4rem repeat(3, minmax(0, 1fr)) 1.5rem;
     align-items: center;
     justify-items: flex-start;
-    gap: 10px;
+    /* gap: 10px; */
 }
 .info-head, .info-content p{
     word-wrap: break-word;

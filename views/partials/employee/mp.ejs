@@ -5,15 +5,15 @@
             <span><%= data.reference_no %></span>
         </p>
         <p class="cli none"><%= data.sdeal_name %></p>
-        <p class="pro">
+        <!-- <p class="pro">
             <span class="uppercase hide block phead">name of work</span>
             <span><%= data.work_name %></span>
-        </p>
+        </p> -->
         <p class="emp_date">
             <span class="uppercase hide block phead">Deadline</span>
             <span><%= data.dateofdeadline %></span>
         </p>
-        <p class="stat flex red"><%= data.mstask_status %></p>
+        <p class="<%= data.mstask_status === 'Completed' ? 'stat flex green': 'stat flex red'%>"><%= data.mstask_status %></p>
         <p class="arrow-down">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-down" class="svg">
                 <path fill="##000000"
@@ -27,97 +27,8 @@
         <div class="project_expand grid">
             <p class="none"></p>
             <!-- ARCHITECTURE  -->
-            <div class="architecture badge">
-                <div class="arrow">
-                    <p class="uppercase phead">Status</p>
-                    <div class="task-emp-status">
-                        <div class="main-btns flex">
-                            <select data-taskstatus="" class="status-dropdown-menu common_dropdown" name="status" id="">
-                                <option value="Not Started">Not started</option>
-                                <option value="On Progress">On Progress</option>
-                                <option value="Completed">Completed</option>
-                            </select>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="sub-tasks sbox">
-                    <div class="assign-to">
-                        <div class="eaccordion flex">
-                            <p class="uppercase phead">assigned to</p>
-                            <span class="right-arr">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-right"
-                                    class="svg">
-                                    <path fill="##000000"
-                                        d="M8.46,8.29A1,1,0,1,0,7,9.71L9.34,12,7,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3a1,1,0,0,0,0-1.42Zm8.5,3-3-3a1,1,0,0,0-1.42,1.42L14.84,12l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3A1,1,0,0,0,17,11.29Z">
-                                    </path>
-                                </svg>
-                            </span>
-                        </div>
-                        <ul class="emp-acc-data">
-                            <li class="add-empl">Sri Venkataraman Venugopal Iyer</li>
-                            <li class="add-empl">Sri Venkataraman Venugopal Iyer</li>
-                        </ul>
-                        <button class="" onclick="empPopup()">Employee</button>
-                    </div>
-                </div>
-            </div>
-            <div class="architecture badge">
-                <div class="arrow">
-                    <p class="uppercase phead">Employee</p>
-                    <div class="task-emp-status">
-                        <div class="main-btns flex">
-                            <select data-taskstatus="" class="status-dropdown-menu common_dropdown" name="status" id="">
-                                <option value="Not Started">Not started</option>
-                                <option value="On Progress">On Progress</option>
-                                <option value="Completed">Completed</option>
-                            </select>
-                            
-                        </div>
-
-                    </div>
-                </div>
-                <div class="sub-tasks sbox">
-                    <div class="assign-to">
-                        <div class="eaccordion flex">
-                            <p class="uppercase phead">assigned to</p>
-                            <span class="right-arr">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-right"
-                                    class="svg">
-                                    <path fill="##000000"
-                                        d="M8.46,8.29A1,1,0,1,0,7,9.71L9.34,12,7,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3a1,1,0,0,0,0-1.42Zm8.5,3-3-3a1,1,0,0,0-1.42,1.42L14.84,12l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3A1,1,0,0,0,17,11.29Z">
-                                    </path>
-                                </svg>
-                            </span>
-                        </div>
-                        <ul class="emp-acc-data">
-                            <li class="add-empl">Sri Venkataraman Venugopal Iyer</li>
-                            <li class="add-empl">Sri Venkataraman Venugopal Iyer</li>
-                        </ul>
-                        <button class="" onclick="empPopup()">Employee</button>
-                    </div>
-                </div>
-            </div>
+            <%- include('./subtask.ejs', {subdata: data}) %>
         </div>
 
-    </div>
-</div>
-<div class="main-dropdown hide">
-    <div class="emp-drop-menu common_dropdown">
-        <ul>
-            <li>
-                <input type="checkbox" name="employee">
-                <span>Anand Kumar</span>
-            </li>
-            <li>
-                <input type="checkbox" name="employee">
-                <span>Vishal Langthasa</span>
-            </li>
-            <li>
-                <input type="checkbox" name="employee">
-                <span>Gaurav Mukherjee</span>
-            </li>
-        </ul>
-        <button class="uppercase">update</button>
     </div>
 </div>
