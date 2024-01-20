@@ -51,10 +51,10 @@ addNewEmp = async (param, e) => {
 async function addTaskStatus(target, type, route) {
     let body = null;
     const dataSet = target.parentNode.dataset
-    if(type === 'normal'){
+    if (type === 'normal') {
         body = { status: target.value, dealId: Number(dataSet.ndealid), catId: Number(dataSet.taskid) }
-    }else{
-       body = { mstask_status: target.value, mdeal_id: Number(dataSet.ndealid), mstask_id: Number(dataSet.taskid), dateofstatus : "28/03/2033",  } 
+    } else {
+        body = { mstask_status: target.value, mdeal_id: Number(dataSet.ndealid), mstask_id: Number(dataSet.taskid), dateofstatus: "28/03/2033", }
     }
     await feature.DEL_UPD(route, "PUT", body)
 }
