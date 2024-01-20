@@ -12,12 +12,16 @@ exports.CheckLoginServe = (req, res) => {
 
 
 exports.Auth = async (req, res) => {
+    let date = (new Date).getDate()
+    let month = (new Date).getUTCMonth()
+    let year = (new Date).getFullYear()
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     if (req.body.Email && req.body.Password) {
-        const query = `SELECT em_id name,email, password FROM employee WHERE email ='${req.body.Email}' `;
-        let queryUpdateTime = `UPDATE employee SET lastLoginAt = CONVERT_TZ(NOW(),\'+00:00\',\'+05:30\') WHERE email='${req.body.Email}';`;
+        const query = `SELECT em_id ,name,email, password FROM employee WHERE email ='${req.body.Email}' `;
+        let queryUpdateTime = `UPDATE employee SET lastLoginAt = CONVERT_TZ(NOW(),\'+00:00\',\'+05:30\') WHERE email='${req.body.Email}';UPDATE empAttendance  SET empID=? ,${monthNames[month]}='P',year='${year}' WHERE date='${date}'`;
         const hash = createHmac('sha256', 'secret').update(req.body.Password).digest('hex');
         await databaseCon.query(query, (err, rows, fields) => {
-            if (err) throw new errHandler(404, 'Something wents wrong in this Mysql  Auth');
+            if (err) throw new errorHandler(404, 'Something wents wrong in this Mysql  Auth');
             if (rows.length > 0) {
                 if (req.body.Email == rows[0].email && hash == rows[0].password) {
                     req.session.isLoggedIn = true;
@@ -26,7 +30,7 @@ exports.Auth = async (req, res) => {
                     req.session.role = 'employee';
                     req.session.cookie.expires = new Date(Date.now() + 10 * 60 * 60 * 1000);
                     req.session.cookie.maxAge = 10 * 60 * 60 * 1000;
-                    databaseCon.query(queryUpdateTime, (err) => { if (err) throw new errorHandler(404, err); })
+                    databaseCon.query(queryUpdateTime,[rows[0].em_id] ,(err) => { if (err) throw new errorHandler(404, err); })
                     res.redirect(`/`);
                 } else {
                     res.status(503).send('unauthorized')

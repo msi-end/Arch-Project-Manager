@@ -23,7 +23,7 @@ exports.indexDeshboard = async (req, res) => {
             res.status(200).render('../views/employee/dashboard.ejs', { sentData,id:req.session.id })
         }
     })
-}
+}else(res.redirect('/'))
 
 }
 

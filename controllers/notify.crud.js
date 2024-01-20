@@ -17,7 +17,6 @@ exports.SetNotification = (req, res) => {
     let query=`INSERT INTO emp_task_notify(emid,title , dateofnotify) VALUES(?,?,?);`
     db.query(query,[req.body.id,req.body.title,req.body.date],(err,result)=>{
     console.log(result,query,err);
-
         if (!err) {
             res.status(200).send({ status: true, msg: 'Success', data: result })
          } else {
