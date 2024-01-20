@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const EmpAuth = require('../../controllers/employee/auth.js')
+const caAuth = require('../../controllers/CA/auth')
 
 // for login and logout, auth 
-router.get('/', EmpAuth.CheckLoginServe);
-router.post('/auth-employee', EmpAuth.Auth);
-router.get('/logout', EmpAuth.logout);
+router.get('/', caAuth.CheckLoginServe);
+router.post('/auth', caAuth.Auth);
+router.get('/logout', caAuth.logout);
 
 
 module.exports = router;

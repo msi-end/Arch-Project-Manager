@@ -36,6 +36,11 @@ const EmployeeAuth = require('./routes/employee/auth.js');
 const EmpMainRoute = require('./routes/employee/indexRoutes');
 const EmpNitify = require('./routes/employee/notificationRoute');
 
+// CA
+const caAuth = require('./routes/CA/auth');
+const caMainRoute = require('./routes/CA/indexRoutes');
+
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'static')))
@@ -61,7 +66,9 @@ app.use('/', EmployeeAuth)
 app.use('/', EmpMainRoute)
 app.use('/apiv1', EmpNitify)
 
-//testing------------------------
+// For CA ************
+app.use('/ca', caAuth)
+app.use('/ca', caMainRoute)
 
 
 
