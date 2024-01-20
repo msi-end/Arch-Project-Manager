@@ -797,6 +797,16 @@ nav .nav-lists svg {
 .adata .project_expand .thrd hr.show{
     outline: 1px solid var(--green);
 }
+.task-emp-status p {
+    color: var(--primary-color);
+}
+.task-emp-status p>span {
+    font-weight: 400;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 3px 5px;
+    border-radius: 7px;
+}
 
 /* ----button______ */
 .arrow button{
