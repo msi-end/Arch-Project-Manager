@@ -4,8 +4,8 @@ const notify = require('../../controllers/employee/notify.crud')
 
 
 router.get('/get-notifi', notify.GetNotification);
-router.post('/set-notifi', notify.SetNotification);
 router.get('/upd-notifi/:id', notify.UpdateNotification);
+// router.post('/set-notifi', notify.SetNotification);
 
 
 module.exports= router;
