@@ -1,4 +1,3 @@
-let BASE_URL = location.href;
 let ReqURI = { addExps: BASE_URL + `/add-Exps`, updExps: BASE_URL + `/expsUpdate/` }
 
 function Opn_ExpenseCtn(e, elm) {
@@ -23,40 +22,6 @@ function setExpenseToModel(e) {
     editCtn.querySelector('#mode').value = ExpsCtn.querySelector('.exp-mode-data').innerText
     editCtn.querySelector('#remark').value = ExpsCtn.querySelector('.exp-rem-content').innerText
 }
-// ReqHandler Data  
-// User Requestes To API
-let ReqHandler = {
-    GET: async function (url) {
-        const response = await fetch(url, {
-            method: "GET",
-            headers: { "Content-Type": "application/json; charset=UTF-8" }
-        });
-        return response.json();
-    }, POST: async function (url, data) {
-        console.log(url, data);
-        const response = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json; charset=UTF-8" },
-            body: JSON.stringify(data)
-        });
-        return response.json();
-    }, PUT: async function (url, data) {
-        console.log(JSON.stringify(data));
-        const response = await fetch(url, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json; charset=UTF-8" },
-            body: JSON.stringify(data)
-        });
-        return response.json();
-    }, DEL: async function (url) {
-        const response = await fetch(url, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json; charset=UTF-8" }
-        });
-        return response.json();
-    }
-}
-
 function addExpense() {
     let expAddCtn = document.getElementsByClassName('addexpense')[0]
     let dataObj = {
