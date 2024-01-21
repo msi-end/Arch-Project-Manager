@@ -18,13 +18,10 @@ api.delete('/delete-subtask', pmNormalAPI.deleteSubtask)
 // api.post('/addtaskto-nproject', pmNormalAPI.addNewSubTaskToProject)
 api.put('/update-task-status', pmNormalAPI.updatetaskStatus)
 api.delete('/delete-task', pmNormalAPI.deleteTask)
-
 api.get('/ngetProjectStatus', pmNormalAPI.getProjectsStaus)
 
-
-
-//=================MISC PROJECT ROUTE============================
-
+//=================MISC PROJECT ROUTE==========================
+api.get('/get-misc-emp/:dealId/:subtaskId', pmMiscAPI.getEmpListPerMiscProject)
 api.post('/add-employee-to-miscproject', pmMiscAPI.addEmployeeToMisc)
 api.delete('/remove-emp-miscp', pmMiscAPI.removeEmployeeToMisc)
 api.get('/employee-misc/:dealId/:catId', pmMiscAPI.getEmployListPerProject)
@@ -33,8 +30,6 @@ api.get('/employee-misc/:dealId/:catId', pmMiscAPI.getEmployListPerProject)
 //---- Misc project subtask route----
 
 api.put('/update-misctask-status', pmMiscAPI.updateMiscTaskStatus)
-
 api.get('/mgetProjectStatus', pmMiscAPI.getProjectsStaus)
-
 
 module.exports = api

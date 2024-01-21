@@ -17,7 +17,9 @@ class DataCall {
           body: JSON.stringify(body)
         })
         const res = await fet.json()
-        if (fet.ok) { this.GET_Notify('Successfully Done', 'Successfull', 'success') }
+        if (fet.ok) { this.GET_Notify('Successfully Done', 'Successfull', 'success') } else {
+          this.GET_Notify('Error Recognized', 'Something Error', 'error')     
+        }
         return res;
       } catch (err) {
         throw new Error('request not proceed !' + err.message)
@@ -30,7 +32,9 @@ class DataCall {
           body: payload
         })
         const res = await fet.json()
-        if (fet.ok) { this.GET_Notify('Successfully Done', 'Successfull', 'success') }
+        if (fet.ok) { this.GET_Notify('Successfully Done', 'Successfull', 'success') }else {
+          this.GET_Notify('Error Recognized', 'Something Error', 'error')     
+        }
         return res;
       } catch (err) {
         throw new Error('request not proceed !' + err.message)
@@ -48,7 +52,10 @@ class DataCall {
         try {
           const fet = await fetch(this.urlHead + url, { method: method })
           const res = await fet.json()
-          if (fet.ok) { this.GET_Notify('Removed Successfully', 'Successfull', 'success') }
+          console.log(fet)
+          if (fet.ok) { this.GET_Notify('Removed Successfully', 'Successfull', 'success') }else {
+            this.GET_Notify('Error Recognized', 'Something Error', 'error')     
+          }
           return res;
         } catch (error) {
           this.GET_Notify('Something Error', 'Invalid Request!', 'error')
@@ -64,7 +71,10 @@ class DataCall {
           body: JSON.stringify(body)
         })
         const res = await fet.json()
-        if (fet.ok) { this.GET_Notify('Updated Successfully', 'Successfull', 'success') }
+        console.log(fet)
+        if (fet.ok) { this.GET_Notify('Updated Successfully', 'Successfull', 'success') }else {
+          this.GET_Notify('Error Recognized', 'Something Error', 'error')     
+        }
         return res;
       } catch (err) {
         this.GET_Notify('Something Error', 'Invalid Request!', 'error')
@@ -104,9 +114,9 @@ class DataCall {
     });
   }
 
-  async addNewItemToNp(param, e, formTag, Exkeys, url, fun, Exdata) {
+  async addNewItemToNp(targett, e, formTag, Exkeys, url, fun, Exdata) {
     e.preventDefault()
-    const target = param.dataset
+    const target = targett.dataset
     const newItem = new FormData(document.getElementById(`${formTag}`));
     Exkeys.forEach((key) => {
       if (target[key] != undefined) {
