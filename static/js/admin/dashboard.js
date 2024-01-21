@@ -3,14 +3,22 @@ const feature = new DataCall()
 document.querySelectorAll(`.assign-to`).forEach((item, index) => {
     let header = item.querySelector(".eaccordion");
     header.addEventListener("click", async () => {
-        console.log(item.dataset)
         const renderId = item.querySelector('#emp-in-np')
         renderId.innerHTML = ''
-        const empNp = await feature.GET_POST(`apiv1/employee/${item.dataset.ndealid}/${item.dataset.taskid}`, 'GET');
-        empNp.forEach((item) => {
-            const html = `<li class="add-empl"><span>${item.name}</span> <span class="icon" data-ndealid=${item.ndeal_id} data-catid=${item.category_id} data-emid=${item.em_id} onclick="removeEmpNp(this)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="minus-circle" class="svg"><path fill="##000000" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z"></path></svg></span></li>`
-            renderId.innerHTML += html
-        })
+        if (item.dataset.taskid) {
+            const empNp = await feature.GET_POST(`apiv1/employee/${item.dataset.ndealid}/${item.dataset.taskid}`, 'GET');
+            empNp.forEach((item) => {
+                const html = `<li class="add-empl"><span>${item.name}</span> <span class="icon" data-ndealid=${item.ndeal_id} data-catid=${item.category_id} data-emid=${item.em_id} onclick="removeEmpNp(this)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="minus-circle" class="svg"><path fill="##000000" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z"></path></svg></span></li>`
+                renderId.innerHTML += html
+            })
+        } else {
+            const empMp = await feature.GET_POST(`apiv1/get-misc-emp/${item.dataset.ndealid}/${item.dataset.staskid}`, 'GET');
+            empMp.forEach((item) => {
+                const html = `<li class="add-empl"><span>${item.name}</span> <span class="icon" data-ndealid=${item.mdeal_id} data-catid=${item.mstask_id} data-emid=${item.em_id} onclick="removeEmpNp(this)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="minus-circle" class="svg"><path fill="##000000" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z"></path></svg></span></li>`
+                renderId.innerHTML += html
+            })
+        }
+
         item.classList.toggle("open");
         let description = item.querySelector(".emp-acc-data");
         let arr = item.querySelector(`.right-arr`);
@@ -27,6 +35,7 @@ document.querySelectorAll(`.assign-to`).forEach((item, index) => {
     })
 })
 
+
 function closeSubBox() {
     const mainDrop = document.querySelector('.main-dropdown')
     mainDrop.classList.remove('active')
@@ -42,10 +51,27 @@ addNewSubtasks = async (param, e) => {
     closeSubBox()
 }
 
-
 addNewEmp = async (param, e) => {
-    const exdata = { taskName: "architechture", project: "Hospital Work", assignDate: "20/02/2023" }
-    await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id', 'npcid'], 'apiv1/add-employee-to-project', closeSubBox, exdata)
+    if (param.dataset.npcid != 'false') {
+        const exdata = { title: "You have been assigned to a new project with ref no. 1123", assignDate: "20/02/2023" }
+        await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id', 'npcid'], 'apiv1/add-employee-to-project', closeSubBox, exdata) 
+    }else {
+        const exdataM = { title: "You have been assigned to a new Miscallaneous project with ref no. 1123", dateofassign: "20/02/2023" }
+        await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id'], 'apiv1/add-employee-to-miscproject', closeSubBox, exdataM)
+    }
+
+}
+
+async function removeEmpNp(data, type) {
+    const dataSet = data.dataset;
+    const date = new Date().toDateString();
+    if (type ==='normal') {
+        const title = `You have been removed from a project with ref no. 1123`
+        await feature.DEL_UPD(`apiv1/removeempnp?dealId=${Number(dataSet.ndealid)}&catId=${Number(dataSet.catid)}&emid=${Number(dataSet.emid)}&title=${title}&removeDate=${date}`, 'DELETE');
+    }else {
+        const title = `You have been removed from a Miscellaneous project with ref no. 1123`
+        await feature.DEL_UPD(`apiv1/remove-emp-miscp?mdeal_id=${Number(dataSet.ndealid)}&mstask_id=${Number(dataSet.catid)}&mpemid=${Number(dataSet.emid)}&title=${title}&dateofremove=${date}`, 'DELETE');
+    }
 }
 
 async function addTaskStatus(target, type, route) {
@@ -57,12 +83,6 @@ async function addTaskStatus(target, type, route) {
         body = { mstask_status: target.value, mdeal_id: Number(dataSet.ndealid), mstask_id: Number(dataSet.taskid), dateofstatus: "28/03/2033", }
     }
     await feature.DEL_UPD(route, "PUT", body)
-}
-
-async function removeEmpNp(data) {
-    const dataSet = data.dataset;
-    const date = new Date().toDateString();
-    await feature.DEL_UPD(`apiv1/removeempnp?dealId=${Number(dataSet.ndealid)}&catId=${Number(dataSet.catid)}&emid=${Number(dataSet.emid)}&removeDate=${date}`, 'DELETE');
 }
 
 async function updateSubtaskStatus(data) {
@@ -102,17 +122,21 @@ async function CheckDeadline() {
         let date = date_Split(e.querySelector('.emp_date').innerText, '/', false).replaceAll('-', '/')
         NewDate = new Date(`20${date}`)
         if (status == 'pending' && NewDate.getTime() === upcDate.getTime()) {
-            data = {id: 0, date: `${d}/${m}/${y}`,
-                title: `Project With Refno.${e.querySelector('.ref').children[1].innerText} ,Name:${e.querySelector('.pro').children[1].innerText} is near to it's Deadline.`,}
+            data = {
+                id: 0, date: `${d}/${m}/${y}`,
+                title: `Project With Refno.${e.querySelector('.ref').children[1].innerText} ,Name:${e.querySelector('.pro').children[1].innerText} is near to it's Deadline.`,
+            }
             await ReqHandler.POST(location.origin + '/apiv1/set-notifi', data).then(res => {
-                console.log(res);})
-        } else {console.log('No work has close to Deadline'); }
+                console.log(res);
+            })
+        } else { console.log('No work has close to Deadline'); }
     }
 }
 async function CheckNotification() {
     let nCtn = document.querySelector('.notification-column')
     await ReqHandler.GET(location.origin + '/apiv1/get-notifi').then(res => {
-        if (res.status) {nCtn.innerHTML = '';
+        if (res.status) {
+            nCtn.innerHTML = '';
             for (const e of res.data) {
                 nCtn.innerHTML += ` <p class="notification-name ${e.status}" data-nId="${e.notid}"><span>${e.title}</span>
         <span class="actionBtn"><span class="n-icon" onclick="UpdateNotify('read',${e.notid})"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
@@ -131,6 +155,6 @@ async function UpdateNotify(act, e) {
 
 }
 
-CheckDeadline()
-CheckNotification()
+// CheckDeadline()
+// CheckNotification()
 

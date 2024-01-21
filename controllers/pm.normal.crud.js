@@ -26,16 +26,15 @@ exports.getEmployListToaddOrRemove = async (req, res) => {
 }
 
 exports.addEmployeeToProject = async (req, res) => {
-  console.log(req.body);
-  const { ndeal_id, npcid, category_id, emid, taskName, project, assignDate } = req.body
+  // console.log(req.body);
+  const { ndeal_id, npcid, category_id, emid, title, assignDate } = req.body
   if (req.body.emid && typeof req.body.emid === "string") {
     const q = `INSERT INTO normal_project_employee (ndeal_id, npcid ,category_id, emid, dateofassign) VALUES (${ndeal_id},${Number(npcid)}, ${category_id}, ${emid}, "${assignDate}");`
     await databaseCon.query(q, (err1, data) => {
       if (!err1) {
-        res.status(200).send(data);
-        let q2 = `INSERT INTO emp_task_notify (emid, task, project, dateofnotify) VALUES (${emid}, "${taskName}", "${project}", "${assignDate}");`
-        databaseCon.query(q2, (err2, results) => {
-          if (!err2) { return; } else { res.status(500).send({ msg: err2 }) }
+        let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES(?,?,?);`
+        databaseCon.query(q2, [emid, title, assignDate], (err2, results) => {
+          if (!err2) { res.status(200).send({msg: 'success'}); } else { res.status(500).send({ msg: err2 }) }
         })
       } else { res.status(500).send({ msg: err1 }) }
     })
@@ -43,35 +42,36 @@ exports.addEmployeeToProject = async (req, res) => {
     const np_emp_data = []
     const np_emp_notify = []
     req.body.emid.forEach((el) => { np_emp_data.push([req.body.ndeal_id, req.body.npcid, req.body.category_id, el, assignDate]) })
-    req.body.emid.forEach((el) => { np_emp_notify.push([el, npcid, taskName, project, assignDate]) })
-    const q = `INSERT INTO normal_project_employee (ndeal_id,npcid, category_id, emid, dateofassign) VALUES ?`
+    req.body.emid.forEach((el) => { np_emp_notify.push([el, title, assignDate]) })
+    const q = `INSERT INTO normal_project_employee (ndeal_id, npcid, category_id, emid, dateofassign) VALUES ?`
     await databaseCon.query(q, [np_emp_data], (err1, data) => {
       if (!err1) {
-        res.status(200).send(data);
-        let q2 = `INSERT INTO emp_task_notify (emid, task, project, dateofnotify) VALUES ?`
+        let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES ?;`
         databaseCon.query(q2, [np_emp_notify], (err2, results) => {
-          if (!err2) { return; }
+          if (!err2) {  res.status(200).send(data); }
           else {
-            // res.status(500).send({msg : err2}) 
+            res.status(500).send({msg : err2}) 
           }
         })
       } else {
-        console.log(err);
-        res.status(500).send({ msg: err1 })
+        console.log(err1);
+        res.status(500).send({ msg: 'error occurred'})
       }
     })
+  } else {
+    res.status(500).send({ msg: 'error occurred' })
   }
 
 }
 
 exports.removeEmployeeToProject = async (req, res) => {
-  const { dealId, catId, emid, removeDate } = req.query;
+  const { dealId, catId, emid, title, removeDate } = req.query;
   const q = `DELETE FROM normal_project_employee WHERE ndeal_id = ${dealId} AND category_id = ${catId} AND emid = ${emid};`
   await databaseCon.query(q, (err1, data) => {
     if (!err1) {
       res.status(200).send(data);
-      let q2 = `INSERT INTO emp_task_notify (emid, task, project, dateofnotify) VALUES (${emid}, "${catId}", "${dealId}", "${removeDate}");`
-      databaseCon.query(q2, (err2, results) => {
+      let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES(?,?,?);`
+      databaseCon.query(q2, [emid, title, removeDate], (err2, results) => {
         if (!err2) { return; } else { res.status(500).send({ msg: err2 }) }
       })
     } else { res.status(500).send({ msg: "data not deleted ! some error occured..." }) }

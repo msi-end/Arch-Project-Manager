@@ -31,7 +31,7 @@ exports.indexDeshboard = async (req, res) => {
                 res.status(200).render('../views/admin/_index.ejs', { sortedData })
             }
         })
-    }
+    }else{ res.redirect('/admin/login')}
 
 }
 
