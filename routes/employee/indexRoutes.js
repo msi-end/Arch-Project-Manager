@@ -7,8 +7,7 @@ router.get('/dashboard', empController.indexDeshboard)
 //--------Misc project ejs routes-----
 router.get('/dashboard/misc', empController.renderMiscProjectDashboard)
 
-router.get('/getWorkInfo', empController.getCompletePandingWork)
-
+router.get('/getWorkInfo/:id', empController.getCompletePandingWork)
 
 
 

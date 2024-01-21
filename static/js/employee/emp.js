@@ -147,10 +147,11 @@ class DataCall {
 
     }
 }
+const req = new DataCall()
 async function CheckNotification() {
     let nCtn = document.querySelector('.notification-column')
     let id = document.querySelector('.main').dataset.appId
-    let res = await feature.GET_POST('/apiv1/get-notifi?id=' + id, 'GET')
+    let res = await req.GET_POST('/apiv1/get-notifi?id=' + id, 'GET')
     if (res.status) {
         nCtn.innerHTML = ''
         for (const e of res.data) {
@@ -164,6 +165,6 @@ async function CheckNotification() {
 CheckNotification()
 async function setUserWorkInfo() {
     let id = document.querySelector('.main').dataset.appId
-    let res = await feature.GET_POST('/getWorkInfo/' + id, 'GET')
+    let res = await req.GET_POST('/getWorkInfo/' + id, 'GET')
 }
 // getWorkInfo
