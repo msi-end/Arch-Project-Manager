@@ -98,7 +98,7 @@ function openNotification() {
     document.querySelector(`.notification-list`).classList.toggle(`hide`);
     document.querySelector(`.notification`).classList.toggle(`active`);
 }
-function openProfile(){
+function openProfile() {
     document.querySelector(`.account-settings`).classList.toggle(`hide`);
 }
 
@@ -147,33 +147,6 @@ class DataCall {
 
     }
 }
-const feature = new DataCall()
-document.querySelectorAll(`.assign-to`).forEach((item, index) => {
-    let header = item.querySelector(".eaccordion");
-    header.addEventListener("click", async () => {
-        console.log(item.dataset)
-        const renderId = item.querySelector('#emp-in-np')
-        renderId.innerHTML = ''
-        const empNp = await feature.GET_POST(`/apiv1/employee/${item.dataset.ndealid}/${item.dataset.taskid}`, 'GET');
-        empNp.forEach((item) => {
-            const html = `<li class="add-empl"><span>${item.name}</span> <span class="icon" data-ndealid=${item.ndeal_id} data-catid=${item.category_id} data-emid=${item.em_id} ></span></li>`
-            renderId.innerHTML += html
-        })
-        item.classList.toggle("open");
-        let description = item.querySelector(".emp-acc-data");
-        let arr = item.querySelector(`.right-arr`);
-        if (item.classList.contains("open")) {
-            // description.style.height = `${description.scrollHeight}px`;
-            description.classList.add(`open`);
-            arr.classList.add(`open`);
-        } else {
-            // description.style.height = "0px";
-            description.classList.remove(`open`);
-            arr.classList.remove(`open`);
-        }
-
-    })
-})
 async function CheckNotification() {
     let nCtn = document.querySelector('.notification-column')
     let id = document.querySelector('.main').dataset.appId
@@ -188,13 +161,9 @@ async function CheckNotification() {
                     <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" /> </svg></span></span></p>`}
     }
 }
-
-
-
-async function UpdateNotify(act, e) {
-    let res = await feature.GET_POST('/apiv1/upd-notifi/' + e + `?act=` + act, 'GET')
-    if (res.status) { CheckNotification() }
-
-
-}
 CheckNotification()
+async function setUserWorkInfo() {
+    let id = document.querySelector('.main').dataset.appId
+    let res = await feature.GET_POST('/getWorkInfo/' + id, 'GET')
+}
+// getWorkInfo

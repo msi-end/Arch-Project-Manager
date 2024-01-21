@@ -44,17 +44,12 @@ exports.renderMiscProjectDashboard = async (req, res) => {
 }
 
 
-// exports.settings = (req, res) => {
-//     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-
-//         const query = `select * from subtask;select * from mis_subtask;select * from amount_split`    
-//         db.query(query, (err, result, field) => {
-//             res.status(200).render('../views/admin/settings.ejs', { data: result })    
-//         })
-//     }
-// }
-
-
+exports.getCompletePandingWork = (req, res) => {
+    const query = `SELECT COUNT(normal_project_cat.cat_status) AS total_cats, SUM(CASE WHEN normal_project_cat.cat_status = 'Completed' THEN 1 ELSE 0 END) AS num_cats_completed FROM normal_project_cat LEFT JOIN normal_project_employee ON normal_project_cat.npcid = normal_project_employee.npcid WHERE emid = ${req.params.id} ; SELECT ndeal_id FROM normal_project_employee WHERE emid=${req.params.id} GROUP BY ndeal_id;SELECT COUNT(misc_project_subtask.mstask_status) AS total_mtask, SUM(CASE WHEN misc_project_subtask.mstask_status = 'not started' THEN 1 ELSE 0 END) AS num_task_completed FROM misc_project_subtask LEFT JOIN misc_project_employee ON misc_project_employee.mstask_id = misc_project_subtask.mstask_id WHERE misc_project_employee.mpemid = ${req.params.id};SELECT mdeal_id FROM misc_project_employee WHERE mpemid=${req.params.id} GROUP BY mdeal_id;`
+    db.query(query, (err, result, field) => {
+        res.status(200).send({ status: true, msg: 'Life success!', data: result })
+    })
+}
 
 
 
