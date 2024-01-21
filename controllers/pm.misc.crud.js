@@ -84,7 +84,7 @@ exports.updateMiscTaskStatus = async (req, res) => {
 }
 
 exports.getProjectsStaus = (req, res) => {
-  let q = 'SELECT misc_project_subtask.mdeal_id ,misc_project_subtask.mstask_status FROM `single_deal` INNER JOIN misc_project_subtask on single_deal.sdid =misc_project_subtask.mdeal_id GROUP BY misc_project_subtask.mdeal_id'
+  let q = 'SELECT misc_project_subtask.mdeal_id ,misc_project_subtask.mstask_status as project_status FROM `single_deal` INNER JOIN misc_project_subtask on single_deal.sdid =misc_project_subtask.mdeal_id GROUP BY misc_project_subtask.mdeal_id'
   dbcon.query(q, (err, result) => {
     if (!err) {
       res.status(200).send({ status: true, msg: 'Successfully data retrieve', data: result })
@@ -92,5 +92,16 @@ exports.getProjectsStaus = (req, res) => {
     } else {
       res.status(500).send({ status: false, msg: "Internal error occurs!" });
     }
+  })
+}
+
+// It res with list of all employees inside a Misc Project
+exports.getEmployListPerProject = async (req, res) => {
+  const { dealId, catId } = req.params
+  const q = `SELECT employee.em_id, employee.name FROM misc_project_employee INNER JOIN employee ON employee.em_id = misc_project_employee.mpemid WHERE misc_project_employee.mdeal_id = ${dealId} AND misc_project_employee.mstask_id=${catId};`
+  dbcon.query(q, (err, results) => {
+    if (!err) {
+      res.status(200).send(results);
+    } else { res.status(500).send({ msg: "Something went wrong!" }) }
   })
 }

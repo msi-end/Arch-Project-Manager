@@ -54,8 +54,8 @@ addNewSubtasks = async (param, e) => {
 addNewEmp = async (param, e) => {
     if (param.dataset.npcid != 'false') {
         const exdata = { title: "You have been assigned to a new project with ref no. 1123", assignDate: "20/02/2023" }
-        await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id', 'npcid'], 'apiv1/add-employee-to-project', closeSubBox, exdata) 
-    }else {
+        await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id', 'npcid'], 'apiv1/add-employee-to-project', closeSubBox, exdata)
+    } else {
         const exdataM = { title: "You have been assigned to a new Miscallaneous project with ref no. 1123", dateofassign: "20/02/2023" }
         await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id'], 'apiv1/add-employee-to-miscproject', closeSubBox, exdataM)
     }
@@ -65,10 +65,10 @@ addNewEmp = async (param, e) => {
 async function removeEmpNp(data, type) {
     const dataSet = data.dataset;
     const date = new Date().toDateString();
-    if (type ==='normal') {
+    if (type === 'normal') {
         const title = `You have been removed from a project with ref no. 1123`
         await feature.DEL_UPD(`apiv1/removeempnp?dealId=${Number(dataSet.ndealid)}&catId=${Number(dataSet.catid)}&emid=${Number(dataSet.emid)}&title=${title}&removeDate=${date}`, 'DELETE');
-    }else {
+    } else {
         const title = `You have been removed from a Miscellaneous project with ref no. 1123`
         await feature.DEL_UPD(`apiv1/remove-emp-miscp?mdeal_id=${Number(dataSet.ndealid)}&mstask_id=${Number(dataSet.catid)}&mpemid=${Number(dataSet.emid)}&title=${title}&dateofremove=${date}`, 'DELETE');
     }
@@ -97,12 +97,13 @@ async function updateSubtaskStatus(data) {
 }
 
 async function getProjectsStatus() {
-    (location.pathname.match('/m') == null) ? EndPoint = 'ngetProjectStatus' : EndPoint = 'mgetProjectStatus'
+    let pageChecker = location.pathname.match('/m')
+    pageChecker == null ? EndPoint = 'ngetProjectStatus' : EndPoint = 'mgetProjectStatus'
     let [completed, pending] = [0, 0]
     let project_status_ctn = document.getElementsByClassName('total_user_data')
     try {
         let e = await feature.GET_POST(`apiv1/${EndPoint}`, 'GET');
-        e.data.forEach(e => { e.project_status === 'completed' ? completed++ : pending++; });
+        e.data.forEach(e => { e.project_status == 'completed' ? completed++ : pending++; });
         project_status_ctn[0].children[0].innerText = e.data.length;
         project_status_ctn[1].children[0].innerText = completed;
         project_status_ctn[2].children[0].innerText = pending;
@@ -135,19 +136,14 @@ async function CheckDeadline() {
 async function CheckNotification() {
     let nCtn = document.querySelector('.notification-column')
     await ReqHandler.GET(location.origin + '/apiv1/get-notifi').then(res => {
-        if (res.status) {
-            nCtn.innerHTML = '';
+        if (res.status) { nCtn.innerHTML = '';
             for (const e of res.data) {
                 nCtn.innerHTML += ` <p class="notification-name ${e.status}" data-nId="${e.notid}"><span>${e.title}</span>
         <span class="actionBtn"><span class="n-icon" onclick="UpdateNotify('read',${e.notid})"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                     <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
                 </svg></span>|<span class="n-icon" onclick="UpdateNotify('removed',${e.notid})"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                     <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" /> </svg></span></span></p>`}
-        }
-    }
-    )
-}
-
+        } })}
 async function UpdateNotify(act, e) {
     await ReqHandler.GET(location.origin + '/apiv1/upd-notifi/' + e + `?act=` + act).then(res => {
         if (res.status) { CheckNotification() }
@@ -155,6 +151,6 @@ async function UpdateNotify(act, e) {
 
 }
 
-// CheckDeadline()
-// CheckNotification()
+CheckDeadline()
+CheckNotification()
 
