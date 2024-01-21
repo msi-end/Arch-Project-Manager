@@ -51,3 +51,14 @@ exports.getProjectsStaus = (req, res) => {
   }
   })
 }
+
+// It res with list of all employees inside a Misc Project
+exports.getEmployListPerProject = async (req, res) => {
+  const { dealId, catId } = req.params
+  const q = `SELECT employee.em_id, employee.name FROM misc_project_employee INNER JOIN employee ON employee.em_id = misc_project_employee.mpemid WHERE misc_project_employee.mdeal_id = ${dealId} AND misc_project_employee.mstask_id=${catId};`
+  dbcon.query(q, (err, results) => {
+    if (!err) {
+      res.status(200).send(results);
+    } else { res.status(500).send({ msg: "Something went wrong!" }) }
+  })
+}

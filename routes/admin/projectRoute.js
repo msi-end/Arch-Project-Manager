@@ -27,6 +27,8 @@ api.get('/ngetProjectStatus', pmNormalAPI.getProjectsStaus)
 
 api.post('/add-employee-to-miscproject', pmMiscAPI.addEmployeeToMisc)
 api.delete('/remove-emp-miscp', pmMiscAPI.removeEmployeeToMisc)
+api.get('/employee-misc/:dealId/:catId', pmMiscAPI.getEmployListPerProject)
+
 
 //---- Misc project subtask route----
 
