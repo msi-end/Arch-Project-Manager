@@ -2,14 +2,19 @@
     <div class="arrow">
         <p class="uppercase phead" id="cat-name"> <%= subdata.msub_task_name %></p>
         <div class="task-emp-status">
+<<<<<<< HEAD
             <div class="main-btns flex" data-taskid="<%= subdata.mstask_id %>" data-ndealid="<%= subdata.mdeal_id %>" data-npcid="">
                    <p><span>Task Status:</span> <span><%= subdata.mstask_status %></span> </p>
+=======
+            <div class="main-btns flex" data-taskid="<%= subdata.mstask_id %>" data-ndealid="<%= subdata.mdeal_id %>">
+                   <p><span>Task Status:</span> <%= subdata.mstask_status %></p>
+>>>>>>> 3d78fad61e066feded06ed172272fea63dc5e594
             </div>
         </div>
     </div>
 
     <div class="sub-tasks sbox">
-        <div class="assign-to" data-taskid="" data-ndealid="" >
+        <div class="assign-to" data-taskid="<%= subdata.mstask_id %>" data-ndealid="<%= subdata.mdeal_id %>" >
             <div class="eaccordion flex">
                 <p class="uppercase phead">assigned to</p>
                 <span class="right-arr">

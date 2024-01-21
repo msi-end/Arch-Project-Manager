@@ -148,6 +148,31 @@ class DataCall {
     }
 }
 const req = new DataCall()
+document.querySelectorAll(`.assign-to`).forEach((item, index) => {
+    let header = item.querySelector(".eaccordion");
+    header.addEventListener("click", async () => {
+        const renderId = item.querySelector('#emp-in-np')
+        renderId.innerHTML = ''
+        const empNp = await req.GET_POST(location.href.match('/m') !== null ? `/apiv1/employee-misc/${item.dataset.ndealid}/${item.dataset.taskid}` : `/apiv1/employee/${item.dataset.ndealid}/${item.dataset.taskid}`, 'GET');
+        empNp.forEach((item) => {
+            const html = location.href.match('/m') !== null ? `<li class="add-empl"><span>${item.name}</span>` : `<li class="add-empl"><span>${item.name}</span> <span class="icon" data-ndealid=${item.ndeal_id} data-catid=${item.category_id} data-emid=${item.em_id}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="minus-circle" class="svg"><path fill="##000000" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z"></path></svg></span></li>`
+            renderId.innerHTML += html;
+        })
+        item.classList.toggle("open");
+        let description = item.querySelector(".emp-acc-data");
+        let arr = item.querySelector(`.right-arr`);
+        if (item.classList.contains("open")) {
+            // description.style.height = `${description.scrollHeight}px`;
+            description.classList.add(`open`);
+            arr.classList.add(`open`);
+        } else {
+            // description.style.height = "0px";
+            description.classList.remove(`open`);
+            arr.classList.remove(`open`);
+        }
+
+    })
+})
 async function CheckNotification() {
     let nCtn = document.querySelector('.notification-column')
     let id = document.querySelector('.main').dataset.appId
@@ -164,7 +189,13 @@ async function CheckNotification() {
 }
 CheckNotification()
 async function setUserWorkInfo() {
+    let pageChecker = location.href.match('/m') !== null
+    let StatusCtn = document.getElementsByClassName('total_user_data')
     let id = document.querySelector('.main').dataset.appId
     let res = await req.GET_POST('/getWorkInfo/' + id, 'GET')
+    console.log(res.data);
+    StatusCtn[0].children[0].innerText = pageChecker ? res.data[3].length : res.data[1].length
+    StatusCtn[1].children[0].innerText = pageChecker ? res.data[2][0].total_mtask : res.data[0][0].total_cats
+    StatusCtn[2].children[0].innerText = pageChecker ? res.data[2][0].num_task_completed : res.data[0][0].num_cats_completed
 }
-// getWorkInfo
+setUserWorkInfo()

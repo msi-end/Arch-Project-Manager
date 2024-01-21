@@ -16,7 +16,7 @@
     <%- include('../partials/employee/header.ejs') %>
         <!-- ASIDE SECTION  -->
         <!-- MAIN SECTION STARTS HERE  -->
-        <main class="main" data-app-id="<%=  result[1].id %>">
+        <main class="main" data-app-id="<%=  empId %>">
             <!------------- DATA-OVERALL-------------  -->
             <div class="main-data flex">
                 <!-- -------TOTAL PROJECTS--------- -->
@@ -27,8 +27,8 @@
                         </path>
                     </svg>
                     <div class="total_user_data">
-                        <p class="size"></p>
-                        <p class="text">Total Projects</p>
+                        <p class="size">0</p>
+                        <p class="text">In Total Projects </p>
                     </div>
                 </div>
                 <!-- ---------------cOMPLETED PROJECTS ------------ -->
@@ -39,8 +39,8 @@
                         </path>
                     </svg>
                     <div class="total_user_data">
-                        <p class="size"></p>
-                        <p class="text">Completed</p>
+                        <p class="size">0</p>
+                        <p class="text">Completed Subtask</p>
                     </div>
                 </div>
                 <!-- ---------IN PROGRESS----------- -->
@@ -51,8 +51,8 @@
                         </path>
                     </svg>
                     <div class="total_user_data">
-                        <p class="size"></p>
-                        <p class="text">In Progress</p>
+                        <p class="size">0</p>
+                        <p class="text">In Progress Subtask</p>
                     </div>
                 </div>
             </div>

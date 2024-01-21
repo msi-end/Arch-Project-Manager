@@ -26,7 +26,7 @@ exports.Auth = async (req, res) => {
                 if (req.body.Email == rows[0].email && hash == rows[0].password) {
                     req.session.isLoggedIn = true;
                     req.session.email_id = req.body.Email;
-                    req.session.id = rows[0].em_id;
+                    req.session.empId = rows[0].em_id;
                     req.session.role = 'employee';
                     req.session.cookie.expires = new Date(Date.now() + 10 * 60 * 60 * 1000);
                     req.session.cookie.maxAge = 10 * 60 * 60 * 1000;

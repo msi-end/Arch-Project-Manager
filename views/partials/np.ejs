@@ -13,7 +13,16 @@
             <span class="uppercase hide block phead">Deadline</span>
             <span>29/01/24</span>
         </p>
-        <p class="stat flex red"><%= pdata.project_status %></p>
+        <% 
+        let overallStatus = pdata.category.every((el)=>{
+            if(el.cat_status.toLowerCase() === 'completed'){
+                return true;
+            }else{
+                return false;
+            }
+        })
+        %>
+        <p class="<%= overallStatus ? 'stat flex green' : 'stat flex red' %>"><%= overallStatus ? "completed" : "pending" %></p>
         <p class="arrow-down">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-down"
                 class="svg">
