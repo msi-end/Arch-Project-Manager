@@ -13,6 +13,7 @@ function toggleForm(formId) {
  function openDick(){
   document.querySelector(`.main-dropdown`).style.display = `block`;
  }
+ 
  function GetIncExp() {
   let Ctn = document.getElementsByClassName('total_user_data')
   ReqHandler.GET(location.origin + '/admin/finance/get-income-expense').then((res) => {

@@ -1,7 +1,7 @@
 <div class="info_pagination">
     <div class="pages">
         <ul>
-            <li>
+            <li onclick="pageFunWithCursor('prev')">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-left"
                     class="svg">
                     <path fill="##000000"
@@ -9,15 +9,15 @@
                     </path>
                 </svg>
             </li>
-            <li>1</li>
+            <li onclick="paginationFun(this)">1</li>
             <li id="way-1" class="pagin" style="display:none">...</li>
-            <li id="2num">2</li>
+            <li id="2num" onclick="paginationFun(this)">2</li>
             <li id="f-box" onclick="paginationFun(this)" >3</li>
             <li id="m-box" class="pagin" onclick="paginationFun(this)" style="display:none">4</li>
             <li id="l-box" class="pagin" onclick="paginationFun(this)" style="display:none">5</li>
-            <li>...</li>
-            <li id="last-box">50</li>
-            <li>
+            <li id="way-2" style="display:flex">...</li>
+            <li id="last-box" onclick="paginationFun(this)">10</li>
+            <li onclick="pageFunWithCursor('next')">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-right"
                     class="svg">
                     <path fill="##000000"
