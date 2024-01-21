@@ -598,8 +598,8 @@ label.valid:after {
 }
 
 .signin-image {
-    margin-left: 110px;
-    margin-right: 20px;
+    /* margin-left: 110px; */
+    /* margin-right: 20px; */
     margin-top: 10px
 }
 
