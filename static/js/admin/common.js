@@ -138,8 +138,15 @@ let ReqHandler = {
     }
 }
 
+<<<<<<< HEAD
+
+function closeMainDropdown(){
+    document.querySelector(`.main-dropdown`).classList.toggle(`hide`);
+}
+=======
 // if (pageNo + 2 == lastPageNo) {
 //     document.getElementById('way-2').style.display = `none`
 // } else {
 //     document.getElementById('way-2').style.display = `flex`
 // }
+>>>>>>> 3d78fad61e066feded06ed172272fea63dc5e594

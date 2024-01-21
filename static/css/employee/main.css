@@ -745,7 +745,7 @@ nav .nav-lists svg {
     padding-bottom: 1rem;
     display: block;
     border-radius: 0 0 8px 8px;
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
 }
 .adata p{
     line-height: 1.8;
@@ -797,15 +797,30 @@ nav .nav-lists svg {
 .adata .project_expand .thrd hr.show{
     outline: 1px solid var(--green);
 }
-.task-emp-status p {
+.info-content .task-emp-status p {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.info-content .task-emp-status p span:first-child{
     color: var(--primary-color);
 }
-.task-emp-status p>span {
-    font-weight: 400;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 3px 5px;
-    border-radius: 7px;
+.info-content .task-emp-status p span:last-child{
+    padding: 3px 6px;
+    border-radius: 5px;
+    background: var(--green);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 500;
+}
+.eaccordion{
+    justify-content: space-between;
+}
+.eaccordion .right-arr{
+    width: 25px;
+    height: 25px;
 }
 
 /* ----button______ */
@@ -891,6 +906,7 @@ nav .nav-lists svg {
 }
 .sub-tasks hr.show{
     margin: 10px auto;
+    border: none;
 }
 
 /* ---------PAGINATION----------- */

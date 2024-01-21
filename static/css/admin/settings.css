@@ -1,8 +1,3 @@
-:root {
-    --primary-color: hsl(260, 54%, 45%);
-    --primary-bg: hsl(260, 54%, 93%);
-    --primary-bgr: hsl(260, 54%, 88%);
-}
 
 .main .mixes {
     align-items: flex-start;

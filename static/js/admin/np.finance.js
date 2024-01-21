@@ -31,7 +31,10 @@ async function openDick(data) {
             <p class="uppercase phead">Date of payment</p>
             <input type="text" name="dateofpay" id="" placeholder="dd/mm/yyyy">
         </div>
+        <div class = "drop-btn flex">
         <button type="button" class="uppercase" data-dealid=${ndealid} data-taskid=${taskid} onclick="updataAdvancePay(this, event)">update</button>
+        <button type = "button" class = "uppercase">Cancel</button>
+        </div>
     </form>
 </div>`
 
