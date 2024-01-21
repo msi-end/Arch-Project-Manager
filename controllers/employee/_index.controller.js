@@ -20,7 +20,7 @@ exports.indexDeshboard = async (req, res) => {
             })
             for (const key in grouped) { dataUnity(grouped[key]) }
             for (const key in grouped) { sentData.push(grouped[key][0]) }
-            res.status(200).render('../views/employee/dashboard.ejs', { sentData,empId:req.session.id })
+            res.status(200).render('../views/employee/dashboard.ejs', { sentData,empId:req.session.empId })
 
         }
     })
@@ -37,7 +37,7 @@ exports.renderMiscProjectDashboard = async (req, res) => {
         inner join mis_subtask on mis_subtask.msub_task_id = misc_project_subtask.mstask_id order by single_deal.sdid desc;`
         await db.query(q, (err, result) => {
             if (!err) {
-                res.status(200).render('../views/employee/miscDashboard.ejs', { result,empId:req.session.id })
+                res.status(200).render('../views/employee/miscDashboard.ejs', { result,empId:req.session.empId })
             }
         })
 

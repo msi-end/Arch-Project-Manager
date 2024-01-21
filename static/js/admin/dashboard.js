@@ -54,8 +54,8 @@ addNewSubtasks = async (param, e) => {
 addNewEmp = async (param, e) => {
     if (param.dataset.npcid != 'false') {
         const exdata = { title: "You have been assigned to a new project with ref no. 1123", assignDate: "20/02/2023" }
-        await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id', 'npcid'], 'apiv1/add-employee-to-project', closeSubBox, exdata) 
-    }else {
+        await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id', 'npcid'], 'apiv1/add-employee-to-project', closeSubBox, exdata)
+    } else {
         const exdataM = { title: "You have been assigned to a new Miscallaneous project with ref no. 1123", dateofassign: "20/02/2023" }
         await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id'], 'apiv1/add-employee-to-miscproject', closeSubBox, exdataM)
     }
@@ -65,10 +65,10 @@ addNewEmp = async (param, e) => {
 async function removeEmpNp(data, type) {
     const dataSet = data.dataset;
     const date = new Date().toDateString();
-    if (type ==='normal') {
+    if (type === 'normal') {
         const title = `You have been removed from a project with ref no. 1123`
         await feature.DEL_UPD(`apiv1/removeempnp?dealId=${Number(dataSet.ndealid)}&catId=${Number(dataSet.catid)}&emid=${Number(dataSet.emid)}&title=${title}&removeDate=${date}`, 'DELETE');
-    }else {
+    } else {
         const title = `You have been removed from a Miscellaneous project with ref no. 1123`
         await feature.DEL_UPD(`apiv1/remove-emp-miscp?mdeal_id=${Number(dataSet.ndealid)}&mstask_id=${Number(dataSet.catid)}&mpemid=${Number(dataSet.emid)}&title=${title}&dateofremove=${date}`, 'DELETE');
     }
@@ -97,12 +97,13 @@ async function updateSubtaskStatus(data) {
 }
 
 async function getProjectsStatus() {
-    (location.pathname.match('/m') == null) ? EndPoint = 'ngetProjectStatus' : EndPoint = 'mgetProjectStatus'
+    let pageChecker = location.pathname.match('/m')
+    pageChecker == null ? EndPoint = 'ngetProjectStatus' : EndPoint = 'mgetProjectStatus'
     let [completed, pending] = [0, 0]
     let project_status_ctn = document.getElementsByClassName('total_user_data')
     try {
         let e = await feature.GET_POST(`apiv1/${EndPoint}`, 'GET');
-        e.data.forEach(e => { e.project_status === 'completed' ? completed++ : pending++; });
+        e.data.forEach(e => { e.project_status == 'completed' ? completed++ : pending++; });
         project_status_ctn[0].children[0].innerText = e.data.length;
         project_status_ctn[1].children[0].innerText = completed;
         project_status_ctn[2].children[0].innerText = pending;

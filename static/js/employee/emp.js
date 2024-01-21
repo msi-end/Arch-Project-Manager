@@ -197,8 +197,8 @@ async function setUserWorkInfo() {
   
 StatusCtn[0].children[0].innerText=pageChecker?res.data[3].length:res.data[1].length
 StatusCtn[1].children[0].innerText=pageChecker?res.data[2].total_mtask:res.data[0].total_cats
-StatusCtn[2].children[0].innerText=(pageChecker?res.data[2].num_task_completed:res.data[0].num_cats_completed)==undefined?'0':''
-
+StatusCtn[2].children[0].innerText=pageChecker?res.data[2].num_task_completed:res.data[0].num_cats_completed
+StatusCtn[2].children[0].innerText==undefined||null ?'0':'';
 }
 setUserWorkInfo()
 // getWorkInfo
