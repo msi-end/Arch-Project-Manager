@@ -68,6 +68,29 @@ subPopup = async (target)=> {
     })
 }
 
+
+deadDrop = async(target)=>{
+    const getId = target.parentNode.dataset
+    const mainDrop = document.querySelector(`.main-dropdown`);
+    mainDrop.innerHTML = ''
+    const subPopupBox = `<div class="deadline-drop-menu common_dropdown">
+    <p class="uppercase"><span>Architecture</span> Deadline</p>
+    <input type="text" placeholder="dd/mm/yyyy">
+    <div class="drop-btn flex">
+        <button class="uppercase">update</button>
+        <button class="uppercase">Cancel</button>
+    </div>`
+    mainDrop.innerHTML = subPopupBox
+    mainDrop.classList.toggle(`active`)
+    const dropDownTarget = document.querySelector(`.deadline-drop-menu`)
+    dropDownTarget.classList.toggle(`active`)
+}
+
+
+
+
+
+
 function hideMainDropdown(event) {
     let mainDrops = event.target.closest(".main-dropdown");
     if (mainDrops) {

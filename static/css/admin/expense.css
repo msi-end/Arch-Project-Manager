@@ -47,9 +47,8 @@
     overflow-y: scroll;
 }
 .expense-list{
-    gap: 1rem;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 4rem repeat(5, 1fr) 3rem;
     padding: 1rem;
     transition: var(--animation-1);
     position: relative;
@@ -68,8 +67,8 @@
     line-height: 1.75;
 }
 .expense-list div p:not(:first-child){
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 600;
     color: var(--designation-color);
 }
 .expense-remarks{
@@ -138,67 +137,11 @@
     height: 100vh;
     background: var(--black-light);
 }
-.expense-addition-box{
-    max-width: 100%;
-    width: 90%;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-40%,-50%);
-    background: var(--white);
-    padding: 1rem;
-    border-radius: var(--border-radius-1);
-}
-.expense-addition-box p:first-child{
-    font-weight: 500;
-    font-size: 14px;
-}
-.expense-addition-box .flex{
-    margin-top: 1rem;
-}
-.expense-addition-box .flex :is(input, select){
-    width: 100%;
-    height: 2.5rem;
-    border-radius: var(--border-radius-1);
-    background: var(--bg-2);
-    outline: 1px solid var(--black-light);
-    animation: var(--animation-1);
-    padding: 0 1rem;
-    flex: 1;
-    font-size: 1rem;
-    font-weight: 500;
-}
-.expense-addition-box button{
-    padding: 12px;
-    border-radius: var(--border-radius-1);
-    font-size: 16px;
-    font-weight: 700;
-    transition: var(--transition-2);
-    margin-top: 1rem;
-    width: 100%;
-    background: var(--secondary-color);
-    color: var(--white);
-}
-.expense-addition-box button:hover{
-    opacity: 0.8;
-}
-.expense-addition-box p.head{
-    text-align: center;
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--secondary-color);
-}
-.expense-addition-box hr{
-    border-width: 0px 0px thin;
-    border-style: solid;
-    border-color: rgb(227, 232, 239);
-    margin: 10px auto;
-}
 /* ----------EDIT EXPENSE------------ */
 .expense-grid{
     background: var(--white);
     position: absolute;
-    top: 5rem;
+    top: 3rem;
     left: 50%;
     transform: translateX(-50%);
     padding: 1rem;
@@ -206,6 +149,9 @@
     flex-wrap: wrap;
     max-width: 100%;
     width: 90%;
+}
+.expense-grid hr{
+    margin-top: 10px;
 }
 .egrid{
     display: grid;
@@ -257,13 +203,26 @@
     transition: var(--transition-2);
     margin-top: 1rem;
     width: 100%;
-    background: var(--green);
-    color: var(--white);
 }
 .expense-grid button:hover{
     opacity: 0.8;
 }
-
+.expense-grid button:first-child{
+    background: var(--green-light);
+    color: var(--green);
+}
+.expense-grid button:first-child:hover{
+    color: var(--white);
+    background: var(--green);
+}
+.expense-grid button:last-child{
+    background: var(--ter-light-color);
+    color: var(--ter-dark-color);
+}
+.expense-grid button:last-child:hover{
+    color: var(--white);
+    background: var(--ter-dark-color);
+}
 
 @media screen and (max-width:768px) {
     .expensebox{
@@ -273,7 +232,7 @@
         left: 40%;
     }
     .expense-list{
-        flex-direction: column;
+        grid-template-columns: 1fr 1fr;
         align-items: flex-start;
         gap: 8px;
     }

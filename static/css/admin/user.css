@@ -67,7 +67,7 @@
 .password-fields {
     width: 97%;
     position: absolute;
-    top: 3rem;
+    top: 2rem;
     right: 1rem;
     left: 1rem;
     /* z-index: -1; */
@@ -256,6 +256,8 @@
     font-weight: 500;
     line-height: 1.6;
     width: 80%;
+    height: 24px;
+    overflow: hidden;
 }
 :is(.user-status) p,
 .profile-status .ustatus {
@@ -441,7 +443,14 @@
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
 }
-
+.profile-grid button{
+    background: var(--primary-light-color);
+    color: var(--primary-color);
+}
+.profile-grid button:hover{
+    background: var(--primary-color);
+    color: var(--white);
+}
 .flex-box .profile-details,
 .profile-project-details {
     flex: 1;
@@ -460,6 +469,17 @@
     align-items: center;
     justify-content: space-between;
 }
+.profile-main .normal{
+    padding: 4px 8px;
+    background: var(--primary-light-color);
+    color: var(--primary-color);
+    font-weight: 600;
+    border-radius: 50px;
+    font-size: 14px;
+}
+.profile-main .normal span{
+    display: none;
+}
 .profile-main .profile-main-project{
     display: flex;
     align-items: center;
@@ -469,13 +489,13 @@
     font-weight: 600;
     /* font-size: 16px; */
 }
-.profile-main .profile-main-project p:last-child span{
+.profile-main .profile-main-project p:last-child{
     /* display: block; */
     font-size: 15px;
     font-weight: 500;
 }
 .profile-main .profile-main-project p.primary{
-    padding: 5px;
+    padding: 3px 6px;
     border-radius: var(--border-radius-1);
     color: var(--primary-color);
     cursor: pointer;
@@ -484,7 +504,7 @@
     background: var(--primary-light-color);
 }
 .profile-main .profile-main-project p.blue{
-    padding: 5px;
+    padding: 3px 6px;
     border-radius: var(--border-radius-1);
     color: var(--secondary-color);
     cursor: pointer;
@@ -493,7 +513,7 @@
     background: var(--sec-light-color);
 }
 .profile-main .profile-main-project p.red{
-    padding: 5px;
+    padding: 3px 6px;
     border-radius: var(--border-radius-1);
     color: var(--tertiary-color);
     cursor: pointer;
@@ -606,7 +626,9 @@
         grid-template-columns: 1fr;
         position: relative;
     }
-
+    .user-details{
+        width: 85%;
+    }
     .user-status {
         /* display: none; */
         position: absolute;
@@ -624,10 +646,18 @@
     .user-list{
         gap: 0.5rem;
     }
+    .user-contact-info, .data-status{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .data-status p:nth-child(odd){
+        width: 90%;
+    }
     .uprofile-settings{
         height: 155vh;
     }
-    .user-profile-settings{
+    .user-profile-settings, .password-fields{
         width: 95%;
         right: 0.5rem;
         left: 0.5rem;
@@ -653,5 +683,12 @@
         flex-direction: row-reverse;
         justify-content: space-between;
         width: 100%;
+    }
+    .profile-main .normal{
+        border-radius: var(--border-radius-1);
+        margin: 10px auto;
+    }
+    .profile-main .normal span{
+        display: inline-block;
     }
 }

@@ -106,3 +106,8 @@ let ReqHandler = {
       return response.json();
   }
 }
+
+
+function closeMainDropdown(){
+    document.querySelector(`.main-dropdown`).classList.toggle(`hide`);
+}
