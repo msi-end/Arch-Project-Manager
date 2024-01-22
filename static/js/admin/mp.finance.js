@@ -1,5 +1,6 @@
 // form 
 function toggleForm(formId) {
+<<<<<<< HEAD
   const forms = document.querySelectorAll('.formContainer > div');
   forms.forEach(form => {
     if (form.id === formId) {
@@ -50,6 +51,8 @@ async function advOpen(data) {
 
 }
 function GetIncExp() {
+=======
+>>>>>>> d834dd796c6754821e5d08052f1d2450aee073b6
     const forms = document.querySelectorAll('.formContainer > div');
     forms.forEach(form => {
       if (form.id === formId) {

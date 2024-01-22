@@ -6,6 +6,11 @@ document.querySelectorAll(`.accordion-content`).forEach((item, index) => {
         let darr = item.querySelector(`.arrow-down`);
         if (item.classList.contains("open")) {
             // description.style.height = `${description.scrollHeight}px`;
+            let statusList = description.getElementsByTagName('select')
+            for (let i = 0; i < statusList.length; i++) {
+                if (statusList[i].value == 'Completed') {statusList[i].classList.add('green')
+                } else if (statusList[i].value == 'On Progress') {statusList[i].classList.add('blue')
+                }else {statusList[i].classList.add('red')}}
             description.classList.add(`open`);
             darr.classList.add(`open`);
         } else {
@@ -71,6 +76,7 @@ function pageFunWithCursor(type) {
 }
 
 (function () {
+<<<<<<< HEAD
     const URLparam = new URLSearchParams(window.location.search)
     const toData = URLparam.get('to')
     const pageNo = toData;
@@ -96,6 +102,35 @@ function pageFunWithCursor(type) {
             document.getElementById('l-box').style.display = `none`
             document.getElementById('f-box').innerHTML = Number(pageNo) - 2
             document.getElementById('m-box').innerHTML = Number(pageNo) - 1
+=======
+    if (location.href.match('/setting') == null) {
+        const URLparam = new URLSearchParams(window.location.search)
+        const toData = URLparam.get('to')
+        const pageNo = toData;
+        const lastPageNo = Number(document.getElementById('last-box').innerHTML)
+        if (toData > 2) {
+            if (Number(pageNo) + 2 == lastPageNo || Number(pageNo) + 1 == lastPageNo || pageNo == lastPageNo) {
+                document.getElementById('way-2').style.display = `none`
+            }
+            document.getElementById('2num').style.display = "none"
+            document.querySelectorAll('.pagin').forEach((el) => {
+                el.style.display = `flex`
+            })
+            if (toData == 3) { document.getElementById('way-1').style.display = `none` }
+            if (Number(pageNo) + 1 < lastPageNo) {
+                document.getElementById('f-box').innerHTML = Number(pageNo) - 1
+                document.getElementById('m-box').innerHTML = toData
+                document.getElementById('l-box').innerHTML = Number(pageNo) + 1
+            } else if (Number(pageNo) + 1 == lastPageNo) {
+                document.getElementById('f-box').innerHTML = Number(pageNo) - 2
+                document.getElementById('m-box').innerHTML = Number(pageNo) - 1
+                document.getElementById('l-box').innerHTML = Number(pageNo)
+            } else if (pageNo == lastPageNo) {
+                document.getElementById('l-box').style.display = `none`
+                document.getElementById('f-box').innerHTML = Number(pageNo) - 2
+                document.getElementById('m-box').innerHTML = Number(pageNo) - 1
+            }
+>>>>>>> d834dd796c6754821e5d08052f1d2450aee073b6
         }
     }
 })()
@@ -141,11 +176,18 @@ let ReqHandler = {
 }
 
 
+<<<<<<< HEAD
+=======
+function closeMainDropdown() {
+    document.querySelector(`.main-dropdown`).classList.toggle(`hide`);
+}
+>>>>>>> d834dd796c6754821e5d08052f1d2450aee073b6
 // if (pageNo + 2 == lastPageNo) {
 //     document.getElementById('way-2').style.display = `none`
 // } else {
 //     document.getElementById('way-2').style.display = `flex`
 // }
+<<<<<<< HEAD
     const statusSelect = document.querySelectorAll(`.status-dropdown-menu`);
     statusSelect.forEach((index), ()=>{
         statusSelect.addEventListener('change', ()=>{
@@ -169,3 +211,5 @@ let ReqHandler = {
 
 
 
+=======
+>>>>>>> d834dd796c6754821e5d08052f1d2450aee073b6
