@@ -6,6 +6,11 @@ document.querySelectorAll(`.accordion-content`).forEach((item, index) => {
         let darr = item.querySelector(`.arrow-down`);
         if (item.classList.contains("open")) {
             // description.style.height = `${description.scrollHeight}px`;
+            let statusList = description.getElementsByTagName('select')
+            for (let i = 0; i < statusList.length; i++) {
+                if (statusList[i].value == 'Completed') {statusList[i].classList.add('green')
+                } else if (statusList[i].value == 'On Progress') {statusList[i].classList.add('blue')
+                }else {statusList[i].classList.add('red')}}
             description.classList.add(`open`);
             darr.classList.add(`open`);
         } else {
@@ -59,41 +64,45 @@ function pageFunWithCursorNext() {
     window.location.search = `?from=${Number(toData)}&to=${Number(toData) + 1}`;
 }
 function pageFunWithCursor(type) {
-    const  lastpageNo = document.getElementById('last-box').innerHTML
+    const lastpageNo = document.getElementById('last-box').innerHTML
     const URLparam = new URLSearchParams(window.location.search)
     const toData = URLparam.get('to')
     if (type == 'next' && Number(toData) + 1 <= lastpageNo) {
-    window.location.search = `?from=${Number(toData)}&to=${Number(toData) + 1}`;}
+        window.location.search = `?from=${Number(toData)}&to=${Number(toData) + 1}`;
+    }
     if (type == 'prev' && Number(toData) - 1 > 0) {
-    window.location.search = `?from=${Number(toData) - 2}&to=${Number(toData) - 1}`;}
+        window.location.search = `?from=${Number(toData) - 2}&to=${Number(toData) - 1}`;
+    }
 }
 
-(function() {
-    const URLparam = new URLSearchParams(window.location.search)
-    const toData = URLparam.get('to')
-    const pageNo = toData;
-    const lastPageNo = Number(document.getElementById('last-box').innerHTML)
-    if (toData > 2) {
-        if (Number(pageNo) + 2 == lastPageNo || Number(pageNo) + 1 == lastPageNo || pageNo == lastPageNo) {
-            document.getElementById('way-2').style.display = `none`  
-        }
-        document.getElementById('2num').style.display = "none"
-        document.querySelectorAll('.pagin').forEach((el) => {
-            el.style.display = `flex`
-        })
-        if (toData == 3) { document.getElementById('way-1').style.display = `none`}
-        if (Number(pageNo) + 1 < lastPageNo) {
-            document.getElementById('f-box').innerHTML = Number(pageNo) - 1
-            document.getElementById('m-box').innerHTML = toData
-            document.getElementById('l-box').innerHTML = Number(pageNo) + 1 
-        }else if(Number(pageNo) + 1 == lastPageNo){
-            document.getElementById('f-box').innerHTML = Number(pageNo) - 2
-            document.getElementById('m-box').innerHTML = Number(pageNo) - 1
-            document.getElementById('l-box').innerHTML = Number(pageNo)   
-        }else if (pageNo == lastPageNo){
-            document.getElementById('l-box').style.display = `none` 
-            document.getElementById('f-box').innerHTML = Number(pageNo) - 2
-            document.getElementById('m-box').innerHTML = Number(pageNo) - 1   
+(function () {
+    if (location.href.match('/setting') == null) {
+        const URLparam = new URLSearchParams(window.location.search)
+        const toData = URLparam.get('to')
+        const pageNo = toData;
+        const lastPageNo = Number(document.getElementById('last-box').innerHTML)
+        if (toData > 2) {
+            if (Number(pageNo) + 2 == lastPageNo || Number(pageNo) + 1 == lastPageNo || pageNo == lastPageNo) {
+                document.getElementById('way-2').style.display = `none`
+            }
+            document.getElementById('2num').style.display = "none"
+            document.querySelectorAll('.pagin').forEach((el) => {
+                el.style.display = `flex`
+            })
+            if (toData == 3) { document.getElementById('way-1').style.display = `none` }
+            if (Number(pageNo) + 1 < lastPageNo) {
+                document.getElementById('f-box').innerHTML = Number(pageNo) - 1
+                document.getElementById('m-box').innerHTML = toData
+                document.getElementById('l-box').innerHTML = Number(pageNo) + 1
+            } else if (Number(pageNo) + 1 == lastPageNo) {
+                document.getElementById('f-box').innerHTML = Number(pageNo) - 2
+                document.getElementById('m-box').innerHTML = Number(pageNo) - 1
+                document.getElementById('l-box').innerHTML = Number(pageNo)
+            } else if (pageNo == lastPageNo) {
+                document.getElementById('l-box').style.display = `none`
+                document.getElementById('f-box').innerHTML = Number(pageNo) - 2
+                document.getElementById('m-box').innerHTML = Number(pageNo) - 1
+            }
         }
     }
 })()
@@ -138,15 +147,12 @@ let ReqHandler = {
     }
 }
 
-<<<<<<< HEAD
 
-function closeMainDropdown(){
+function closeMainDropdown() {
     document.querySelector(`.main-dropdown`).classList.toggle(`hide`);
 }
-=======
 // if (pageNo + 2 == lastPageNo) {
 //     document.getElementById('way-2').style.display = `none`
 // } else {
 //     document.getElementById('way-2').style.display = `flex`
 // }
->>>>>>> 3d78fad61e066feded06ed172272fea63dc5e594

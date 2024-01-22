@@ -4,7 +4,15 @@ let namue = document.querySelectorAll(`.namue`);
 let nav = document.querySelector(`nav`);
 let aside = document.querySelector(`aside`);
 let ham = document.querySelector(`#ham`);
-
+(()=>{
+    let pageCtn=document.querySelector('.nav-lists')
+   let pageDataList= pageCtn.getElementsByTagName('a')
+   let activeElm=document.querySelector('.main')
+   for (const e of pageDataList) {
+    if(activeElm.dataset.appPage==e.dataset.appPage)
+    e.classList.add('active')
+   }
+})()
 
 activate();
 function activate(){
