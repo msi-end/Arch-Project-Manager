@@ -343,7 +343,7 @@
 }
 
 .adata .project_expand .architecture .arrow {
-    border: 1px solid var(--primary-color);
+    outline: 1px solid var(--primary-border);
     background: var(--primary-light-color);
 }
 
@@ -352,16 +352,16 @@
 }
 
 .adata .project_expand .architecture hr.show {
-    outline: 1px solid var(--primary-color);
+    outline: 1px solid var(--primary-border);
     border: none;
 }
 
-.adata .project_expand .structural .arrow {
+/*.adata .project_expand .structural .arrow {
     border: 1px solid var(--secondary-color);
     background: var(--sec-light-color);
 }
 
-.adata .project_expand .structural .phead {
+ .adata .project_expand .structural .phead {
     color: var(--secondary-color);
 }
 
@@ -380,7 +380,7 @@
 
 .adata .project_expand .thrd hr.show {
     outline: 1px solid var(--green);
-}
+} */
 
 /* ---------Main Task Status--------- */
 .arrow .task-emp-status {
@@ -397,14 +397,14 @@
 
 .task-emp-status .main-btns :is(button, select) {
     flex-grow: 1;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
     padding: 0 4px;
     height: 30px;
     border-radius: var(--border-radius-1);
-    outline: 1px solid var(--primary-color);
-    background: var(--primary-color);
-    color: var(--white);
+    outline: 1px solid var(--primary-light-color);
+    background: var(--primary-bgr);
+    color: var(--primary-color);
     gap: 0;
     justify-content: space-between;
     transition: var(--transition-2);
@@ -418,7 +418,7 @@
 .task-emp-status .main-btns select.red {
     background: var(--ter-light-color);
     color: var(--ter-dark-color);
-    outline: 1px solid var(--ter-dark-color);
+    outline: 1px solid hsla(0, 100%, 45%, 0.1);
 }
 
 .task-emp-status .main-btns select.blue {
@@ -541,7 +541,7 @@
 }
 
 /* -----------STATUS DROPDOWN MENU ------------- */
-.main-dropdown .status-dropdown-menu {
+/* .main-dropdown .status-dropdown-menu {
     padding: 8px;
     border-radius: var(--border-radius-1);
     z-index: 105;
@@ -550,7 +550,7 @@
 
 .main-dropdown .status-dropdown-menu.active {
     display: block;
-}
+} */
 
 /* ----EMPLOYEE DROPDOWN MENU-------- */
 .main-dropdown .emp-drop-menu {
@@ -660,7 +660,7 @@
         SUB-TASKS on add
 ------------------------------- */
 .architecture .sbox {
-    border: 1px solid var(--primary-color);
+    outline: 1px solid var(--primary-border);
 }
 
 .structural .sbox {

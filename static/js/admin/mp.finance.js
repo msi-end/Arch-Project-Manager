@@ -1,6 +1,5 @@
 // form 
 function toggleForm(formId) {
-<<<<<<< HEAD
   const forms = document.querySelectorAll('.formContainer > div');
   forms.forEach(form => {
     if (form.id === formId) {
@@ -51,7 +50,6 @@ async function advOpen(data) {
 
 }
 function GetIncExp() {
-=======
     const forms = document.querySelectorAll('.formContainer > div');
     forms.forEach(form => {
       if (form.id === formId) {
@@ -67,7 +65,6 @@ function GetIncExp() {
  }
  
  function GetIncExp() {
->>>>>>> 3d78fad61e066feded06ed172272fea63dc5e594
   let Ctn = document.getElementsByClassName('total_user_data')
   ReqHandler.GET(location.origin + '/admin/finance/get-income-expense').then((res) => {
     if (res.status) {

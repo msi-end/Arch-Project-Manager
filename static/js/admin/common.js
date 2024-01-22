@@ -59,41 +59,43 @@ function pageFunWithCursorNext() {
     window.location.search = `?from=${Number(toData)}&to=${Number(toData) + 1}`;
 }
 function pageFunWithCursor(type) {
-    const  lastpageNo = document.getElementById('last-box').innerHTML
+    const lastpageNo = document.getElementById('last-box').innerHTML
     const URLparam = new URLSearchParams(window.location.search)
     const toData = URLparam.get('to')
     if (type == 'next' && Number(toData) + 1 <= lastpageNo) {
-    window.location.search = `?from=${Number(toData)}&to=${Number(toData) + 1}`;}
+        window.location.search = `?from=${Number(toData)}&to=${Number(toData) + 1}`;
+    }
     if (type == 'prev' && Number(toData) - 1 > 0) {
-    window.location.search = `?from=${Number(toData) - 2}&to=${Number(toData) - 1}`;}
+        window.location.search = `?from=${Number(toData) - 2}&to=${Number(toData) - 1}`;
+    }
 }
 
-(function() {
+(function () {
     const URLparam = new URLSearchParams(window.location.search)
     const toData = URLparam.get('to')
     const pageNo = toData;
     const lastPageNo = Number(document.getElementById('last-box').innerHTML)
     if (toData > 2) {
         if (Number(pageNo) + 2 == lastPageNo || Number(pageNo) + 1 == lastPageNo || pageNo == lastPageNo) {
-            document.getElementById('way-2').style.display = `none`  
+            document.getElementById('way-2').style.display = `none`
         }
         document.getElementById('2num').style.display = "none"
         document.querySelectorAll('.pagin').forEach((el) => {
             el.style.display = `flex`
         })
-        if (toData == 3) { document.getElementById('way-1').style.display = `none`}
+        if (toData == 3) { document.getElementById('way-1').style.display = `none` }
         if (Number(pageNo) + 1 < lastPageNo) {
             document.getElementById('f-box').innerHTML = Number(pageNo) - 1
             document.getElementById('m-box').innerHTML = toData
-            document.getElementById('l-box').innerHTML = Number(pageNo) + 1 
-        }else if(Number(pageNo) + 1 == lastPageNo){
+            document.getElementById('l-box').innerHTML = Number(pageNo) + 1
+        } else if (Number(pageNo) + 1 == lastPageNo) {
             document.getElementById('f-box').innerHTML = Number(pageNo) - 2
             document.getElementById('m-box').innerHTML = Number(pageNo) - 1
-            document.getElementById('l-box').innerHTML = Number(pageNo)   
-        }else if (pageNo == lastPageNo){
-            document.getElementById('l-box').style.display = `none` 
+            document.getElementById('l-box').innerHTML = Number(pageNo)
+        } else if (pageNo == lastPageNo) {
+            document.getElementById('l-box').style.display = `none`
             document.getElementById('f-box').innerHTML = Number(pageNo) - 2
-            document.getElementById('m-box').innerHTML = Number(pageNo) - 1   
+            document.getElementById('m-box').innerHTML = Number(pageNo) - 1
         }
     }
 })()
@@ -138,15 +140,32 @@ let ReqHandler = {
     }
 }
 
-<<<<<<< HEAD
 
-function closeMainDropdown(){
-    document.querySelector(`.main-dropdown`).classList.toggle(`hide`);
-}
-=======
 // if (pageNo + 2 == lastPageNo) {
 //     document.getElementById('way-2').style.display = `none`
 // } else {
 //     document.getElementById('way-2').style.display = `flex`
 // }
->>>>>>> 3d78fad61e066feded06ed172272fea63dc5e594
+    const statusSelect = document.querySelectorAll(`.status-dropdown-menu`);
+    statusSelect.forEach((index), ()=>{
+        statusSelect.addEventListener('change', ()=>{
+
+            const selected = this.statusSelect[0].value;
+            statusSelect.classList.remove(`red`, `blue`, `green`);
+        
+            switch (selected) {
+                case 'Not Started':
+                    selected.classList.add('red');
+                    break;
+                case 'On Progress':
+                    selected.classList.add('blue');
+                    break;
+                case 'Completed':
+                    selected.classList.add('green');
+                    break;
+            }
+        })
+    })
+
+
+
