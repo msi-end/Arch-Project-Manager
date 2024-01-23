@@ -6,7 +6,7 @@
                 <select data-taskstatus="" class="status-dropdown-menu common_dropdown" name="status" id="" onchange="addTaskStatus(this, 'misc', 'apiv1/update-misctask-status')">
                     <option value="Not Started" <%= subdata.mstask_status == "not started" ? "selected" : ""%>>Not started</option>
                     <option value="On Progress" <%= subdata.mstask_status == "On Progress" ? "selected" : ""%>>On Progress</option>
-                    <option value="Completed" <%= subdata.mstask_status == "Completed" ? "selected" : ""%>>Completed</option>
+                    <option value="completed" <%= subdata.mstask_status == "completed" ? "selected" : ""%>>Completed</option>
                 </select>
                 <button class="" onclick="empPopup(this)">Employee</button>
             </div>

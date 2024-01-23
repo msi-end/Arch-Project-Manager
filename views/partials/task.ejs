@@ -15,7 +15,7 @@
                 <select data-taskstatus="<%= cat.cat_status %>" class="status-dropdown-menu common_dropdown" name="status" id="" onchange="addTaskStatus(this, 'normal', 'apiv1/update-task-status')">
                     <option value="Not Started" <%= cat.cat_status == "Not started" ? "selected" : ""%>>Not started</option>
                     <option value="On Progress" <%= cat.cat_status == "On Progress" ? "selected" : ""%>>On Progress</option>
-                    <option value="Completed" <%= cat.cat_status == "Completed" ? "selected" : ""%>>Completed</option>
+                    <option value="completed" <%= cat.cat_status == "completed" ? "selected" : ""%>>Completed</option>
                 </select>
                 <button class="" onclick="empPopup(this)">Employee</button>
                 <button class="" onclick="subPopup(this)">Tasks</button>
@@ -42,7 +42,7 @@
              <% cat.sub?.forEach((el)=>{ 
                 if(el.s_name){  %>
                 <li class="stasks" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>">
-                    <input type="checkbox" name="plumbing" data-subtaskid="<%= el.s_id %>" onchange="updateSubtaskStatus(this)" <%= el.s_status == "Completed" ? `checked` : "" %>>
+                    <input type="checkbox" name="plumbing" data-subtaskid="<%= el.s_id %>" onchange="updateSubtaskStatus(this)" <%= el.s_status == "completed" ? `checked` : "" %>>
                     <span><%= el.s_name %></span>
                 </li>
                 <% }}) %>

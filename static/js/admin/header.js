@@ -9,8 +9,8 @@ let ham = document.querySelector(`#ham`);
    let pageDataList= pageCtn.getElementsByTagName('a')
    let activeElm=document.querySelector('.main')
    for (const e of pageDataList) {
-    if(activeElm.dataset.appPage==e.dataset.appPage)
-    e.classList.add('active')
+    if(activeElm.dataset.appPage==e.dataset.appPage)   {
+    e.classList.add('active')}
    }
 })()
 

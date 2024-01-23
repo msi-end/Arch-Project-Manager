@@ -1,20 +1,19 @@
 // form 
 function toggleForm(formId) {
-    const forms = document.querySelectorAll('.formContainer > div');
-    forms.forEach(form => {
-      if (form.id === formId) {
-        form.classList.remove('hide');
-      } else {
-        form.classList.add('hide');
-      }
-    });
-  }
-  
- function openDick(){
+  const forms = document.querySelectorAll('.formContainer > div');
+  forms.forEach(form => {
+    if (form.id === formId) {
+      form.classList.remove('hide');
+    } else {
+      form.classList.add('hide');
+    }
+  });
+}
+function openDick() {
   document.querySelector(`.main-dropdown`).style.display = `block`;
- }
- 
- function GetIncExp() {
+}
+
+function GetIncExp() {
   let Ctn = document.getElementsByClassName('total_user_data')
   ReqHandler.GET(location.origin + '/admin/finance/get-income-expense').then((res) => {
     if (res.status) {
