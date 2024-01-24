@@ -29,14 +29,12 @@ function addExpense() {
         amount: expAddCtn.querySelector('#amount').value,
         mode: expAddCtn.querySelector('#mode').value,
         remark: expAddCtn.querySelector('#remark').value,
-        date: expAddCtn.querySelector('#date').value,
-    }
-    ReqHandler.POST(ReqURI.addExps, dataObj)
-        .then((res) => {
-            console.log(res);
+        date: date_Split(expAddCtn.querySelector('#date').value,'-',true), }
+    ReqHandler.POST(ReqURI.addExps, dataObj).then((res) => {
             if (res.status == true) {
                 AlertNotifier(res.status, res.msg, 'success');
                 Cls_UserCtn('.uprofile-settings')
+                // Cls_ExpenseCtn('.addexpense')
                 Disable_BtnHandler('.profile-grid', false)
                 Cls_UserCtn('.usform')
                 setTimeout(() => {
