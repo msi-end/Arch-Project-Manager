@@ -76,7 +76,7 @@ function pageFunWithCursor(type) {
 }
 
 (function () {
-    if (location.href.match('/setting') == null) {
+    if (location.href.match('/setting') !== null||location.href.match('/expenses') !== null) {
         const URLparam = new URLSearchParams(window.location.search)
         const toData = URLparam.get('to')
         const pageNo = toData;

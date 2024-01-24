@@ -27,10 +27,10 @@ exports.expenseUpdater = (req, res) => {
     })
 
 }
-exports.GetExpenses = (req, res) => {
-    let query = `SELECT * FROM expenses WHERE date LIKE '%${months}/${year}% ;`
+exports.GetExpensesByMonths = (req, res) => {
+    let query = `SELECT * FROM expenses WHERE date LIKE '%${req.query.m}/${req.query.y}% ;`
     console.log(req.params.id, req.body);
-    db.query(query, [], (err, results) => {
+    db.query(query, (err, results) => {
         if (!err) {
             res.status(200).send({ status: true, msg: 'Successfully Expense Updated',date:results })
         } else {

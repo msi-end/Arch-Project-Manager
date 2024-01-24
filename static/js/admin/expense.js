@@ -1,4 +1,4 @@
-let ReqURI = { addExps: BASE_URL + `/add-Exps`, updExps: BASE_URL + `/expsUpdate/` }
+let ReqURI = { addExps: BASE_URL + `/add-Exps`, updExps: BASE_URL + `/expsUpdate/`,getExpsBymonths:'/' }
 
 function Opn_ExpenseCtn(e, elm) {
     (document.querySelector(`${e}`)).classList.remove(`hide`);
@@ -72,4 +72,21 @@ function updExpense() {
             console.log('Error(fn-ExpsUpdate):', err);
         })
 }
-
+function ChangeExpsByMonths(e){
+let m= e.querySelector('#ExpsMonth').value
+let y= e.querySelector('#ExpsYear').value
+    ReqHandler.GET(ReqURI.getExpsBymonths+`m=${m}&&y=${y}` )
+    .then((res) => {
+        console.log(res.data);
+        if (res.status == true) {
+            AlertNotifier(res.status, res.msg, 'success');
+            setTimeout(() => {
+                location.reload()
+            }, 2000);
+        } else {
+            AlertNotifier(res.status, res.msg, 'error');
+        }
+    }).catch(err => {
+        console.log('Error(fn-ExpsUpdate):', err);
+    })
+}
