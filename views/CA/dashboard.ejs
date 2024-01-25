@@ -141,6 +141,49 @@
                         <p class="text">Amount in Bank</p>
                     </div>
                 </div>
+                 <!-- -------Total Expenses--------- -->
+
+                 <div class="total-amount flex data ">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
+                        <path fill="##000000"
+                            d="M20,1H4A3,3,0,0,0,1,4V20a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V4A3,3,0,0,0,20,1ZM8,21H4a1,1,0,0,1-1-1V18.82A3,3,0,0,0,4,19H8Zm0-4H4a1,1,0,0,1-1-1V14.82A3,3,0,0,0,4,15H8Zm0-4H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H8Zm6,8H10V15h4Zm0-8H10V3h4Zm7,7a1,1,0,0,1-1,1H16V19h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V15h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V3h4a1,1,0,0,1,1,1ZM18,7a1,1,0,1,0,1,1A1,1,0,0,0,18,7ZM6,9A1,1,0,1,0,5,8,1,1,0,0,0,6,9Z">
+                        </path>
+                    </svg>
+                    <div class="total_user_data">
+                        <p class="size">&#8377;<span>
+                                <%= data[3][0].cash_expenses + data[3][0].online_expenses %>
+                            </span>/-</p>
+                        <p class="text">Total Expenses</p>
+                    </div>
+                </div>
+                <!-- ---------------Expenses By Cash------------ -->
+                <div class="amount_in-bank flex data">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
+                        <path fill="##000000"
+                            d="M20,1H4A3,3,0,0,0,1,4V20a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V4A3,3,0,0,0,20,1ZM8,21H4a1,1,0,0,1-1-1V18.82A3,3,0,0,0,4,19H8Zm0-4H4a1,1,0,0,1-1-1V14.82A3,3,0,0,0,4,15H8Zm0-4H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H8Zm6,8H10V15h4Zm0-8H10V3h4Zm7,7a1,1,0,0,1-1,1H16V19h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V15h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V3h4a1,1,0,0,1,1,1ZM18,7a1,1,0,1,0,1,1A1,1,0,0,0,18,7ZM6,9A1,1,0,1,0,5,8,1,1,0,0,0,6,9Z">
+                        </path>
+                    </svg>
+                    <div class="total_user_data">
+                        <p class="size">&#8377;<span>
+                                <%= data[3][0].cash_expenses %>
+                            </span>/-</p>
+                        <p class="text">Expenses By Cash</p>
+                    </div>
+                </div>
+                <!-- ---------Expenses By Online----------- -->
+                <div class="cash_in-hand flex data">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
+                        <path fill="##000000"
+                            d="M20,1H4A3,3,0,0,0,1,4V20a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V4A3,3,0,0,0,20,1ZM8,21H4a1,1,0,0,1-1-1V18.82A3,3,0,0,0,4,19H8Zm0-4H4a1,1,0,0,1-1-1V14.82A3,3,0,0,0,4,15H8Zm0-4H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H8Zm6,8H10V15h4Zm0-8H10V3h4Zm7,7a1,1,0,0,1-1,1H16V19h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V15h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V3h4a1,1,0,0,1,1,1ZM18,7a1,1,0,1,0,1,1A1,1,0,0,0,18,7ZM6,9A1,1,0,1,0,5,8,1,1,0,0,0,6,9Z">
+                        </path>
+                    </svg>
+                    <div class="total_user_data">
+                        <p class="size">&#8377;<span>
+                                <%= data[3][0].online_expenses %>
+                            </span>/-</p>
+                        <p class="text">Expenses By Online</p>
+                    </div>
+                </div>
             </div>
 
             <!-- ----------- EXPENSES TABLE----------- -->

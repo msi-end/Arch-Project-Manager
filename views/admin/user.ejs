@@ -23,7 +23,7 @@
 
     <%- include('../partials/admin.header.ejs') %>
         <!-- MAIN SECTION STARTS HERE  -->
-        <main class="main">
+        <main class="main" data-app-page="user-manager">
             <div class="ucontainer">
                 <div class="userContainer uform">
                     <h4 class="uppercase">user</h4>
@@ -118,10 +118,14 @@
                         </div>
                         <!-- ---------------------------------  -->
                         <div class="data-status">
-                            <p class="log">Last Login</p>
-                            <p class="data-log"><%= user.lastLoginAt  %></p>
-                            <p class="log">Last Logout</p>
-                            <p class="data-log"><%= user.lastLogoutAt  %></p>
+                            <div>
+                                <p class="log">Last Login</p>
+                                <p class="data-log"><%= user.lastLoginAt  %></p>
+                            </div>
+                            <div>
+                                <p class="log">Last Logout</p>
+                                <p class="data-log"><%= user.lastLogoutAt  %></p>
+                            </div>
                         </div>
                         <!-- ---------------------------------  -->
                         <div class="user-status">
@@ -182,7 +186,7 @@
                                         <input type="text" name="designation" disabled id="designation"
                                             placeholder="Designation">
                                     </div>
-                                    <button type="button" style="background: var(--primary-color);color: white;" class="hide uppercase" onclick="updUser()"> Update Info.</button>
+                                    <button type="button" class="hide uppercase" onclick="updUser()"> Update</button>
                                 </div>
                                 <div class="profile-status flex">
                                     <p class="urstatus">Status</p>
@@ -199,52 +203,38 @@
                             </div>
                             <div class="profile-project-details">
                                 <div class="profile-main">
+                                    <div class="normal">
+                                        N<span>ormal Projects</span>
+                                    </div>
                                     <div class="profile-main-project">
                                         <p class="primary"></p>
-                                        <p>
-                                            <span>Involved</span>
-                                            <span>Projects</span>
-                                        </p>
+                                        <p>Involved Projects</p>
                                     </div>
                                     <div class="profile-main-project">
-                                        <p class="blue">100</p>
-                                        <p>
-                                            <span>Involved</span>
-                                            <span>Tasks</span>
-                                        </p>
+                                        <p class="blue"></p>
+                                        <p>On Progress</p>
                                     </div>
                                     <div class="profile-main-project">
-                                        <p class="red">100</p>
-                                        <p>
-                                            <span>Pending</span>
-                                            <span>Task</span>
-
-                                        </p>
+                                        <p class="red"></p>
+                                        <p>Completed</p>
                                     </div>
                                     
                                 </div>
                                 <div class="profile-main">
+                                    <div class="normal misc">
+                                        M<span>iscellaneous Projects</span>
+                                    </div>
                                     <div class="profile-main-project">
                                         <p class="primary"></p>
-                                        <p>
-                                            <span>Involved</span>
-                                            <span>Project</span>
-                                        </p>
+                                        <p>Involved Projects</p>
                                     </div>
                                     <div class="profile-main-project">
                                         <p class="blue">100</p>
-                                        <p>
-                                            <span>Involved</span>
-                                            <span>Tasks</span>
-                                        </p>
+                                        <p>On Progress</p>
                                     </div>
                                     <div class="profile-main-project">
                                         <p class="red">100</p>
-                                        <p>
-                                            <span>Pending</span>
-                                            <span>Tasks</span>
-
-                                        </p>
+                                        <p>Completed</p>
                                     </div>
                                     
                                 </div>

@@ -1,5 +1,5 @@
 class DataCall {
-  urlHead = 'http://localhost:3000/'
+  urlHead = location.origin+'/'
   GET_POST = async (url, method, body, type) => {
     if (method == 'GET') {
       try {

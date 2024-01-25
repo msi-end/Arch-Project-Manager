@@ -1,6 +1,6 @@
 const nmailer = require('nodemailer');
 const { google } = require('googleapis');
-const { errHandler, errorHandler } = require('../utils/errorHandler');
+const { errorHandler } = require('../utils/errorHandler');
 const { email: config } = require('../config/mail.config');
 const fs = require('fs');
 
@@ -11,6 +11,7 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 oAuth2Client.setCredentials({ refresh_token: config.refreshToken });
 let accessToken;
+ 
 const transporter = nmailer.createTransport(
     {
         service: "gmail",
@@ -22,7 +23,7 @@ const transporter = nmailer.createTransport(
             refreshToken: config.refreshToken,
             accessToken: accessToken,
         },
-        tls: { rejectUnauthorized: true }
+        // tls: { rejectUnauthorized: false }
     })
 const emailTemplate = (filepath, data) => {
     let fileDate = fs.readFileSync(filepath, 'utf8');
@@ -32,9 +33,12 @@ const emailTemplate = (filepath, data) => {
     }
     return fileDate;
 }
-const EmailNotifier = async (email, subject, text, htmlFile, htmlData) => {
+const mailer = async (email, subject, text, htmlFile, htmlData) => {
     try {
         accessToken = await oAuth2Client.getAccessToken();
+        console.log(  config.clientID,
+            config.clientSecret,
+            config.redirectURI,config.refreshToken,accessToken);
         let template = emailTemplate(htmlFile, htmlData);
         const options = {
             from: config.user,
@@ -44,7 +48,7 @@ const EmailNotifier = async (email, subject, text, htmlFile, htmlData) => {
             html: template
         }
         let sendInfoStatus = await transporter.sendMail(options, (err, info) => {
-            if (error) {
+            if (err) {
                 new errorHandler('503', 'Unable to send the Email, Recheck utils/mailer.js:18\n' + err)}
         });
         return sendInfoStatus;
@@ -54,4 +58,4 @@ const EmailNotifier = async (email, subject, text, htmlFile, htmlData) => {
 
     }
 }
-module.exports = { EmailNotifier };
+module.exports = { mailer };

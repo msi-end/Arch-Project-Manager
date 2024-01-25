@@ -1,4 +1,4 @@
-let ReqURI = { addExps: BASE_URL + `/add-Exps`, updExps: BASE_URL + `/expsUpdate/` }
+let ReqURI = { addExps: BASE_URL + `/add-Exps`, updExps: BASE_URL + `/expsUpdate/`, getExpsBymonths: BASE_URL + '/getExps' }
 
 function Opn_ExpenseCtn(e, elm) {
     (document.querySelector(`${e}`)).classList.remove(`hide`);
@@ -14,7 +14,7 @@ function AlertNotifier(status, msg, icon) {
 function setExpenseToModel(e) {
     let ExpsCtn = e.parentElement.parentElement
     let editCtn = document.querySelector('.editexpense')
-      editCtn.children[0].dataset.exps_id =ExpsCtn.dataset.exps_id
+    editCtn.children[0].dataset.exps_id = ExpsCtn.dataset.exps_id
     console.log(e.dataset.exps_id);
     editCtn.querySelector('#exp-name').value = ExpsCtn.querySelector('.exp-name-data').innerText
     editCtn.querySelector('#amount').value = ExpsCtn.querySelector('.exp-amount-data').innerText
@@ -29,25 +29,24 @@ function addExpense() {
         amount: expAddCtn.querySelector('#amount').value,
         mode: expAddCtn.querySelector('#mode').value,
         remark: expAddCtn.querySelector('#remark').value,
-        date: expAddCtn.querySelector('#date').value,
+        date: date_Split(expAddCtn.querySelector('#date').value, '-', true),
     }
-    ReqHandler.POST(ReqURI.addExps, dataObj)
-        .then((res) => {
-            console.log(res);
-            if (res.status == true) {
-                AlertNotifier(res.status, res.msg, 'success');
-                Cls_UserCtn('.uprofile-settings')
-                Disable_BtnHandler('.profile-grid', false)
-                Cls_UserCtn('.usform')
-                setTimeout(() => {
-                    location.reload()
-                }, 2000);
-            } else {
-                AlertNotifier(res.status, res.msg, 'error');
-            }
-        }).catch(err => {
-            console.log('Error(fn-ExpsAdd):'+ err);
-        })
+    ReqHandler.POST(ReqURI.addExps, dataObj).then((res) => {
+        if (res.status == true) {
+            AlertNotifier(res.status, res.msg, 'success');
+            Cls_UserCtn('.uprofile-settings')
+            // Cls_ExpenseCtn('.addexpense')
+            Disable_BtnHandler('.profile-grid', false)
+            Cls_UserCtn('.usform')
+            setTimeout(() => {
+                location.reload()
+            }, 2000);
+        } else {
+            AlertNotifier(res.status, res.msg, 'error');
+        }
+    }).catch(err => {
+        console.log('Error(fn-ExpsAdd):' + err);
+    })
 }
 function updExpense() {
     let editCtn = document.querySelector('.editexpense')
@@ -57,7 +56,7 @@ function updExpense() {
         amount: editCtn.querySelector('#amount').value,
         mode: editCtn.querySelector('#mode').value,
         remark: editCtn.querySelector('#remark').value,
-        date: date_Split(editCtn.querySelector('#date').value,'-',true)
+        date: date_Split(editCtn.querySelector('#date').value, '-', true)
     }
     ReqHandler.PUT(ReqURI.updExps + exp_id, dataObj)
         .then((res) => {
@@ -74,4 +73,30 @@ function updExpense() {
             console.log('Error(fn-ExpsUpdate):', err);
         })
 }
-
+function ChangeExpsByMonths(e) {
+    let dataCtn =document.querySelector('.expense-page')
+    let Elm =document.querySelector('.expense-list')
+    let m = e.querySelector('#ExpsMonth').value
+    let y = e.querySelector('#ExpsYear').value
+    ReqHandler.GET(ReqURI.getExpsBymonths + `?m=${m}&y=${y}`)
+        .then((res) => { dataCtn.innerHTML='';
+            if (res.status) { (res.data).forEach(e => {
+               let html =`<div class="expense-list flex" data-e_id="${e.id}"> <div class="expense-ref"><p class="uppercase exp-ref">Ref. no.</p>
+                   <p class="exp-refn"> ${e.id} </p></div>
+               <!-- -------------------  -->
+               <div class="expense-name"> <p class="uppercase exp-name">expense name</p><p class="exp-name-data">${e.title }</p> </div>
+               <!-- ----------------------------------  -->
+               <div class="expense-amount"><p class="uppercase exp-amo">Amount</p><p class="exp-amo-data">&#8377; <span class="exp-amount-data">${e.amount } </span></p> </div>
+               <!-- ----------------------------------  -->
+               <div class="expense-date"><p class="uppercase exp-date">date</p><p class="exp-date-data">${e.date }</p> </div>
+               <!-- ----------------------------------  -->
+               <div class="expense-mode"> <p class="uppercase exp-mode">mode of payment</p> <p class="exp-mode-data"> ${e.md_type } </p> </div>
+               <!-- ---------------------------------  -->
+               <div class="expense-remarks"> <p class="uppercase exp-rem">remarks</p> <p class="exp-rem-content"> ${e.remark }</p></div>
+               <!-- ---------------------------------  -->
+               <div class="expense-edit"><a class="eicon" onclick="Opn_ExpenseCtn('.editexpense',this)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="pen"><path fill="##000000"   d="M22,7.24a1,1,0,0,0-.29-.71L17.47,2.29A1,1,0,0,0,16.76,2a1,1,0,0,0-.71.29L13.22,5.12h0L2.29,16.05a1,1,0,0,0-.29.71V21a1,1,0,0,0,1,1H7.24A1,1,0,0,0,8,21.71L18.87,10.78h0L21.71,8a1.19,1.19,0,0,0,.22-.33,1,1,0,0,0,0-.24.7.7,0,0,0,0-.14ZM6.83,20H4V17.17l9.93-9.93,2.83,2.83ZM18.17,8.66,15.34,5.83l1.42-1.41,2.82,2.82Z">
+               </path> </svg></a> <span class="edit">Edit</span></div> </div>`
+                dataCtn.innerHTML+=html});
+            } else {AlertNotifier(res.status, res.msg, 'error');}
+        }).catch(err => {console.log('Error(fn-ExpsUpdate):', err);})
+}

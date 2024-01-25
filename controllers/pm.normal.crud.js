@@ -137,7 +137,7 @@ exports.addNewTaskToProject = async (req, res) => {
 
 exports.updatetaskStatus = async (req, res) => {
   const { status, dealId, catId } = req.body;
-  let q = `UPDATE normal_project_cat SET cat_status = '${status}' WHERE ndeal_id = ${dealId} AND category_id = ${catId}`
+  let q = `UPDATE normal_project_cat SET cat_status = '${status}',project_status = '${status}' WHERE ndeal_id = ${dealId} AND category_id = ${catId}`
   databaseCon.query(q, (err, result) => {
     if (!err) {
       res.status(200).send(result)
@@ -157,7 +157,7 @@ exports.deleteTask = async (req, res) => {
 }
 
 exports.getProjectsStaus = (req, res) => {
-  let q = 'SELECT deals.id ,normal_project_cat.project_status FROM `deals` INNER JOIN normal_project_cat on deals.id =normal_project_cat.ndeal_id GROUP BY normal_project_cat.ndeal_id;'
+  let q = `SELECT id, CASE WHEN COUNT(DISTINCT project_status) = 1 AND MAX(project_status) = 'completed' THEN 'completed' ELSE 'pending' END AS project_status FROM ( SELECT deals.id, normal_project_cat.project_status FROM deals INNER JOIN normal_project_cat ON deals.id = normal_project_cat.ndeal_id ) AS subquery GROUP BY id`
   databaseCon.query(q, (err, result) => {
     if (!err) {
       res.status(200).send({ status: true, msg: 'Successfully data retrieve', data: result })
