@@ -1,13 +1,7 @@
-// const { createHmac } = require('crypto')
-
-// console.log(createHmac('sha256', 'secret').update('msi').digest('hex'));
-
-
-
-const { mailer } = require('./utils/mailer');
+const {mailer} = require('./mailer');
 const path = require('path')
 
-const main = async () => {
+const EmailSender = async () => {
     try {
         const email = 'aditya01377@gmail.com';
         const subject = 'Test';
@@ -20,4 +14,4 @@ const main = async () => {
     }
 };
 
-main();
+EmailSender();
