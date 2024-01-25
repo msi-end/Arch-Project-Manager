@@ -196,7 +196,7 @@ exports.insertNewMiscDeal = async (req, res) => {
 //---normal projects controll-------
 exports.renderNormalProjectFinance = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const q = `SELECT deals.id, deals.reference_no, deals.city, deals.deal_name, deals.split, normal_projects_finance.task, task.task_name, normal_projects_finance.totalamount, normal_projects_finance.amount_got FROM normal_projects_finance INNER JOIN deals ON deals.id = normal_projects_finance.ndeal_id INNER JOIN task ON task.task_id = normal_projects_finance.task ORDER BY deals.deal_name;`
+        const q = `SELECT deals.id, deals.reference_no, deals.city, deals.deal_name, deals.split, normal_projects_finance.task, task.task_name, normal_projects_finance.totalamount, normal_projects_finance.amount_got FROM normal_projects_finance INNER JOIN deals ON deals.id = normal_projects_finance.ndeal_id INNER JOIN task ON task.task_id = normal_projects_finance.task;`
         await db.query(q, (err, result) => {
             if (!err) {
                 const grouped = {};
@@ -208,8 +208,9 @@ exports.renderNormalProjectFinance = async (req, res) => {
                 })
                 for (const key in grouped) { sentData.push(grouped[key]) }
                 // res.status(200).send(sentData);
-                // console.log(sentData)
-                res.render('../views/admin/np.finance.ejs', { sentData });
+                const sortedData = sentData.sort((a, b) => b[0].id - a[0].id);
+                    console.log(sortedData)
+                res.render('../views/admin/np.finance.ejs', { sortedData });
             } else {
                 res.status(500).send({ msg: "Internal server error!!!" })
             }
@@ -252,7 +253,7 @@ exports.miscProjectFinance = async (req, res) => {
         const q = `select single_deal.reference_no, single_deal.sdeal_name, single_deal.work_name, single_deal.city, single_deal.total_price, single_deal.agreement_amount, mis_subtask.*, misc_project_finance.*
         from misc_project_finance 
         inner join single_deal on single_deal.sdid = misc_project_finance.mdeal_id 
-        inner join mis_subtask on mis_subtask.msub_task_id = misc_project_finance.task;`
+        inner join mis_subtask on mis_subtask.msub_task_id = misc_project_finance.task order by single_deal.sdid desc;`
         await db.query(q, (err, result) => {
             if (!err) {
                 res.status(200).render('../views/admin/mp.finance.ejs', { result });

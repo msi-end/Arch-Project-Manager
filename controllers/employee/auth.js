@@ -24,6 +24,8 @@ exports.Auth = async (req, res) => {
         await databaseCon.query(query, (err, rows, fields) => {
             if (err) throw new errorHandler(404, 'Something wents wrong in this Mysql  Auth');
             if (rows.length > 0) {
+                console.log('db :', rows[0].password)
+                console.log('req :', hash)
                 if (Email == rows[0].email && hash == rows[0].password) {
                     req.session.isLoggedIn = true;
                     req.session.email_id = Email;

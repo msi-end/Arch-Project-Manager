@@ -8,7 +8,7 @@ document.querySelectorAll(`.assign-to`).forEach((item, index) => {
         if (item.dataset.taskid) {
             const empNp = await feature.GET_POST(`apiv1/employee/${item.dataset.ndealid}/${item.dataset.taskid}`, 'GET');
             empNp.forEach((item) => {
-                const html = `<li class="add-empl"><span>${item.name}</span> <span class="icon" data-ndealid=${item.ndeal_id} data-catid=${item.category_id} data-emid=${item.em_id} onclick="removeEmpNp(this)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="minus-circle" class="svg"><path fill="##000000" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z"></path></svg></span></li>`
+                const html = `<li class="add-empl"><span>${item.name}</span> <span class="icon" data-ndealid=${item.ndeal_id} data-catid=${item.category_id} data-emid=${item.em_id} onclick="removeEmpNp(this, 'normal')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="minus-circle" class="svg"><path fill="##000000" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z"></path></svg></span></li>`
                 renderId.innerHTML += html
             })
         } else {
@@ -64,7 +64,7 @@ addNewEmp = async (param, e) => {
 
 async function removeEmpNp(data, type) {
     const dataSet = data.dataset;
-    const date = new Date().toDateString();
+    const date = new Date().toLocaleDateString()
     if (type === 'normal') {
         const title = `You have been removed from a project with ref no. 1123`
         await feature.DEL_UPD(`apiv1/removeempnp?dealId=${Number(dataSet.ndealid)}&catId=${Number(dataSet.catid)}&emid=${Number(dataSet.emid)}&title=${title}&removeDate=${date}`, 'DELETE');
@@ -77,10 +77,9 @@ async function removeEmpNp(data, type) {
 async function addTaskStatus(target, type, route) {
     let body = null;
     const dataSet = target.parentNode.dataset
-    if (type === 'normal') {
-        body = { status: target.value, dealId: Number(dataSet.ndealid), catId: Number(dataSet.taskid) }
+    if (type === 'normal') {body={ status: target.value, dealId: Number(dataSet.ndealid), catId: Number(dataSet.taskid) }
     } else {
-        body = { mstask_status: target.value, mdeal_id: Number(dataSet.ndealid), mstask_id: Number(dataSet.taskid), dateofstatus: "28/03/2033", }
+    body={ mstask_status: target.value, mdeal_id: Number(dataSet.ndealid), mstask_id: Number(dataSet.taskid), dateofstatus: "28/03/2033", }
     }
     await feature.DEL_UPD(route, "PUT", body)
 }

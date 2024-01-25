@@ -28,7 +28,6 @@ route.post('/auth', async (req, res) => {
         await databaseCon.query(query, (err, rows, fields) => {
             if (err) throw new errorHandler(500, 'Something wents wrong in this Mysql Admin Auth')
             if (rows.length > 0) {
-
                 if (Email == rows[0].email && hash == rows[0].password) {
                     req.session.isLoggedIn = true;
                     req.session.email_id = Email;
