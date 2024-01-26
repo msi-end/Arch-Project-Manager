@@ -26,7 +26,6 @@ exports.getEmployListToaddOrRemove = async (req, res) => {
 }
 
 exports.addEmployeeToProject = async (req, res) => {
-  // console.log(req.body);
   const { ndeal_id, npcid, category_id, emid, title, assignDate } = req.body
   if (req.body.emid && typeof req.body.emid === "string") {
     const q = `INSERT INTO normal_project_employee (ndeal_id, npcid ,category_id, emid, dateofassign) VALUES (${ndeal_id},${Number(npcid)}, ${category_id}, ${emid}, "${assignDate}");`
