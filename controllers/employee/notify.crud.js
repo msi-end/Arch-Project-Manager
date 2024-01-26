@@ -2,7 +2,7 @@ const db = require('../../config/db.config')
 
 
 exports.GetNotification = (req, res) => {
-    let query=`SELECT notid,title,dateofnotify,status FROM emp_task_notify WHERE emid in (0,${req.query.id}}) AND status !='removed'`
+    let query=`SELECT notid,title,dateofnotify,status FROM emp_task_notify WHERE emid in (0,${req.params.id}) AND status !='removed' ORDER BY notid DESC;`
     db.query(query,(err,result)=>{
         if (!err) {
             res.status(200).send({ status: true, msg: 'Success', data: result })

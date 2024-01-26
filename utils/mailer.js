@@ -41,7 +41,7 @@ const mailer = async (email, subject, text, htmlFile, htmlData) => {
             config.redirectURI,config.refreshToken,accessToken);
         let template = emailTemplate(htmlFile, htmlData);
         const options = {
-            from: config.user,
+            from: `EBHA Admin <${config.user}>`,
             to: email,
             subject: subject,
             text: text,

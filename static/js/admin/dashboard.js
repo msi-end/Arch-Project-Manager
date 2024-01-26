@@ -69,7 +69,7 @@ async function removeEmpNp(data, type) {
         const title = `You have been removed from a project with ref no. 1123`
         await feature.DEL_UPD(`apiv1/removeempnp?dealId=${Number(dataSet.ndealid)}&catId=${Number(dataSet.catid)}&emid=${Number(dataSet.emid)}&title=${title}&removeDate=${date}`, 'DELETE');
     } else {
-        const title = `You have been removed from a Miscellaneous project with ref no. 1123`
+        const title = `You have been removed from a Miscellaneous project with ref no. 1124`
         await feature.DEL_UPD(`apiv1/remove-emp-miscp?mdeal_id=${Number(dataSet.ndealid)}&mstask_id=${Number(dataSet.catid)}&mpemid=${Number(dataSet.emid)}&title=${title}&dateofremove=${date}`, 'DELETE');
     }
 }
@@ -132,12 +132,6 @@ async function CheckDeadline() {
     }
 }
 
-async function UpdateNotify(act, e) {
-    await ReqHandler.GET(location.origin + '/apiv1/upd-notifi/' + e + `?act=` + act).then(res => {
-        if (res.status) { CheckNotification() }
-    })
-
-}
 CheckDeadline()
 
 

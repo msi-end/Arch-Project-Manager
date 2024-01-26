@@ -1,5 +1,5 @@
 const databaseCon = require('../config/db.config.js')
-
+const {EmailSender} =require('../utils/emailSender.js')
 //-------normal project employee-------------------
 
 exports.getEmployListPerProject = async (req, res) => {

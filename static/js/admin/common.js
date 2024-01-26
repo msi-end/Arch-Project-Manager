@@ -170,4 +170,10 @@ async function CheckNotification() {
         }
     })
 }
+async function UpdateNotify(act, e) {
+    await ReqHandler.GET(location.origin + '/apiv1/upd-notifi/' + e + `?act=` + act).then(res => {
+        if (res.status) { CheckNotification() }
+    })
+
+}
 CheckNotification()
