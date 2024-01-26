@@ -7,28 +7,34 @@ const { errorHandler } = require('../utils/errorHandler');
 let mailConf = {
     subject: {
         remove: 'You Have Been Removed From Project',
-        add: 'You Are Added To Projrect'
+        add: 'You Are Added To Project'
+    },
+    template:{
+        remove:'../src/email-templates/remove.html',
+        add:'../src/email-templates/add.html',
     }
 }
 
 
-
-const EmailSender = async (mail, type, e) => {
+// ndeal_id, npcid ,category_id, emid
+const EmailSender = async (type,proj, e) => {
     try {
-        query=``
-        dbCon.query(query,async(err,result)=>{
-            const email = mail;
+        query=`SELECT deal_name, reference_no  FROM deals WHERE id =${e.ndeal_id};SELECT task_name FROM task WHERE task_id =  ${e.category_id};SELECT name , email FROM employee WHERE em_id = ${e.emid} ;`
+        query2=`SELECT sdeal_name as deal_name ,reference_no FROM single_deal WHERE sdid = ${e.sdeal_id};SELECT msub_task_name FROM mis_subtask as task_name WHERE msub_task_id = ${e.mtask} ;SELECT name,email FROM employee WHERE em_id = ${e.emid}`
+        dbCon.query(proj=='normal'?query:query2,async(err,result)=>{
+            if(err){console.log(err);}
+            const email = result[2][0].email;
             const subject = type == 'add' ? mailConf.subject.add : mailConf.subject.remove;
             const text = type == 'add' ? mailConf.subject.add : mailConf.subject.remove;
-            const htmlFile = path.join(__dirname, '../src/email-templates/email.html');
-            const htmlData = { name: e.name ,msg1:e.msg};
+            const htmlFile = path.join(__dirname, type=='add'?mailConf.template.add:mailConf.template.remove);
+            const htmlData = { name: result[2][0].name ,ref:result[0][0].reference_no,project:result[0][0].deal_name,task:result[1][0].task_name};
             await mailer(email, subject, text, htmlFile, htmlData);
         })
-    } catch (error) {
+    } catch (err) {
         new errorHandler('503', 'Unable to send the Email, Recheck utils/emailSender.js:15\n' + err)
     }
 };
 
-// EmailSender('aditya01377@gmail.com', 'add', { name: 'Panchanan',msg:'You are removed from Project 20154 ' });
+// EmailSender('remove','normal', {  ndeal_id:'5' ,category_id:'1', emid:'1' });
 
 module.exports={EmailSender}

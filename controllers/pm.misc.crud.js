@@ -24,6 +24,7 @@ exports.addEmployeeToMisc = async (req, res) => {
     await dbcon.query(q, (err, result) => {
       if (!err) {
         res.status(200).send(result)
+        // EmailSender('add', 'misc', {  sdeal_id:ndeal_id ,mtask:category_id, emid:emid });
         let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES(?,?,?);`
         dbcon.query(q2, [emid, title, dateofassign], (err2, results) => {
           if (!err2) { return; } else { res.status(500).send({ msg: err2 }) }
@@ -63,6 +64,7 @@ exports.removeEmployeeToMisc = async (req, res) => {
   await dbcon.query(q, (err, result) => {
     if (!err) {
       res.status(200).send({ msg: "Removed successfully!" })
+        // EmailSender('remove', 'misc', {  sdeal_id:mdeal_id ,mtask:mstask_id, emid:mpemid });
       let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES(?,?,?);`
       dbcon.query(q2, [mpemid, title, dateofremove], (err2, results) => {
         if (!err2) { return; } else { res.status(500).send({ msg: err2 }) }
