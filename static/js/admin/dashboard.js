@@ -66,10 +66,10 @@ async function removeEmpNp(data, type) {
     const dataSet = data.dataset;
     const date = new Date().toLocaleDateString()
     if (type === 'normal') {
-        const title = `You have been removed from a project with ref no. 1123`
+        const title = `You have been removed from a project with ref no. 1123On ${date}`
         await feature.DEL_UPD(`apiv1/removeempnp?dealId=${Number(dataSet.ndealid)}&catId=${Number(dataSet.catid)}&emid=${Number(dataSet.emid)}&title=${title}&removeDate=${date}`, 'DELETE');
     } else {
-        const title = `You have been removed from a Miscellaneous project with ref no. 1124`
+        const title = `You have been removed from a Miscellaneous project with ref no. 1124 On ${date}`
         await feature.DEL_UPD(`apiv1/remove-emp-miscp?mdeal_id=${Number(dataSet.ndealid)}&mstask_id=${Number(dataSet.catid)}&mpemid=${Number(dataSet.emid)}&title=${title}&dateofremove=${date}`, 'DELETE');
     }
 }
