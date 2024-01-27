@@ -53,10 +53,10 @@ addNewSubtasks = async (param, e) => {
 
 addNewEmp = async (param, e) => {
     if (param.dataset.npcid != 'false') {
-        const exdata = { title: "You have been assigned to a new project with ref no. 1123", assignDate: "20/02/2023" }
+        const exdata = { title: `You have been assigned to a new project with ref no. ${document.querySelector('#refid').innerHTML} on ${new Date()}`, assignDate: "20/02/2023" }
         await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id', 'npcid'], 'apiv1/add-employee-to-project', closeSubBox, exdata)
     } else {
-        const exdataM = { title: "You have been assigned to a new Miscallaneous project with ref no. 1123", dateofassign: "20/02/2023" }
+        const exdataM = { title: `You have been assigned to a new Miscallaneous project with ref no. ${document.querySelector('#mrefid').innerHTML} on ${new Date()}`, dateofassign: "20/02/2023" }
         await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id'], 'apiv1/add-employee-to-miscproject', closeSubBox, exdataM)
     }
 
@@ -66,10 +66,10 @@ async function removeEmpNp(data, type) {
     const dataSet = data.dataset;
     const date = new Date().toLocaleDateString()
     if (type === 'normal') {
-        const title = `You have been removed from a project with ref no. 1123On ${date}`
+        const title = `You have been removed from a project with ref no. ${document.querySelector('#refid').innerHTML} on ${new Date()}`
         await feature.DEL_UPD(`apiv1/removeempnp?dealId=${Number(dataSet.ndealid)}&catId=${Number(dataSet.catid)}&emid=${Number(dataSet.emid)}&title=${title}&removeDate=${date}`, 'DELETE');
     } else {
-        const title = `You have been removed from a Miscellaneous project with ref no. 1124 On ${date}`
+        const title = `You have been removed from a Miscellaneous project with ref no. ${document.querySelector('#mrefid').innerHTML} on ${new Date()}`
         await feature.DEL_UPD(`apiv1/remove-emp-miscp?mdeal_id=${Number(dataSet.ndealid)}&mstask_id=${Number(dataSet.catid)}&mpemid=${Number(dataSet.emid)}&title=${title}&dateofremove=${date}`, 'DELETE');
     }
 }
@@ -79,8 +79,7 @@ async function addTaskStatus(target, type, route) {
     const dataSet = target.parentNode.dataset
     if (type === 'normal') {body={ status: target.value, dealId: Number(dataSet.ndealid), catId: Number(dataSet.taskid) }
     } else {
-    body={ mstask_status: target.value, mdeal_id: Number(dataSet.ndealid), mstask_id: Number(dataSet.taskid), dateofstatus: "28/03/2033", }
-    }
+    body={ mstask_status: target.value, mdeal_id: Number(dataSet.ndealid), mstask_id: Number(dataSet.taskid), dateofstatus: "28/03/2033", }}
     await feature.DEL_UPD(route, "PUT", body)
 }
 

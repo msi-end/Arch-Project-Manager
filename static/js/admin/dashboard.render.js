@@ -11,11 +11,11 @@ async function empPopup(target) {
             <span>Plumbing</span> -->
         </li>
     </ul>
-    </form>
     <div class="drop-btn flex">
     <button data-category_id="${getId.taskid}" data-ndeal_id="${getId.ndealid}" data-npcid="${getId.npcid ? getId.npcid : 'false'}" class="uppercase" onclick="addNewEmp(this, event)">update</button>
     <button type="button" class="uppercase " onclick="hideMainDropdown()" >Cancel</button></div>
     </div>
+    </form>
 </div>`
     mainDrop.innerHTML = empHtml
     mainDrop.classList.toggle('active')
