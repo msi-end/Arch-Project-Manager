@@ -822,7 +822,9 @@ nav .nav-lists svg {
     width: 25px;
     height: 25px;
 }
-
+.eaccordion .right-arr.open {
+    transform: rotate(90deg);
+}
 /* ----button______ */
 .arrow button{
     display: block;

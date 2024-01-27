@@ -382,12 +382,40 @@ hr {
 .profileIcon svg {
     fill: var(--secondary-color);
 }
-
+/* --------SECTION STARTS HERE------- */
 .isaio {
     overflow: hidden;
     width: 100dvw;
     position: relative;
     z-index: 30;
+}
+#loading-container{
+    position: absolute;
+    width: 100dvw;
+    height: 100dvh;
+    top: 0;
+    left: 0;
+    z-index: 110;
+    background: var(--black-light);
+}
+#loader{
+    width: 400px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%);
+    border-radius: 50px;
+    background: linear-gradient(45deg, hsl(241, 100%, 75%),hsl(0, 100%, 73%));
+    left: -100%;
+    animation: load 3s linear infinite;
+}
+@keyframes load {
+    0%{
+        left: -100%;
+    }
+    100%{
+        left: 100%;
+    }
 }
 
 .account-settings {
