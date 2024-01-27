@@ -11,10 +11,10 @@ async function empPopup(target) {
             <span>Plumbing</span> -->
         </li>
     </ul>
+    </form>
     <div class="drop-btn flex">
     <button data-category_id="${getId.taskid}" data-ndeal_id="${getId.ndealid}" data-npcid="${getId.npcid ? getId.npcid : 'false'}" class="uppercase" onclick="addNewEmp(this, event)">update</button>
-    <button type="button" class="uppercase closeMainDropdown">Cancel</button>
-    </form>
+    <button type="button" class="uppercase " onclick="hideMainDropdown()" >Cancel</button></div>
     </div>
 </div>`
     mainDrop.innerHTML = empHtml
@@ -46,11 +46,11 @@ subPopup = async (target)=> {
             <span>Plumbing</span> -->
         </li>
     </ul>
+    </form>
     <div class="drop-btn flex">
     <button data-category_id="${getId.taskid}" data-ndeal_id="${getId.ndealid}" class="uppercase" onclick="addNewSubtasks(this, event)">update</button>
-    <button  type="button"  class="uppercase closeMainDropdown">Cancel</button>
+    <button  type="button"  class="uppercase " onclick="hideMainDropdown()">Cancel</button>
     </div>
-    </form>
 </div>`
     mainDrop.innerHTML = subPopupBox
     mainDrop.classList.toggle('active')
@@ -78,7 +78,7 @@ deadDrop = async(target)=>{
     <input type="text" placeholder="dd/mm/yyyy">
     <div class="drop-btn flex">
         <button class="uppercase">update</button>
-        <button type="button" class="uppercase closeMainDropdown" >Cancel</button>
+        <button type="button" class="uppercase " onclick="hideMainDropdown()" >Cancel</button>
     </div>`
     mainDrop.innerHTML = subPopupBox
     mainDrop.classList.toggle(`active`)
@@ -96,7 +96,3 @@ function hideMainDropdown(event) {
         mainDrops.classList.remove('active')
 }
   
-  const ClosemainDrop = document.querySelectorAll(".closeMainDropdown");
-  ClosemainDrop.forEach(dropdown => {
-    dropdown.addEventListener("click", hideMainDropdown);
-  });
