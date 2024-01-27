@@ -46,7 +46,9 @@ exports.addEmployeeToProject = async (req, res) => {
     const q = `INSERT INTO normal_project_employee (ndeal_id, npcid, category_id, emid, dateofassign) VALUES ?`
     await databaseCon.query(q, [np_emp_data], (err1, data) => {
       if (!err1) {
-        // EmailSender('add','normal',  {  ndeal_id:ndeal_id ,category_id:category_id, emid:emid });
+        // np_emp_data.forEach((e) => { 
+          //  EmailSender('add','normal',  {  ndeal_id:e[0] ,category_id:e[2], emid:e[3] });
+        //  })
         let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES ?;`
         databaseCon.query(q2, [np_emp_notify], (err2, results) => {
           if (!err2) {  res.status(200).send(data); }

@@ -241,6 +241,17 @@ header {
     font-weight: 600;
     padding: 1rem;
 }
+.notification #notification-count{
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 4px 6px;
+    font-size: 12px;
+}
 
 hr {
     border-width: 0px 0px thin;

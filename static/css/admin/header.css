@@ -258,6 +258,17 @@ header {
 .notification.red:hover {
     background: var(--ter-dark-color);
 }
+.notification #notification-count{
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 4px 6px;
+    font-size: 12px;
+}
 
 /* ----LIST notification---- */
 .notification-list {
