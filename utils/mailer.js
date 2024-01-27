@@ -36,12 +36,9 @@ const emailTemplate = (filepath, data) => {
 const mailer = async (email, subject, text, htmlFile, htmlData) => {
     try {
         accessToken = await oAuth2Client.getAccessToken();
-        console.log(  config.clientID,
-            config.clientSecret,
-            config.redirectURI,config.refreshToken,accessToken);
         let template = emailTemplate(htmlFile, htmlData);
         const options = {
-            from: config.user,
+            from: `EBHA Admin <${config.user}>`,
             to: email,
             subject: subject,
             text: text,
@@ -51,7 +48,7 @@ const mailer = async (email, subject, text, htmlFile, htmlData) => {
             if (err) {
                 new errorHandler('503', 'Unable to send the Email, Recheck utils/mailer.js:18\n' + err)}
         });
-        return sendInfoStatus;
+        // return sendInfoStatus;
     } catch (err) {
         console.log('Error in Emaial Sender', err)
         new errorHandler('503', 'Unable to send the Email, Recheck utils/mailer.js:26\n' + err)

@@ -10,6 +10,17 @@ exports.indexDeshboard = async (req, res) => {
     } else { (res.redirect('/ca')) }
 
 }
+exports.GetExpensesByMonths = (req, res) => {
+    console.log(req.query);
+    let query = `SELECT * FROM expenses WHERE date LIKE '%${req.query.m}/${req.query.y}';`
+    db.query(query, (err, results) => {
+        if (!err) {
+            res.status(200).send({ status: true, msg: 'Successfully Expense Updated',data:results })
+        } else {
+            res.status(500).send({ status: false, msg: "Internal error occurs! \n " + err })
+        }
+    })
+}
 
 
 

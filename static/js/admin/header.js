@@ -29,7 +29,7 @@ function activate(){
 }
 
 // HMABURGER
-if(window.innerWidth < 930){
+if(window.innerWidth < 980){
     aside.onclick = function(){
         aside.style.display = `none`;
     }
