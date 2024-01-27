@@ -33,7 +33,7 @@ async function openDick(data) {
         </div>
         <div class = "drop-btn flex">
         <button type="button" class="uppercase" data-dealid=${ndealid} data-taskid=${taskid} onclick="updataAdvancePay(this, event)">update</button>
-        <button type = "button" class = "uppercase" onclick="CloseModel('.main-dropdown')" >Cancel</button>
+        <button type = "reset" class = "uppercase" onclick="CloseModel('.main-dropdown')" >Cancel</button>
         </div>
     </form>
 </div>`

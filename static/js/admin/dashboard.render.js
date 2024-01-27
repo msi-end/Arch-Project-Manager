@@ -13,7 +13,7 @@ async function empPopup(target) {
     </ul>
     <div class="drop-btn flex">
     <button data-category_id="${getId.taskid}" data-ndeal_id="${getId.ndealid}" data-npcid="${getId.npcid ? getId.npcid : 'false'}" class="uppercase" onclick="addNewEmp(this, event)">update</button>
-    <button class="uppercase">Cancel</button>
+    <button type="button" class="uppercase closeMainDropdown">Cancel</button>
     </form>
     </div>
 </div>`
@@ -48,7 +48,7 @@ subPopup = async (target)=> {
     </ul>
     <div class="drop-btn flex">
     <button data-category_id="${getId.taskid}" data-ndeal_id="${getId.ndealid}" class="uppercase" onclick="addNewSubtasks(this, event)">update</button>
-    <button class="uppercase">Cancel</button>
+    <button  type="button"  class="uppercase closeMainDropdown">Cancel</button>
     </div>
     </form>
 </div>`
@@ -78,7 +78,7 @@ deadDrop = async(target)=>{
     <input type="text" placeholder="dd/mm/yyyy">
     <div class="drop-btn flex">
         <button class="uppercase">update</button>
-        <button class="uppercase">Cancel</button>
+        <button type="button" class="uppercase closeMainDropdown" >Cancel</button>
     </div>`
     mainDrop.innerHTML = subPopupBox
     mainDrop.classList.toggle(`active`)
@@ -92,15 +92,11 @@ deadDrop = async(target)=>{
 
 
 function hideMainDropdown(event) {
-    let mainDrops = event.target.closest(".main-dropdown");
-    if (mainDrops) {
-      if (!mainDrops.contains(event.target)) {
-        mainDrops.style.display = "none";
-      }
-    }
-  }
+    let mainDrops = document.querySelector(".main-dropdown");
+        mainDrops.classList.remove('active')
+}
   
-  const mainDrop = document.querySelectorAll(".main-dropdown");
-  mainDrop.forEach(dropdown => {
+  const ClosemainDrop = document.querySelectorAll(".closeMainDropdown");
+  ClosemainDrop.forEach(dropdown => {
     dropdown.addEventListener("click", hideMainDropdown);
   });
