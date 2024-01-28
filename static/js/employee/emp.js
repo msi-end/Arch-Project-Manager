@@ -155,7 +155,7 @@ document.querySelectorAll(`.assign-to`).forEach((item, index) => {
         renderId.innerHTML = ''
         const empNp = await req.GET_POST(location.href.match('/m') !== null ? `/apiv1/employee-misc/${item.dataset.ndealid}/${item.dataset.taskid}` : `/apiv1/employee/${item.dataset.ndealid}/${item.dataset.taskid}`, 'GET');
         empNp.forEach((item) => {
-            const html = location.href.match('/m') !== null ? `<li class="add-empl"><span>${item.name}</span>` : `<li class="add-empl"><span>${item.name}</span> <span class="icon" data-ndealid=${item.ndeal_id} data-catid=${item.category_id} data-emid=${item.em_id}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="minus-circle" class="svg"><path fill="##000000" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z"></path></svg></span></li>`
+            const html = location.href.match('/m') !== null ? `<li class="add-empl"><span>${item.name}</span>` : `<li class="add-empl"><span>${item.name}</span></li>`
             renderId.innerHTML += html;
         })
         item.classList.toggle("open");

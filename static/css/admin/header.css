@@ -231,12 +231,25 @@ header {
     width: 20px;
     height: 20px;
 }
-
-
+/* -------THEME TOGGLE--------- */
+.theme-toggler{
+    position: absolute;
+    right: 10rem;
+    background: var(--sec-light-color);
+}
+.theme-toggler svg{
+    fill: var(--secondary-color);
+}
+.theme-toggler:hover{
+    background: var(--secondary-color);
+}
+.theme-toggler:hover svg{
+    fill: var(--white);
+}
 /* -----NOTIFICATION----- */
 .notification {
     position: absolute;
-    right: 10rem;
+    right: 7rem;
 }
 
 .notification.active {
@@ -263,8 +276,8 @@ header {
     position: absolute;
     top: -8px;
     right: -8px;
-    background-color: red;
-    color: white;
+    background-color: var(--ter-dark-color);
+    color: var(--white);
     border-radius: 50%;
     padding: 4px 6px;
     font-size: 12px;
@@ -274,13 +287,13 @@ header {
 .notification-list {
     position: absolute;
     top: 5rem;
-    right: 10rem;
-    max-width: 350px;
+    right: 7rem;
+    max-width: 320px;
     width: 100%;
     background: var(--white);
     outline: 1px solid var(--primary-light-color);
     border-radius: var(--border-radius-1);
-    box-shadow: 0px 0px 5px 1px;
+    box-shadow: var(--box-shadow-1);
     padding: 11px;
 }
 
@@ -376,7 +389,7 @@ hr {
     position: absolute;
     right: 3rem;
     background: var(--sec-light-color);
-    padding: 10px;
+    padding: 8px;
     border-radius: 30px;
     transition: var(--transition-1);
     cursor: pointer;
@@ -393,12 +406,40 @@ hr {
 .profileIcon svg {
     fill: var(--secondary-color);
 }
-
+/* --------SECTION STARTS HERE------- */
 .isaio {
     overflow: hidden;
     width: 100dvw;
     position: relative;
     z-index: 30;
+}
+#loading-container{
+    position: absolute;
+    width: 100dvw;
+    height: 100dvh;
+    top: 0;
+    left: 0;
+    z-index: 110;
+    background: var(--black-light);
+}
+#loader{
+    width: 400px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%);
+    border-radius: 50px;
+    background: linear-gradient(45deg, hsl(241, 100%, 75%),hsl(0, 100%, 73%));
+    left: -100%;
+    animation: load 3s linear infinite;
+}
+@keyframes load {
+    0%{
+        left: -100%;
+    }
+    100%{
+        left: 100%;
+    }
 }
 
 .account-settings {

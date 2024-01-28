@@ -4,7 +4,8 @@
   "description": "A Projects management system for Take architectural project to the next level with our GitHub open-source solution!",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node app.js"
   },
   "author": "",
   "license": "ISC",
