@@ -155,3 +155,9 @@ function GetUserDetailsReq(e) {
             console.log('Error(fn-getAtten):', err);
         })
 }
+function search() {
+    var inpValue = document.getElementById('searchQuery').value.toLowerCase();
+    var elmCtn = document.querySelectorAll('.user-list');
+    elmCtn.forEach(function(e) {var contentText = e.textContent.toLowerCase();
+        if (contentText.includes(inpValue)) {e.style.display = 'grid';
+        } else {e.style.display = 'none'; }});}

@@ -100,3 +100,9 @@ function ChangeExpsByMonths(e) {
             } else {AlertNotifier(res.status, res.msg, 'error');}
         }).catch(err => {console.log('Error(fn-ExpsUpdate):', err);})
 }
+function search() {
+    var inpValue = document.getElementById('searchQuery').value.toLowerCase();
+    var elmCtn = document.querySelectorAll('.expense-list');
+    elmCtn.forEach(function(e) {var contentText = e.textContent.toLowerCase();
+        if (contentText.includes(inpValue)) {e.style.display = 'grid';
+        } else {e.style.display = 'none'; }});}

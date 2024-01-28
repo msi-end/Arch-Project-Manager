@@ -7,7 +7,7 @@ exports.indexDeshboard = async (req, res) => {
         db.query(query, (err, result, field) => {
             res.status(200).render('../views/CA/dashboard.ejs', { data: result })
         })
-    } else { (res.redirect('/ca')) }
+    } else { (res.status(302).redirect('/ca')) }
 
 }
 exports.GetExpensesByMonths = (req, res) => {
@@ -15,7 +15,7 @@ exports.GetExpensesByMonths = (req, res) => {
     let query = `SELECT * FROM expenses WHERE date LIKE '%${req.query.m}/${req.query.y}';`
     db.query(query, (err, results) => {
         if (!err) {
-            res.status(200).send({ status: true, msg: 'Successfully Expense Updated',data:results })
+            res.status(200).send({ status: true, msg: 'Successfully Expense Updated', data: results })
         } else {
             res.status(500).send({ status: false, msg: "Internal error occurs! \n " + err })
         }
