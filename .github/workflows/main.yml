@@ -28,7 +28,7 @@ jobs:
           key: ${{secrets.key}}
           port: 22
           script: |
-            cd ~/../NODE_APPS/  
+            cd ~/../NODE_APPS/ebha_3005
             git pull origin release
             npm install --only=production
             npm start  
