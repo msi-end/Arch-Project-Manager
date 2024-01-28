@@ -130,7 +130,12 @@ async function CheckDeadline() {
         } else { console.log('No work has close to Deadline'); }
     }
 }
-
+function search() {
+    var inpValue = document.getElementById('searchQuery').value.toLowerCase();
+    var elmCtn = document.querySelectorAll('.accordion-content');
+    elmCtn.forEach(function(e) {var contentText = e.textContent.toLowerCase();
+        if (contentText.includes(inpValue)) {e.style.display = 'block';
+        } else {e.style.display = 'none'; }});}
 CheckDeadline()
 
 

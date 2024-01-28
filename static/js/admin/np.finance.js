@@ -52,3 +52,9 @@ GetIncExp()
 function CloseModel(e) {
     document.querySelector(e).style.display = 'none'
   }
+  function search() {
+    var inpValue = document.getElementById('searchQuery').value.toLowerCase();
+    var elmCtn = document.querySelectorAll('.accordion-content');
+    elmCtn.forEach(function(e) {var contentText = e.textContent.toLowerCase();
+        if (contentText.includes(inpValue)) {e.style.display = 'block';
+        } else {e.style.display = 'none'; }});}
