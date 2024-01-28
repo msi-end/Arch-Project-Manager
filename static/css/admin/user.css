@@ -203,7 +203,7 @@
 /* users */
 .user-list {
     display: grid;
-    grid-template-columns: repeat(5, 1fr) 3rem;
+    grid-template-columns: repeat(4, 1fr) 3rem;
     align-items: center;
     padding: 1rem 2rem;
     transition: var(--animation-1);
@@ -326,9 +326,9 @@
 }
 .user-edit svg{
     fill: var(--primary-color);
-    width: 13px;
+    width: 20px;
     display: inline-block;
-    margin-left: 6px;
+    margin-left: 2px;
 }
 .user-edit:hover{
     background: hsl(260, 92%, 90%);

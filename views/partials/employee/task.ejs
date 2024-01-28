@@ -27,7 +27,6 @@
              <% cat.sub?.forEach((el)=>{ 
                 if(el.s_name){  %>
                 <li class="stasks" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>">
-                    <input type="checkbox" name="plumbing" data-subtaskid="<%= el.s_id %>" <%= el.s_status == "Completed" ? `checked` : "" %>>
                     <span><%= el.s_name %></span>
                 </li>
                 <% }}) %>
