@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 const ejs = require('ejs');
 require('dotenv').config();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3005;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const LokiStore = require('connect-loki')(session);
