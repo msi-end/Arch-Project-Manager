@@ -97,7 +97,10 @@
         display: block;
     }
     .notification{
-        right: 8rem;
+        right: 4.3rem;
+    }
+    .theme-toggler{
+        right: 7rem;
     }
     .profileIcon{
         right: 1rem;

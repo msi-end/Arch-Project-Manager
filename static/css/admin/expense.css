@@ -19,7 +19,7 @@
     border-style: solid;
     border-color: rgb(227, 232, 239);
 }
-.expenseheader button{
+.expenseheader :is(button,select){
     padding: 8px;
     border-radius: var(--border-radius-1);
     background: var(--primary-color);
@@ -39,7 +39,13 @@
     height: 20px;
     fill: var(--white);
 }
-
+.expenseheader select{
+    background: var(--primary-bg);
+    color: var(--primary-color);
+}
+.expenseheader .btn svg{
+    width: 18px;
+}
 /* -------EXPENSE LIST-------- */
 .expense-page{
     margin: 0.5rem auto;
