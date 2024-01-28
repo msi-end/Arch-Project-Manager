@@ -21,7 +21,7 @@ jobs:
             cd ~/../NODE_APPS/ebha_3005
             git pull origin release
             npm install --only=production
-            npm start  
+            pm2 restart ebha_3003
             
 
 
