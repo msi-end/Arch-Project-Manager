@@ -18,7 +18,8 @@ jobs:
           key: ${{secrets.PRIVATE_KEY}}
           port: 22
           script: |
-            ./invoke.sh
+            eval "$(ssh-agent -s)"
+            ssh-add -v ~/.ssh/githubAuth
             cd ~/../NODE_APPS/ebha_3005
             git pull origin release
             npm install --only=production
