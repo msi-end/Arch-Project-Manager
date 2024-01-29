@@ -79,7 +79,7 @@ function pageFunWithCursor(type) {
 }
 
 (function () {
-    if (location.href.match('/setting') !== null) {
+    if (location.href.match('/setting')== null) {
         const URLparam = new URLSearchParams(window.location.search)
         const toData = URLparam.get('to')
         const pageNo = toData;
@@ -160,8 +160,7 @@ function closeMainDropdown() {
 // if (pageNo + 2 == lastPageNo) {
 //     document.getElementById('way-2').style.display = `none`
 // } else {
-//     document.getElementById('way-2').style.display = `flex`
-// }
+//     document.getElementById('way-2').style.display = `flex`}
 async function CheckNotification() {
     let nCtn = document.querySelector('.notification-column')
     let nCount = document.querySelector('#notification-count')
@@ -178,7 +177,6 @@ async function CheckNotification() {
                 if (e.status !== 'read') { nCounts++ }            }
             if (nCounts > 0) { nCount.style.display = 'block'; nCount.innerHTML = nCounts }
             else { nCount.style.display = 'none' }
-            console.log(nCount, nCounts);
         }
     })
 }

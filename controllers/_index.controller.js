@@ -4,7 +4,6 @@ const dataUnity = require('../utils/arrange')
 // All Index routes
 exports.indexDeshboard = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        console.log(req.query)
         const q = `SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline
     FROM deals 
     INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id 
@@ -13,7 +12,6 @@ exports.indexDeshboard = async (req, res) => {
     LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id
     ORDER BY deals.id DESC`
         await db.query(q, (err, results) => {
-            // console.log(results);
             const grouped = {};
             const sentData = []
             if (!err) {
@@ -23,7 +21,6 @@ exports.indexDeshboard = async (req, res) => {
                     grouped[key].push(element);
                 })
                 for (const key in grouped) { dataUnity(grouped[key]) }
-
                 for (const key in grouped) { sentData.push(grouped[key][0]) }
                 // res.status(200).send({data : sentData});
                 const sortedData = sentData.sort((a, b) => b.id - a.id);
@@ -209,7 +206,7 @@ exports.renderNormalProjectFinance = async (req, res) => {
                 for (const key in grouped) { sentData.push(grouped[key]) }
                 // res.status(200).send(sentData);
                 const sortedData = sentData.sort((a, b) => b[0].id - a[0].id);
-                    console.log(sortedData)
+                    // console.log(sortedData)
                 res.render('../views/admin/np.finance.ejs', { sortedData });
             } else {
                 res.status(500).send({ msg: "Internal server error!!!" })
