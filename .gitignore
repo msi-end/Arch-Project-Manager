@@ -1,5 +1,2 @@
 /node_modules
-/test.js
 /src/storage/error.log
-/sessions/loginAuth.db
-/config/db.config.js
