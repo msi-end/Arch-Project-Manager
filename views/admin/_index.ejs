@@ -157,5 +157,11 @@
 <script src="../../js/admin/common.js"></script>
 <script src="../../js/admin/dashboard.render.js"></script>
 <script src="../../js/admin/dashboard.js"></script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      // Apply dark mode styles
+      document.body.classList.add('dark-mode');
+    }
+  });</script>
 </body>
 </html>
