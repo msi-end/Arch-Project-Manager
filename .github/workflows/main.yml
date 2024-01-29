@@ -18,10 +18,11 @@ jobs:
           key: ${{secrets.PRIVATE_KEY}}
           port: 22
           script: |
+            ssh-add ~/.ssh/githubAuth
             cd ~/../NODE_APPS/ebha_3005
             git pull origin release
             npm install --only=production
-      #      pm2 restart ebha_3003
+            NODE_ENV=production pm2 restart ebha_3003 --update-env
             
 
 

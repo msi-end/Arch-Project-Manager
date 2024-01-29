@@ -1,10 +1,11 @@
 const mysql = require('mysql');
+require('dotenv').config()
 let con = mysql.createPool({
-    host:'localhost',
-    user:'root',
-    password:'',
+    host:process.env.MySQL_host,
+    user:process.env.MySQL_user,
+    password:process.env.MySQL_pass,
     // port : 3307,
-    database:'ArchDB',
+    database:process.env.MySQL_db,
     multipleStatements: true,
 })
 con.getConnection((error) => {
