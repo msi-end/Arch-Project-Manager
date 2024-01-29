@@ -22,7 +22,7 @@ jobs:
             cd ~/../NODE_APPS/ebha_3005
             git pull origin release
             npm install --only=production
-            NODE_ENV=production pm2 restart ebha_3003 --update-env
+            NODE_ENV=production pm2 restart ebha --update-env
             
 
 
