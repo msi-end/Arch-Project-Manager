@@ -10,7 +10,7 @@
     --primary-light-color: hsl(261, 54%, 95%);
     --primary-bg: hsl(260, 54%, 93%);
     --primary-bgr: hsl(260, 54%, 88%);
-    
+
     --secondary-color: hsl(208, 79%, 51%);
     --sec-light-color: hsl(208, 92%, 95%);
     --sec-bg: hsl(208, 79%, 93%);
@@ -34,6 +34,8 @@
     --bg-3: hsl(210, 31%, 95%);
 
     --grey: rgb(112, 116, 117);
+    --light-grey: hsl(203, 20%, 70%);
+    --very-light-grey: hsl(200, 20%, 95%);
 
     --border-radius-1: 4px;
     --border-radius-2: 8px;
@@ -82,6 +84,20 @@ html {
 button,
 svg {
     cursor: pointer;
+}
+
+.skeleton {
+    animation: skeleton 1s linear infinite alternate;
+}
+
+@keyframes skeleton {
+    0% {
+        background: var(--light-grey);
+    }
+
+    0% {
+        background: var(--very-light-grey);
+    }
 }
 
 /* COMMON CLASSES */
@@ -231,21 +247,26 @@ header {
     width: 20px;
     height: 20px;
 }
+
 /* -------THEME TOGGLE--------- */
-.theme-toggler{
+.theme-toggler {
     position: absolute;
     right: 10rem;
     background: var(--sec-light-color);
 }
-.theme-toggler svg{
+
+.theme-toggler svg {
     fill: var(--secondary-color);
 }
-.theme-toggler:hover{
+
+.theme-toggler:hover {
     background: var(--secondary-color);
 }
-.theme-toggler:hover svg{
+
+.theme-toggler:hover svg {
     fill: var(--white);
 }
+
 /* -----NOTIFICATION----- */
 .notification {
     position: absolute;
@@ -271,7 +292,8 @@ header {
 .notification.red:hover {
     background: var(--ter-dark-color);
 }
-.notification #notification-count{
+
+.notification #notification-count {
     display: none;
     position: absolute;
     top: -8px;
@@ -381,7 +403,7 @@ hr {
 }
 
 .read span.actionBtn {
-    background-color: #a3a3a3!important;
+    background-color: #a3a3a3 !important;
 }
 
 /* ------PROFILE---------- */
@@ -406,6 +428,7 @@ hr {
 .profileIcon svg {
     fill: var(--secondary-color);
 }
+
 /* --------SECTION STARTS HERE------- */
 .isaio {
     overflow: hidden;
@@ -413,7 +436,8 @@ hr {
     position: relative;
     z-index: 30;
 }
-#loading-container{
+
+#loading-container {
     position: absolute;
     width: 100dvw;
     height: 100dvh;
@@ -422,23 +446,22 @@ hr {
     z-index: 110;
     background: var(--black-light);
 }
-#loader{
-    width: 400px;
-    height: 40px;
+
+#loader {
+    width: 100px;
+    height: 100px;
     position: absolute;
-    top: 50%;
-    transform: translateX(-50%);
-    border-radius: 50px;
-    background: linear-gradient(45deg, hsl(241, 100%, 75%),hsl(0, 100%, 73%));
-    left: -100%;
-    animation: load 3s linear infinite;
+    top: 40%;
+    left: 50%;
+    border-radius: 50%;
+    border: 7px solid #ddd;
+    border-top-color: #333;
+    animation: rotate 1s infinite;
 }
-@keyframes load {
-    0%{
-        left: -100%;
-    }
-    100%{
-        left: 100%;
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
     }
 }
 
@@ -557,6 +580,7 @@ nav .nav-lists svg {
 .main.width {
     width: 93%;
 }
-.main.flow{
+
+.main.flow {
     overflow: hidden;
 }
