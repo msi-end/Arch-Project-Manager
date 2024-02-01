@@ -47,7 +47,12 @@
                     </svg>
                     <div class="total_user_data">
                         <p class="size">&#8377;<span>
-                                <%= data[1][0].cash_sum + data[1][1].cash_sum %>
+                            <% if (typeof data[1] !== 'undefined' && Array.isArray(data[1]) && data[1].length > 1) { %>
+                                <% var cash = (data[1][0].cash_sum || 0) + (data[1][1].cash_sum || 0) %>
+                                <%= cash %>
+                              <% } else { %>
+                                0
+                              <% } %>
                             </span>/-</p>
                         <p class="text">Cash in Hand</p>
                     </div>
@@ -61,7 +66,11 @@
                     </svg>
                     <div class="total_user_data">
                         <p class="size">&#8377;<span>
-                                <%= data[1][0].online_sum + data[1][1].online_sum %>
+                            <% if (typeof data[1] !== 'undefined' && Array.isArray(data[1]) && data[1].length > 1) { %>
+                                <%= (data[1][0].online_sum || 0) + (data[1][1].online_sum || 0) %>
+                              <% } else { %>
+                                0
+                              <% } %>
                             </span>/-</p>
                         <p class="text">Amount in Bank</p>
                     </div>

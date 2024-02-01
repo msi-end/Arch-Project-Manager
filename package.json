@@ -4,7 +4,11 @@
   "description": "A Projects management system for Take architectural project to the next level with our GitHub open-source solution!",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=development node app.js",
+    "prod": "NODE_ENV=production node app.js",
+    "nodemon:dev": "cross-env NODE_ENV=development nodemon app.js",
+    "nodemon:prod": "cross-env NODE_ENV=production nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,5 +23,8 @@
     "mysql": "^2.18.1",
     "nodemailer": "^6.9.7",
     "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }

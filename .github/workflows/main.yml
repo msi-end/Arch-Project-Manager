@@ -9,29 +9,21 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Nodejs ${{ matrix.node-version }}
-        with:
-          node-version: 18.17.0
-          
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Application
-        run: npm run build
+    steps:          
       - name: Deploy to Server 
         uses: appleboy/ssh-action@master
         with:
-          host: ${{secrets.Host}}
-          username: ${{secrets.username}}
-          key: ${{secrets.key}}
+          host: ${{secrets.HOST}}
+          username: ${{secrets.HOST_USERNAME}}
+          key: ${{secrets.PRIVATE_KEY}}
           port: 22
           script: |
+            eval "$(ssh-agent -s)"
+            ssh-add -v ~/.ssh/githubAuth
             cd ~/../NODE_APPS/ebha_3005
             git pull origin release
             npm install --only=production
-            npm start  
+            NODE_ENV=production pm2 restart ebha --update-env
             
 
 
