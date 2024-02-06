@@ -1,5 +1,5 @@
 const databaseCon = require('../config/db.config.js')
-const {EmailSender} =require('../utils/emailSender.js')
+const { EmailSender } = require('../utils/emailSender.js')
 //-------normal project employee-------------------
 
 exports.getEmployListPerProject = async (req, res) => {
@@ -31,10 +31,10 @@ exports.addEmployeeToProject = async (req, res) => {
     const q = `INSERT INTO normal_project_employee (ndeal_id, npcid ,category_id, emid, dateofassign) VALUES (${ndeal_id},${Number(npcid)}, ${category_id}, ${emid}, "${assignDate}");`
     await databaseCon.query(q, (err1, data) => {
       if (!err1) {
-        // EmailSender('add','normal',{ ndeal_id:ndeal_id ,category_id:category_id, emid:emid });
+        EmailSender('add', 'normal', { ndeal_id: ndeal_id, category_id: category_id, emid: emid });
         let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES(?,?,?);`
         databaseCon.query(q2, [emid, title, assignDate], (err2, results) => {
-          if (!err2) { res.status(200).send({msg: 'success'}); } else { res.status(500).send({ msg: err2 }) }
+          if (!err2) { res.status(200).send({ msg: 'success' }); } else { res.status(500).send({ msg: err2 }) }
         })
       } else { res.status(500).send({ msg: err1 }) }
     })
@@ -46,19 +46,18 @@ exports.addEmployeeToProject = async (req, res) => {
     const q = `INSERT INTO normal_project_employee (ndeal_id, npcid, category_id, emid, dateofassign) VALUES ?`
     await databaseCon.query(q, [np_emp_data], (err1, data) => {
       if (!err1) {
-        // np_emp_data.forEach((e) => { 
-          //  EmailSender('add','normal',  {  ndeal_id:e[0] ,category_id:e[2], emid:e[3] });
-        //  })
+        np_emp_data.forEach((e) => {
+          EmailSender('add', 'normal', { ndeal_id: e[0], category_id: e[2], emid: e[3] });
+        })
         let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES ?;`
         databaseCon.query(q2, [np_emp_notify], (err2, results) => {
-          if (!err2) {  res.status(200).send(data); }
+          if (!err2) { res.status(200).send(data); }
           else {
-            res.status(500).send({msg : err2}) 
+            res.status(500).send({ msg: err2 })
           }
         })
       } else {
-        console.log(err1);
-        res.status(500).send({ msg: 'error occurred'})
+        res.status(500).send({ msg: 'error occurred' })
       }
     })
   } else {
@@ -73,7 +72,7 @@ exports.removeEmployeeToProject = async (req, res) => {
   await databaseCon.query(q, (err1, data) => {
     if (!err1) {
       res.status(200).send(data);
-        // EmailSender('remove', 'normal', {  ndeal_id:dealId ,category_id:catId, emid:emid });
+      EmailSender('remove', 'normal', { ndeal_id: dealId, category_id: catId, emid: emid });
       let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES(?,?,?);`
       databaseCon.query(q2, [emid, title, removeDate], (err2, results) => {
         if (!err2) { return; } else { res.status(500).send({ msg: err2 }) }
@@ -166,8 +165,9 @@ exports.getProjectsStaus = (req, res) => {
     if (!err) {
       res.status(200).send({ status: true, msg: 'Successfully data retrieve', data: result })
 
-    } else {res.status(500).send({ status: false, msg: "Internal error occurs!" });
-  }
+    } else {
+      res.status(500).send({ status: false, msg: "Internal error occurs!" });
+    }
   })
 }
 
