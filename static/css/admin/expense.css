@@ -140,6 +140,7 @@
     font-size: 12px;
     font-weight: 600;
     line-height: 1.75;
+    width: 105%;
 }
 .expense-list div p:not(:first-child){
     font-size: 12px;

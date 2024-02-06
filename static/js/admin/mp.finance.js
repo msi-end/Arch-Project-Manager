@@ -27,6 +27,40 @@ GetIncExp()
 function search() {
   var inpValue = document.getElementById('searchQuery').value.toLowerCase();
   var elmCtn = document.querySelectorAll('.accordion-content');
-  elmCtn.forEach(function(e) {var contentText = e.textContent.toLowerCase();
-      if (contentText.includes(inpValue)) {e.style.display = 'block';
-      } else {e.style.display = 'none'; }});}
+  elmCtn.forEach(function (e) {
+    var contentText = e.textContent.toLowerCase();
+    if (contentText.includes(inpValue)) {
+      e.style.display = 'block';
+    } else { e.style.display = 'none'; }
+  });
+}
+
+async function advOpen(data) {
+  const maindropDown = document.querySelector(`.main-dropdown`);
+  maindropDown.style.display = `block`;
+  maindropDown.innerHTML = ""
+  maindropDown.innerHTML = `<div class="finance-dropdown common_dropdown">
+        <form id="advanced-form">
+            <div class="flex">
+                <p class="uppercase phead">Advance</p>
+                <input type="text" name="amount_got" id="">
+            </div>
+            <div class="flex">
+                <p class="uppercase phead">payment mode</p>
+                <select name="modeofpay" id="">
+                    <option value="cash">Cash</option>
+                    <option value="online">Online</option>
+                </select>
+            </div>
+            <div class="flex">
+                <p class="uppercase phead">Date of payment</p>
+                <input type="text" name="dateofpay" id="" placeholder="dd/mm/yyyy">
+            </div>
+            <div class = "drop-btn flex">
+            <button type="button" class="uppercase" onclick="">update</button>
+            <button type = "reset" class = "uppercase" onclick="CloseModel('.main-dropdown')" >Cancel</button>
+            </div>
+        </form>
+    </div>`
+
+}

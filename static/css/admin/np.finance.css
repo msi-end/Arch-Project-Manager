@@ -117,19 +117,31 @@
     color: var(--white);
 }
 .architecture .spl{
-    background: var(--green);
+    background: var(--green-bg);
+    /* color: var(--green); */
+    outline: 1px solid var(--green-outline);
 }
 .architecture .sadv{
-    background: var(--primary-color);
+    background: var(--sec-bg);
+    outline: 1px solid var(--sec-outline);
 }
 .architecture .sblnc{
-    background: var(--secondary-color);
+    background: var(--ter-light-color);
+    outline: 1px solid var(--ter-outline);
 }
 .amount-sub p{
     display: inline-flex;
 }
+.adata .architecture .spl p.uppercase{
+    color: var(--green);
+}
+.adata .architecture .sadv p.uppercase{
+    color: var(--secondary-color);
+}
+.adata .architecture .sblnc p.uppercase{
+    color: var(--ter-dark-color);
+}
 .adata .architecture .amount-sub p.uppercase{
-    color: var(--white);
     font-size: 13px;
 }
 .amount-sub .teamou{

@@ -7,21 +7,25 @@
     --black-light-2: rgba(0, 0, 0, 0.8);
 
     --primary-color: hsl(260, 54%, 45%);
+    --primary-outline: hsla(260, 54%, 45%, 0.2);
     --primary-light-color: hsl(261, 54%, 95%);
     --primary-bg: hsl(260, 54%, 93%);
     --primary-bgr: hsl(260, 54%, 88%);
 
     --secondary-color: hsl(208, 79%, 51%);
+    --sec-outline: hsla(208, 79%, 51%, 0.2);
     --sec-light-color: hsl(208, 92%, 95%);
     --sec-bg: hsl(208, 79%, 93%);
     --sec-bgrd: hsl(208, 79%, 85%);
     --sec-bgr: hsl(208, 79%, 88%);
 
     --tertiary-color: hsl(0, 100%, 45%);
+    --ter-outline: hsla(0, 100%, 45%, 0.1);
     --ter-dark-color: hsl(0, 100%, 50%);
     --ter-light-color: hsl(0, 100%, 95%);
 
     --green: hsl(160, 100%, 34%);
+    --green-outline: hsla(160, 100%, 34%, 0.2);
     --green-light: hsl(154, 61%, 90%);
     --green-bg: hsl(160, 100%, 95%);
     --green-bgr: hsl(160, 100%, 90%);

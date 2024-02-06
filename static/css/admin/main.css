@@ -343,8 +343,8 @@
 }
 
 .adata .project_expand .architecture .arrow {
-    border: 1px solid var(--primary-color);
-    background: var(--primary-light-color);
+    outline: 1px solid var(--primary-outline);
+    background: var(--primary-bg);
 }
 
 .adata .project_expand .architecture .phead {
@@ -352,7 +352,7 @@
 }
 
 .adata .project_expand .architecture hr.show {
-    outline: 1px solid var(--primary-color);
+    outline: 1px solid var(--primary-bg);
     border: none;
 }
 
@@ -402,9 +402,9 @@
     padding: 0 4px;
     height: 30px;
     border-radius: var(--border-radius-1);
-    outline: 1px solid var(--primary-color);
-    background: var(--primary-color);
-    color: var(--white);
+    outline: 1px solid var(--primary-outline);
+    background: var(--primary-bgr);
+    color: var(--primary-color);
     gap: 0;
     justify-content: space-between;
     transition: var(--transition-2);
@@ -418,19 +418,19 @@
 .task-emp-status .main-btns select.red {
     background: var(--ter-light-color);
     color: var(--ter-dark-color);
-    outline: 1px solid var(--ter-dark-color);
+    outline: 1px solid var(--ter-outline);
 }
 
 .task-emp-status .main-btns select.blue {
     background: var(--sec-light-color);
     color: var(--secondary-color);
-    outline: 1px solid var(--secondary-color);
+    outline: 1px solid var(--sec-outline);
 }
 
 .task-emp-status .main-btns select.green {
     background: var(--green-light);
     color: var(--green);
-    outline: 1px solid var(--green);
+    outline: 1px solid var(--green-outline);
 }
 
 .main-btns button:nth-child(2)::after {
@@ -520,6 +520,7 @@
 .main-dropdown .drop-btn button:nth-child(2) {
     color: var(--ter-dark-color);
     background: var(--ter-light-color);
+    outline: 1px solid var(--ter-outline);
 }
 
 .main-dropdown .drop-btn button:nth-child(2):hover {
@@ -574,7 +575,7 @@
 
 .emp-drop-menu ul li {
     background: var(--sec-bg);
-    outline: 1px solid var(--sec-bgrd);
+    outline: 1px solid var(--sec-outline);
     color: var(--secondary-color);
 }
 
@@ -588,6 +589,7 @@
 .main-dropdown .emp-drop-menu button:first-child {
     background: var(--sec-light-color);
     color: var(--secondary-color);
+    outline: 1px solid var(--sec-outline);
 }
 
 .main-dropdown .emp-drop-menu button:first-child:hover {
@@ -610,7 +612,7 @@
 .task-drop-menu ul li{
     background: var(--green-bgr);
     color: var(--green);
-    outline: 1px solid var(--green-bgrd);
+    outline: 1px solid var(--green-outline);
 }
 .task-drop-menu ul li:hover{
     background: var(--white);
@@ -621,6 +623,7 @@
 .main-dropdown .task-drop-menu button:first-child {
     background: var(--green-light);
     color: var(--green);
+    outline: 1px solid var(--green-outline);
 }
 
 .main-dropdown .task-drop-menu button:first-child:hover {
@@ -660,7 +663,7 @@
         SUB-TASKS on add
 ------------------------------- */
 .architecture .sbox {
-    border: 1px solid var(--primary-color);
+    outline: 1px solid var(--primary-outline);
 }
 
 .structural .sbox {
