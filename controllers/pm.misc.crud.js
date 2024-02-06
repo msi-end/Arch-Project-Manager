@@ -110,3 +110,14 @@ exports.getEmployListPerProject = async (req, res) => {
     } else { res.status(500).send({ msg: "Something went wrong!" }) }
   })
 }
+
+//
+exports.getCheckCompletedUnpaid = async (req, res) => {
+  const { dealId, catId } = req.params
+  const q = `SELECT * FROM( SELECT single_deal.sdid as id, single_deal.sdeal_name,single_deal.reference_no , single_deal.total_price,SUM(misc_project_finance.amount_got) as amount_got FROM single_deal INNER JOIN misc_project_finance ON misc_project_finance.mdeal_id=single_deal.sdid) AS one INNER JOIN (SELECT misc_project_subtask.mdeal_id AS id,misc_project_subtask.mstask_status as project_status FROM single_deal INNER JOIN misc_project_subtask on single_deal.sdid =misc_project_subtask.mdeal_id GROUP BY misc_project_subtask.mdeal_id )AS two on one.id =two.id WHERE project_status='completed'`
+  dbcon.query(q, (err, results) => {
+    if (!err) {
+      res.status(200).send(results);
+    } else { res.status(500).send({ msg: "Something went wrong!" }) }
+  })
+}

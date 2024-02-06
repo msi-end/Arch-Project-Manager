@@ -19,6 +19,10 @@ api.delete('/delete-subtask', pmNormalAPI.deleteSubtask)
 api.put('/update-task-status', pmNormalAPI.updatetaskStatus)
 api.delete('/delete-task', pmNormalAPI.deleteTask)
 api.get('/ngetProjectStatus', pmNormalAPI.getProjectsStaus)
+api.get('/nIsProjectPaid', pmNormalAPI.getCheckCompletedUnpaid)
+
+
+
 
 //=================MISC PROJECT ROUTE==========================
 api.get('/get-misc-emp/:dealId/:subtaskId', pmMiscAPI.getEmpListPerMiscProject)
@@ -31,5 +35,10 @@ api.get('/employee-misc/:dealId/:catId', pmMiscAPI.getEmployListPerProject)
 
 api.put('/update-misctask-status', pmMiscAPI.updateMiscTaskStatus)
 api.get('/mgetProjectStatus', pmMiscAPI.getProjectsStaus)
+api.get('/mIsProjectPaid', pmMiscAPI.getCheckCompletedUnpaid)
+
+
+
+
 
 module.exports = api

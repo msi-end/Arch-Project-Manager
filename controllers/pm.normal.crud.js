@@ -170,4 +170,12 @@ exports.getProjectsStaus = (req, res) => {
     }
   })
 }
-
+exports.getCheckCompletedUnpaid = async (req, res) => {
+  const { dealId, catId } = req.params
+  const q = `SELECT * FROM( SELECT deals.id as id, deals.deal_name,deals .reference_no , deals.total_price,SUM(normal_projects_finance.amount_got) as amount_got FROM deals INNER JOIN normal_projects_finance ON normal_projects_finance.ndeal_id=deals.id) AS one INNER JOIN (SELECT id, CASE WHEN COUNT(DISTINCT project_status) = 1 AND MAX(project_status) = 'completed' THEN 'completed' ELSE 'pending' END AS project_status FROM ( SELECT deals.id, normal_project_cat.project_status FROM deals INNER JOIN normal_project_cat ON deals.id = normal_project_cat.ndeal_id ) AS subquery GROUP BY id) AS two on one.id =two.id WHERE project_status='completed' `
+  databaseCon.query(q, (err, results) => {
+    if (!err) {
+      res.status(200).send(results);
+    } else { res.status(500).send({ msg: "Something went wrong!" }) }
+  })
+}
