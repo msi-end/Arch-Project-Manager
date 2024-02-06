@@ -5,9 +5,9 @@ function dataUnity(arr) {
           index === array.findIndex((el) => el.task_name === obj.task_name) 
       );
     
-      filterTask.forEach((el)=>{ finalTaskData.push({npcid:el.npcid,cat_id : el.category_id, name: el.task_name, cat_status: el.cat_status,cat_mp_status: el.project_status}) })
+      filterTask.forEach((el)=>{ finalTaskData.push({npcid:el.npcid, cat_id : el.category_id, name: el.task_name, cat_status: el.cat_status,cat_mp_status: el.project_status, cat_deadline: el.dateofdeadline}) })
     
-      arr.forEach((el)=>{ finalSubTaskData.push({ t_name : el.task_name, st_id: el.stask_id, name: el.sub_task_name, st_status: el.stask_status}) })
+      arr.forEach((el)=>{ finalSubTaskData.push({ t_name : el.task_name, st_id: el.stask_id, name: el.sub_task_name, st_status: el.stask_status})})
     
       finalSubTaskData.forEach((el)=>{
         finalTaskData.forEach((task)=>{

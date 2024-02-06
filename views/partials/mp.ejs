@@ -13,7 +13,7 @@
             <span class="uppercase hide block phead">Deadline</span>
             <span><%= data.dateofdeadline %></span>
         </p>
-        <p class="<%= data.mstask_status === 'completed' ? 'stat flex green': 'stat flex red'%>"><%= data.mstask_status %></p>
+        <p class="<%= data.mstask_status.toLowerCase() === 'completed' ? 'stat flex green': 'stat flex red'%>"><%= data.mstask_status %></p>
         <p class="arrow-down">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-down" class="svg">
                 <path fill="##000000"

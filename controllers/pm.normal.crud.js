@@ -31,10 +31,11 @@ exports.addEmployeeToProject = async (req, res) => {
     const q = `INSERT INTO normal_project_employee (ndeal_id, npcid ,category_id, emid, dateofassign) VALUES (${ndeal_id},${Number(npcid)}, ${category_id}, ${emid}, "${assignDate}");`
     await databaseCon.query(q, (err1, data) => {
       if (!err1) {
+        res.status(200).send({msg: 'success'});
         // EmailSender('add','normal',{ ndeal_id:ndeal_id ,category_id:category_id, emid:emid });
         let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES(?,?,?);`
         databaseCon.query(q2, [emid, title, assignDate], (err2, results) => {
-          if (!err2) { res.status(200).send({msg: 'success'}); } else { res.status(500).send({ msg: err2 }) }
+          if (!err2) { return; } else { return; }
         })
       } else { res.status(500).send({ msg: err1 }) }
     })
@@ -46,15 +47,13 @@ exports.addEmployeeToProject = async (req, res) => {
     const q = `INSERT INTO normal_project_employee (ndeal_id, npcid, category_id, emid, dateofassign) VALUES ?`
     await databaseCon.query(q, [np_emp_data], (err1, data) => {
       if (!err1) {
+        res.status(200).send(data);
         // np_emp_data.forEach((e) => { 
           //  EmailSender('add','normal',  {  ndeal_id:e[0] ,category_id:e[2], emid:e[3] });
         //  })
         let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES ?;`
         databaseCon.query(q2, [np_emp_notify], (err2, results) => {
-          if (!err2) {  res.status(200).send(data); }
-          else {
-            res.status(500).send({msg : err2}) 
-          }
+          if (!err2) { return; } else { return; }
         })
       } else {
         console.log(err1);
@@ -145,6 +144,16 @@ exports.updatetaskStatus = async (req, res) => {
   databaseCon.query(q, (err, result) => {
     if (!err) {
       res.status(200).send(result)
+    } else { res.status(500).send({ msg: "not updated properly! try again later..." }) }
+  })
+}
+
+exports.updatetaskDeadline = async (req, res) => {
+  const { dealId, catId, date } = req.body;
+  let q = `UPDATE normal_project_cat SET dateofdeadline = '${date}' WHERE ndeal_id = ${dealId} AND category_id = ${catId}`
+  databaseCon.query(q, (err, result) => {
+    if (!err) {
+      res.status(200).send({msg: 'deadline updated'})
     } else { res.status(500).send({ msg: "not updated properly! try again later..." }) }
   })
 }

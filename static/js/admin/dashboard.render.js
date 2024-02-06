@@ -1,4 +1,5 @@
 //EMPLOYEE LISTS AND SUBTASKS
+const dataMethod = new DataCall()
 async function empPopup(target) {
     const getId = target.parentNode.dataset
     const mainDrop = document.querySelector('.main-dropdown')
@@ -68,16 +69,21 @@ subPopup = async (target)=> {
     })
 }
 
+async function updateNPTdeadline(target) {
+   const date = document.getElementById('np-deadline-date').value;
+   await dataMethod.DEL_UPD('apiv1/update-task-deadline', 'PUT', {date: date, dealId : target.dataset.ndealid, catId : target.dataset.taskid,})
+   hideMainDropdown();  
+}
+
 
 deadDrop = async(target)=>{
-    const getId = target.parentNode.dataset
     const mainDrop = document.querySelector(`.main-dropdown`);
     mainDrop.innerHTML = ''
     const subPopupBox = `<div class="deadline-drop-menu common_dropdown">
     <p class="uppercase"><span>Architecture</span> Deadline</p>
-    <input type="text" placeholder="dd/mm/yyyy">
+    <input type="text" placeholder="dd/mm/yyyy" id="np-deadline-date">
     <div class="drop-btn flex">
-        <button class="uppercase">update</button>
+        <button class="uppercase" data-taskid="${target.dataset.taskid}" data-ndealid="${target.dataset.ndealid}" onclick="updateNPTdeadline(this)">update</button>
         <button type="button" class="uppercase " onclick="hideMainDropdown()" >Cancel</button>
     </div>`
     mainDrop.innerHTML = subPopupBox

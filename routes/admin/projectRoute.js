@@ -17,6 +17,7 @@ api.delete('/delete-subtask', pmNormalAPI.deleteSubtask)
 //-------normal project task --------
 // api.post('/addtaskto-nproject', pmNormalAPI.addNewSubTaskToProject)
 api.put('/update-task-status', pmNormalAPI.updatetaskStatus)
+api.put('/update-task-deadline', pmNormalAPI.updatetaskDeadline)
 api.delete('/delete-task', pmNormalAPI.deleteTask)
 api.get('/ngetProjectStatus', pmNormalAPI.getProjectsStaus)
 

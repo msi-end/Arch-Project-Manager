@@ -49,9 +49,9 @@
             </ul>
         </div>
         <hr class="show">
-        <div class="task-deadline flex" onclick="deadDrop(this)">
+        <div class="task-deadline flex" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>" onclick="deadDrop(this)">
             <p class="uppercase phead">Deadline</p>
-            <p>19/02/08</p>
+            <p><%= cat.cat_deadline ? cat.cat_deadline : "..!" %></p>
         </div>
     </div>
 </div>

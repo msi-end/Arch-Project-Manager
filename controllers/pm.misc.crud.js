@@ -39,15 +39,13 @@ exports.addEmployeeToMisc = async (req, res) => {
     const q = `insert misc_project_employee (mdeal_id, mstask_id, mpemid, dateofassign) values ?`
     await dbcon.query(q, [mp_emp_data], (err1, data) => {
       if (!err1) {
+        res.status(200).send({msg : "Succezsessfull one"})
          // np_emp_data.forEach((e) => { 
           //  EmailSender('add','misc',  {  ndeal_id:e[0] ,category_id:e[1], emid:e[2] });
         //  })
         let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES ?;`
         dbcon.query(q2, [mp_emp_notify], (err2, results) => {
-          if (!err2) { res.status(200).send(data); }
-          else {
-            res.status(500).send({ msg: err2 })
-          }
+          if (!err2) { return; } else { return; }
         })
       } else {
         console.log(err1);

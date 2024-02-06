@@ -11,7 +11,7 @@
         </p>
         <p class="emp_date">
             <span class="uppercase hide block phead">Deadline</span>
-            <span>29/01/24</span>
+            <span><%= pdata.np_deadline ? pdata.np_deadline : "N/A" %></span>
         </p>
         <% 
         let overallStatus = pdata.category.every((el)=>{
