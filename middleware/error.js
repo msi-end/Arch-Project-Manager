@@ -17,7 +17,10 @@ const wsErrorLoger = (err, req) => {
       url: req.originalUrl,
       method: req.method,
       ip: req.ip,
-    })}}
+      Error:err,
+    })
+  }
+}
 
 exports.errHandler = (err, req, res, next) => {
   err.message = err.message || "Internal Server Error";
