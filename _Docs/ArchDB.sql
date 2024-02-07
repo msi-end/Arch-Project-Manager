@@ -604,6 +604,17 @@ ALTER TABLE `subtask`
   ADD CONSTRAINT `subtask_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`);
 COMMIT;
 
+-- atlast modification after review
+
+ALTER TABLE deals ADD COLUMN np_deadline VARCHAR(30) AFTER total_price;
+ALTER TABLE single_deal ADD COLUMN mp_deadline VARCHAR(30) AFTER total_price;
+
+ALTER TABLE normal_project_employee
+ADD CONSTRAINT node UNIQUE (ndeal_id, category_id, emid);
+
+ALTER TABLE misc_project_employee
+ADD CONSTRAINT mpnd UNIQUE (mdeal_id, mstask_id, mpemid);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

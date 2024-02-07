@@ -11,6 +11,9 @@ http://localhost:3000/apiv1/add-employee-to-project
 http://localhost:3000/apiv1/update-task-status
 <!-- status, dealId, catId -->
 
+http://localhost:3000/apiv1/update-task-deadline
+<!-- date, dealId, catId -->
+
 ### API for removing employee from normal project - DELETE
 http://localhost:3000/apiv1/removeempnp?dealId=18&catId=1&emid=1&removeDate=23/09/2002
 
