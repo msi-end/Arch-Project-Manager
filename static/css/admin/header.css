@@ -482,7 +482,8 @@ hr {
     font-weight: 500;
     cursor: pointer;
     padding-top: 11px;
-    outline: 1px solid var(--primary-light-color);
+    outline: 1px solid var(--primary-outline);
+    box-shadow: var(--box-shadow-1);
 }
 
 .account-settings svg {
