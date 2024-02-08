@@ -29,9 +29,9 @@ exports.addEmployeeToProject = async (req, res) => {
   const { ndeal_id, npcid, category_id, emid, title, assignDate } = req.body
   if (req.body.emid && typeof req.body.emid === "string") {
     const q = `INSERT INTO normal_project_employee (ndeal_id, npcid ,category_id, emid, dateofassign) VALUES (${ndeal_id},${Number(npcid)}, ${category_id}, ${emid}, "${assignDate}");`
-    await databaseCon.query(q, (err1, data) => {
+    await databaseCon.query(q, async (err1, data) => {
       if (!err1) {
-        EmailSender('add', 'normal', { ndeal_id: ndeal_id, category_id: category_id, emid: emid });
+      await EmailSender('add', 'normal', { ndeal_id: ndeal_id, category_id: category_id, emid: emid });
         let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES(?,?,?);`
         databaseCon.query(q2, [emid, title, assignDate], (err2, results) => {
           if (!err2) { res.status(200).send({ msg: 'success' }); } else { res.status(500).send({ msg: err2 }) }
@@ -70,10 +70,10 @@ exports.addEmployeeToProject = async (req, res) => {
 exports.removeEmployeeToProject = async (req, res) => {
   const { dealId, catId, emid, title, removeDate } = req.query;
   const q = `DELETE FROM normal_project_employee WHERE ndeal_id = ${dealId} AND category_id = ${catId} AND emid = ${emid};`
-  await databaseCon.query(q, (err1, data) => {
+  await databaseCon.query(q, async(err1, data) => {
     if (!err1) {
       res.status(200).send(data);
-      EmailSender('remove', 'normal', { ndeal_id: dealId, category_id: catId, emid: emid });
+   await EmailSender('remove', 'normal', { ndeal_id: dealId, category_id: catId, emid: emid });
       let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES(?,?,?);`
       databaseCon.query(q2, [emid, title, removeDate], (err2, results) => {
         if (!err2) { return; } else { res.status(500).send({ msg: err2 }) }

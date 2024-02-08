@@ -22,10 +22,10 @@ exports.addEmployeeToMisc = async (req, res) => {
   const { ndeal_id, category_id, emid, dateofassign, title } = req.body
   if (req.body.emid && typeof req.body.emid === "string") {
     const q = `insert into misc_project_employee (mdeal_id, mstask_id, mpemid, dateofassign) values(${ndeal_id}, ${category_id}, ${emid}, '${dateofassign}')`
-    await dbcon.query(q, (err, result) => {
+    await dbcon.query(q, async (err, result) => {
       if (!err) {
         res.status(200).send(result)
-        EmailSender('add', 'misc', { sdeal_id: ndeal_id, mtask: category_id, emid: emid });
+        await EmailSender('add', 'misc', { sdeal_id: ndeal_id, mtask: category_id, emid: emid });
         let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES(?,?,?);`
         dbcon.query(q2, [emid, title, dateofassign], (err2, results) => {
           if (!err2) { return; } else { res.status(500).send({ msg: err2 }) }
@@ -40,7 +40,7 @@ exports.addEmployeeToMisc = async (req, res) => {
     const q = `insert misc_project_employee (mdeal_id, mstask_id, mpemid, dateofassign) values ?`
     await dbcon.query(q, [mp_emp_data], (err1, data) => {
       if (!err1) {
-        res.status(200).send({msg: "added successfull.."})
+        res.status(200).send({ msg: "added successfull.." })
         mp_emp_data.forEach((e) => {
           EmailSender('add', 'misc', { ndeal_id: e[0], category_id: e[1], emid: e[2] });
         })
@@ -63,10 +63,10 @@ exports.addEmployeeToMisc = async (req, res) => {
 exports.removeEmployeeToMisc = async (req, res) => {
   const { mdeal_id, mstask_id, mpemid, title, dateofremove } = req.query
   const q = `delete from misc_project_employee where mdeal_id = ${mdeal_id} and mstask_id = ${mstask_id} and mpemid = ${mpemid}`
-  await dbcon.query(q, (err, result) => {
+  await dbcon.query(q, async (err, result) => {
     if (!err) {
       res.status(200).send({ msg: "Removed successfully!" })
-      EmailSender('remove', 'misc', { sdeal_id: mdeal_id, mtask: mstask_id, emid: mpemid });
+      await EmailSender('remove', 'misc', { sdeal_id: mdeal_id, mtask: mstask_id, emid: mpemid });
       let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES(?,?,?);`
       dbcon.query(q2, [mpemid, title, dateofremove], (err2, results) => {
         if (!err2) { return; } else { res.status(500).send({ msg: err2 }) }
