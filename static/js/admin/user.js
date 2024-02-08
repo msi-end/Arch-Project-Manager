@@ -1,4 +1,4 @@
-let ReqURI = { addUser: BASE_URL + `/add-User`, updUser: BASE_URL + `/Update-User/`, updUserPwd: BASE_URL + `/upd-password/`, getUserAtten: BASE_URL + `/getAttendence/`, getUserAttenyMth: BASE_URL + `/getAttenMonth/`,getWorkInfo:BASE_URL+'/getWorkInfo/' }
+let ReqURI = { addUser: BASE_URL + `/add-User`, updUser: BASE_URL + `/Update-User/`, updUserPwd: BASE_URL + `/upd-password/`, getUserAtten: BASE_URL + `/getAttendence/`, getUserAttenyMth: BASE_URL + `/getAttenMonth/`, getWorkInfo: BASE_URL + '/getWorkInfo/' }
 function Disable_BtnHandler(e, ep) {
     if (ep) {
         let elmCtn = document.querySelector(e)
@@ -14,6 +14,9 @@ function Disable_BtnHandler(e, ep) {
     }
 }
 function setUserToModel(e) {
+    if (document.documentElement.clientWidth < 480) {
+        document.getElementsByClassName('main')[0].classList.add('glow');
+    } else { document.getElementsByClassName('main')[0].classList.add('flow'); }
     let usrCtn = e.parentElement;
     let uProfileMdl = document.querySelector('.user-profile-settings').children[2]
     uProfileMdl.dataset.id = usrCtn.dataset.id
@@ -27,6 +30,9 @@ function setUserToModel(e) {
     GetUserDetailsReq(usrCtn.dataset.id)
 }
 function setUserToMdl_pwd(e, elm) {
+    if (document.documentElement.clientWidth < 480) {
+        document.getElementsByClassName('main')[0].classList.add('glow');
+    } else { document.getElementsByClassName('main')[0].classList.add('flow'); }
     (document.querySelector(`${e}`)).classList.remove(`hide`);
     Cls_UserCtn('.uprofile-settings')
     let ParentElm = document.querySelector('.uprofile-settings')
@@ -35,10 +41,16 @@ function setUserToMdl_pwd(e, elm) {
     pwdCtn.children[0].dataset.id = ParentElm.querySelector('.flex-box').dataset.id
 }
 function Opn_UserCtn(e, elm) {
+    if (document.documentElement.clientWidth < 480) {
+        document.getElementsByClassName('main')[0].classList.add('glow');
+    } else { document.getElementsByClassName('main')[0].classList.add('flow'); }
     (document.querySelector(`${e}`)).classList.remove(`hide`);
     e == '.uprofile-settings' ? setUserToModel(elm) : null
 }
 function Cls_UserCtn(e) {
+    if (document.documentElement.clientWidth < 480) {
+        document.getElementsByClassName('main')[0].classList.remove('glow');
+    } else { document.getElementsByClassName('main')[0].classList.remove('flow'); }
     (document.querySelector(`${e}`)).classList.add(`hide`);
     e == '.uprofile-settings' ? Disable_BtnHandler('.profile-grid', false) : null
 }
@@ -143,12 +155,12 @@ function GetUserDetailsReq(e) {
     ReqHandler.GET(ReqURI.getWorkInfo + e)
         .then((res) => {
             if (res.status) {
-               WrokStatusCtn[0].querySelector('.primary').innerText=res.data[1].length
-               WrokStatusCtn[0].querySelector('.blue').innerText=res.data[0][0].total_cats
-               WrokStatusCtn[0].querySelector('.red').innerText=res.data[0][0].total_cats-res.data[0][0].num_cats_completed
-               WrokStatusCtn[1].querySelector('.primary').innerText=res.data[3].length
-               WrokStatusCtn[1].querySelector('.blue').innerText=res.data[2][0].total_mtask
-               WrokStatusCtn[1].querySelector('.red').innerText=res.data[2][0].total_mtask-res.data[2][0].num_task_completed
+                WrokStatusCtn[0].querySelector('.primary').innerText = res.data[1].length
+                WrokStatusCtn[0].querySelector('.blue').innerText = res.data[0][0].total_cats
+                WrokStatusCtn[0].querySelector('.red').innerText = res.data[0][0].total_cats - res.data[0][0].num_cats_completed
+                WrokStatusCtn[1].querySelector('.primary').innerText = res.data[3].length
+                WrokStatusCtn[1].querySelector('.blue').innerText = res.data[2][0].total_mtask
+                WrokStatusCtn[1].querySelector('.red').innerText = res.data[2][0].total_mtask - res.data[2][0].num_task_completed
             }
         }).catch(err => {
             console.log('Error(fn-getAtten):', err);
@@ -157,6 +169,10 @@ function GetUserDetailsReq(e) {
 function search() {
     var inpValue = document.getElementById('searchQuery').value.toLowerCase();
     var elmCtn = document.querySelectorAll('.user-list');
-    elmCtn.forEach(function(e) {var contentText = e.textContent.toLowerCase();
-        if (contentText.includes(inpValue)) {e.style.display = 'grid';
-        } else {e.style.display = 'none'; }});}
+    elmCtn.forEach(function (e) {
+        var contentText = e.textContent.toLowerCase();
+        if (contentText.includes(inpValue)) {
+            e.style.display = 'grid';
+        } else { e.style.display = 'none'; }
+    });
+}

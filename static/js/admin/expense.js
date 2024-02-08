@@ -1,10 +1,12 @@
 let ReqURI = { addExps: BASE_URL + `/add-Exps`, updExps: BASE_URL + `/expsUpdate/`, getExpsBymonths: BASE_URL + '/getExps', NisProjectPaid: location.origin + '/apiv1/nIsProjectPaid', MisProjectPaid: location.origin + '/apiv1/mIsProjectPaid' }
 
 function Opn_ExpenseCtn(e, elm) {
+    (document.getElementsByClassName('main')[0]).classList.add('flow');
     (document.querySelector(`${e}`)).classList.remove(`hide`);
     e == '.editexpense' ? setExpenseToModel(elm) : null
 }
 function Cls_ExpenseCtn(e) {
+    document.getElementsByClassName('main')[0].classList.remove('flow');
     (document.querySelector(`${e}`)).classList.add(`hide`);
     // e == '.uprofile-settings' ? Disable_BtnHandler('.profile-grid', false) : null
 }
@@ -12,6 +14,7 @@ function AlertNotifier(status, msg, icon) {
     Swal.fire({ title: status ? 'Sucess' : 'Error', text: msg, icon: icon, confirmButtonText: 'Done' });
 }
 function setExpenseToModel(e) {
+    document.getElementsByClassName('main')[0].classList.remove('flow');
     let ExpsCtn = e.parentElement.parentElement
     let editCtn = document.querySelector('.editexpense')
     editCtn.children[0].dataset.exps_id = ExpsCtn.dataset.exps_id
@@ -119,17 +122,20 @@ function search() {
     ReqHandler.GET(ReqURI.NisProjectPaid)
         .then((res) => {
             for (let i = 0; i < res.length; i++) {
-                Ctn=`<p class="red"><span>
-                    The project <strong>${res[i].deal_name}</strong> with Ref.no:<strong>${res[i].reference_no}</strong> has been completed while the payment of Rs ${res[i].total_price-res[i].amount_got}/- is pending </span><span><svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="exclamation"><path fill="##000000" d="M12,14a1,1,0,0,0,1-1V7a1,1,0,0,0-2,0v6A1,1,0,0,0,12,14Zm0,4a1.25,1.25,0,1,0-1.25-1.25A1.25,1.25,0,0,0,12,18Z"></path></svg></span></p><hr>`
-                IsPainCtn.innerHTML+=Ctn
+                if(res[i].total_price>res[i].amount_got){
+                    Ctn=`<p class="red"><span>
+                        The project <strong>${res[i].deal_name}</strong> with Ref.no:<strong>${res[i].reference_no}</strong> has been completed while the payment of Rs ${res[i].total_price-res[i].amount_got}/- is pending </span><span><svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="exclamation"><path fill="##000000" d="M12,14a1,1,0,0,0,1-1V7a1,1,0,0,0-2,0v6A1,1,0,0,0,12,14Zm0,4a1.25,1.25,0,1,0-1.25-1.25A1.25,1.25,0,0,0,12,18Z"></path></svg></span></p><hr>`
+                    IsPainCtn.innerHTML+=Ctn
+                }
             }
         }).catch(err => { console.log('error getting IsProjectPaid() data expanse.js |ln:110 '+err) })
     ReqHandler.GET(ReqURI.MisProjectPaid)
     .then((res) => {
         for (let i = 0; i <res.length; i++) {
+            if(res[i].total_price>res[i].amount_got){
             Ctn=`<p class="red"><span>
                 The project <strong>${res[i].sdeal_name}</strong> with Ref.no:<strong>${res[i].reference_no}</strong> has been completed while the payment of Rs ${res[i].total_price-res[i].amount_got}/- is pending </span><span><svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="exclamation"><path fill="##000000" d="M12,14a1,1,0,0,0,1-1V7a1,1,0,0,0-2,0v6A1,1,0,0,0,12,14Zm0,4a1.25,1.25,0,1,0-1.25-1.25A1.25,1.25,0,0,0,12,18Z"></path></svg></span></p><hr>`
-            IsPainCtn.innerHTML+=Ctn
+            IsPainCtn.innerHTML+=Ctn}
         }
     }).catch(err => { console.log('error getting IsProjectPaid() data expanse.js |ln:110 '+err) })
 })()
