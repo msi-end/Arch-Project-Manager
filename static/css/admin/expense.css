@@ -62,9 +62,6 @@
     outline: 1px solid var(--sec-bg);
 
 }
-.finance-scroll p span:last-child:hover{
-    /* background: var(--sec-bgr); */
-}
 .finance-scroll p span svg{
     width: 20px;
 }
@@ -92,9 +89,6 @@
     display: flex;
     align-items: center;
     gap: 5px;
-}
-.expenseheader button{
-    /* flex: 1; */
 }
 .expenseheader button:hover {
     opacity: 0.8;
@@ -132,14 +126,12 @@
     background: var(--bg-3);
     cursor: pointer;
 }
-.expense-list div{
-    
-}
 .expense-list div p:first-child{
     color: var(--grey);
     font-size: 12px;
     font-weight: 600;
     line-height: 1.75;
+    width: 105%;
 }
 .expense-list div p:not(:first-child){
     font-size: 12px;
