@@ -10,10 +10,11 @@ function toggleForm(formId) {
   });
 }
 function openDick() {
+  document.getElementsByClassName('main')[0].classList.add('flow');
   document.querySelector(`.main-dropdown`).style.display = `block`;
 }
 
-function GetIncExp() {
+function GetIncExp() { 
   let Ctn = document.getElementsByClassName('total_user_data')
   ReqHandler.GET(location.origin + '/admin/finance/get-income-expense').then((res) => {
     if (res.status) {

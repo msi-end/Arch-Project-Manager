@@ -1,4 +1,5 @@
 const dbcon = require('../config/db.config')
+const { EmailSender } = require('../utils/emailSender.js')
 
 // misc project employee-------------
 

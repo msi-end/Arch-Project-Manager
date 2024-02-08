@@ -14,6 +14,7 @@ function Disable_BtnHandler(e, ep) {
     }
 }
 function setUserToModel(e) {
+    document.getElementsByClassName('main')[0].classList.add('flow');
     let usrCtn = e.parentElement;
     let uProfileMdl = document.querySelector('.user-profile-settings').children[2]
     uProfileMdl.dataset.id = usrCtn.dataset.id
@@ -27,6 +28,7 @@ function setUserToModel(e) {
     GetUserDetailsReq(usrCtn.dataset.id)
 }
 function setUserToMdl_pwd(e, elm) {
+    document.getElementsByClassName('main')[0].classList.add('flow');
     (document.querySelector(`${e}`)).classList.remove(`hide`);
     Cls_UserCtn('.uprofile-settings')
     let ParentElm = document.querySelector('.uprofile-settings')
@@ -35,10 +37,12 @@ function setUserToMdl_pwd(e, elm) {
     pwdCtn.children[0].dataset.id = ParentElm.querySelector('.flex-box').dataset.id
 }
 function Opn_UserCtn(e, elm) {
+    document.getElementsByClassName('main')[0].classList.add('flow');
     (document.querySelector(`${e}`)).classList.remove(`hide`);
     e == '.uprofile-settings' ? setUserToModel(elm) : null
 }
 function Cls_UserCtn(e) {
+    document.getElementsByClassName('main')[0].classList.remove('flow');
     (document.querySelector(`${e}`)).classList.add(`hide`);
     e == '.uprofile-settings' ? Disable_BtnHandler('.profile-grid', false) : null
 }

@@ -48,15 +48,6 @@ function empAdd() {
 }
 
 
-function hideMainDropdown(event) {
-    const mainDropdown = event.target.closest(".main-dropdown");
-    if (mainDropdown) {
-        if (!mainDropdown.contains(event.target)) {
-            mainDropdown.style.display = "none";
-        }
-    }
-}
-
 function paginationFun(target) {
     window.location.search = `?from=${(Number(target.innerHTML)) - 1}&to=${Number(target.innerHTML)}`;
 }
@@ -155,7 +146,7 @@ let ReqHandler = {
 
 
 function closeMainDropdown() {
-    document.querySelector(`.main-dropdown`).classList.toggle(`hide`);
+    document.querySelector(`.main-dropdown`).classList.remove(`hide`);
 }
 // if (pageNo + 2 == lastPageNo) {
 //     document.getElementById('way-2').style.display = `none`
