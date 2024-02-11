@@ -247,7 +247,7 @@ exports.renderMiscProjectDashboard = async (req, res) => {
 }
 exports.miscProjectFinance = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const q = `select single_deal.reference_no, single_deal.sdeal_name, single_deal.work_name, single_deal.city, single_deal.total_price, single_deal.agreement_amount, mis_subtask.*, misc_project_finance.*
+        const q = `select single_deal.sdid, single_deal.reference_no, single_deal.sdeal_name, single_deal.work_name, single_deal.city, single_deal.total_price, single_deal.agreement_amount, mis_subtask.*, misc_project_finance.*
         from misc_project_finance 
         inner join single_deal on single_deal.sdid = misc_project_finance.mdeal_id 
         inner join mis_subtask on mis_subtask.msub_task_id = misc_project_finance.task order by single_deal.sdid desc;`

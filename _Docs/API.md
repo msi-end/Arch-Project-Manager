@@ -78,3 +78,12 @@ http://localhost:3000/apiv1/update-misctask-status
   "dateofstatus" : "28/03/2033"
 }
 
+### API for misc project finance updateing advance pay recieved - PUT
+http://localhost:3000/admin/finance/update-advancepay-mp
+{
+  "dateofpay" : "12/02/2023",
+  "modeofpay" : "online",
+  "ndeal_id" : 13,
+  "task" : 2
+} 
+

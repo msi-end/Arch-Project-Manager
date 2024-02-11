@@ -45,9 +45,9 @@
             <span class="uppercase hide block phead">Total</span>
             &#8377; <%= data.total_price %><span></span>/-
         </p>
-        <p class="totalf" onclick="advOpen(this)">
+        <p class="totalf" onclick="advOpen(this)" data-mdealid="<%= data.sdid %>" data-taskid="<%= data.task %>">
             <span class="uppercase hide block phead">advance</span>
-            &#8377;<span><%= data.agreement_amount %></span>/- <span class="maka">Received</span>
+            &#8377;<span><%= data.agreement_amount %></span>/- <span class="maka"><%= data.modeofpay && 'Received' %></span>
         </p>
         <p class="totalf">
             <span class="uppercase hide block phead">Received</span>
