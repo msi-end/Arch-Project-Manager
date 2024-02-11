@@ -90,7 +90,7 @@ exports.getAmountSplit = async (req, res) => {
    const q = "select splitvalue from amount_split"
    await databaseCon.query(q, (err, results) => {
       if (!err) {
-         res.status(200).send({ status: true, msg: 'Successfully added Miscellaneous Task' })
+         res.status(200).send({ status: true, msg: 'Successfully added Miscellaneous Task',data:results })
       } else {
          res.status(500).send({ status: false, msg: "Internal error occurs!" });
       }

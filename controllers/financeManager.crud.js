@@ -26,11 +26,12 @@ exports.updateNpAmountRecieved = async (req, res) => {
 //-----------Misc project finance -----------------
 
 exports.updateMpAmountGot = async (req, res) => {
-  const q = ``
-  await dbcon.query(q, (err, result) => {
+  console.log(req.body);
+  const q = `update misc_project_finance set dateofpay = ?, modeofpay = ? where mdeal_id = ? and task = ?`
+  await dbcon.query(q, [req.body.dateofpay, req.body.modeofpay, req.body.mdealid, req.body.taskid], (err, result) => {
     if (err) {
       res.status(500).send("some error occurred!..");
     }
-    res.status(200).send("added successfully...")
+    res.status(200).send({ msg: "added successfully" })
   })
 }

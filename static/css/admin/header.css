@@ -7,21 +7,25 @@
     --black-light-2: rgba(0, 0, 0, 0.8);
 
     --primary-color: hsl(260, 54%, 45%);
+    --primary-outline: hsla(260, 54%, 45%, 0.2);
     --primary-light-color: hsl(261, 54%, 95%);
     --primary-bg: hsl(260, 54%, 93%);
     --primary-bgr: hsl(260, 54%, 88%);
-    
+
     --secondary-color: hsl(208, 79%, 51%);
+    --sec-outline: hsla(208, 79%, 51%, 0.2);
     --sec-light-color: hsl(208, 92%, 95%);
     --sec-bg: hsl(208, 79%, 93%);
     --sec-bgrd: hsl(208, 79%, 85%);
     --sec-bgr: hsl(208, 79%, 88%);
 
     --tertiary-color: hsl(0, 100%, 45%);
+    --ter-outline: hsla(0, 100%, 45%, 0.1);
     --ter-dark-color: hsl(0, 100%, 50%);
     --ter-light-color: hsl(0, 100%, 95%);
 
     --green: hsl(160, 100%, 34%);
+    --green-outline: hsla(160, 100%, 34%, 0.2);
     --green-light: hsl(154, 61%, 90%);
     --green-bg: hsl(160, 100%, 95%);
     --green-bgr: hsl(160, 100%, 90%);
@@ -34,6 +38,8 @@
     --bg-3: hsl(210, 31%, 95%);
 
     --grey: rgb(112, 116, 117);
+    --light-grey: hsl(203, 20%, 70%);
+    --very-light-grey: hsl(200, 20%, 95%);
 
     --border-radius-1: 4px;
     --border-radius-2: 8px;
@@ -82,6 +88,20 @@ html {
 button,
 svg {
     cursor: pointer;
+}
+
+.skeleton {
+    animation: skeleton 1s linear infinite alternate;
+}
+
+@keyframes skeleton {
+    0% {
+        background: var(--light-grey);
+    }
+
+    0% {
+        background: var(--very-light-grey);
+    }
 }
 
 /* COMMON CLASSES */
@@ -231,21 +251,26 @@ header {
     width: 20px;
     height: 20px;
 }
+
 /* -------THEME TOGGLE--------- */
-.theme-toggler{
+.theme-toggler {
     position: absolute;
     right: 10rem;
     background: var(--sec-light-color);
 }
-.theme-toggler svg{
+
+.theme-toggler svg {
     fill: var(--secondary-color);
 }
-.theme-toggler:hover{
+
+.theme-toggler:hover {
     background: var(--secondary-color);
 }
-.theme-toggler:hover svg{
+
+.theme-toggler:hover svg {
     fill: var(--white);
 }
+
 /* -----NOTIFICATION----- */
 .notification {
     position: absolute;
@@ -271,7 +296,8 @@ header {
 .notification.red:hover {
     background: var(--ter-dark-color);
 }
-.notification #notification-count{
+
+.notification #notification-count {
     display: none;
     position: absolute;
     top: -8px;
@@ -381,7 +407,7 @@ hr {
 }
 
 .read span.actionBtn {
-    background-color: #a3a3a3!important;
+    background-color: #a3a3a3 !important;
 }
 
 /* ------PROFILE---------- */
@@ -406,6 +432,7 @@ hr {
 .profileIcon svg {
     fill: var(--secondary-color);
 }
+
 /* --------SECTION STARTS HERE------- */
 .isaio {
     overflow: hidden;
@@ -413,7 +440,8 @@ hr {
     position: relative;
     z-index: 30;
 }
-#loading-container{
+
+#loading-container {
     position: absolute;
     width: 100dvw;
     height: 100dvh;
@@ -422,23 +450,22 @@ hr {
     z-index: 110;
     background: var(--black-light);
 }
-#loader{
-    width: 400px;
-    height: 40px;
+
+#loader {
+    width: 100px;
+    height: 100px;
     position: absolute;
-    top: 50%;
-    transform: translateX(-50%);
-    border-radius: 50px;
-    background: linear-gradient(45deg, hsl(241, 100%, 75%),hsl(0, 100%, 73%));
-    left: -100%;
-    animation: load 3s linear infinite;
+    top: 40%;
+    left: 50%;
+    border-radius: 50%;
+    border: 7px solid #ddd;
+    border-top-color: #333;
+    animation: rotate 1s infinite;
 }
-@keyframes load {
-    0%{
-        left: -100%;
-    }
-    100%{
-        left: 100%;
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
     }
 }
 
@@ -455,7 +482,8 @@ hr {
     font-weight: 500;
     cursor: pointer;
     padding-top: 11px;
-    outline: 1px solid var(--primary-light-color);
+    outline: 1px solid var(--primary-outline);
+    box-shadow: var(--box-shadow-1);
 }
 
 .account-settings svg {
@@ -557,6 +585,13 @@ nav .nav-lists svg {
 .main.width {
     width: 93%;
 }
-.main.flow{
+
+.main.flow {
     overflow: hidden;
 }
+
+.main.grow{
+    overflow: hidden;
+    height: 205vh;
+    }
+

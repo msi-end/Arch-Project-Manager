@@ -11,6 +11,9 @@ http://localhost:3000/apiv1/add-employee-to-project
 http://localhost:3000/apiv1/update-task-status
 <!-- status, dealId, catId -->
 
+http://localhost:3000/apiv1/update-task-deadline
+<!-- date, dealId, catId -->
+
 ### API for removing employee from normal project - DELETE
 http://localhost:3000/apiv1/removeempnp?dealId=18&catId=1&emid=1&removeDate=23/09/2002
 
@@ -74,4 +77,13 @@ http://localhost:3000/apiv1/update-misctask-status
   "mstask_status" : "completed",
   "dateofstatus" : "28/03/2033"
 }
+
+### API for misc project finance updateing advance pay recieved - PUT
+http://localhost:3000/admin/finance/update-advancepay-mp
+{
+  "dateofpay" : "12/02/2023",
+  "modeofpay" : "online",
+  "ndeal_id" : 13,
+  "task" : 2
+} 
 

@@ -1,10 +1,69 @@
 .expensebox{
-    margin-top: 1rem;
-    background: var(--white);
-    border-radius: var(--border-radius-2);
-    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
     margin-bottom: 1rem;
-    width: 100%;
+    flex-wrap: wrap;
+}
+.expensive, .finance-notification{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: var(--border-radius-2);
+    background: var(--white);
+}
+.expensive{
+    flex: 1;
+}
+.finance-notification{
+    width: 30%;
+}
+.finance-notification h4{
+    margin-bottom: 1rem;
+}
+.finance-scroll{
+    height: 68vh;
+    overflow: scroll;
+}
+.finance-scroll p {
+    font-weight: 500;
+    font-size: 12px;
+    padding: 10px 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.finance-scroll :is(.red, p.red:hover)
+    {
+    background: var(--ter-light-color);
+    color: var(--ter-dark-color);
+}
+.finance-scroll p.red svg{
+    fill: var(--ter-dark-color);
+}
+.finance-scroll p.red span:last-child{
+    outline: 1px solid var(--ter-dark-color);
+}
+.finance-scroll p:is(:hover, .active){
+    background: var(--sec-light-color);
+}
+.finance-scroll svg:hover{
+    fill: var(--secondary-color);
+}
+.finance-scroll p span:last-child{
+    width: 30px;
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+    border-radius: 50%;
+    background: var(--white);
+    outline: 1px solid var(--sec-bg);
+
+}
+.finance-scroll p span svg{
+    width: 20px;
 }
 .expenseheader{
     display: flex;
@@ -13,6 +72,7 @@
     gap: 10px;
     margin-bottom: 1rem;
     padding: 0 0.5rem;
+    flex-wrap: wrap;
 }
 .expensebox hr{
     border-width: 0px 0px thin;
@@ -46,6 +106,9 @@
 .expenseheader .btn svg{
     width: 18px;
 }
+.expenseheader div{
+    flex-wrap: wrap;
+}
 /* -------EXPENSE LIST-------- */
 .expense-page{
     margin: 0.5rem auto;
@@ -63,14 +126,12 @@
     background: var(--bg-3);
     cursor: pointer;
 }
-.expense-list div{
-    
-}
 .expense-list div p:first-child{
     color: var(--grey);
     font-size: 12px;
     font-weight: 600;
     line-height: 1.75;
+    width: 105%;
 }
 .expense-list div p:not(:first-child){
     font-size: 12px;
@@ -249,5 +310,15 @@
     }
     .egrid{
         grid-template-columns: 1fr;
+    }
+    .finance-notification{
+        width: 100%;
+        margin-top: 0;
+    }
+    .expenseheader button span:first-child{
+        display: none;
+    }
+    .expenseheader div{
+        gap: 8px;
     }
 }

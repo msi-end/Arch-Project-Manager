@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="../../css/admin/header.css">
     <link rel="stylesheet" href="../../css/admin/responsive.css">
     <link rel="stylesheet" href="../../css/admin/form.css">
+    <link rel="stylesheet" href="sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../js/admin/dashboard.module.js"></script>
 
 </head>
 
@@ -22,13 +25,13 @@
                 <div class="form-header">
                     <h4 class="uppercase" id="p-name">Normal Project</h4>
                     <div class="head-btns flex">
-                        <button class="uppercase green" onclick="toggleForm('normalForm', this)" id="Normal Project">default</button>
+                        <button class="uppercase" onclick="toggleForm('normalForm', this)" id="Normal Project">default</button>
                         <button class="uppercase" onclick="toggleForm('misForm', this)" id="Misc Project">miscellaneous</button>
                     </div>
                 </div>
                 <div class="formContainer">
                     <div class="normalForm" id="normalForm">
-                        <form action="/admin/projects-create" method="post">
+                        <form id="np-form-data">
                             <h4 class="uppercase">contact details</h4>
                             <div class="fgrid">
                                 <div class="field">
@@ -85,24 +88,26 @@
                                     <input type="text" name="agreementAm" id="amount" placeholder="&#8377;">
                                 </div>
                                 <div class="field">
+                                    <label for="amount">Project deadline</label>
+                                    <input type="text" name="npdeadline" id="amount" placeholder="dd/mm/yyyy, Eg:01/06/2024">
+                                </div>
+                                <div class="field">
                                     <label for="splitRatio">Amount Split Ratio</label>
                                     <select name="split" id="splitRatio">
-                                        <option value="4:4:2">4:4:2</option>
-                                        <option value="4:2:4">4:2:4</option>
-                                        <option value="6:2:2">6:2:2</option>
                                     </select>
                                 </div>
                             </div>
                             <!-- ---------- grid ends--------- -->
                             <div class="field">
-                                <button type="submit" class="uppercase">submit</button>
+                                <button type="submit" onclick="SubmitNormalFormData(event)" class="uppercase">submit</button>
                                 <!-- <input type="submit" name="submit" id="" value="submit"> -->
                             </div>
                         </form>
                     </div>
                     <!-- miscellaneous FORM  -->
+                    
                     <div class="misForm hide" id="misForm">
-                        <form action="/admin/misc-project-create" method="post">
+                        <form id="mp-form-data">
                             <h4><span class="uppercase">contact details</span>  (Misc)</h4>
                             <div class="fgrid">
                                 <div class="field">
@@ -142,32 +147,21 @@
                                     <input type="text" name="agreementAm" id="amount" placeholder="&#8377;">
                                 </div>
                                 <div class="field">
+                                    <label for="amount">Deadline</label>
+                                    <input type="text" name="mpdeadline" id="amount" placeholder="dd/mm/yyyy Eg:01/06/2024">
+                                </div>
+                                <div class="field">
                                     <label for="miswork">Types Of Work</label>
                                     <select name="task" id="splitRatio">
                                         <% results?.forEach((val)=>{ %>
                                             <option value="<%= val.msub_task_id %>"><%= val.msub_task_name %></option>
                                         <% }) %>
-                                        <!-- <option value="1">Planning</option>
-                                        <option value="2">Structural</option>
-                                        <option value="3">3D(Exterior)</option>
-                                        <option value="4">Plumbing</option>
-                                        <option value="5">Electricity</option>
-                                        <option value="6">Master Plan</option>
-                                        <option value="7">Furniture Layout</option>
-                                        <option value="8">Survey</option>
-                                        <option value="9">Soil Test</option>
-                                        <option value="10">Interior(3D)</option>
-                                        <option value="11">Estimate</option>
-                                        <option value="12">Landscaping</option>
-                                        <option value="13">3D Walkthrough</option>
-                                        <option value="14">Art & Craft</option>
-                                        <option value="15">Supervision</option> -->
                                     </select>
                                 </div>
                             </div>
                             <!-- ---------- grid ends--------- -->
                             <div class="field">
-                                <button type="submit" class="uppercase">submit</button>
+                                <button type="submit" onclick="SubmitMiscFormData(event)" class="uppercase">submit</button>
                             </div>
                         </form>
                     </div>

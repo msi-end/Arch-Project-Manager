@@ -10,7 +10,7 @@
         </p>
         <p class="emp_date">
             <span class="uppercase hide block phead">Deadline</span>
-            <span>12/06/26</span>
+            <span><%= pdata.np_deadline %></span>
         </p>
         <p class="<%= pdata.project_status === 'completed' ? 'stat flex green': 'stat flex red'%>"><%= pdata.project_status %></p>
         <p class="arrow-down">

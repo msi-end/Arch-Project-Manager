@@ -72,12 +72,12 @@ exports.insertNewNormalDeal = async (req, res) => {
             if (err0) throw err0;
             conn.beginTransaction(function (err) {
                 if (err) {
-                    res.status(500).send("something error occured")
+                    res.status(500).send({msg: "something error occured"})
                     return;
                 }
-                const dealsTableData = [req.body.name, req.body.rfNo, req.body.contactNo, req.body.agreementAm, req.body.workName, req.body.email, req.body.city, req.body.TotalAm, req.body.split]
+                const dealsTableData = [req.body.name, req.body.rfNo, req.body.contactNo, req.body.agreementAm, req.body.workName, req.body.email, req.body.city, req.body.TotalAm, req.body.npdeadline, req.body.split]
 
-                const qTodeal = `insert into deals (deal_name, reference_no, contact, agreement_amount, work_name, email, city, total_price, split) values (?,?,?,?,?,?,?,?,?)`
+                const qTodeal = `insert into deals (deal_name, reference_no, contact, agreement_amount, work_name, email, city, total_price, np_deadline, split) values (?,?,?,?,?,?,?,?,?,?)`
 
                 conn.query(qTodeal, dealsTableData, (err1, response) => {
                     if (err1) {
@@ -119,7 +119,7 @@ exports.insertNewNormalDeal = async (req, res) => {
                                         throw errC;
                                     });
                                 }
-                                res.status(200).send("new deal entered successfully..😍")
+                                res.status(200).send({msg: "new deal entered successfully..😍"})
                             })
                         })
                     })
@@ -128,6 +128,7 @@ exports.insertNewNormalDeal = async (req, res) => {
 
             })
         })
+
 
     }
 }
@@ -138,12 +139,12 @@ exports.insertNewMiscDeal = async (req, res) => {
             if (err0) throw err0;
             conn.beginTransaction(function (err) {
                 if (err) {
-                    res.status(500).send("something error occured")
+                    res.status(500).send({msg: "something error occured"})
                     return;
                 }
-                const miscDealsTableData = [req.body.name, req.body.rfNo, req.body.contactNo, req.body.agreementAm, req.body.workName, req.body.email, req.body.city, req.body.TotalAm]
+                const miscDealsTableData = [req.body.name, req.body.rfNo, req.body.contactNo, req.body.agreementAm, req.body.workName, req.body.email, req.body.city, req.body.TotalAm, req.body.mpdeadline]
 
-                const qTodeal = `insert into single_deal (sdeal_name, reference_no, contact, agreement_amount, work_name, email, city, total_price) values (?,?,?,?,?,?,?,?)`
+                const qTodeal = `insert into single_deal (sdeal_name, reference_no, contact, agreement_amount, work_name, email, city, total_price, mp_deadline) values (?,?,?,?,?,?,?,?,?)`
 
                 conn.query(qTodeal, miscDealsTableData, (err1, response) => {
                     if (err1) {
@@ -174,7 +175,7 @@ exports.insertNewMiscDeal = async (req, res) => {
                                         throw errC;
                                     });
                                 }
-                                res.status(200).send("new misc deal entered successfully..😍")
+                                res.status(200).send({msg: "new misc deal entered successfully..😍"})
                             })
 
                         })
@@ -184,7 +185,6 @@ exports.insertNewMiscDeal = async (req, res) => {
 
             })
         })
-
     }
 }
 
@@ -247,7 +247,7 @@ exports.renderMiscProjectDashboard = async (req, res) => {
 }
 exports.miscProjectFinance = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const q = `select single_deal.reference_no, single_deal.sdeal_name, single_deal.work_name, single_deal.city, single_deal.total_price, single_deal.agreement_amount, mis_subtask.*, misc_project_finance.*
+        const q = `select single_deal.sdid, single_deal.reference_no, single_deal.sdeal_name, single_deal.work_name, single_deal.city, single_deal.total_price, single_deal.agreement_amount, mis_subtask.*, misc_project_finance.*
         from misc_project_finance 
         inner join single_deal on single_deal.sdid = misc_project_finance.mdeal_id 
         inner join mis_subtask on mis_subtask.msub_task_id = misc_project_finance.task order by single_deal.sdid desc;`

@@ -10,6 +10,7 @@ async function updataAdvancePay(data, e) {
 }
 
 async function openDick(data) {
+    document.getElementsByClassName('main')[0].classList.add('flow')
     const { ndealid, taskid } = data.dataset
     const maindropDown = document.querySelector(`.main-dropdown`);
     maindropDown.style.display = `block`;

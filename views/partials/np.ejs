@@ -11,7 +11,7 @@
         </p>
         <p class="emp_date">
             <span class="uppercase hide block phead">Deadline</span>
-            <span>29/01/24</span>
+            <span><%= pdata.np_deadline ? pdata.np_deadline : "N/A" %></span>
         </p>
         <% 
         let overallStatus = pdata.category.every((el)=>{
@@ -45,8 +45,8 @@
                 <span class="g-mail"><%= pdata.email %></span>
             </p>
             <p class="agreement">
-                <span class="uppercase phead">Agreement Amount</span>
-                <span class="amount">&#8377; <%= pdata.agreement_amount %></span>
+                <span class="uppercase phead">Project Amount</span>
+                <span class="amount">&#8377; <%= pdata.total_price %></span>
             </p>
             <p class="address">
                 <span class="uppercase phead">address</span>

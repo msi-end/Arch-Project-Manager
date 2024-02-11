@@ -11,16 +11,21 @@
 .form-header button{
     padding: 8px;
     border-radius: var(--border-radius-1);
-    background: var(--primary-color);
-    color: var(--white);
+    background: var(--primary-bg);
+    color: var(--primary-color);
+    outline: 1px solid var(--primary-outline);
     font-weight: 600;
     transition: var(--transition-2);
     flex-grow: 1;
 }
 .form-header button:hover{
-    opacity: 0.8;
+    opacity: 0.6;
 }
-
+.form-header button:nth-child(2){
+    background: var(--sec-bg);
+    color: var(--secondary-color);
+    outline: 1px solid var(--sec-outline);
+}
 /* Container  */
 
 .formContainer :is(.normalForm, .misForm){
