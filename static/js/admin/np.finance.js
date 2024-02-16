@@ -50,6 +50,7 @@ function GetIncExp() {
             Ctn[2].children[0].children[0].innerText = res.data[0][1].online_sum}
     }).catch(err => {console.log('Error(fn-ExpsUpdate):', err);})}
 GetIncExp()
+
 function CloseModel(e) {
     document.querySelector(e).style.display = 'none'
   }
