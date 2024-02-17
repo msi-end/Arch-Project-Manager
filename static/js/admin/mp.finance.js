@@ -72,6 +72,7 @@ async function sendRecievedStatus(target) {
   await feature.DEL_UPD('admin/finance/update-advancepay-mp', 'PUT', body)
   CloseModel('.main-dropdown')
 }
+
 function CloseModel(e) {
   document.querySelector(e).style.display = 'none'
 }
