@@ -36,13 +36,13 @@ exports.addEmployeeToMisc = async (req, res) => {
     const mp_emp_data = []
     const mp_emp_notify = []
     req.body.emid.forEach((el) => { mp_emp_data.push([req.body.ndeal_id, req.body.category_id, el, dateofassign]) })
-    req.body.emid.forEach((el) => { mp_emp_notify.push([el, title, dateofassign]) })
+    req.body.emid.forEach((el) => { mp_emp_notify.push([el, title+'#'+el, dateofassign]) })
     const q = `insert misc_project_employee (mdeal_id, mstask_id, mpemid, dateofassign) values ?`
-    await dbcon.query(q, [mp_emp_data], (err1, data) => {
+    await dbcon.query(q, [mp_emp_data], async(err1, data) => {
       if (!err1) {
         res.status(200).send({ msg: "added successfull.." })
-        mp_emp_data.forEach((e) => {
-          EmailSender('add', 'misc', { ndeal_id: e[0], category_id: e[1], emid: e[2] });
+        mp_emp_data.forEach( async(e) => {
+        await  EmailSender('add', 'misc', { ndeal_id: e[0], category_id: e[1], emid: e[2] });
         })
         let q2 = `INSERT INTO emp_task_notify(emid, title, dateofnotify) VALUES ?;`
         dbcon.query(q2, [mp_emp_notify], (err2, results) => {

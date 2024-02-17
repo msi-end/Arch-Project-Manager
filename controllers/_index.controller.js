@@ -1,16 +1,13 @@
 const db = require('../config/db.config')
 const dataUnity = require('../utils/arrange')
 
+// SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline FROM deals INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id INNER JOIN task ON normal_project_cat.category_id = task.task_id LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id WHERE deals.id BETWEEN (SELECT MAX(id)-${Number(req.query.from) * 20} FROM deals) AND (SELECT MAX(id)-${Number(req.query.from) * 20} FROM deals) ORDER BY deals.id DESC;
+
 // All Index routes
 exports.indexDeshboard = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const q = `SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline
-    FROM deals 
-    INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id 
-    INNER JOIN task ON normal_project_cat.category_id = task.task_id 
-    LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id 
-    LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id
-    ORDER BY deals.id DESC`
+        console.log(req.query)
+        const q = `SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline FROM deals INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id INNER JOIN task ON normal_project_cat.category_id = task.task_id LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id ORDER BY deals.id DESC;`
         await db.query(q, (err, results) => {
             const grouped = {};
             const sentData = []
@@ -247,7 +244,7 @@ exports.renderMiscProjectDashboard = async (req, res) => {
 }
 exports.miscProjectFinance = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const q = `select single_deal.reference_no, single_deal.sdeal_name, single_deal.work_name, single_deal.city, single_deal.total_price, single_deal.agreement_amount, mis_subtask.*, misc_project_finance.*
+        const q = `select single_deal.sdid, single_deal.reference_no, single_deal.sdeal_name, single_deal.work_name, single_deal.city, single_deal.total_price, single_deal.agreement_amount, mis_subtask.*, misc_project_finance.*
         from misc_project_finance 
         inner join single_deal on single_deal.sdid = misc_project_finance.mdeal_id 
         inner join mis_subtask on mis_subtask.msub_task_id = misc_project_finance.task order by single_deal.sdid desc;`

@@ -4,7 +4,7 @@ const dataUnity = require('../../utils/arrange')
 // All Index routes
 exports.indexDeshboard = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'employee') {
-    const q = `SELECT deals.id ,deals.deal_name,deals.reference_no,deals.work_name, normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline
+    const q = `SELECT deals.id ,deals.deal_name,deals.reference_no,deals.work_name,deals.np_deadline ,normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline
     FROM deals 
     INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id 
     INNER JOIN task ON normal_project_cat.category_id = task.task_id 
@@ -31,7 +31,7 @@ exports.indexDeshboard = async (req, res) => {
 //---Misc project page Controll -----
 exports.renderMiscProjectDashboard = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'employee') {
-        const q = `select single_deal.reference_no, single_deal.contact, single_deal.email, single_deal.sdeal_name, single_deal.work_name, single_deal.agreement_amount, single_deal.total_price, single_deal.city, misc_project_subtask.mstask_id, misc_project_subtask.mdeal_id, mis_subtask.msub_task_name, misc_project_subtask.mstask_status, misc_project_subtask.dateofdeadline 
+        const q = `select single_deal.reference_no, single_deal.contact, single_deal.email, single_deal.sdeal_name,single_deal.mp_deadline, single_deal.work_name, single_deal.agreement_amount, single_deal.total_price, single_deal.city, misc_project_subtask.mstask_id, misc_project_subtask.mdeal_id, mis_subtask.msub_task_name, misc_project_subtask.mstask_status, misc_project_subtask.dateofdeadline 
         from misc_project_subtask 
         inner join single_deal on single_deal.sdid = misc_project_subtask.mdeal_id 
         inner join mis_subtask on mis_subtask.msub_task_id = misc_project_subtask.mstask_id order by single_deal.sdid desc;`
