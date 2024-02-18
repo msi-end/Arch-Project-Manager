@@ -150,8 +150,8 @@ exports.insertNewMiscDeal = async (req, res) => {
                         })
                     }
                     const mdealId = response.insertId
-                    const finTableData = [mdealId, req.body.TotalAm, Number(req.body.task)]
-                    const qTonpf = `insert into misc_project_finance (mdeal_id, totalamount, task) values (?, ?, ?)`
+                    const finTableData = [mdealId, req.body.TotalAm, Number(req.body.task), req.body.agreementAm]
+                    const qTonpf = `insert into misc_project_finance (mdeal_id, totalamount, task, amount_got) values (?, ?, ?, ?)`
                     conn.query(qTonpf, finTableData, (err3, response3) => {
                         if (err3) {
                             return conn.rollback(function () {
@@ -190,7 +190,7 @@ exports.insertNewMiscDeal = async (req, res) => {
 //---normal projects controll-------
 exports.renderNormalProjectFinance = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const q = `SELECT deals.id, deals.reference_no, deals.city, deals.deal_name, deals.split, normal_projects_finance.task, task.task_name, normal_projects_finance.totalamount, normal_projects_finance.amount_got FROM normal_projects_finance INNER JOIN deals ON deals.id = normal_projects_finance.ndeal_id INNER JOIN task ON task.task_id = normal_projects_finance.task;`
+        const q = `SELECT deals.id, deals.reference_no, deals.city, deals.deal_name, deals.split, normal_projects_finance.task, task.task_name, normal_projects_finance.totalamount, normal_projects_finance.amount_got, normal_projects_finance.modeofpay FROM normal_projects_finance INNER JOIN deals ON deals.id = normal_projects_finance.ndeal_id INNER JOIN task ON task.task_id = normal_projects_finance.task;`
         await db.query(q, (err, result) => {
             if (!err) {
                 const grouped = {};
