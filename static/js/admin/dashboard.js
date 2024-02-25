@@ -20,7 +20,7 @@ document.querySelectorAll(`.assign-to`).forEach((item, index) => {
                 })
             }
         }
-       
+
         item.classList.toggle("open");
         let description = item.querySelector(".emp-acc-data");
         let arr = item.querySelector(`.right-arr`);
@@ -79,9 +79,22 @@ async function removeEmpNp(data, type) {
 async function addTaskStatus(target, type, route) {
     let body = null;
     const dataSet = target.parentNode.dataset
-    if (type === 'normal') {body={ status: target.value, dealId: Number(dataSet.ndealid), catId: Number(dataSet.taskid) }
+    if (target.value == 'completed') {
+        target.classList.remove('blue', 'red')
+        target.classList.add('green')
+    } else if (target.value == 'On Progress') {
+        target.classList.remove('green', 'red')
+        target.classList.add('blue')
+    }else if (target.value == 'Not Started') {
+        target.classList.remove('blue', 'green')
+        target.classList.add('red')
+    } 
+
+    if (type === 'normal') {
+        body = { status: target.value, dealId: Number(dataSet.ndealid), catId: Number(dataSet.taskid) }
     } else {
-    body={ mstask_status: target.value, mdeal_id: Number(dataSet.ndealid), mstask_id: Number(dataSet.taskid), dateofstatus: "28/03/2033", }}
+        body = { mstask_status: target.value, mdeal_id: Number(dataSet.ndealid), mstask_id: Number(dataSet.taskid), dateofstatus: "28/03/2033", }
+    }
     await feature.DEL_UPD(route, "PUT", body)
 }
 
@@ -135,9 +148,13 @@ async function CheckDeadline() {
 function search() {
     var inpValue = document.getElementById('searchQuery').value.toLowerCase();
     var elmCtn = document.querySelectorAll('.accordion-content');
-    elmCtn.forEach(function(e) {var contentText = e.textContent.toLowerCase();
-        if (contentText.includes(inpValue)) {e.style.display = 'block';
-        } else {e.style.display = 'none'; }});}
+    elmCtn.forEach(function (e) {
+        var contentText = e.textContent.toLowerCase();
+        if (contentText.includes(inpValue)) {
+            e.style.display = 'block';
+        } else { e.style.display = 'none'; }
+    });
+}
 CheckDeadline()
 
 

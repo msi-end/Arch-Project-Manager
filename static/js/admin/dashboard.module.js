@@ -45,12 +45,13 @@ class DataCall {
         if (fet.ok) { 
           document.getElementById('loading-container').classList.add('hide')
           this.GET_Notify('Successfully Done', 'Successfull', 'success') } else {
-            document.getElementById('loading-container').classList.add('hide')
+          document.getElementById('loading-container').classList.add('hide')
           this.GET_Notify('Error Recognized', 'Something Error', 'error')
         }
         return res;
       } catch (err) {
         document.getElementById('loading-container').classList.add('hide')
+        this.GET_Notify('Something Error', 'Invalid Request!', 'error')
         throw new Error('request not proceed !' + err.message)
       }
     } else {

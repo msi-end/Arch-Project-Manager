@@ -12,7 +12,7 @@
 
 </head>
 <%- include('../partials/employee/header.ejs') %>
-    <main class="main" data-app-id="<%=  empId %>">
+    <main class="main" data-app-id="<%= empId %>">
         <!------------- DATA-OVERALL-------------  -->
         <div class="main-data flex">
             <!-- -------TOTAL PROJECTS--------- -->
@@ -80,7 +80,11 @@
                 </span>
             </div>
         </div>
-
+         <!-- -----------buttons------------ -->
+         <div class="flex">
+            <button class="btn" data-myid="<%= empId %>" onclick="filterMyProjects(this, 'normal')">My Projects</button>
+            <button class="btn" data-myid="<%= empId %>" onclick="window.location.reload()">ALL Projects</button>
+        </div>
         <!-- ----------- DATA TABLE----------- -->
         <div class="data-info box">
             <!-- headings -->

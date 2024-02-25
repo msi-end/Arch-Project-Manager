@@ -78,6 +78,7 @@ exports.insertNewNormalDeal = async (req, res) => {
 
                 conn.query(qTodeal, dealsTableData, (err1, response) => {
                     if (err1) {
+                        res.status(500).send({msg: "something error occured"})
                         return conn.rollback(function () {
                             throw err1;
                         })
@@ -87,11 +88,12 @@ exports.insertNewNormalDeal = async (req, res) => {
                     const catTableData = []
                     req.body.task.forEach((ask) => {
                         const taskNum = Number(ask)
-                        catTableData.push([dealId, taskNum, '25/09/2023'])
+                        catTableData.push([dealId, taskNum, 'not set yet'])
                     })
                     const qTonpc = `insert into normal_project_cat (ndeal_id, category_id, dateofdeadline) values ?`
                     conn.query(qTonpc, [catTableData], (err2, response2) => {
                         if (err2) {
+                            res.status(500).send({msg: "something error occured"})
                             return conn.rollback(function () {
                                 throw err2;
                             })
@@ -106,12 +108,14 @@ exports.insertNewNormalDeal = async (req, res) => {
                         const qTonpf = `insert into normal_projects_finance (ndeal_id, totalamount, task) values ?`
                         conn.query(qTonpf, [finTableData], (err3, response3) => {
                             if (err3) {
+                                res.status(500).send({msg: "something error occured"})
                                 return conn.rollback(function () {
                                     throw err3;
                                 })
                             }
                             conn.commit(function (errC) {
                                 if (errC) {
+                                    res.status(500).send({msg: "something error occured"})
                                     return conn.rollback(function () {
                                         throw errC;
                                     });
@@ -230,7 +234,7 @@ exports.renderNormalProjectForm = async (req, res) => {
 //---Misc project page Controll -----
 exports.renderMiscProjectDashboard = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const q = `select single_deal.reference_no, single_deal.contact, single_deal.email, single_deal.sdeal_name, single_deal.work_name, single_deal.agreement_amount, single_deal.total_price, single_deal.city, misc_project_subtask.mstask_id, misc_project_subtask.mdeal_id, mis_subtask.msub_task_name, misc_project_subtask.mstask_status, misc_project_subtask.dateofdeadline 
+        const q = `select single_deal.sdid, single_deal.reference_no, single_deal.contact, single_deal.email, single_deal.sdeal_name, single_deal.work_name, single_deal.agreement_amount, single_deal.total_price, single_deal.city, single_deal.mp_deadline, misc_project_subtask.mstask_id, misc_project_subtask.mdeal_id, mis_subtask.msub_task_name, misc_project_subtask.mstask_status, misc_project_subtask.dateofdeadline 
         from misc_project_subtask 
         inner join single_deal on single_deal.sdid = misc_project_subtask.mdeal_id 
         inner join mis_subtask on mis_subtask.msub_task_id = misc_project_subtask.mstask_id order by single_deal.sdid desc;`
