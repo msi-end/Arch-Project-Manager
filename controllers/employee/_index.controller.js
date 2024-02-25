@@ -1,7 +1,7 @@
 const db = require('../../config/db.config')
 const dataUnity = require('../../utils/arrange')
 
-// All Index routes
+// All Index routes are here
 exports.indexDeshboard = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'employee') {
     const q = `SELECT deals.id ,deals.deal_name,deals.reference_no,deals.work_name,deals.np_deadline ,normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline
