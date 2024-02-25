@@ -129,7 +129,7 @@ async function CheckDeadline() {
     var [y, m, d] = [crDate.getFullYear(), (crDate.getMonth() + 1).toString().padStart(2, '0'), crDate.getDate().toString().padStart(2, '0')]
     let today = new Date(`${y}/${m}/${d}`)
     let upcDate = new Date(today.valueOf() + 24 * 60 * 60 * 1000 * 10)
-    // let upcDate = new Date('2026/06/12')
+    // let upcDate = new Date('2024/03/05')
     for (const e of ctn) {
         let status = e.querySelector('.stat').innerText
         let date = date_Split(e.querySelector('.emp_date').innerText, '/', false).replaceAll('-', '/')
