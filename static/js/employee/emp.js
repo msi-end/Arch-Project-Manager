@@ -208,3 +208,13 @@ async function setUserWorkInfo() {
     StatusCtn[2].children[0].innerText = pageChecker ? res.data[2][0].num_task_completed : res.data[0][0].num_cats_completed
 }
 setUserWorkInfo()
+
+async function filterMyProjects(target, type) {
+    const fet = await req.GET_POST(`/apiv1/get-my-id-project?emid=${target.dataset.myid}&type=${type?'normal':'misc'}`, 'GET')
+    const dataBox = document.querySelectorAll('.accordion-content')
+    dataBox.forEach((actualData)=>{
+        if (fet.data.find(element => element.dealid === Number(actualData.dataset.ndealid))) {
+            actualData.classList.remove('hide')
+        }else {actualData.classList.add('hide')}
+    })   
+}

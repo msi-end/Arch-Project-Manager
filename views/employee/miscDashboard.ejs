@@ -60,7 +60,10 @@
             <!-- <div class="misContainer">
                 <h4 class="uppercase">Miscellaneous Project</h4>
             </div> -->
-
+            <div class="flex">
+                <button class="btn" data-myid="<%= empId %>" onclick="filterMyProjects(this, null)">My Projects</button>
+                <button class="btn" data-myid="<%= empId %>" onclick="window.location.reload()">ALL Projects</button>
+            </div>
             <div class="data-info box">
                 <!-- headings -->
                 <div class="info-head grid">
