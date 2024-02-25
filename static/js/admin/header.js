@@ -75,3 +75,13 @@ function openNotification(){
     document.querySelector(`.notification-list`).classList.toggle(`hide`);
     document.querySelector(`.notification`).classList.toggle(`active`);
 }
+
+function darkMode(){
+    document.querySelector(`body`).classList.toggle(`dark`);
+    document.querySelector(`#sun`).classList.toggle(`hide`);
+    document.querySelector(`#moon`).classList.toggle(`hide`);
+}
+function saveData(){
+    localStorage.setItem('data', darkMode());
+}
+saveData();
