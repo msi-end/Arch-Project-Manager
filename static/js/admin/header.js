@@ -76,12 +76,30 @@ function openNotification(){
     document.querySelector(`.notification`).classList.toggle(`active`);
 }
 
-function darkMode(){
-    document.querySelector(`body`).classList.toggle(`dark`);
-    document.querySelector(`#sun`).classList.toggle(`hide`);
-    document.querySelector(`#moon`).classList.toggle(`hide`);
+let darkMode = localStorage.getItem("mode");
+let toggle = document.querySelector(`.theme-toggler`);
+
+function enableDarkMode(){
+    document.querySelector(`body`).classList.add(`dark`);
+    document.querySelector(`#sun`).classList.remove(`hide`)
+    document.querySelector(`#moon`).classList.add(`hide`);
+    localStorage.setItem("mode", "dark")
 }
-function saveData(){
-    localStorage.setItem('data', darkMode());
+function disableDarkMode(){
+    document.querySelector(`body`).classList.remove(`dark`);
+    document.querySelector(`#sun`).classList.add(`hide`);
+    document.querySelector(`#moon`).classList.remove(`hide`);
+    localStorage.setItem("mode", "light")
 }
-saveData();
+if(darkMode ==="dark"){
+    enableDarkMode();
+}
+toggle.addEventListener("click", (e) =>{
+    darkMode = localStorage.getItem("mode");
+    if(darkMode === "dark"){
+        enableDarkMode()
+        
+    }else if(darkMode === 'light'){
+        disableDarkMode()
+    }
+})

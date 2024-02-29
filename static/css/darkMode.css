@@ -15,7 +15,7 @@ body.dark{
     --primary-bg: hsl(260, 54%, 45%);
     --primary-bgr: hsl(260, 54%, 25%);
 
-    --secondary-color: hsl(208, 100%, 15%);
+    --secondary-color: hsl(208, 100%, 50%);
     --sec-outline: hsla(208, 79%, 51%, 0.2);
     --sec-light-color: hsl(210, 48%, 49%);
     --sec-bg: hsl(208, 79%, 93%);
