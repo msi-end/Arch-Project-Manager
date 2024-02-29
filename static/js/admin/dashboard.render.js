@@ -94,7 +94,65 @@ deadDrop = async (target) => {
     dropDownTarget.classList.toggle(`active`)
 }
 
-
+editProject = async (target) =>{
+    document.getElementsByClassName('main')[0].classList.add('flow');
+    const mainDrop = document.querySelector(`.main-dropdown`);
+    mainDrop.innerHTML = ''
+    const subPopupBox = `<div class="edit-menu common_dropdown">
+    <form action="">
+        <h4 class="uppercase">contact details</h4>
+        <div class="edit-grid">
+            <div class="field">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="ename" placeholder="e.g.: Pragyan Tamuli">
+            </div>
+            <div class="field">
+                <label for="cnumber">Phone Number</label>
+                <input type="text" name="econtact" id="enumber" placeholder="e.g.: 9874561230">
+            </div>
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="text" name="egmail" id="egmail" placeholder="e.g.: ebah@gmail.com">
+            </div>
+            <div class="field">
+                <label for="address">Address</label>
+                <input type="text" name="ecity" id="eaddress">
+            </div>
+        </div>
+        <h4 class="uppercase">project details</h4>
+        <div class="edit-grid">
+            <div class="field">
+                <label for="ref">Reference No</label>
+                <input type="text" name="eref" id="eref">
+            </div>
+            <div class="field">
+                <label for="workName">Name of The Project</label>
+                <input type="text" name="ework" id="ework">
+            </div>
+            <div class="field">
+                <label for="amount">Total Amount</label>
+                <input type="text" name="etotal" id="eamount" placeholder="&#8377;">
+            </div>
+            <div class="field">
+                <label for="amount">Advance Amount</label>
+                <input type="text" name="eagre" id="eaamount" placeholder="&#8377;">
+            </div>
+            <div class="field">
+                <label for="amount">Project deadline</label>
+                <input type="text" name="edeadline" id="" placeholder="dd/mm/yyyy, Eg:01/06/2024">
+            </div>
+        </div>
+        <div class="drop-btn flex">
+            <button type="button" class="uppercase">Update</button>
+            <button type="button" class="uppercase" onclick="hideMainDropdown()">Cancel</button>
+        </div>
+    </form>
+</div>`
+    mainDrop.innerHTML = subPopupBox
+    mainDrop.classList.toggle(`active`)
+    const dropDownTarget = document.querySelector(`.edit-menu`)
+    dropDownTarget.classList.toggle(`active`)
+}
 
 
 
