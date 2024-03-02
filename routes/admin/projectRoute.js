@@ -23,8 +23,6 @@ api.get('/ngetProjectStatus', pmNormalAPI.getProjectsStaus)
 api.get('/nIsProjectPaid', pmNormalAPI.getCheckCompletedUnpaid)
 
 
-
-
 //=================MISC PROJECT ROUTE==========================
 api.get('/get-misc-emp/:dealId/:subtaskId', pmMiscAPI.getEmpListPerMiscProject)
 api.post('/add-employee-to-miscproject', pmMiscAPI.addEmployeeToMisc)
@@ -37,6 +35,13 @@ api.get('/employee-misc/:dealId/:catId', pmMiscAPI.getEmployListPerProject)
 api.put('/update-misctask-status', pmMiscAPI.updateMiscTaskStatus)
 api.get('/mgetProjectStatus', pmMiscAPI.getProjectsStaus)
 api.get('/mIsProjectPaid', pmMiscAPI.getCheckCompletedUnpaid)
+
+// -----Update task route for bith normal and misc task-----
+
+api.get('/get-data-update', pmNormalAPI.getDataToUpdate)
+api.put('/np-data-update', pmNormalAPI.UpdateNormalProjectData)
+api.put('/misc-data-update', pmNormalAPI.UpdateMiscProjectData)
+
 
 
 

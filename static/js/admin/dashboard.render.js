@@ -94,59 +94,60 @@ deadDrop = async (target) => {
     dropDownTarget.classList.toggle(`active`)
 }
 
-editProject = async (target) =>{
+editProject = async (target, type) => {
+    const data = await dataMethod.GET_POST(`apiv1/get-data-update?id=${target.dataset.dealid}&type=${type}`, 'GET');
     document.getElementsByClassName('main')[0].classList.add('flow');
     const mainDrop = document.querySelector(`.main-dropdown`);
     mainDrop.innerHTML = ''
     const subPopupBox = `<div class="edit-menu common_dropdown">
-    <form action="">
+    <form id="update-detail-form">
         <h4 class="uppercase">contact details</h4>
         <div class="edit-grid">
             <div class="field">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="ename" placeholder="e.g.: Pragyan Tamuli">
+                <input type="text" name="name" id="ename" placeholder="e.g.: Pragyan Tamuli" value="${type == 'normal' ? data.results[0].deal_name : data.results[0].sdeal_name}">
             </div>
             <div class="field">
                 <label for="cnumber">Phone Number</label>
-                <input type="text" name="econtact" id="enumber" placeholder="e.g.: 9874561230">
+                <input type="text" name="econtact" id="enumber" placeholder="e.g.: 9874561230" value="${data.results[0].contact}">
             </div>
             <div class="field">
                 <label for="email">Email</label>
-                <input type="text" name="egmail" id="egmail" placeholder="e.g.: ebah@gmail.com">
+                <input type="text" name="egmail" id="egmail" placeholder="e.g.: ebah@gmail.com" value="${data.results[0].email}">
             </div>
             <div class="field">
                 <label for="address">Address</label>
-                <input type="text" name="ecity" id="eaddress">
+                <input type="text" name="ecity" id="eaddress" value="${data.results[0].city}">
             </div>
         </div>
         <h4 class="uppercase">project details</h4>
         <div class="edit-grid">
             <div class="field">
                 <label for="ref">Reference No</label>
-                <input type="text" name="eref" id="eref">
+                <input type="text" name="eref" id="eref" value="${data.results[0].reference_no}">
             </div>
             <div class="field">
                 <label for="workName">Name of The Project</label>
-                <input type="text" name="ework" id="ework">
+                <input type="text" name="ework" id="ework" value="${data.results[0].work_name}">
             </div>
             <div class="field">
                 <label for="amount">Total Amount</label>
-                <input type="text" name="etotal" id="eamount" placeholder="&#8377;">
+                <input type="text" name="etotal" id="eamount" placeholder="&#8377;" value="${data.results[0].total_price}">
             </div>
             <div class="field">
                 <label for="amount">Advance Amount</label>
-                <input type="text" name="eagre" id="eaamount" placeholder="&#8377;">
+                <input type="text" name="eagre" id="eaamount" placeholder="&#8377;" value="${data.results[0].agreement_amount}">
             </div>
             <div class="field">
                 <label for="amount">Project deadline</label>
-                <input type="text" name="edeadline" id="" placeholder="dd/mm/yyyy, Eg:01/06/2024">
+                <input type="text" name="edeadline" id="" placeholder="dd/mm/yyyy, Eg:01/06/2024"  value="${type == 'normal' ? data.results[0].np_deadline : data.results[0].mp_deadline}">
             </div>
         </div>
-        <div class="drop-btn flex">
-            <button type="button" class="uppercase">Update</button>
-            <button type="button" class="uppercase" onclick="hideMainDropdown()">Cancel</button>
-        </div>
     </form>
+    <div class="drop-btn flex">
+    <button type="button" data-dealid="${type == 'normal' ? data.results[0].id : data.results[0].sdid}" class="uppercase" onclick="UpdateProjectDetails(this, '${type}')">Update</button>
+    <button type="button" class="uppercase" onclick="hideMainDropdown()">Cancel</button>
+</div>
 </div>`
     mainDrop.innerHTML = subPopupBox
     mainDrop.classList.toggle(`active`)
@@ -154,8 +155,14 @@ editProject = async (target) =>{
     dropDownTarget.classList.toggle(`active`)
 }
 
-
-
+async function UpdateProjectDetails(target, type) {
+    const formUpdate = new FormData(document.getElementById('update-detail-form'))
+    formUpdate.append('dealid', target.dataset.dealid)
+    if (type=='normal') { await dataMethod.GET_POST('apiv1/np-data-update', 'PUT', formUpdate, 'form');
+    } else { await dataMethod.GET_POST('apiv1/misc-data-update', 'PUT', formUpdate, 'form'); }
+    hideMainDropdown()
+   
+}
 
 function hideMainDropdown(event) {
     document.getElementsByClassName('main')[0].classList.remove('flow');
