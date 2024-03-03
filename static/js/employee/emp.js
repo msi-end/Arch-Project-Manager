@@ -153,11 +153,21 @@ document.querySelectorAll(`.assign-to`).forEach((item, index) => {
     header.addEventListener("click", async () => {
         const renderId = item.querySelector('#emp-in-np')
         renderId.innerHTML = ''
-        const empNp = await req.GET_POST(location.href.match('/m') !== null ? `/apiv1/employee-misc/${item.dataset.ndealid}/${item.dataset.taskid}` : `/apiv1/employee/${item.dataset.ndealid}/${item.dataset.taskid}`, 'GET');
-        empNp.forEach((item) => {
-            const html = location.href.match('/m') !== null ? `<li class="add-empl"><span>${item.name}</span>` : `<li class="add-empl"><span>${item.name}</span></li>`
-            renderId.innerHTML += html;
-        })
+        if (item.classList.contains("open") != true){
+            if (item.dataset.taskid){
+                const empNp = await req.GET_POST(`/apiv1/employee/${item.dataset.ndealid}/${item.dataset.taskid}`, 'GET');
+                empNp.forEach((item) => {
+                    const html = `<li class="add-empl"><span>${item.name}</span>`
+                    renderId.innerHTML += html
+                })
+            }else{
+                const empMp = await feature.GET_POST(`apiv1/employee-misc/${item.dataset.ndealid}/${item.dataset.staskid}`, 'GET');
+                empMp.forEach((item) => {
+                    const html = `<li class="add-empl"><span>${item.name}</span></li>`
+                    renderId.innerHTML += html
+            })
+        }
+        }
         item.classList.toggle("open");
         let description = item.querySelector(".emp-acc-data");
         let arr = item.querySelector(`.right-arr`);
