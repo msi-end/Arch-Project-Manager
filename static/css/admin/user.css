@@ -257,7 +257,7 @@
     font-weight: 500;
     line-height: 1.6;
     width: 80%;
-    height: 24px;
+    height: 22px;
     overflow: hidden;
 }
 :is(.user-status) p,

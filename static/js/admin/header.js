@@ -77,29 +77,31 @@ function openNotification(){
 }
 
 let darkMode = localStorage.getItem("mode");
-let toggle = document.querySelector(`.theme-toggler`);
+const toggle = document.querySelector(`.theme-toggler`);
 
-function enableDarkMode(){
-    document.querySelector(`body`).classList.add(`dark`);
+const enableDarkMode = () =>{
+    document.body.classList.add(`dark`);
     document.querySelector(`#sun`).classList.remove(`hide`)
     document.querySelector(`#moon`).classList.add(`hide`);
     localStorage.setItem("mode", "dark")
 }
-function disableDarkMode(){
-    document.querySelector(`body`).classList.remove(`dark`);
+const disableDarkMode = () =>{
+    document.body.classList.remove(`dark`);
     document.querySelector(`#sun`).classList.add(`hide`);
     document.querySelector(`#moon`).classList.remove(`hide`);
-    localStorage.setItem("mode", "light")
+    localStorage.setItem("mode", null)
 }
 if(darkMode ==="dark"){
     enableDarkMode();
 }
-toggle.addEventListener("click", (e) =>{
+toggle.addEventListener("click", () =>{
     darkMode = localStorage.getItem("mode");
-    if(darkMode === "dark"){
+    if(darkMode !== "dark"){
         enableDarkMode()
-        
-    }else if(darkMode === 'light'){
+        console.log(darkMode);
+    }else{
         disableDarkMode()
+        console.log(darkMode);
+
     }
 })

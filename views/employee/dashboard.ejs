@@ -9,6 +9,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="/css/employee/main.css">
     <link rel="stylesheet" href="/css/employee/responsive.css">
+    <link rel="stylesheet" href="/css/employee/darkMode.css">
 
 </head>
 <%- include('../partials/employee/header.ejs') %>
@@ -81,9 +82,9 @@
             </div>
         </div>
          <!-- -----------buttons------------ -->
-         <div class="flex">
-            <button class="btn" data-myid="<%= empId %>" onclick="filterMyProjects(this, 'normal')">My Projects</button>
-            <button class="btn" data-myid="<%= empId %>" onclick="window.location.reload()">ALL Projects</button>
+         <div class="project-btns">
+            <button class="uppercase" data-myid="<%= empId %>" onclick="filterMyProjects(this, 'normal')">My Projects</button>
+            <button class="uppercase" data-myid="<%= empId %>" onclick="window.location.reload()">ALL Projects</button>
         </div>
         <!-- ----------- DATA TABLE----------- -->
         <div class="data-info box">
