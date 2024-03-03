@@ -184,9 +184,55 @@ exports.getProjectsStaus = (req, res) => {
 exports.getCheckCompletedUnpaid = async (req, res) => {
   const { dealId, catId } = req.params
   const q = `SELECT * FROM( SELECT deals.id as id, deals.deal_name,deals .reference_no , deals.total_price,SUM(normal_projects_finance.amount_got) as amount_got FROM deals INNER JOIN normal_projects_finance ON normal_projects_finance.ndeal_id=deals.id) AS one INNER JOIN (SELECT id, CASE WHEN COUNT(DISTINCT project_status) = 1 AND MAX(project_status) = 'completed' THEN 'completed' ELSE 'pending' END AS project_status FROM ( SELECT deals.id, normal_project_cat.project_status FROM deals INNER JOIN normal_project_cat ON deals.id = normal_project_cat.ndeal_id ) AS subquery GROUP BY id) AS two on one.id =two.id WHERE project_status='completed' `
-  databaseCon.query(q, (err, results) => {
+  await databaseCon.query(q, (err, results) => {
     if (!err) {
       res.status(200).send(results);
     } else { res.status(500).send({ msg: "Something went wrong!" }) }
+  })
+}
+
+// Update Normal and Misc task Controllers---
+
+exports.getDataToUpdate = async (req, res) => {
+   let q = req.query.type == "normal" ? `SELECT * FROM deals WHERE id = ${req.query.id}` : `SELECT * FROM single_deal WHERE sdid = ${req.query.id}`
+   await databaseCon.query(q, (err, results)=>{
+     if (!err) {
+       res.status(200).send({results})
+     }else{
+      res.status(500).send({msg : "Internal Server Error!"})
+     }
+   })
+}
+
+exports.UpdateNormalProjectData = async (req, res)=>{
+   const q = `UPDATE deals SET deal_name=?, reference_no=?, contact=?, agreement_amount=?, work_name=?, email=?, city=?, total_price=?, np_deadline=? WHERE id=${req.body.dealid}`;
+   await databaseCon.query(q, [req.body.name, req.body.eref, req.body.econtact, req.body.eagre, req.body.ework, req.body.egmail, req.body.ecity, req.body.etotal, req.body.edeadline], async (err, result)=>{
+     if (!err) { 
+      const q2 = `UPDATE normal_projects_finance SET totalamount = ? WHERE ndeal_id = ${req.body.dealid}`;
+      await databaseCon.query(q2, [req.body.etotal], (err2, result)=>{
+         if (!err2) {
+          res.status(200).send({msg : "successfull update!"})
+         }else {
+          res.status(500).send({msg: "Something Error Occured!"}); return;
+         }
+      })
+     } else { res.status(500).send({msg: "Something Error Occured!"}) }
+   })
+  
+}
+
+exports.UpdateMiscProjectData = async (req, res)=>{
+  const q = `UPDATE single_deal SET sdeal_name=?, reference_no=?, contact=?, agreement_amount=?, work_name=?, email=?, city=?, total_price=?, mp_deadline=? WHERE sdid=${req.body.dealid}`;
+  await databaseCon.query(q, [req.body.name, req.body.eref, req.body.econtact, req.body.eagre, req.body.ework, req.body.egmail, req.body.ecity, req.body.etotal, req.body.edeadline], async (err, result)=>{
+    if (!err) { 
+     const q2 = `UPDATE misc_project_finance SET totalamount = ? WHERE mdeal_id = ${req.body.dealid}`;
+     await databaseCon.query(q2, [req.body.etotal], (err2, result)=>{
+        if (!err2) {
+         res.status(200).send({msg : "successfull update!"})
+        }else {console.log(err2);
+         res.status(500).send({msg: "Something Error Occured!"}); return;
+        }
+     })
+    } else {console.log(err); res.status(500).send({msg: "Something Error Occured!"}) }
   })
 }

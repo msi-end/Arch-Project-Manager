@@ -106,6 +106,27 @@ class DataCall {
         this.GET_Notify('Something Error', 'Invalid Request!', 'error')
         throw new Error('request not proceed !' + err.message)
       }
+    } else if (type && type == 'form' && body != undefined) {
+      try {
+        document.getElementById('loading-container').classList.remove('hide')
+        const payload = new URLSearchParams(body);
+        const fet = await fetch(this.urlHead + url, {
+          method: method,
+          body: payload
+        })
+        const res = await fet.json()
+        if (fet.ok) { 
+          document.getElementById('loading-container').classList.add('hide')
+          this.GET_Notify('Successfully Done', 'Successfull', 'success') } else {
+          document.getElementById('loading-container').classList.add('hide')
+          this.GET_Notify('Error Recognized', 'Something Error', 'error')
+        }
+        return res;
+      } catch (err) {
+        document.getElementById('loading-container').classList.add('hide')
+        this.GET_Notify('Something Error', 'Invalid Request!', 'error')
+        throw new Error('request not proceed !' + err.message)
+      }
     }
   }
 
@@ -149,11 +170,7 @@ class DataCall {
         newItem.append(key, Number(target[key]))
       }
     })
-    if (Exdata) {
-      for (const x in Exdata) {
-        newItem.append(x, Exdata[x])
-      }
-    }
+    if (Exdata) { for (const x in Exdata) { newItem.append(x, Exdata[x])}}
     await this.GET_POST(url, 'POST', newItem, 'form')
     if (fun) { fun(); }
   }
