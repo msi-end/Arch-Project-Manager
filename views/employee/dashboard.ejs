@@ -9,10 +9,11 @@
     <!-- CSS -->
     <link rel="stylesheet" href="/css/employee/main.css">
     <link rel="stylesheet" href="/css/employee/responsive.css">
+    <link rel="stylesheet" href="/css/employee/darkMode.css">
 
 </head>
 <%- include('../partials/employee/header.ejs') %>
-    <main class="main" data-app-id="<%=  empId %>">
+    <main class="main" data-app-id="<%= empId %>">
         <!------------- DATA-OVERALL-------------  -->
         <div class="main-data flex">
             <!-- -------TOTAL PROJECTS--------- -->
@@ -80,7 +81,11 @@
                 </span>
             </div>
         </div>
-
+         <!-- -----------buttons------------ -->
+         <div class="project-btns">
+            <button class="uppercase" data-myid="<%= empId %>" onclick="filterMyProjects(this, 'normal')">My Projects</button>
+            <button class="uppercase" data-myid="<%= empId %>" onclick="window.location.reload()">ALL Projects</button>
+        </div>
         <!-- ----------- DATA TABLE----------- -->
         <div class="data-info box">
             <!-- headings -->

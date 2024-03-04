@@ -19,7 +19,7 @@
         }else if (arg == 'Structural') {
             const val = (ratioo[1] / 10 ) * task.totalamount;
             return val;
-        }else if (arg == '3D Design') {
+        }else if (arg == 'Design') {
             const val = (ratioo[2] / 10 ) * task.totalamount;
             return val; 
         }
@@ -36,11 +36,10 @@
                 <!-- <%= task.task_name == 'structural'? (ratio[1] / 10 ) * task.totalamount : '' %>
                 <%= task.task_name == 'Design'? (ratio[2] / 10 ) * task.totalamount : '' %> -->
             </span>/-</p>
-
         </div>
         <div class="sadv">
             <p class="uppercase phead">advance</p>
-            <p class="uppercase teamou">&#8377;<span><%= task.amount_got ? task.amount_got : "_ _ _ _ _ " %></span> /-</p>
+            <p class="uppercase teamou">&#8377;<span><%= task.amount_got ? task.amount_got : "_ _ _ _ _ " %></span> /- <span class="maka"> <%= task.modeofpay ? task.modeofpay : "" %></span></p>
         </div>
         <div class="sblnc">
             <p class="uppercase phead">balance</p>

@@ -75,3 +75,33 @@ function openNotification(){
     document.querySelector(`.notification-list`).classList.toggle(`hide`);
     document.querySelector(`.notification`).classList.toggle(`active`);
 }
+
+let darkMode = localStorage.getItem("mode");
+const toggle = document.querySelector(`.theme-toggler`);
+
+const enableDarkMode = () =>{
+    document.body.classList.add(`dark`);
+    document.querySelector(`#sun`).classList.remove(`hide`)
+    document.querySelector(`#moon`).classList.add(`hide`);
+    localStorage.setItem("mode", "dark")
+}
+const disableDarkMode = () =>{
+    document.body.classList.remove(`dark`);
+    document.querySelector(`#sun`).classList.add(`hide`);
+    document.querySelector(`#moon`).classList.remove(`hide`);
+    localStorage.setItem("mode", null)
+}
+if(darkMode ==="dark"){
+    enableDarkMode();
+}
+toggle.addEventListener("click", () =>{
+    darkMode = localStorage.getItem("mode");
+    if(darkMode !== "dark"){
+        enableDarkMode()
+        console.log(darkMode);
+    }else{
+        disableDarkMode()
+        console.log(darkMode);
+
+    }
+})

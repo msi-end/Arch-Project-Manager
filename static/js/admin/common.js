@@ -80,9 +80,7 @@ function pageFunWithCursor(type) {
                 document.getElementById('way-2').style.display = `none`
             }
             document.getElementById('2num').style.display = "none"
-            document.querySelectorAll('.pagin').forEach((el) => {
-                el.style.display = `flex`
-            })
+            document.querySelectorAll('.pagin').forEach((el) => { el.style.display = `flex`})
             if (toData == 3) { document.getElementById('way-1').style.display = `none` }
             if (Number(pageNo) + 1 < lastPageNo) {
                 document.getElementById('f-box').innerHTML = Number(pageNo) - 1

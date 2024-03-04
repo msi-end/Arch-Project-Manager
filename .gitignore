@@ -1,5 +1,5 @@
 /node_modules
 # /.env.production
-# /.env.development
+/.env.development
 /src/storage/error.log
 /sessions/loginAuth.db
