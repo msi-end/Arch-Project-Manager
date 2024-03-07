@@ -41,9 +41,9 @@ function setUserToMdl_pwd(e, elm) {
     pwdCtn.children[0].dataset.id = ParentElm.querySelector('.flex-box').dataset.id
 }
 function Opn_UserCtn(e, elm) {
-    if (document.documentElement.clientWidth < 480) {
-        document.getElementsByClassName('main')[0].classList.add('glow');
-    } else { document.getElementsByClassName('main')[0].classList.add('flow'); }
+    // if (document.documentElement.clientWidth < 480) {
+    //     document.getElementsByClassName('main')[0].classList.add('glow');
+    // } else { document.getElementsByClassName('main')[0].classList.add('flow'); }
     (document.querySelector(`${e}`)).classList.remove(`hide`);
     e == '.uprofile-settings' ? setUserToModel(elm) : null
 }
