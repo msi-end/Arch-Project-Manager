@@ -14,9 +14,9 @@ function Disable_BtnHandler(e, ep) {
     }
 }
 function setUserToModel(e) {
-    if (document.documentElement.clientWidth < 480) {
-        document.getElementsByClassName('main')[0].classList.add('glow');
-    } else { document.getElementsByClassName('main')[0].classList.add('flow'); }
+    // if (document.documentElement.clientWidth < 480) {
+    //     document.getElementsByClassName('main')[0].classList.add('glow');
+    // } else { document.getElementsByClassName('main')[0].classList.add('flow'); }
     let usrCtn = e.parentElement;
     let uProfileMdl = document.querySelector('.user-profile-settings').children[2]
     uProfileMdl.dataset.id = usrCtn.dataset.id
