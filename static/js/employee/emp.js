@@ -153,11 +153,21 @@ document.querySelectorAll(`.assign-to`).forEach((item, index) => {
     header.addEventListener("click", async () => {
         const renderId = item.querySelector('#emp-in-np')
         renderId.innerHTML = ''
-        const empNp = await req.GET_POST(location.href.match('/m') !== null ? `/apiv1/employee-misc/${item.dataset.ndealid}/${item.dataset.taskid}` : `/apiv1/employee/${item.dataset.ndealid}/${item.dataset.taskid}`, 'GET');
-        empNp.forEach((item) => {
-            const html = location.href.match('/m') !== null ? `<li class="add-empl"><span>${item.name}</span>` : `<li class="add-empl"><span>${item.name}</span></li>`
-            renderId.innerHTML += html;
-        })
+        if (item.classList.contains("open") != true){
+            if (item.dataset.taskid){
+                const empNp = await req.GET_POST(`/apiv1/employee/${item.dataset.ndealid}/${item.dataset.taskid}`, 'GET');
+                empNp.forEach((item) => {
+                    const html = `<li class="add-empl"><span>${item.name}</span>`
+                    renderId.innerHTML += html
+                })
+            }else{
+                const empMp = await feature.GET_POST(`apiv1/employee-misc/${item.dataset.ndealid}/${item.dataset.staskid}`, 'GET');
+                empMp.forEach((item) => {
+                    const html = `<li class="add-empl"><span>${item.name}</span></li>`
+                    renderId.innerHTML += html
+            })
+        }
+        }
         item.classList.toggle("open");
         let description = item.querySelector(".emp-acc-data");
         let arr = item.querySelector(`.right-arr`);
@@ -208,3 +218,43 @@ async function setUserWorkInfo() {
     StatusCtn[2].children[0].innerText = pageChecker ? res.data[2][0].num_task_completed : res.data[0][0].num_cats_completed
 }
 setUserWorkInfo()
+
+async function filterMyProjects(target, type) {
+    const fet = await req.GET_POST(`/apiv1/get-my-id-project?emid=${target.dataset.myid}&type=${type?'normal':'misc'}`, 'GET')
+    const dataBox = document.querySelectorAll('.accordion-content')
+    dataBox.forEach((actualData)=>{
+        if (fet.data.find(element => element.dealid === Number(actualData.dataset.ndealid))) {
+            actualData.classList.remove('hide')
+        }else {actualData.classList.add('hide')}
+    })   
+}
+
+let darkMode = localStorage.getItem("mode");
+const toggle = document.querySelector(`.theme-toggler`);
+
+const enableDarkMode = () =>{
+    document.body.classList.add(`dark`);
+    document.querySelector(`#sun`).classList.remove(`hide`)
+    document.querySelector(`#moon`).classList.add(`hide`);
+    localStorage.setItem("mode", "dark")
+}
+const disableDarkMode = () =>{
+    document.body.classList.remove(`dark`);
+    document.querySelector(`#sun`).classList.add(`hide`);
+    document.querySelector(`#moon`).classList.remove(`hide`);
+    localStorage.setItem("mode", null)
+}
+if(darkMode ==="dark"){
+    enableDarkMode();
+}
+toggle.addEventListener("click", () =>{
+    darkMode = localStorage.getItem("mode");
+    if(darkMode !== "dark"){
+        enableDarkMode()
+        console.log(darkMode);
+    }else{
+        disableDarkMode()
+        console.log(darkMode);
+
+    }
+})

@@ -94,12 +94,29 @@
         display: block;
     }
     .notification{
-        right: 8rem;
+        right: 4.3rem;
+    }
+    .theme-toggler{
+        right: 7rem;
     }
     .profileIcon{
         right: 1rem;
     }
     .logo{
         width: 40px;
+    }
+    .edit-btn{
+        position: absolute;
+        top: 0;
+        right: 10px;
+    }
+    .edit-menu form .field input{
+        font-size: 14px;
+        padding: 0 10px;
+    }
+}
+@media only screen and (max-width : 480px){
+    .notification-list{
+        right: 1rem;
     }
 }

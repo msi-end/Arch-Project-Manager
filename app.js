@@ -35,6 +35,7 @@ const apiRoute = require('./routes/admin/projectRoute.js')
 const EmployeeAuth = require('./routes/employee/auth.js');
 const EmpMainRoute = require('./routes/employee/indexRoutes');
 const EmpNitify = require('./routes/employee/notificationRoute');
+const EmpPmRoute = require('./routes/employee/pm.emproute.js');
 
 // CA
 const caAuth = require('./routes/CA/auth');
@@ -65,6 +66,7 @@ app.use('/apiv1', nitify)
 app.use('/', EmployeeAuth)
 app.use('/', EmpMainRoute)
 app.use('/apiv1', EmpNitify)
+app.use('/apiv1', EmpPmRoute)
 
 // For CA ************
 app.use('/ca', caAuth)

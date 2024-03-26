@@ -14,7 +14,7 @@ function openDick() {
   document.querySelector(`.main-dropdown`).style.display = `block`;
 }
 
-function GetIncExp() { 
+function GetIncExp() {
   let Ctn = document.getElementsByClassName('total_user_data')
   ReqHandler.GET(location.origin + '/admin/finance/get-income-expense').then((res) => {
     if (res.status) {
@@ -44,6 +44,10 @@ async function advOpen(data) {
   maindropDown.innerHTML = ""
   maindropDown.innerHTML = `<div class="finance-dropdown common_dropdown">
         <form id="advanced-form">
+          <div class="flex">
+              <p class="uppercase phead">Advance</p>
+              <input type="text" name="amount_got" id="input-amount">
+          </div>
             <div class="flex">
                 <p class="uppercase phead">payment mode</p>
                 <select name="modeofpay" id="">
@@ -53,7 +57,7 @@ async function advOpen(data) {
             </div>
             <div class="flex">
                 <p class="uppercase phead">Date of payment</p>
-                <input type="text" name="dateofpay" id="" placeholder="dd/mm/yyyy">
+                <input type="text" name="dateofpay" id="input-date" placeholder="dd/mm/yyyy">
             </div>
         </form>
         <div class = "drop-btn flex">
@@ -67,7 +71,7 @@ async function sendRecievedStatus(target) {
   console.log(target.dataset)
   const project = document.getElementById('advanced-form')
   console.log(project.querySelector('input').value);
-  const body = {dateofpay: project.querySelector('input').value, modeofpay: project.querySelector('select').value, mdealid : target.dataset.mdealid, taskid: target.dataset.taskid }
+  const body = { amount_got: project.querySelector('#input-amount').value, dateofpay: project.querySelector('#input-date').value, modeofpay: project.querySelector('select').value, mdealid: target.dataset.mdealid, taskid: target.dataset.taskid }
   const feature = new DataCall();
   await feature.DEL_UPD('admin/finance/update-advancepay-mp', 'PUT', body)
   CloseModel('.main-dropdown')

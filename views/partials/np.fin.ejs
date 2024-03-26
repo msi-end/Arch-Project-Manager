@@ -17,7 +17,8 @@
             &#8377;<span><%= fdata[0].totalamount %></span>/-
         </p>
         <%  const rAmount = fdata?.reduce((acc, curr) => acc + curr.amount_got, 0); %>
-        <p class="totalf none">&#8377;<span><%= rAmount %></span>/-</p>
+        <p class="totalf none">&#8377;<span><%= rAmount %></span>/-
+        <span class="maka">Received</span></p>
         <p class="totalf none">&#8377;<span><%= fdata[0]?.totalamount - rAmount %></span>/-</p>
         <p class="split">
             <span class="uppercase hide block phead">Split ratio</span>
