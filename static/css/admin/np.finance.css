@@ -87,17 +87,16 @@
 .architecture .amount-sub{
     /* display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr)); */
-    display: flex;
+    /* display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-wrap: wrap; */
     margin-top: 8px;
 }
 .amount-sub span.maka{
     font-size: 10px;
 }
 .architecture .amount-sub > div{
-    padding: 8px;
+    padding: 5px;
     border-radius: var(--border-radius-1);
     display: flex;
     flex-direction: column;
@@ -145,7 +144,7 @@
     color: var(--ter-dark-color);
 }
 .adata .architecture .amount-sub p.uppercase{
-    font-size: 13px;
+    font-size: 12px;
     display: flex;
     align-items: center;
 }

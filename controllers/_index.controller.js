@@ -211,9 +211,9 @@ exports.renderNormalProjectFinance = async (req, res) => {
                 const sortedData = arrangeFinance(sortedTasks)
 
                     // console.log(sortedData)
-                 res.status(200).send(sortedData);
+                //  res.status(200).send(sortedData);
 
-                // res.render('../views/admin/np.finance.ejs', { sortedData });
+                res.render('../views/admin/np.finance.ejs', { sortedData });
             } else {
                 res.status(500).send({ msg: "Internal server error!!!" })
             }

@@ -60,3 +60,12 @@ function CloseModel(e) {
     elmCtn.forEach(function(e) {var contentText = e.textContent.toLowerCase();
         if (contentText.includes(inpValue)) {e.style.display = 'block';
         } else {e.style.display = 'none'; }});}
+
+
+ function showAllAmount(target) {
+    target.querySelector('#all-payment').classList.remove('hide')
+ }
+
+ function closeAllAmount(target) {
+    target.querySelector('#all-payment').classList.add('hide')
+ }
