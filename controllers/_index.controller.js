@@ -70,6 +70,7 @@ exports.insertNewNormalDeal = async (req, res) => {
             conn.beginTransaction(function (err) {
                 if (err) {
                     res.status(500).send({msg: "something error occured"})
+                    console.log(err);
                     return;
                 }
                 const dealsTableData = [req.body.name, req.body.rfNo, req.body.contactNo, req.body.agreementAm, req.body.workName, req.body.email, req.body.city, req.body.TotalAm, req.body.npdeadline, req.body.split]
@@ -126,7 +127,7 @@ exports.insertNewNormalDeal = async (req, res) => {
                     })
 
                 })
-
+                conn.release();
             })
         })
 
