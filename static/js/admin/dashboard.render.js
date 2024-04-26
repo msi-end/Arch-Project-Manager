@@ -136,7 +136,7 @@ editProject = async (target, type) => {
             </div>
             <div class="field">
                 <label for="amount">Advance Amount</label>
-                <input type="text" name="eagre" id="eaamount" placeholder="&#8377;" value="${data.results[0].agreement_amount}">
+                <input type="text" name="eagre" id="eaamount" disabled placeholder="&#8377;" value="${data.results[0].agreement_amount}">
             </div>
             <div class="field">
                 <label for="amount">Project deadline</label>
