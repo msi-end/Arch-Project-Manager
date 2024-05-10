@@ -96,6 +96,7 @@ deadDrop = async (target) => {
 
 editProject = async (target, type) => {
     const data = await dataMethod.GET_POST(`apiv1/get-data-update?id=${target.dataset.dealid}&type=${type}`, 'GET');
+    const getSplitVals = await dataMethod.GET_POST(`admin/settings/get-amountsplit`, 'GET');
     document.getElementsByClassName('main')[0].classList.add('flow');
     const mainDrop = document.querySelector(`.main-dropdown`);
     mainDrop.innerHTML = ''
@@ -142,26 +143,37 @@ editProject = async (target, type) => {
                 <label for="amount">Project deadline</label>
                 <input type="text" name="edeadline" id="" placeholder="dd/mm/yyyy, Eg:01/06/2024"  value="${type == 'normal' ? data.results[0].np_deadline : data.results[0].mp_deadline}">
             </div>
+            <div class="field">
+            <label for="splitRatio">Amount Split Ratio</label>
+            <select name="split" id="splitRatio">
+            <option value="${data.results[0].split}" selected >${data.results[0].split}</option>
+            </select>
+        </div>
         </div>
     </form>
     <div class="drop-btn flex">
     <button type="button" data-dealid="${type == 'normal' ? data.results[0].id : data.results[0].sdid}" class="uppercase" onclick="UpdateProjectDetails(this, '${type}')">Update</button>
     <button type="button" class="uppercase" onclick="hideMainDropdown()">Cancel</button>
 </div>
-</div>`
-    mainDrop.innerHTML = subPopupBox
-    mainDrop.classList.toggle(`active`)
-    const dropDownTarget = document.querySelector(`.edit-menu`)
-    dropDownTarget.classList.toggle(`active`)
+</div>`;
+    mainDrop.innerHTML = subPopupBox;
+    (getSplitVals.data).forEach(e => {
+        let newSplit = `<option value="${e.splitvalue}">${e.splitvalue}</option>`
+        document.getElementById('splitRatio').innerHTML += newSplit;
+    });
+    mainDrop.classList.toggle(`active`);
+    const dropDownTarget = document.querySelector(`.edit-menu`);
+    dropDownTarget.classList.toggle(`active`);
 }
 
 async function UpdateProjectDetails(target, type) {
     const formUpdate = new FormData(document.getElementById('update-detail-form'))
     formUpdate.append('dealid', target.dataset.dealid)
-    if (type=='normal') { await dataMethod.GET_POST('apiv1/np-data-update', 'PUT', formUpdate, 'form');
+    if (type == 'normal') {
+        await dataMethod.GET_POST('apiv1/np-data-update', 'PUT', formUpdate, 'form');
     } else { await dataMethod.GET_POST('apiv1/misc-data-update', 'PUT', formUpdate, 'form'); }
     hideMainDropdown()
-   
+
 }
 
 function hideMainDropdown(event) {
