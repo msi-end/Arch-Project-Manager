@@ -1,5 +1,5 @@
 
-<h1 align="center"> # ArchProject </h1>
+<h1 align="center" color='#ce00ff'> ArchProject </h1>
 
 Architectural Project Management System
 =======================================
