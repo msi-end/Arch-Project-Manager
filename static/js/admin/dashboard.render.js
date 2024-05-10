@@ -165,8 +165,7 @@ editProject = async (target, type) => {
     const dropDownTarget = document.querySelector(`.edit-menu`);
     dropDownTarget.classList.toggle(`active`);
     if(location.href.includes('dashboard/misc')){
-        document.getElementsByClassName('field')[9].style.display='none'
-    }
+        document.getElementsByClassName('field')[9].remove();}
 }
 
 async function UpdateProjectDetails(target, type) {
