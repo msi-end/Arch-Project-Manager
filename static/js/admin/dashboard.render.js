@@ -144,11 +144,11 @@ editProject = async (target, type) => {
                 <input type="text" name="edeadline" id="" placeholder="dd/mm/yyyy, Eg:01/06/2024"  value="${type == 'normal' ? data.results[0].np_deadline : data.results[0].mp_deadline}">
             </div>
             <div class="field">
-            <label for="splitRatio">Amount Split Ratio</label>
-            <select name="split" id="splitRatio">
-            <option value="${data.results[0].split}" selected >${data.results[0].split}</option>
-            </select>
-        </div>
+                <label for="splitRatio">Amount Split Ratio</label>
+                <select name="split" id="splitRatio">
+                <option value="${data.results[0].split}" selected >${data.results[0].split}</option>
+                </select>
+            </div>
         </div>
     </form>
     <div class="drop-btn flex">
@@ -164,6 +164,9 @@ editProject = async (target, type) => {
     mainDrop.classList.toggle(`active`);
     const dropDownTarget = document.querySelector(`.edit-menu`);
     dropDownTarget.classList.toggle(`active`);
+    if(location.href.includes('dashboard/misc')){
+        document.getElementsByClassName('field')[9].style.display='none'
+    }
 }
 
 async function UpdateProjectDetails(target, type) {

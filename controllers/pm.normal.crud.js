@@ -205,8 +205,9 @@ exports.getDataToUpdate = async (req, res) => {
 }
 
 exports.UpdateNormalProjectData = async (req, res)=>{
-   const q = `UPDATE deals SET deal_name=?, reference_no=?, contact=?, agreement_amount=?, work_name=?, email=?, city=?, total_price=?,split=?, np_deadline=? WHERE id=${req.body.dealid}`;
-   await databaseCon.query(q, [req.body.name, req.body.eref, req.body.econtact, req.body.eagre, req.body.ework, req.body.egmail, req.body.ecity, req.body.etotal,req.body.split, req.body.edeadline], async (err, result)=>{
+  console.log(req.body);
+   const q = `UPDATE deals SET deal_name=?, reference_no=?, contact=?, work_name=?, email=?, city=?, total_price=?,split=?, np_deadline=? WHERE id=${req.body.dealid}`;
+   await databaseCon.query(q, [req.body.name, req.body.eref, req.body.econtact, req.body.ework, req.body.egmail, req.body.ecity, req.body.etotal,req.body.split, req.body.edeadline], async (err, result)=>{
      if (!err) { 
       const q2 = `UPDATE normal_projects_finance SET totalamount = ? WHERE ndeal_id = ${req.body.dealid}`;
       await databaseCon.query(q2, [req.body.etotal], (err2, result)=>{

@@ -701,7 +701,7 @@
         color: var(--grey);
         font-weight: 500;
 }
-.edit-menu form .field input{
+.edit-menu form .field input,select{
     width: 100%;
   height: 2.5rem;
   border-radius: var(--border-radius-1);
