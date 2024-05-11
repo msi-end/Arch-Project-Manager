@@ -2,7 +2,7 @@ const mysql = require('mysql');
 require('dotenv').config()
 let con = mysql.createPool({
     waitForConnections: true,
-    connectionLimit: 20,
+    connectionLimit: 10,
     idleTimeout: 60000,
     host: process.env.MySQL_host,
     user: process.env.MySQL_user,
