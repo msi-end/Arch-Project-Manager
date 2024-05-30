@@ -45,11 +45,25 @@ function addSubTask() {
             console.log('Error(fn-addTask):', err);
         })
 }
+
+function verifyRatio(value) {
+    const vals = value.value.split(':')
+    if (vals.length === 3) {
+        const sum = vals.reduce((acc, el) => Number(acc) + Number(el))
+        if (sum === 10) { return true
+        } else { return false }    
+    } else {
+        return false;
+    }
+    
+}
 function addSplitRatio() {
     let inputValue = document.getElementById('split-ratio');
     let mainCtn = document.getElementById('2')
     let taskCtn = mainCtn.getElementsByClassName('btasks')[0]
-    ReqHandler.POST(ReqURI.splitRatio, { splitValue: inputValue.value })
+    const verification = verifyRatio(inputValue)
+    if (verification) {
+        ReqHandler.POST(ReqURI.splitRatio, { splitValue: inputValue.value })
         .then((res) => {
             if (res.status == true) {
                 AlertNotifier(res.status, res.msg, 'success');
@@ -64,6 +78,10 @@ function addSplitRatio() {
         }).catch(err => {
             console.log('Error(fn-addTask):', err);
         })
+    } else {
+        alert("Ratio Must be digit & Sum Must be 10")
+    }
+  
 }
 function updateMisctask(elmId, val) {
     let inputValue = document.getElementById('updated_val');
