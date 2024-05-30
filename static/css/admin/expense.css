@@ -88,7 +88,8 @@
     transition: var(--transition-2);
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 5px; 
+    width: auto;
 }
 .expenseheader button:hover {
     opacity: 0.8;
