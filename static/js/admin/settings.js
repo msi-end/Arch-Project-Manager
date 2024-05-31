@@ -79,7 +79,7 @@ function addSplitRatio() {
             console.log('Error(fn-addTask):', err);
         })
     } else {
-        alert("Ratio Must be digit & Sum Must be 10")
+        alert("Ratio Must have 3 value & Sum Must be 10")
     }
   
 }
