@@ -16,7 +16,7 @@ function getMiscTask(params) {
   console.log("Here is your tasks...")
 }
 function checkDeadline_Valid(e){
-  let dataStr = e.value;
+  let dateStr = e.value;
     const pattern = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
     if (!pattern.test(dateStr)) {
         return false;}
