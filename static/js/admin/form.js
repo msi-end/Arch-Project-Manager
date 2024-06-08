@@ -26,9 +26,11 @@ function checkDeadline_Valid(e){
     const year = parseInt(parts[2], 10);
     const date = new Date(year, month, day);
  if (date.getFullYear() === year && date.getMonth() === month && date.getDate() === day) {
-        return true;
+        e.parentElement.children[0].innerText='Project deadline';
+        e.parentElement.children[0].style.color='black';
     } else {
-       // e.parentElement
+        e.parentElement.children[0].innerText='Enter Date correctly';
+        e.parentElement.children[0].style.color='red';
     }
 
 }
