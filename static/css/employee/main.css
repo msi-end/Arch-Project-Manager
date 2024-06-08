@@ -731,13 +731,13 @@ nav .nav-lists svg {
 /* ----------DATA TABLE------------ */
 .grid{
     display: grid;
-    grid-template-columns: 4rem repeat(3, minmax(0, 1fr)) 1.5rem;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) 1.5rem;
     align-items: center;
     justify-items: flex-start;
     /* gap: 10px; */
 }
 .info-head, .info-content p{
-    word-wrap: break-word;
+    word-break: break-word;
 }
 .main .box{
     margin-top: 1rem;

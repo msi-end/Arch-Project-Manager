@@ -106,8 +106,9 @@
 .expenseheader .btn svg{
     width: 18px;
 }
-.expenseheader div{
-    flex-wrap: wrap;
+.expenseheader .btn{
+    /* flex-wrap: wrap; */
+    flex-grow: 1;
 }
 /* -------EXPENSE LIST-------- */
 .expense-page{
