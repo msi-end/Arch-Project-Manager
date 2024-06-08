@@ -19,7 +19,8 @@ function checkDeadline_Valid(e){
   let dateStr = e.value;
     const pattern = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
     if (!pattern.test(dateStr)) {
-        return false;}
+        e.parentElement.children[0].innerText='Enter Date correctly';
+        e.parentElement.children[0].style.color='red';}
     const parts = dateStr.split('/');
     const day = parseInt(parts[0], 10);
     const month = parseInt(parts[1], 10) - 1;
