@@ -4,6 +4,8 @@ const pmNormalAPI = require('../../controllers/pm.normal.crud')
 const pmMiscAPI = require('../../controllers/pm.misc.crud')
 
 //-------normal project employee --------
+
+api.get('/delete-project/:id', pmNormalAPI.DeleteNormalProjectData)
 api.get('/employee/:dealId/:catId', pmNormalAPI.getEmployListPerProject)
 api.get('/get-employee', pmNormalAPI.getEmployListToaddOrRemove)
 api.post('/add-employee-to-project', pmNormalAPI.addEmployeeToProject)
