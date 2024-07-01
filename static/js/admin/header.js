@@ -105,3 +105,8 @@ toggle.addEventListener("click", () =>{
 
     }
 })
+
+function clearInput() {
+    document.querySelector(`#searchQuery`).value= "";
+    search()
+}
