@@ -35,7 +35,7 @@
             </span>/-</p>
         </div>
         <% 
-           const amount_rcv = task.amount_rcv.reduce((total, val)=>{
+           const amount_rcv = task.amount_rcv.reduce((total, val)=> {
                 return total + val.amount;
            }, 0)
         %>
@@ -45,7 +45,7 @@
             <div class="hide" id="all-payment">
                 <ul>
                    <% task.amount_rcv.forEach((pay) => { %>
-                    <li>Amount: <span><%= pay.amount %></span> Method: <span><%= pay.mode %></span></li>
+                    <li style="color: var(--secondary-color); font-size: 13px;">Amount: <span><%= pay.amount %>  (<%= pay.mode %>) - <%= pay.date %></span></li>
                   <% }) %>
                 </ul>
             </div>

@@ -28,7 +28,7 @@ function dataUnity(arr) {
 function addAmountAndModeToTask(eachArrofTask, eachTask) {
     eachArrofTask.forEach((element) => {
         if (element.task_name === eachTask.task_name && element.amount_got != 0) {
-            eachTask.amount_rcv.push({ amount: element.amount_got, mode: element.modeofpay })
+            eachTask.amount_rcv.push({ amount: element.amount_got, mode: element.modeofpay, date: element.dateofpay })
         }
     }) 
 }
