@@ -81,9 +81,9 @@ html {
     color: var(--white);
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 0;
-}
+} */
 
 button,
 svg {

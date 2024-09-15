@@ -15,7 +15,26 @@ function toggleForm(formId, target) {
 function getMiscTask(params) {
   console.log("Here is your tasks...")
 }
+function checkDeadline_Valid(e){
+  let dateStr = e.value;
+    const pattern = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+    if (!pattern.test(dateStr)) {
+        e.parentElement.children[0].innerText='Enter Date correctly';
+        e.parentElement.children[0].style.color='red';}
+    const parts = dateStr.split('/');
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const year = parseInt(parts[2], 10);
+    const date = new Date(year, month, day);
+ if (date.getFullYear() === year && date.getMonth() === month && date.getDate() === day) {
+        e.parentElement.children[0].innerText='Project deadline';
+        e.parentElement.children[0].style.color='black';
+    } else {
+        e.parentElement.children[0].innerText='Enter Date correctly';
+        e.parentElement.children[0].style.color='red';
+    }
 
+}
 function checkFormValid(id) {
   const dataTobeInsert = new FormData(document.getElementById(id))
   let arrR = []

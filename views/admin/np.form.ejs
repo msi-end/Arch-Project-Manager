@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="field">
                                     <label for="amount">Project deadline</label>
-                                    <input type="text" name="npdeadline" id="amount" placeholder="dd/mm/yyyy, Eg:01/06/2024">
+                                    <input type="text" name="npdeadline" oninput="checkDeadline_Valid(this)" id="amount" placeholder="dd/mm/yyyy, Eg:01/06/2024">
                                 </div>
                                 <div class="field">
                                     <label for="splitRatio">Amount Split Ratio</label>
@@ -149,7 +149,7 @@
                                 </div>
                                 <div class="field">
                                     <label for="amount">Deadline</label>
-                                    <input type="text" name="mpdeadline" id="amount" placeholder="dd/mm/yyyy Eg:01/06/2024">
+                                    <input type="text" oninput="checkDeadline_Valid(this)" name="mpdeadline" id="amount" placeholder="dd/mm/yyyy Eg:01/06/2024">
                                 </div>
                                 <div class="field">
                                     <label for="miswork">Types Of Work</label>

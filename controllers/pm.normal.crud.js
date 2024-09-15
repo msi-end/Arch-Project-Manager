@@ -194,45 +194,60 @@ exports.getCheckCompletedUnpaid = async (req, res) => {
 // Update Normal and Misc task Controllers---
 
 exports.getDataToUpdate = async (req, res) => {
-   let q = req.query.type == "normal" ? `SELECT * FROM deals WHERE id = ${req.query.id}` : `SELECT * FROM single_deal WHERE sdid = ${req.query.id}`
-   await databaseCon.query(q, (err, results)=>{
-     if (!err) {
-       res.status(200).send({results})
-     }else{
-      res.status(500).send({msg : "Internal Server Error!"})
-     }
-   })
-}
-
-exports.UpdateNormalProjectData = async (req, res)=>{
-   const q = `UPDATE deals SET deal_name=?, reference_no=?, contact=?, agreement_amount=?, work_name=?, email=?, city=?, total_price=?, np_deadline=? WHERE id=${req.body.dealid}`;
-   await databaseCon.query(q, [req.body.name, req.body.eref, req.body.econtact, req.body.eagre, req.body.ework, req.body.egmail, req.body.ecity, req.body.etotal, req.body.edeadline], async (err, result)=>{
-     if (!err) { 
-      const q2 = `UPDATE normal_projects_finance SET totalamount = ? WHERE ndeal_id = ${req.body.dealid}`;
-      await databaseCon.query(q2, [req.body.etotal], (err2, result)=>{
-         if (!err2) {
-          res.status(200).send({msg : "successfull update!"})
-         }else {
-          res.status(500).send({msg: "Something Error Occured!"}); return;
-         }
-      })
-     } else { res.status(500).send({msg: "Something Error Occured!"}) }
-   })
-  
-}
-
-exports.UpdateMiscProjectData = async (req, res)=>{
-  const q = `UPDATE single_deal SET sdeal_name=?, reference_no=?, contact=?, agreement_amount=?, work_name=?, email=?, city=?, total_price=?, mp_deadline=? WHERE sdid=${req.body.dealid}`;
-  await databaseCon.query(q, [req.body.name, req.body.eref, req.body.econtact, req.body.eagre, req.body.ework, req.body.egmail, req.body.ecity, req.body.etotal, req.body.edeadline], async (err, result)=>{
-    if (!err) { 
-     const q2 = `UPDATE misc_project_finance SET totalamount = ? WHERE mdeal_id = ${req.body.dealid}`;
-     await databaseCon.query(q2, [req.body.etotal], (err2, result)=>{
-        if (!err2) {
-         res.status(200).send({msg : "successfull update!"})
-        }else {console.log(err2);
-         res.status(500).send({msg: "Something Error Occured!"}); return;
-        }
-     })
-    } else {console.log(err); res.status(500).send({msg: "Something Error Occured!"}) }
+  let q = req.query.type == "normal" ? `SELECT * FROM deals WHERE id = ${req.query.id}` : `SELECT * FROM single_deal WHERE sdid = ${req.query.id}`
+  await databaseCon.query(q, (err, results) => {
+    if (!err) {
+      res.status(200).send({ results })
+    } else {
+      res.status(500).send({ msg: "Internal Server Error!" })
+    }
   })
 }
+
+exports.UpdateNormalProjectData = async (req, res) => {
+  const q = `UPDATE deals SET deal_name=?, reference_no=?, contact=?, work_name=?, email=?, city=?, total_price=?,split=?, np_deadline=? WHERE id=${req.body.dealid}`;
+  await databaseCon.query(q, [req.body.name, req.body.eref, req.body.econtact, req.body.ework, req.body.egmail, req.body.ecity, req.body.etotal, req.body.split, req.body.edeadline], async (err, result) => {
+    if (!err) {
+      const q2 = `UPDATE normal_projects_finance SET totalamount = ? WHERE ndeal_id = ${req.body.dealid}`;
+      await databaseCon.query(q2, [req.body.etotal], (err2, result) => {
+        if (!err2) {
+          res.status(200).send({ msg: "successfull update!" })
+        } else {
+          res.status(500).send({ msg: "Something Error Occured!" }); return;
+        }
+      })
+    } else { res.status(500).send({ msg: "Something Error Occured!" }) }
+  })
+
+}
+
+exports.UpdateMiscProjectData = async (req, res) => {
+  const q = `UPDATE single_deal SET sdeal_name=?, reference_no=?, contact=?, agreement_amount=?, work_name=?, email=?, city=?, total_price=?, mp_deadline=? WHERE sdid=${req.body.dealid}`;
+  await databaseCon.query(q, [req.body.name, req.body.eref, req.body.econtact, req.body.eagre, req.body.ework, req.body.egmail, req.body.ecity, req.body.etotal, req.body.edeadline], async (err, result) => {
+    if (!err) {
+      const q2 = `UPDATE misc_project_finance SET totalamount = ? WHERE mdeal_id = ${req.body.dealid}`;
+      await databaseCon.query(q2, [req.body.etotal], (err2, result) => {
+        if (!err2) {
+          res.status(200).send({ msg: "successfull update!" })
+        } else {
+          console.log(err2);
+          res.status(500).send({ msg: "Something Error Occured!" }); return;
+        }
+      })
+    } else { console.log(err); res.status(500).send({ msg: "Something Error Occured!" }) }
+  })
+}
+exports.DeleteNormalProjectData = async (req, res) => {
+  const q = `DELETE FROM deals WHERE id =? `;
+  await databaseCon.query(q, [ req.params.id], async (err, result) => {
+    if (!err) {
+      res.status(200).send({ status: true, msg: 'Successfully data Deletd' })
+    } else {
+      res.status(500).send({ status: flase, msg: 'Successfully data Deletd'+err })
+    }
+  })
+}
+
+
+
+
