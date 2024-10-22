@@ -59,7 +59,7 @@
         <div class="project_expand grid">
             <p class="none"></p>
             <!-- tasks  -->
-            <% fdata?.forEach((task)=>{ %>
+            <% fdata?.sort((a, b) => a.task_name.localeCompare(b.task_name)).forEach((task)=>{ %>
                 <%- include('../partials/task.fin.ejs', {task: task, ratio: task.split.split(':')}) %>
             <% }) %>
         </div>
