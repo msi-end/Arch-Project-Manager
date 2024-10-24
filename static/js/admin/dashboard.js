@@ -175,5 +175,8 @@ async function DeleteProject(e,o) {
     });
 }
 
-
-
+function SearchFromInput() {
+    let query= document.getElementById('searchQuery').value
+    location.href=location.href+`&search=${query}`
+    
+}
