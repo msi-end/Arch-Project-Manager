@@ -202,7 +202,7 @@ exports.insertNewMiscDeal = async (req, res) => {
 
 exports.renderNormalProjectFinance = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const q = `SELECT deals.id, deals.reference_no, deals.city, deals.deal_name, deals.split, normal_projects_finance.task, task.task_name, normal_projects_finance.totalamount, normal_projects_finance.amount_got, normal_projects_finance.modeofpay, normal_projects_finance.dateofpay FROM (SELECT * FROM deals ORDER BY id DESC LIMIT ${Number(req.query.from) * 10}, 10) AS deals INNER JOIN normal_projects_finance ON deals.id = normal_projects_finance.ndeal_id INNER JOIN task ON task.task_id = normal_projects_finance.task ORDER BY deals.id DESC;`
+        const q = `SELECT deals.id, deals.reference_no, deals.city, deals.deal_name, deals.total_price, deals.split, normal_projects_finance.task, task.task_name, normal_projects_finance.amount_got, normal_projects_finance.modeofpay, normal_projects_finance.dateofpay FROM (SELECT * FROM deals ORDER BY id DESC LIMIT ${Number(req.query.from) * 10}, 10) AS deals INNER JOIN normal_projects_finance ON deals.id = normal_projects_finance.ndeal_id INNER JOIN task ON task.task_id = normal_projects_finance.task ORDER BY deals.id DESC;`
         await db.query(q, (err, result) => {
             if (!err) {
                 const grouped = {};
@@ -223,6 +223,7 @@ exports.renderNormalProjectFinance = async (req, res) => {
                 // console.log(sortedData)
                 res.render('../views/admin/np.finance.ejs', { sortedData });
             } else {
+                console.log(err);
                 res.status(500).send({ msg: "Internal server error!!!" })
             }
         })

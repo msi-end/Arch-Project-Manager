@@ -35,7 +35,6 @@ function addAmountAndModeToTask(eachArrofTask, eachTask) {
 
 
 const filterArrFin = (eachArr) => {
-
     const filterTask = eachArr.filter((item, index, array) => {
         if (index === array.findIndex((el) => el.task_name === item.task_name)) {
             if (item.amount_rcv) {

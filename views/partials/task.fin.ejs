@@ -14,13 +14,13 @@
     <% 
       function maths(arg, ratioo) {
         if(arg == 'Architecture'){ 
-            const val = (ratioo[0] / 10 ) * task.totalamount;
+            const val = (ratioo[0] / 10 ) * task.total_price;
             return val;
         }else if (arg == 'Structural') {
-            const val = (ratioo[1] / 10 ) * task.totalamount;
+            const val = (ratioo[1] / 10 ) * task.total_price;
             return val;
         }else if (arg == 'Design') {
-            const val = (ratioo[2] / 10 ) * task.totalamount;
+            const val = (ratioo[2] / 10 ) * task.total_price;
             return val; 
         }
       }

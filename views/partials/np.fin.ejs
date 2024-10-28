@@ -21,7 +21,7 @@
         <p class="totalf">
             <span class="uppercase hide block phead">project amount</span>
             &#8377;<span>
-                <%= fdata[0].totalamount %>
+                <%= fdata[0].total_price %>
             </span>/-
         </p>
         <% 
@@ -37,7 +37,7 @@
                 <span class="maka">Received</span>
             </p>
             <p class="totalf none">&#8377;<span>
-                    <%= fdata[0]?.totalamount - rAmountRender %>
+                    <%= fdata[0]?.total_price - rAmountRender %>
                 </span>/-</p>
             <p class="split">
                 <span class="uppercase hide block phead">Split ratio</span>
