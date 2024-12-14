@@ -47,7 +47,7 @@ const name = process.argv[2];
 const email = process.argv[3];
 const password = process.argv[4];
 const role = process.argv[5];
-// create(name, email, password, role)
+create(name, email, password, role)
 // main('aditya01377@gmail.com')
 // main('kamal013777@gmail.com')
 // 77ee3625f508f3051360327fb67668b2ba769f13f56599bb45a4a923bb850c49
