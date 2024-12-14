@@ -95,7 +95,13 @@ function pageFunWithCursor(type) {
                 document.getElementById('f-box').innerHTML = Number(pageNo) - 2
                 document.getElementById('m-box').innerHTML = Number(pageNo) - 1
             }
+           
         }
+
+        const lis = document.getElementById('pagin-section').childNodes
+        lis.forEach(el => {
+            if (el.innerHTML == toData) {el.classList.add('active') }
+        });
     }
 })()
 

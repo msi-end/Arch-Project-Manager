@@ -12,6 +12,7 @@ const oAuth2Client = new google.auth.OAuth2(
 oAuth2Client.setCredentials({ refresh_token: config.refreshToken });
 let accessToken;
 
+
 const transporter = nmailer.createTransport(
     {
         service: "gmail",
