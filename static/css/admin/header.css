@@ -309,6 +309,16 @@ header {
     font-size: 12px;
 }
 
+.search-btn {
+    width: 45px;
+    height: 45px;
+    fill: var(--primary-color)
+}
+.search-btn svg{
+    width: 30px;
+    height: 30px;
+}
+
 /* ----LIST notification---- */
 .notification-list {
     position: absolute;
@@ -589,8 +599,7 @@ nav .nav-lists svg {
     overflow: hidden;
 }
 
-.main.grow{
+.main.grow {
     overflow: hidden;
     height: 205vh;
-    }
-
+}

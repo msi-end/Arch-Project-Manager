@@ -14,13 +14,13 @@
     <% 
       function maths(arg, ratioo) {
         if(arg == 'Architecture'){ 
-            const val = (ratioo[0] / 10 ) * task.totalamount;
+            const val = (ratioo[0] / 10 ) * task.total_price;
             return val;
         }else if (arg == 'Structural') {
-            const val = (ratioo[1] / 10 ) * task.totalamount;
+            const val = (ratioo[1] / 10 ) * task.total_price;
             return val;
         }else if (arg == 'Design') {
-            const val = (ratioo[2] / 10 ) * task.totalamount;
+            const val = (ratioo[2] / 10 ) * task.total_price;
             return val; 
         }
       }
@@ -31,19 +31,28 @@
         <div class="spl">
             <p class="uppercase phead">split</p>
             <p class="uppercase teamou">&#8377;<span>
-                <!-- <%= task.task_name == 'architechture'? (ratio[0] / 10 ) * task.totalamount : '' %> -->
                 <%= spiltVal %>
-                <!-- <%= task.task_name == 'structural'? (ratio[1] / 10 ) * task.totalamount : '' %>
-                <%= task.task_name == 'Design'? (ratio[2] / 10 ) * task.totalamount : '' %> -->
             </span>/-</p>
         </div>
-        <div class="sadv">
+        <% 
+           const amount_rcv = task.amount_rcv.reduce((total, val)=> {
+                return total + val.amount;
+           }, 0)
+        %>
+        <div class="sadv" onmouseenter="showAllAmount(this)" onmouseleave="closeAllAmount(this)">
             <p class="uppercase phead">advance</p>
-            <p class="uppercase teamou">&#8377;<span><%= task.amount_got ? task.amount_got : "_ _ _ _ _ " %></span> /- <span class="maka"> <%= task.modeofpay ? task.modeofpay : "" %></span></p>
+            <p class="uppercase teamou">&#8377;<span><%= task.amount_got != undefined ?  amount_rcv : "_ _ _ _ _ " %></span> /- <span class="maka">total</span></p>
+            <div class="hide" id="all-payment">
+                <ul>
+                   <% task.amount_rcv.forEach((pay) => { %>
+                    <li style="color: var(--secondary-color); font-size: 13px;">Amount: <span><%= pay.amount %>  (<%= pay.mode %>) - <%= pay.date %></span></li>
+                  <% }) %>
+                </ul>
+            </div>
         </div>
         <div class="sblnc">
             <p class="uppercase phead">balance</p>
-            <p class="uppercase teamou">&#8377;<span><%= task.amount_got ? spiltVal - task.amount_got : "_ _ _ _ " %></span>/-</p>
+            <p class="uppercase teamou">&#8377;<span><%= task.amount_got != undefined ? spiltVal - amount_rcv  : "_ _ _ _ " %></span>/-</p>
         </div>
     </div>
 </div>

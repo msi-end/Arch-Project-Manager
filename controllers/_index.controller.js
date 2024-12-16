@@ -1,8 +1,7 @@
 const db = require('../config/db.config')
-const dataUnity = require('../utils/arrange')
+const {dataUnity, arrangeFinance} = require('../utils/arrange')
 
 // 
-
 
 // SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline FROM deals INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id INNER JOIN task ON normal_project_cat.category_id = task.task_id LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id ORDER BY deals.id DESC;
 
@@ -11,8 +10,11 @@ const dataUnity = require('../utils/arrange')
 // ---- All Index routes here ----
 exports.indexDeshboard = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const q = `SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline FROM (SELECT * FROM deals ORDER BY id DESC LIMIT ${Number(req.query.from) * 10}, 10) AS deals INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id INNER JOIN task ON normal_project_cat.category_id = task.task_id LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id ORDER BY deals.id DESC`
+        let normalQuery =`SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline FROM (SELECT * FROM deals ORDER BY id DESC LIMIT ${Number(req.query.from) * 10}, 10) AS deals INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id INNER JOIN task ON normal_project_cat.category_id = task.task_id LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id ORDER BY deals.id DESC`
+        let SearchQuery =`SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid,task.task_name,normal_project_cat.cat_status,normal_project_subtask.stask_id,subtask.sub_task_name, normal_project_subtask.stask_status,normal_project_cat.project_status, normal_project_cat.dateofdeadline FROM (SELECT * FROM deals ORDER BY id DESC LIMIT ${Number(req.query.from) * 10}, 10) AS deals INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id INNER JOIN task ON normal_project_cat.category_id = task.task_id LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id  WHERE deals.deal_name LIKE '%${req.query.search}%' ORDER BY deals.id DESC;`
+        let q= req.query.search?SearchQuery:normalQuery
         await db.query(q, (err, results) => {
+        console.log(results+'results');
             const grouped = {};
             const sentData = []
             if (!err) {
@@ -35,7 +37,7 @@ exports.indexDeshboard = async (req, res) => {
 
 exports.userManager = (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const query = `SELECT em_id, name ,number, email,job_role, lastLoginAt ,lastLogoutAt , status FROM employee`
+        const query = `SELECT em_id, name ,number, email, job_role, lastLoginAt ,lastLogoutAt , status FROM employee`
         // INNER JOIN normal_project_employee ON employee.em_id = normal_project_employee.emid
         // GROUP BY normal_project_employee.emid;
         db.query(query, (err, result, field) => {
@@ -196,11 +198,14 @@ exports.insertNewMiscDeal = async (req, res) => {
 
 
 
+
 //---normal projects controll-------
-// SELECT deals.id, deals.reference_no, deals.city, deals.deal_name, deals.split, normal_projects_finance.task, task.task_name, normal_projects_finance.totalamount, normal_projects_finance.amount_got, normal_projects_finance.modeofpay FROM normal_projects_finance INNER JOIN deals ON deals.id = normal_projects_finance.ndeal_id INNER JOIN task ON task.task_id = normal_projects_finance.task;
+// SELECT deals.id, deals.reference_no, deals.city, deals.deal_name, deals.split, normal_projects_finance.task, task.task_name, normal_projects_finance.totalamount, normal_projects_finance.amount_got, normal_projects_finance.modeofpay, normal_projects_finance.dateofpay FROM normal_projects_finance INNER JOIN deals ON deals.id = normal_projects_finance.ndeal_id INNER JOIN task ON task.task_id = normal_projects_finance.task WHERE deals.id BETWEEN (SELECT MAX(id)-${Number(req.query.to) * 20} FROM deals) AND (SELECT MAX(id)-${Number(req.query.from) * 20} FROM deals) ORDER BY deals.id DESC;
+
+
 exports.renderNormalProjectFinance = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const q = `SELECT deals.id, deals.reference_no, deals.city, deals.deal_name, deals.split, normal_projects_finance.task, task.task_name, normal_projects_finance.totalamount, normal_projects_finance.amount_got, normal_projects_finance.modeofpay FROM normal_projects_finance INNER JOIN deals ON deals.id = normal_projects_finance.ndeal_id INNER JOIN task ON task.task_id = normal_projects_finance.task WHERE deals.id BETWEEN (SELECT MAX(id)-${Number(req.query.to) * 20} FROM deals) AND (SELECT MAX(id)-${Number(req.query.from) * 20} FROM deals) ORDER BY deals.id DESC;`
+        const q = `SELECT deals.id, deals.reference_no, deals.city, deals.deal_name, deals.total_price, deals.split, normal_projects_finance.task, task.task_name, normal_projects_finance.amount_got, normal_projects_finance.modeofpay, normal_projects_finance.dateofpay FROM (SELECT * FROM deals ORDER BY id DESC LIMIT ${Number(req.query.from) * 10}, 10) AS deals INNER JOIN normal_projects_finance ON deals.id = normal_projects_finance.ndeal_id INNER JOIN task ON task.task_id = normal_projects_finance.task ORDER BY deals.id DESC;`
         await db.query(q, (err, result) => {
             if (!err) {
                 const grouped = {};
@@ -211,11 +216,17 @@ exports.renderNormalProjectFinance = async (req, res) => {
                     grouped[key].push(element);
                 })
                 for (const key in grouped) { sentData.push(grouped[key]) }
+           
+                const sortedTasks = sentData.sort((a, b) => b[0].id - a[0].id);
+                const sortedData = arrangeFinance(sortedTasks)
+                //  res.status(200).send(sortedData);
+
                 // res.status(200).send(sentData);
-                const sortedData = sentData.sort((a, b) => b[0].id - a[0].id);
+                // const sortedData = sentData.sort((a, b) => b[0].id - a[0].id);
                 // console.log(sortedData)
                 res.render('../views/admin/np.finance.ejs', { sortedData });
             } else {
+                console.log(err);
                 res.status(500).send({ msg: "Internal server error!!!" })
             }
         })
@@ -268,6 +279,7 @@ exports.miscProjectFinance = async (req, res) => {
 
     }
 }
+
 exports.renderMiscProjectForm = (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
         res.render('../views/admin/normalProject.ejs')

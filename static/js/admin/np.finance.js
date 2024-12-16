@@ -5,8 +5,8 @@ async function updataAdvancePay(data, e) {
     const advanceData = new FormData(document.getElementById('advanced-form'));
     advanceData.append('ndeal_id', Number(target.dealid));
     advanceData.append('task', Number(target.taskid));
-    await getFun.GET_POST('admin/finance/update-advancepay', 'PUT', advanceData, 'form')
-    document.querySelector(`.main-dropdown`).style.display = `none`;;
+    await getFun.GET_POST('admin/finance/update-advancepay', 'POST', advanceData, 'form')
+    document.querySelector(`.main-dropdown`).style.display = `none`;
 }
 
 async function openDick(data) {
@@ -60,3 +60,12 @@ function CloseModel(e) {
     elmCtn.forEach(function(e) {var contentText = e.textContent.toLowerCase();
         if (contentText.includes(inpValue)) {e.style.display = 'block';
         } else {e.style.display = 'none'; }});}
+
+
+ function showAllAmount(target) {
+    target.querySelector('#all-payment').classList.remove('hide')
+ }
+
+ function closeAllAmount(target) {
+    target.querySelector('#all-payment').classList.add('hide')
+ }
