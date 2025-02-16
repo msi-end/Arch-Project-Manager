@@ -245,7 +245,6 @@ exports.DeleteNormalProjectData = async (req, res) => {
     } else {
       res.status(500).send({ status: false, msg: 'failed to delete the Data'+err })
       console.log(err);
-      
     }
   })
 }

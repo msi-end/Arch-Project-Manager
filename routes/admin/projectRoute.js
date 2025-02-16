@@ -26,6 +26,7 @@ api.get('/nIsProjectPaid', pmNormalAPI.getCheckCompletedUnpaid)
 
 
 //=================MISC PROJECT ROUTE==========================
+api.get('/delete-project/misc/:id', pmMiscAPI.DeleteNormalProjectData)
 api.get('/get-misc-emp/:dealId/:subtaskId', pmMiscAPI.getEmpListPerMiscProject)
 api.post('/add-employee-to-miscproject', pmMiscAPI.addEmployeeToMisc)
 api.delete('/remove-emp-miscp', pmMiscAPI.removeEmployeeToMisc)

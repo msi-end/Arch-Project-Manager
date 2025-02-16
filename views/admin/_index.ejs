@@ -73,8 +73,8 @@
                   <%= pdata.np_deadline ? pdata.np_deadline : "N/A" %>
                 </td>
                 <% let overallStatus=pdata.category.every((el)=>{
-                                                if(el.cat_mp_status.toLowerCase() === 'completed'){
-                                                return true;}else{return false;}})%>
+                    if(el.cat_mp_status.toLowerCase() === 'completed'){
+                    return true;}else{return false;}})%>
 
                 <td class=""><button class="<%= overallStatus ? 'status success' : 'status warning' %>">
                     <%= overallStatus ? "completed" : "pending" %>
