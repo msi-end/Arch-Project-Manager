@@ -70,24 +70,16 @@ function AlertNotifier(status, msg, icon) {
   });
 }
 function setExpenseToModel(e) {
-  document.getElementsByClassName("main")[0].classList.remove("flow");
+  // document.getElementsByClassName("main")[0].classList.remove("flow");
   let ExpsCtn = e.parentElement.parentElement;
   let editCtn = document.querySelector(".editexpense");
   editCtn.children[0].dataset.exps_id = ExpsCtn.dataset.exps_id;
-  console.log(e.dataset.exps_id);
-  editCtn.querySelector("#exp-name").value =
-    ExpsCtn.querySelector(".exp-name-data").innerText;
-  editCtn.querySelector("#amount").value =
-    ExpsCtn.querySelector(".exp-amount-data").innerText;
-  editCtn.querySelector("#date").value = date_Split(
-    `${ExpsCtn.querySelector(".exp-date-data").innerText}`,
-    "/",
-    false
-  );
-  editCtn.querySelector("#mode").value =
-    ExpsCtn.querySelector(".exp-mode-data").innerText;
-  editCtn.querySelector("#remark").value =
-    ExpsCtn.querySelector(".exp-rem-content").innerText;
+  editCtn.querySelector("#exp-name").value =ExpsCtn.children[1].innerText;
+  editCtn.querySelector("#amount").value =ExpsCtn.children[2].innerText;
+  editCtn.querySelector("#date").value = date_Split(`${ExpsCtn.children[3].innerText}`,"/",true);
+  editCtn.querySelector("#mode").value =ExpsCtn.children[4].innerText;
+  editCtn.querySelector("#remark").value =ExpsCtn.children[5].innerText;
+  editCtn.classList.remove(`hide`);
 }
 function addExpense() {
   let expAddCtn = document.getElementsByClassName("add-expense")[0];
