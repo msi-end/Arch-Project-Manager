@@ -1,0 +1,53 @@
+<div class="close-more-data hide" id="more-data-<%= pdata.id %>">
+  <span class="icon" onclick="toggleData('<%= pdata.id %>')" data-id="<%= pdata.id %>">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-left">
+      <path fill="#" d="M11.46,8.29a1,1,0,0,0-1.42,0l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L9.16,12l2.3-2.29A1,1,0,0,0,11.46,8.29ZM14.66,12,17,9.71a1,1,0,0,0-1.42-1.42l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
+      </path>
+    </svg>
+  </span>
+
+  <div class="more-data-text flex align-center">
+    <h2>
+      <%= pdata.reference_no %>
+    </h2>
+    <h2>
+      <%= pdata.work_name %>
+    </h2>
+  </div>
+  <!-- DETAILS  -->
+  <div class="contents grid">
+    <div class="description flex align-center">
+      <h3>Client Name:</h3>
+      <p class="text">
+        <%= pdata.deal_name %>
+      </p>
+    </div>
+    <div class="description flex align-center">
+      <h3>Phone Number:</h3>
+      <p class="text">+91 <%= pdata.contact %></p>
+    </div>
+    <div class="description flex align-center">
+      <h3>Email ID:</h3>
+      <p class="text"><%= pdata.email %></p>
+    </div>
+    <div class="description flex align-center">
+      <h3>Address:</h3>
+      <p class="text"><%= pdata.city %></p>
+    </div>
+    <div class="description flex align-center">
+      <h3>Project Amount:</h3>
+      <p class="text">&#8377; <span><%= pdata.total_price %></span></p>
+    </div>
+    <div class="description flex align-center">
+      <h3>Agreement Date:</h3>
+      <p class="text"><%= pdata.np_deadline ? pdata.np_deadline : "N/A" %></p>
+    </div>
+  </div>
+
+  <!-- --BOX-- -->
+  <div class="task-grid grid">
+    <% pdata.category.sort((a, b) => a.name.localeCompare(b.name)).forEach((task)=>{ %>
+    <%- include('./tasks/task.ejs', {cat: task, dealId : pdata.id} )%>
+    <% }) %>
+  </div>
+</div>

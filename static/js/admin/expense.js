@@ -4,21 +4,66 @@ let ReqURI = {
   updExps: BASE_URL + `/expsUpdate/`,
   getExpsBymonths: BASE_URL + "/getExps",
   NisProjectPaid: location.origin + "/apiv1/nIsProjectPaid",
-  MisProjectPaid: location.origin + "/apiv1/mIsProjectPaid",
-};
+  MisProjectPaid: location.origin + "/apiv1/mIsProjectPaid",};
+
+function hidePopup(event) {
+  document.querySelector(".main-popup").classList.add("hide");
+}
+//ADD EXPENSE
+function addExpenseForm() {
+  const maindrop = document.querySelector(`.main-popup`);
+  maindrop.classList.toggle(`hide`);
+  maindrop.innerHTML = "";
+  maindrop.innerHTML = `<div class="add-expense blur hide">
+    <form class="form">
+        <h2>Add an Expense</h2>
+        <div class="grid expense-grid">
+            <div class="field">
+                <p class="title">Name of the Expense</p>
+                <input type="text" name="expname" id="exp-name">
+            </div>
+            <div class="field">
+                <p class="title">Expense Amount <span>(in &#8377;)</span></p>
+                <input type="text" name="expamount" id="amount">
+            </div>
+            <div class="field">
+                <p class="title">Mode of Payment</p>
+                <select name="modeOfPays" id="mode">
+                    <option value="cash">Cash</option>
+                    <option value="online">Online</option>
+                </select>
+            </div>
+            <div class="field">
+                <p class="title">Date <span>(DD/MM/YYYY)</span></p>
+                <input type="text" name="date" id="date">
+            </div>
+            <div class="field">
+                <p class="title">Remarks <span>(*optional)</span></p>
+                <input type="text" id="remark">
+            </div>
+        </div>
+        <div class="action-btn flex align-center">
+            <button type="button" onclick="addExpense()" class="flex-1">Add</button>
+            <button type ="reset" class="flex-1 delete" onclick="hidePopup(this)">Cancel</button>
+        </div>
+    </form>
+</div>`;
+  const dropDownTarget = document.querySelector(`.add-expense`);
+  dropDownTarget.classList.toggle(`hide`);
+}
 function Opn_ExpenseCtn(e, elm) {
-  document.getElementsByClassName("main")[0].classList.add("flow");
+  // document.getElementsByClassName("main")[0].classList.add("flow");
   document.querySelector(`${e}`).classList.remove(`hide`);
   e == ".editexpense" ? setExpenseToModel(elm) : null;
 }
 function Cls_ExpenseCtn(e) {
-  document.getElementsByClassName("main")[0].classList.remove("flow");
+  // document.getElementsByClassName("main")[0].classList.remove("flow");
   document.querySelector(`${e}`).classList.add(`hide`);
   // e == '.uprofile-settings' ? Disable_BtnHandler('.profile-grid', false) : null
 }
 function AlertNotifier(status, msg, icon) {
   Swal.fire({
-    title: status ? "Sucess" : "Error",
+    title: status ? "Success" : "Error",
     text: msg,
     icon: icon,
     confirmButtonText: "Done",
@@ -45,14 +90,14 @@ function setExpenseToModel(e) {
     ExpsCtn.querySelector(".exp-rem-content").innerText;
 }
 function addExpense() {
-  let expAddCtn = document.getElementsByClassName("addexpense")[0];
+  let expAddCtn = document.getElementsByClassName("add-expense")[0];
   let dataObj = {
     title: expAddCtn.querySelector("#exp-name").value,
     amount: expAddCtn.querySelector("#amount").value,
     mode: expAddCtn.querySelector("#mode").value,
     remark: expAddCtn.querySelector("#remark").value,
-    date: date_Split(expAddCtn.querySelector("#date").value, "-", true),
-  };
+    date: date_Split(expAddCtn.querySelector("#date").value, "-"||"/", true),
+  };  
   ReqHandler.POST(ReqURI.addExps, dataObj)
     .then((res) => {
       if (res.status == true) {
@@ -132,18 +177,6 @@ function ChangeExpsByMonths(e) {
     .catch((err) => {
       console.log("Error(fn-ExpsUpdate):", err);
     });
-}
-function search() {
-  var inpValue = document.getElementById("searchQuery").value.toLowerCase();
-  var elmCtn = document.querySelectorAll(".expense-list");
-  elmCtn.forEach(function (e) {
-    var contentText = e.textContent.toLowerCase();
-    if (contentText.includes(inpValue)) {
-      e.style.display = "grid";
-    } else {
-      e.style.display = "none";
-    }
-  });
 }
 
 (function IsProjectPaid() {

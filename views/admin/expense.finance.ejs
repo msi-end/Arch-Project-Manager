@@ -7,317 +7,137 @@
     <title>EBAH ERP | Admin</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../../css/admin/main.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
     <link rel="stylesheet" href="../../css/darkMode.css">
-    <link rel="stylesheet" href="../../css/admin/header.css">
-    <link rel="stylesheet" href="../../css/admin/responsive.css">
-    <link rel="stylesheet" href="../../css/admin/np.finance.css">
-    <link rel="stylesheet" href="../../css/admin/expense.css">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../js/admin/dashboard.module.js"></script>
 </head>
 
 <body>
-    <%- include('../partials/admin.header.ejs') %>
-        <!-- MAIN SECTION STARTS HERE  -->
-        <main class="main" data-app-page="expense">
-            <!------------- EXPENSES-OVERALL-------------  -->
-            <div class="main-data flex">
-                <!-- -------TOTAL AMOUNT--------- -->
-
-                <div class="total-amount flex data ">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
-                        <path fill="##000000"
-                            d="M20,1H4A3,3,0,0,0,1,4V20a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V4A3,3,0,0,0,20,1ZM8,21H4a1,1,0,0,1-1-1V18.82A3,3,0,0,0,4,19H8Zm0-4H4a1,1,0,0,1-1-1V14.82A3,3,0,0,0,4,15H8Zm0-4H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H8Zm6,8H10V15h4Zm0-8H10V3h4Zm7,7a1,1,0,0,1-1,1H16V19h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V15h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V3h4a1,1,0,0,1,1,1ZM18,7a1,1,0,1,0,1,1A1,1,0,0,0,18,7ZM6,9A1,1,0,1,0,5,8,1,1,0,0,0,6,9Z">
-                        </path>
-                    </svg>
-                    <div class="total_user_data">
-                        <p class="size">&#8377;<span>
-                                <%= data[2][0].total_sum + data[2][1].total_sum %>
-                            </span>/-</p>
-                        <p class="text">Total Amount</p>
-                    </div>
+    <section>
+        <%- include('../partials/admin.aside.ejs') %>
+        <main data-app-page="expense">
+            <div class="main-data">
+                <%- include('../partials/admin.header.ejs') %>
+                <!-- --HEADING-- -->
+                <div class="heading">
+                    <h2>Expenses</h2>
+                    <p class="title">Find all expenses here</p>
                 </div>
-                <!-- ---------------AMOUNT IN BANK ------------ -->
-                <div class="amount_in-bank flex data">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
-                        <path fill="##000000"
-                            d="M20,1H4A3,3,0,0,0,1,4V20a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V4A3,3,0,0,0,20,1ZM8,21H4a1,1,0,0,1-1-1V18.82A3,3,0,0,0,4,19H8Zm0-4H4a1,1,0,0,1-1-1V14.82A3,3,0,0,0,4,15H8Zm0-4H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H8Zm6,8H10V15h4Zm0-8H10V3h4Zm7,7a1,1,0,0,1-1,1H16V19h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V15h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V3h4a1,1,0,0,1,1,1ZM18,7a1,1,0,1,0,1,1A1,1,0,0,0,18,7ZM6,9A1,1,0,1,0,5,8,1,1,0,0,0,6,9Z">
-                        </path>
-                    </svg>
-                    <div class="total_user_data">
-                        <p class="size">&#8377;<span>
-                                <% if (typeof data[1] !=='undefined' && Array.isArray(data[1]) && data[1].length> 1) {
-                                    %>
-                                    <% var cash=(data[1][0].cash_sum || 0) + (data[1][1].cash_sum || 0) %>
-                                        <%= cash %>
-                                            <% } else { %>
-                                                0
-                                                <% } %>
-                            </span>/-</p>
-                        <p class="text">Cash in Hand</p>
+                <!-- --SUB-HEADING-- -->
+                <div class="top-section flex align-center j-between">
+                    <div class="section-text">
+                        <h3 class="flex">All Expenses</h3>
                     </div>
-                </div>
-                <!-- ---------CASH IN HAND----------- -->
-                <div class="cash_in-hand flex data">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
-                        <path fill="##000000"
-                            d="M20,1H4A3,3,0,0,0,1,4V20a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V4A3,3,0,0,0,20,1ZM8,21H4a1,1,0,0,1-1-1V18.82A3,3,0,0,0,4,19H8Zm0-4H4a1,1,0,0,1-1-1V14.82A3,3,0,0,0,4,15H8Zm0-4H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H8Zm6,8H10V15h4Zm0-8H10V3h4Zm7,7a1,1,0,0,1-1,1H16V19h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V15h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V3h4a1,1,0,0,1,1,1ZM18,7a1,1,0,1,0,1,1A1,1,0,0,0,18,7ZM6,9A1,1,0,1,0,5,8,1,1,0,0,0,6,9Z">
-                        </path>
-                    </svg>
-                    <div class="total_user_data">
-                        <p class="size">&#8377;<span>
-                                <% if (typeof data[1] !=='undefined' && Array.isArray(data[1]) && data[1].length> 1) {
-                                    %>
-                                    <%= (data[1][0].online_sum || 0) + (data[1][1].online_sum || 0) %>
-                                        <% } else { %>
-                                            0
-                                            <% } %>
-                            </span>/-</p>
-                        <p class="text">Amount in Bank</p>
-                    </div>
-                </div>
-                <!-- -------Total Expenses--------- -->
-
-                <div class="total-amount flex data ">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
-                        <path fill="##000000"
-                            d="M20,1H4A3,3,0,0,0,1,4V20a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V4A3,3,0,0,0,20,1ZM8,21H4a1,1,0,0,1-1-1V18.82A3,3,0,0,0,4,19H8Zm0-4H4a1,1,0,0,1-1-1V14.82A3,3,0,0,0,4,15H8Zm0-4H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H8Zm6,8H10V15h4Zm0-8H10V3h4Zm7,7a1,1,0,0,1-1,1H16V19h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V15h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V3h4a1,1,0,0,1,1,1ZM18,7a1,1,0,1,0,1,1A1,1,0,0,0,18,7ZM6,9A1,1,0,1,0,5,8,1,1,0,0,0,6,9Z">
-                        </path>
-                    </svg>
-                    <div class="total_user_data">
-                        <p class="size">&#8377;<span>
-                                <%= data[3][0].cash_expenses + data[3][0].online_expenses %>
-                            </span>/-</p>
-                        <p class="text">Total Expenses</p>
-                    </div>
-                </div>
-                <!-- ---------------Expenses By Cash------------ -->
-                <div class="amount_in-bank flex data">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
-                        <path fill="##000000"
-                            d="M20,1H4A3,3,0,0,0,1,4V20a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V4A3,3,0,0,0,20,1ZM8,21H4a1,1,0,0,1-1-1V18.82A3,3,0,0,0,4,19H8Zm0-4H4a1,1,0,0,1-1-1V14.82A3,3,0,0,0,4,15H8Zm0-4H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H8Zm6,8H10V15h4Zm0-8H10V3h4Zm7,7a1,1,0,0,1-1,1H16V19h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V15h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V3h4a1,1,0,0,1,1,1ZM18,7a1,1,0,1,0,1,1A1,1,0,0,0,18,7ZM6,9A1,1,0,1,0,5,8,1,1,0,0,0,6,9Z">
-                        </path>
-                    </svg>
-                    <div class="total_user_data">
-                        <p class="size">&#8377;<span>
-                                <%= data[3][0].cash_expenses %>
-                            </span>/-</p>
-                        <p class="text">Expenses By Cash</p>
-                    </div>
-                </div>
-                <!-- ---------Expenses By Online----------- -->
-                <div class="cash_in-hand flex data">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
-                        <path fill="##000000"
-                            d="M20,1H4A3,3,0,0,0,1,4V20a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V4A3,3,0,0,0,20,1ZM8,21H4a1,1,0,0,1-1-1V18.82A3,3,0,0,0,4,19H8Zm0-4H4a1,1,0,0,1-1-1V14.82A3,3,0,0,0,4,15H8Zm0-4H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H8Zm6,8H10V15h4Zm0-8H10V3h4Zm7,7a1,1,0,0,1-1,1H16V19h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V15h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V3h4a1,1,0,0,1,1,1ZM18,7a1,1,0,1,0,1,1A1,1,0,0,0,18,7ZM6,9A1,1,0,1,0,5,8,1,1,0,0,0,6,9Z">
-                        </path>
-                    </svg>
-                    <div class="total_user_data">
-                        <p class="size">&#8377;<span>
-                                <%= data[3][0].online_expenses %>
-                            </span>/-</p>
-                        <p class="text">Expenses By Online</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ----------- EXPENSES TABLE----------- -->
-            <div class="expensebox">
-                <div class="expensive">
-                    <div class="expenseheader">
-                        <h4 class="uppercase">expenses</h4>
-                        <div class="flex">
-                            <select id="ExpsMonth">
-                                <option value="1">January</option>
-                                <option value="2">February</option>
-                                <option value="3">March</option>
-                                <option value="4">April</option>
-                                <option value="5">May</option>
-                                <option value="6">June</option>
-                                <option value="7">July</option>
-                                <option value="8">August</option>
-                                <option value="9">September</option>
-                                <option value="10">October</option>
-                                <option value="11">November</option>
-                                <option value="12">December</option>
-                            </select>
-                            <select id="ExpsYear">
-                                <option value="2023">2023</option>
-                                <option value="2024" selected>2024</option>
-                                <option value="2025">2025</option>
-                            </select>
-                            <div class="btn" onclick="ChangeExpsByMonths(this.parentElement)">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search"
-                                    class="open svg">
-                                    <path fill="##000000"
-                                        d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z">
-                                    </path>
-                                </svg>
+                    <div class="utility-section flex align-center">
+                        <div class="searchBox flex align-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search"
+                                onclick="SearchFromInput()">
+                                <path fill="##000000"
+                                    d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z">
+                                </path>
+                            </svg>
+                            <input type="text" id="searchQuery" oninput="search()"
+                                placeholder="Search for anything...">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="times" class="close"
+                                onclick="clearInput()">
+                                <path fill="##000000"
+                                    d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="filter">
+                            <div class="filter-button">
+                                <button class="btn-secondary flex align-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="filter"><path fill="" d="M19,2H5A3,3,0,0,0,2,5V6.17a3,3,0,0,0,.25,1.2l0,.06a2.81,2.81,0,0,0,.59.86L9,14.41V21a1,1,0,0,0,.47.85A1,1,0,0,0,10,22a1,1,0,0,0,.45-.11l4-2A1,1,0,0,0,15,19V14.41l6.12-6.12a2.81,2.81,0,0,0,.59-.86l0-.06A3,3,0,0,0,22,6.17V5A3,3,0,0,0,19,2ZM13.29,13.29A1,1,0,0,0,13,14v4.38l-2,1V14a1,1,0,0,0-.29-.71L5.41,8H18.59ZM20,6H4V5A1,1,0,0,1,5,4H19a1,1,0,0,1,1,1Z"></path></svg>
+                                    <span class="text">Filter</span>
+                                </button>
                             </div>
-                            <button class="uppercase" onclick="Opn_ExpenseCtn('.addexpense')">
-                                <span>Add expense</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="plus-circle">
-                                    <path fill="##000000"
+                            <div class="filter-list">
+
+                            </div>
+                        </div>
+                        <div class="add-button">
+                            <button class="btn-primary flex align-center" type="button" onclick="addExpenseForm(this)">
+                                <span class="text">Add Expense</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="plus-circle"
+                                    class="">
+                                    <path fill=""
                                         d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H13V8a1,1,0,0,0-2,0v3H8a1,1,0,0,0,0,2h3v3a1,1,0,0,0,2,0V13h3a1,1,0,0,0,0-2Z">
                                     </path>
                                 </svg>
                             </button>
                         </div>
                     </div>
+                </div>
 
-                    <hr>
-                    <div class="expense-page">
-                        <!-- --------------Expense 1--------------------------  -->
-                        <% data[0]?.forEach(exps=>{ %>
-                            <div class="expense-list flex" data-exps_id="<%= exps.id  %>">
-                                <div class="expense-ref">
-                                    <p class="uppercase exp-ref">Ref. no.</p>
-                                    <p class="exp-refn">
+                <!-- ----------- DATA TABLE----------- -->
+
+                <div class="data-info">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ref No.</th>
+                                <th>Expense Name</th>
+                                <th>Amount</th>
+                                <th>Date of Expense</th>
+                                <th>Mode of Amount</th>
+                                <th>Remarks</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <% data[0]?.forEach(exps=>{ %>
+                                <tr data-exps_id="<%= exps.id %>">
+                                    <td>
                                         <%= exps.id %>
-                                    </p>
-                                </div>
-                                <!-- -------------------  -->
-                                <div class="expense-name">
-                                    <p class="uppercase exp-name">expense name</p>
-                                    <p class="exp-name-data">
+                                    </td>
+                                    <td>
                                         <%= exps.title %>
-                                    </p>
-                                </div>
-                                <!-- ----------------------------------  -->
-                                <div class="expense-amount">
-                                    <p class="uppercase exp-amo">Amount</p>
-                                    <p class="exp-amo-data">&#8377; <span class="exp-amount-data">
-                                            <%= exps.amount %>
-                                        </span></p>
-                                </div>
-                                <!-- ----------------------------------  -->
-                                <div class="expense-date">
-                                    <p class="uppercase exp-date">date</p>
-                                    <p class="exp-date-data">
+                                    </td>
+                                    <td>
+                                        &#8377; <%= exps.amount %>
+                                    </td>
+                                    <td>
                                         <%= exps.date %>
-                                    </p>
-                                </div>
-                                <!-- ----------------------------------  -->
-                                <div class="expense-mode">
-                                    <p class="uppercase exp-mode">mode of payment</p>
-                                    <p class="exp-mode-data">
+                                    </td>
+                                    <td>
                                         <%= exps.md_type %>
-                                    </p>
-                                </div>
-                                <!-- ---------------------------------  -->
-                                <div class="expense-remarks">
-                                    <p class="uppercase exp-rem">remarks</p>
-                                    <p class="exp-rem-content">
+                                    </td>
+                                    <td>
                                         <%= exps.remark %>
-                                    </p>
+                                    </td>
+                                    <td class="flex align-center">
+                                        <button class="edit" onclick="Opn_ExpenseCtn('.editexpense',this)">Edit</button>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
 
-                                </div>
-                                <!-- ---------------------------------  -->
-                                <div class="expense-edit">
-                                    <a class="eicon" onclick="Opn_ExpenseCtn('.editexpense',this)"><svg
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="pen">
-                                            <path fill="##000000"
-                                                d="M22,7.24a1,1,0,0,0-.29-.71L17.47,2.29A1,1,0,0,0,16.76,2a1,1,0,0,0-.71.29L13.22,5.12h0L2.29,16.05a1,1,0,0,0-.29.71V21a1,1,0,0,0,1,1H7.24A1,1,0,0,0,8,21.71L18.87,10.78h0L21.71,8a1.19,1.19,0,0,0,.22-.33,1,1,0,0,0,0-.24.7.7,0,0,0,0-.14ZM6.83,20H4V17.17l9.93-9.93,2.83,2.83ZM18.17,8.66,15.34,5.83l1.42-1.41,2.82,2.82Z">
-                                            </path>
-                                        </svg></a>
-                                    <span class="edit">Edit</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <% }) %>
-                    </div>
-                    <!-- ----------------------------------------------  -->
-                    <hr>
-                    <%- include('../partials/pagin.ejs') %>
-                </div>
-                <div class="finance-notification">
-                    <h4 class="uppercase">Finance Notifications</h4>
-                    <hr>
-                    <div class="finance-scroll">
-                    </div>
-                </div>
-            </div>
-            <!-- --------ADD AN EXPENSE-----------  -->
-            <div class="addexpense hide">
-                <div class="expense-grid" data-exps_id="">
-                    <h3 class="uppercase">Add an expense</h3>
-                    <hr>
-                    <div class="egrid">
-                        <div class="field">
-                            <label for="name">Expense Name</label>
-                            <input type="text" name="expname" id="exp-name" placeholder="Expense Name">
-                        </div>
-                        <div class="field">
-                            <label for="cnumber">Amount</label>
-                            <input type="text" name="expamount" id="amount" placeholder="Amount">
-                        </div>
-                        <div class="field">
-                            <label for="email">Mode of Payment</label>
-                            <select name="modeOfPays" id="mode">
-                                <option value="cash">Cash</option>
-                                <option value="online">Online</option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <label for="date">Date of Expense</label>
-                            <input type="date" name="date" id="date">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="remarks">Remarks</label>
-                        <textarea id="remark"></textarea>
-                    </div>
-                    <div class="flex user-btns">
-                        <button class="uppercase" onclick="addExpense()">add</button>
-                        <button class="uppercase" onclick="Cls_ExpenseCtn('.addexpense')">Close</button>
-                    </div>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4"></td>
+                                <td colspan="3"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
 
-            <!-- --------EDIT EXPENSE----------- -->
-            <div class="editexpense hide">
-                <div class="expense-grid" data-exps_id="">
-                    <h3 class="uppercase">Update Expense</h3>
-                    <hr>
-                    <div class="egrid">
-                        <div class="field">
-                            <label for="name">Expense Name</label>
-                            <input type="text" name="expname" id="exp-name" placeholder="Expense Name">
-                        </div>
-                        <div class="field">
-                            <label for="cnumber">Amount</label>
-                            <input type="text" name="expamount" id="amount" placeholder="Amount">
-                        </div>
-                        <div class="field">
-                            <label for="email">Mode of Payment</label>
-                            <select name="modeOfPays" id="mode">
-                                <option value="cash">Cash</option>
-                                <option value="online">Online</option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <label for="date">Date of Expense</label>
-                            <input type="date" name="date" id="date">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="remarks">Remarks</label>
-                        <textarea id="remark"></textarea>
-                    </div>
-                    <div class="flex user-btns">
-                        <button class="uppercase" onclick="updExpense(this)">update</button>
-                        <button class="uppercase" onclick="Cls_ExpenseCtn('.editexpense')">Close</button>
-                    </div>
-                </div>
-            </div>
+            <!-- POPUPS  -->
+                 
+            <div class="main-popup hide"></div>
+            <%- include('../partials/tasks/notification.ejs') %>
+            <%- include('../partials/tasks/alert.ejs') %>
         </main>
-        </section>
+    </section>
 
 
         <!-- JAVASCRIPT -->
-        <script src="../../js/admin/header.js"></script>
+        <script src="../../js/admin/index.js"></script>
         <script src="/js/admin/common.js"></script>
         <script src="/js/admin/expense.js"></script>
 </body>

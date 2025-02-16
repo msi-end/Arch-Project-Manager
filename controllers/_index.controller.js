@@ -8,13 +8,17 @@ const {dataUnity, arrangeFinance} = require('../utils/arrange')
 // SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline FROM deals INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id INNER JOIN task ON normal_project_cat.category_id = task.task_id LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id WHERE deals.id BETWEEN (SELECT MAX(id)-${Number(req.query.to) * 20} FROM deals) AND (SELECT MAX(id)-${Number(req.query.from) * 20} FROM deals) ORDER BY deals.id DESC;
 
 // ---- All Index routes here ----
+exports.dashboard = async(req, res) =>{
+    if (req.session.isLoggedIn == true && req.session.role == 'admin'){
+        res.status(200).render('../views/admin/dashboard.ejs')
+    }
+}
 exports.indexDeshboard = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
         let normalQuery =`SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline FROM (SELECT * FROM deals ORDER BY id DESC LIMIT ${Number(req.query.from) * 10}, 10) AS deals INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id INNER JOIN task ON normal_project_cat.category_id = task.task_id LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id ORDER BY deals.id DESC`
         let SearchQuery =`SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid,task.task_name,normal_project_cat.cat_status,normal_project_subtask.stask_id,subtask.sub_task_name, normal_project_subtask.stask_status,normal_project_cat.project_status, normal_project_cat.dateofdeadline FROM (SELECT * FROM deals ORDER BY id DESC LIMIT ${Number(req.query.from) * 10}, 10) AS deals INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id INNER JOIN task ON normal_project_cat.category_id = task.task_id LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id  WHERE deals.deal_name LIKE '%${req.query.search}%' ORDER BY deals.id DESC;`
         let q= req.query.search?SearchQuery:normalQuery
         await db.query(q, (err, results) => {
-        console.log(results+'results');
             const grouped = {};
             const sentData = []
             if (!err) {
@@ -58,7 +62,7 @@ exports.expense = (req, res) => {
     let months = new Date().getMonth() + 1
     let year = new Date().getFullYear()
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
-        const query = `SELECT * FROM expenses WHERE date LIKE '%${months}/${year}%' ORDER BY id DESC ;SELECT 'misc_project_finance' AS tName, SUM(amount_got) AS total_amount_got, SUM(CASE WHEN modeofpay='online' THEN amount_got ELSE 0 END) AS online_sum, SUM(CASE WHEN modeofpay='cash' THEN amount_got ELSE 0 END) AS cash_sum FROM misc_project_finance GROUP BY tName UNION ALL SELECT 'normal_projects_finance' AS tName, SUM(amount_got) AS total_amount_got, SUM(CASE WHEN modeofpay='online' THEN amount_got ELSE 0 END) AS online_sum, SUM(CASE WHEN modeofpay='cash' THEN amount_got ELSE 0 END) AS cash_sum FROM normal_projects_finance GROUP BY tName;SELECT  SUM(total_price) AS total_sum FROM single_deal  UNION ALL SELECT  SUM(total_price) AS total_sum FROM deals;SELECT SUM(CASE WHEN md_type ='cash' THEN amount ELSE 0 END) AS cash_expenses, sum(case when md_type ='online' THEN amount ELSE 0 END) as online_expenses FROM expenses;`
+        const query = `SELECT * FROM expenses WHERE date ORDER BY id DESC LIMIT 50 ;SELECT 'misc_project_finance' AS tName, SUM(amount_got) AS total_amount_got, SUM(CASE WHEN modeofpay='online' THEN amount_got ELSE 0 END) AS online_sum, SUM(CASE WHEN modeofpay='cash' THEN amount_got ELSE 0 END) AS cash_sum FROM misc_project_finance GROUP BY tName UNION ALL SELECT 'normal_projects_finance' AS tName, SUM(amount_got) AS total_amount_got, SUM(CASE WHEN modeofpay='online' THEN amount_got ELSE 0 END) AS online_sum, SUM(CASE WHEN modeofpay='cash' THEN amount_got ELSE 0 END) AS cash_sum FROM normal_projects_finance GROUP BY tName;SELECT  SUM(total_price) AS total_sum FROM single_deal  UNION ALL SELECT  SUM(total_price) AS total_sum FROM deals;SELECT SUM(CASE WHEN md_type ='cash' THEN amount ELSE 0 END) AS cash_expenses, sum(case when md_type ='online' THEN amount ELSE 0 END) as online_expenses FROM expenses;`
         db.query(query, (err, result, field) => {
             res.status(200).render('../views/admin/expense.finance.ejs', { data: result })
             // res.send(result)

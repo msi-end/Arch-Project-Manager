@@ -1,0 +1,21 @@
+<div class="grid-box">
+    <div class="category-title flex align-center">
+        <span class="dot"></span>
+        <p class="category uppercase">
+            <%= subdata.msub_task_name %>
+        </p>
+    </div>
+    <div class="category-btns flex align-center j-between" data-taskid="<%= subdata.mstask_id %>" data-ndealid="<%= subdata.mdeal_id %>" data-npcid="">
+        <select data-taskstatus="" class="flex-1" name="status" id="" onchange="addTaskStatus(this, 'misc', 'apiv1/update-misctask-status')">
+            <option value="Not Started" <%= subdata.mstask_status == "not started" ? "selected" : ""%>>Not started</option>
+            <option value="On Progress" <%= subdata.mstask_status == "On Progress" ? "selected" : ""%>>On Progress</option>
+            <option value="completed" <%= subdata.mstask_status == "completed" ? "selected" : ""%>>Completed</option>
+        </select>
+        <button class="flex-1" onclick="empPopup(this)">Employee</button>
+    </div>
+    <!-- --ASSIGNED EMPLOYEES-- -->
+    <div class="category-assignees" data-staskid="<%= subdata.mstask_id %>" data-ndealid="<%= subdata.mdeal_id %>">
+        <p class="title">Assigned To</p>
+        <ul id="emp-in-np"></ul>
+    </div>
+</div>

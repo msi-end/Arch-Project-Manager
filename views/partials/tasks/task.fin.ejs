@@ -1,0 +1,66 @@
+<div class="grid-box">
+    <div class="category-title flex align-center">
+        <span class="dot"></span>
+        <p class="category uppercase flex-1"><%= task.task_name %></p>
+        <button class="fin-add" onclick="addSplitAdvance(this)" data-ndealid="<%= task.id %>" data-taskid="<%= task.task %>">Add</button>
+    </div>
+    <% 
+      function maths(arg, ratioo) {
+        if(arg == 'Architecture'){ 
+            const val = (ratioo[0] / 10 ) * task.total_price;
+            return val;
+        }else if (arg == 'Structural') {
+            const val = (ratioo[1] / 10 ) * task.total_price;
+            return val;
+        }else if (arg == 'Design') {
+            const val = (ratioo[2] / 10 ) * task.total_price;
+            return val; 
+        }
+      }
+
+      const spiltVal =  maths(task.task_name, ratio)
+    %>
+    <div class="category-amount flex align-center j-between">
+        <p class="title">Split Amount</p>
+        <span class="name">&#8377; <%= spiltVal %></span>
+    </div>
+    <% 
+           const amount_rcv = task.amount_rcv.reduce((total, val)=> {
+                return total + val.amount;
+           }, 0)
+        %>
+    <div class="category-amount flex align-center j-between">
+        <p class="title">Advance Amount</p>
+        <span class="name advance" onclick="showAllAmount()">&#8377; <%= task.amount_got != undefined ?  amount_rcv : "_ _ _ _ _ " %></span>
+    </div>
+    <div class="amountInfo-popup hide">
+        <% task.amount_rcv.forEach((pay) => { %>
+        <table>
+            <thead>
+                <tr>
+                    <!-- <th>Sl No.</th> -->
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Mode of Payment</th>
+                </tr>
+                <tbody>
+                    <tr>
+                        <!-- <td>1</td> -->
+                        <td><%= pay.date %></td>
+                        <td class="flex align-center">&#8377; <%= pay.amount %> </td>
+                        <td><%= pay.mode %></td>
+                    </tr>
+                </tbody>
+            </thead>
+        </table>
+        <% }) %>
+    </div>
+    <div class="category-amount blnc-amnt flex align-center j-between">
+        <p class="title">Balance Amount</p>
+        <span class="name">&#8377; <%= task.amount_got != undefined ? spiltVal - amount_rcv  : "_ _ _ _ " %></span>
+    </div>
+    
+    
+</div>
+
+

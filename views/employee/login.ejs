@@ -8,44 +8,34 @@
     <meta name="robots" content="noindex, follow">
     <title>Employee Login | EBAH</title>
 
-    <link rel="stylesheet" href="/css/admin/loginPage.css">
+    <link rel="stylesheet" href="/css/loginPage.css">
     <!-- --ICON CSS--  -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
 <body>
     <div class="login-container">
-        <div class="logo">
-            <h2 class="uppercase">EBAH</h2>
+        <div class="left">
+            <!-- <img src="/img/bg.jpg" alt="login" id="loginImg"> -->
+            <img src="/img/logo.png" alt="logo" id="logo">
         </div>
-        <h3>Howdy member, Welcome Back</h3>
-        <p class="first">Enter your credentials to continue</p>
-        <div class="form">
-            <form method="POST" action="/auth-employee" class="register-form" id="login-form">
-                <div class="field field1">
+        <div class="right">
+            <h1>EBAH</h1>
+            <p>Welcome back</p>
+            <form method="POST" action="/auth-employee" id="login-form">
+                <div class="field">
                     <label for="your_name">Email Address</label>
                     <input type="text" name="Email" id="Email">
                 </div>
-                <div class="field field1">
+                <div class="field">
                     <label for="your_pass">Password</label>
                     <input type="text" name="Password" id="Password">
-                    <i class="uil uil-eye" id="eye"></i>
-                </div>
-                <div class="flex">
-                    <div class="field">
-                        <input type="checkbox" name="" id="">
-                        <span>Keep me logged in</span>
-                    </div>
-                    <div class="field">
-                        <span class="right">Forgot Password?</span>
-                    </div>
+                    <i class="uil uil-eye-slash" id="eye"></i>
                 </div>
                 <div class="field field-btn">
                     <button type="submit" name="signin" id="signin">Log In</button>
                 </div>
             </form>
         </div>
-        <hr>
-        <a class="last">Don't have an account?</a>
     </div>
 
     <!-- --JS-- -->

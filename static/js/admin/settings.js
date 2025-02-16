@@ -8,7 +8,7 @@ let ReqURI = { addMiscTask: BASE_URL + `/set-misc-task`, updMiscTask: BASE_URL +
 function addMiscTask() {
     let inputValue = document.getElementById('miscel-task');
     let mainCtn = document.getElementById('0')
-    let taskCtn = mainCtn.getElementsByClassName('btasks')[0]
+    let taskCtn = mainCtn.querySelector('.switch-data ul')
     ReqHandler.POST(ReqURI.addMiscTask, { miscTask: inputValue.value })
         .then((res) => {
             if (res.status == true) {

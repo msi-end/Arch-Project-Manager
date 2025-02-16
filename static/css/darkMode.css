@@ -1,90 +1,82 @@
 body.dark{
-    --black: hsl(0, 0%, 100%);
-    --black-light: hsla(260, 100%, 90%, 0.4);
-    --black-light-2: hsla(260, 100%, 90%, 0.8);
-    --white: rgb(16, 20, 24);
-
-    --bg-color: hsl(260, 45%, 25%);
-    --bg-hover: hsla(260, 19%, 15%, 0.4);
-    --bg-2: hsl(255, 54%, 15%);
-    --bg-3: hsl(255, 61%, 15%);
-
-    --primary-color: hsl(260, 50%, 75%);
-    --primary-outline: hsla(260, 54%, 45%, 0.9);
-    --primary-light-color: hsl(261, 54%, 35%);
-    --primary-bg: hsl(260, 54%, 45%);
-    --primary-bgr: hsl(260, 54%, 25%);
-
-    --secondary-color: hsl(208, 100%, 50%);
-    --sec-outline: hsla(208, 79%, 51%, 0.2);
-    --sec-light-color: hsl(208, 79%, 93%);
-    --sec-bg: hsl(208, 79%, 60%);
-    --sec-bgrd: hsl(208, 79%, 85%);
-    --sec-bgr: hsl(208, 79%, 88%);
-
-    --tertiary-color: hsl(0, 100%, 45%);
-    --ter-outline: hsla(0, 100%, 45%, 0.1);
-    --ter-dark-color: hsl(0, 100%, 50%);
-    --ter-light-color: hsl(0, 100%, 60%);
-
-    --green: hsl(160, 100%, 34%);
-    --green-outline: hsla(160, 100%, 34%, 0.2);
-    --green-light: hsl(154, 61%, 90%);
-    --green-bg: hsl(160, 100%, 30%);
-    --green-bgr: hsl(160, 100%, 90%);
-    --green-bgrd: hsl(160, 100%, 88%);
-
-    --hover-bg: hsl(208, 79%, 97%);
+    --accent-950: hsl(45, 100%, 96%);
+    --accent-900: hsl(44, 100%, 89%);
+    --accent-800: hsl(44, 100%, 77%);
+    --accent-700: hsl(42, 100%, 65%);
+    --accent-600: hsl(39, 100%, 56%);
+    --accent-500: hsl(34, 95%, 50%);
+    --accent-400: hsl(28, 98%, 44%);
+    --accent-300: hsl(22, 94%, 37%);
+    --accent-200: hsl(19, 86%, 31%);
+    --accent-100: hsl(18, 81%, 26%);
+    --accent-50: hsl(17, 94%, 14%);
 
     
+    --light-accent-950: hsla(45, 100%, 96%, 0.5);
+    --light-accent-900: hsla(44, 100%, 89%, 0.3);
+    --light-accent-800: hsla(44, 100%, 89%, 0.5);
+    --light-accent-700: hsla(44, 100%, 77%, 0.5);
+    --light-accent-600: hsla(42, 100%, 65%, 0.5);
+    --light-accent-500: hsla(39, 100%, 56%, 0.5);
+    --light-accent-400: hsla(34, 95%, 50%, 0.5);
+    --light-accent-300: hsla(28, 98%, 44%, 0.5);
+    --light-accent-200: hsla(22, 94%, 37%, 0.5);
+    --light-accent-150: hsla(19, 86%, 31%, 0.5);
+    --light-accent-100: hsla(18, 81%, 26%, 0.5);
+    --light-accent-50: hsla(17, 94%, 14%, 0.5);
 
-    --grey: rgb(112, 116, 117);
-    --light-grey: hsl(203, 20%, 70%);
-    --very-light-grey: hsl(200, 20%, 95%);
+
+    --search-background: hsl(0, 0%, 13%);
+    --search-outline: rgb(48, 48, 48);
+    --body-background: rgb(51, 51, 51);
     
-}
-body.dark .btn{
-    border: 1px solid var(--bg-color);
-    background: var(--white);
-}
-body.dark :is(.btn:hover .svg, .search .open, .main .main-data svg, 
-.search .cls svg ){
-    fill: var(--black);
-}
-body.dark :is(.logo h3, .search input, .account-settings,
-nav h3, .nav-lists ul span.namue, .nav-lists ul a, nav .nav-lists svg, .main .main-data p, .info-content .accordion-content p, #cat-name, .sub-tasks ul li, p.uppercase, h4, h3, .field label, .field input[type="text"], .field input[type="date"],.field textarea, .field select, .type span, p, .adata .architecture .sadv :is(p.uppercase, span.maka),.main-dropdown .drop-btn button:nth-child(2),.main-dropdown .finance-dropdown :is(input, select), .form-header button:nth-child(2) ) {
-    color: var(--black);
-}
+    --primary-950: hsl(51, 15%, 97%);
+    --primary-900: hsl(51, 15%, 92%);
+    --primary-800: hsl(51, 15%, 89%);
+    --primary-700: hsl(51, 15%, 82%);
+    --primary-600: hsl(51, 15%, 75%);
+    --primary-500: hsl(51, 15%, 65%);
+    --primary-400: hsl(51, 15%, 50%);
+    --primary-300: hsl(51, 15%, 40%);
+    --primary-200: hsl(51, 15%, 22%);
+    --primary-100: hsl(51, 15%, 12%);
+    --primary-50: hsl(51, 15%, 8%);
 
-body.dark :is(.profileIcon:hover) {
-    background: var(--black);
-}
-body.dark .account-settings:hover{
-    color: var(--primary-color);
-}
+    --light-primary-950: hsla(51, 15%, 97%, 0.3);
+    --light-primary-900: hsla(51, 15%, 92%, 0.5);
+    --light-primary-800: hsla(51, 15%, 89%, 0.5);
+    --light-primary-700: hsla(51, 15%, 82%, 0.5);
+    --light-primary-600: hsla(51, 15%, 75%, 0.5);
+    --light-primary-500: hsla(51, 15%, 65%, 0.5);
+    --light-primary-400: hsla(51, 15%, 50%, 0.5);
+    --light-primary-300: hsla(51, 15%, 40%, 0.5);
+    --light-primary-200: hsla(51, 15%, 22%, 0.5);
+    --light-primary-100: hsla(51, 15%, 12%, 0.5);
+    --light-primary-50: hsla(51, 15%, 50%, 0.5);
 
-body.dark aside{
-    background: var(--white);
-}
+    --success: hsl(160, 100%, 34%);
+    --success-outline: hsla(160, 100%, 34%, 0.2);
+    --success-light: hsl(154, 61%, 90%);
+    --success-bg: hsl(160, 100%, 95%);
+    --success-bg-hover: hsl(160, 100%, 90%);
 
-body.dark .info-content .accordion-content .stat.red, :is(.user-status, .profile-status) p.red {
-    /* color: var(--ter-dark-color) !important; */
-}
-body.dark .info-content .accordion-content .stat.green,:is(.user-status, .profile-status) p.green {
-    color: var(--green) !important;
-}
+    --warning-outline: hsla(0, 100%, 45%, 0.1);
+    --warning: hsl(0, 100%, 50%);
+    --warning-bg: hsl(0, 100%, 95%);
+    --warning-bg-hover: hsl(0, 100%, 90%);
 
-body.dark form .field input[type="text"]{
-    color: var(--black);
+    --mainPopupbg: rgba(255, 255, 255, 0.4);
+    --sectionPopupbg: rgba(255, 255, 255, 0.3);
 }
-body.dark .task-emp-status .main-btns select.blue{
-    /* background: var(--sec-bg); */
+body.dark :is(nav ul li>a,
+.log-out a){
+    border-color: var(--body-background);
 }
-body.dark .task-emp-status .main-btns select.red,
-body.dark .info-content .accordion-content .edit-btn{
-    color: var(--white) !important;
+body.dark :is(nav ul li a:is(:hover, .active) svg,
+.log-out a:is(:hover, .active) svg) {
+    fill: var(--accent-900);
 }
-/* body.dark */
-/* body.dark */
-/* body.dark */
-/* body.dark */
+body.dark :is(nav ul li>a:is(:hover, .active),
+.log-out a:is(:hover, .active)){
+    color: var(--accent-900);
+}
