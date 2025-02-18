@@ -63,7 +63,7 @@
             <tbody>
               <% result?.forEach((data)=>{ %>
               <tr>
-                <td id="mrefid">
+                <td data-dealId="<%= data.sdid %>" id="mrefid">
                   <%= data.reference_no %>
                 </td>
                 <td>
@@ -90,10 +90,9 @@
                     </svg>
                   </span>
                 </td>
-              </tr>
+              </tr> 
               <% }) %>
             </tbody>
-
             <tfoot>
               <tr>
                 <td colspan="4"></td>

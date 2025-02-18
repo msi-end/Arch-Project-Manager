@@ -15,11 +15,11 @@ async function addSplitAdvance(data) {
     <div class="grid">
         <div class="field">
             <p class="title">Date <span>(DD/MM/YYYY)</p>
-            <input type="text">
+            <input type="text" name="dateofpay">
         </div>
         <div class="field">
             <p class="title">Advance Amount <span>(in &#8377;)</span></p>
-            <input type="text">
+            <input type="text" name="amount_got">
         </div>
         <div class="field">
             <p class="title">Mode of Payment</p>
@@ -51,8 +51,8 @@ async function updataAdvancePay(data, e) {
 }
 
 
-function showAllAmount(){
-    document.querySelector(`.amountInfo-popup`).classList.toggle(`hide`);
+function showAllAmount(e){
+    e.parentElement.parentElement.querySelector(`.amountInfo-popup`).classList.toggle(`hide`);
 }
 
 

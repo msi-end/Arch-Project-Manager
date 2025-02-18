@@ -22,7 +22,7 @@ async function editProject(target, type){
                                 </div>
                                 <div class="field">
                                     <p class="title">Phone Number <span>(e.g. 9874563210)</span></p>
-                                    <input type="text" econtact" id="enumber" value="${data.results[0].contact}">
+                                    <input type="text" name="econtact" id="econtact" value="${data.results[0].contact}">
                                 </div>
                                 <div class="field">
                                     <p class="title">Email ID <span>(*optional)</span></p>

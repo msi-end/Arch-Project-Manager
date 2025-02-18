@@ -148,7 +148,7 @@ exports.insertNewNormalDeal = async (req, res) => {
 exports.insertNewMiscDeal = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
         db.getConnection((err0, conn) => {
-            if (err0) throw err0;
+            if (err0) throw err0; 
             conn.beginTransaction(function (err) {
                 if (err) {
                     res.status(500).send({ msg: "something error occured" })
@@ -224,10 +224,8 @@ exports.renderNormalProjectFinance = async (req, res) => {
                 const sortedTasks = sentData.sort((a, b) => b[0].id - a[0].id);
                 const sortedData = arrangeFinance(sortedTasks)
                 //  res.status(200).send(sortedData);
-
-                // res.status(200).send(sentData);
                 // const sortedData = sentData.sort((a, b) => b[0].id - a[0].id);
-                // console.log(sortedData)
+                console.log(sortedData.task)
                 res.render('../views/admin/np.finance.ejs', { sortedData });
             } else {
                 console.log(err);

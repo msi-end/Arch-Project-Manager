@@ -31,10 +31,12 @@
         %>
     <div class="category-amount flex align-center j-between">
         <p class="title">Advance Amount</p>
-        <span class="name advance" onclick="showAllAmount()">&#8377; <%= task.amount_got != undefined ?  amount_rcv : "_ _ _ _ _ " %></span>
+        <span class="name advance" onclick="showAllAmount(this)">&#8377; <%= task.amount_got != undefined ?  amount_rcv : "_ _ _ _ _ " %></span>
     </div>
     <div class="amountInfo-popup hide">
-        <% task.amount_rcv.forEach((pay) => { %>
+        <% let incrmentId=0;  %>
+        <% task.amount_rcv.forEach((pay) => {incrmentId++%>
+
         <table>
             <thead>
                 <tr>
@@ -45,7 +47,7 @@
                 </tr>
                 <tbody>
                     <tr>
-                        <!-- <td>1</td> -->
+                        <td><%= incrmentId %></td>
                         <td><%= pay.date %></td>
                         <td class="flex align-center">&#8377; <%= pay.amount %> </td>
                         <td><%= pay.mode %></td>
