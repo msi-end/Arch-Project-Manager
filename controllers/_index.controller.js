@@ -225,7 +225,7 @@ exports.renderNormalProjectFinance = async (req, res) => {
                 const sortedData = arrangeFinance(sortedTasks)
                 //  res.status(200).send(sortedData);
                 // const sortedData = sentData.sort((a, b) => b[0].id - a[0].id);
-                console.log(sortedData.task)
+                // console.log(sortedData)
                 res.render('../views/admin/np.finance.ejs', { sortedData });
             } else {
                 console.log(err);
