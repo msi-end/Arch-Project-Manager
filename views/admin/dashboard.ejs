@@ -2,203 +2,216 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/darkMode.css">
-    <link rel="stylesheet" href="../../css/index.css">
-    <link rel="stylesheet" href="../../css/responsive.css">
-    <link rel="stylesheet" href="sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../js/admin/dashboard.module.js"></script>
-    <!-- <link href="
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../css/darkMode.css">
+  <link rel="stylesheet" href="../../css/index.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../../js/admin/dashboard.module.js"></script>
+  <!-- <link href="
     https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css
     " rel="stylesheet"> -->
-    <title>Admin | EBAH</title>
+  <title>Admin | EBAH</title>
 </head>
 
 <body>
-    <section>
-        <%- include('../partials/admin.aside.ejs') %>
-            <main data-app-page="dashboard">
-                <div class="main-data">
-                    <%- include('../partials/admin.header.ejs') %>
-                        <!-- --HEADING-- -->
-                        <div class="main-section flex align-center j-between">
-                            <div class="main-heading">
-                                <h2>Analytics</h2>
-                                <p class="title">Find all project details here</p>
-                            </div>
-                            <div class="analytic-btn">
-                                <select name="" id="">
-                                    <option>Month</option>
-                                </select>
-                                <select name="" id="">
-                                    <option>Year</option>
-                                </select>
-                            </div>
-                        </div>
+  <section>
+    <%- include('../partials/admin.aside.ejs') %>
+    <main data-app-page="dashboard">
+      <div class="main-data">
+        <%- include('../partials/admin.header.ejs') %>
+        <!-- --HEADING-- -->
+        <div class="main-section flex align-center j-between">
+          <div class="main-heading">
+            <h2>Analytics</h2>
+            <p class="title">Find all project details here</p>
+          </div>
+          <div class="analytic-btn">
+            <select name="" id="">
+              <option>Month</option>
+            </select>
+            <select name="" id="">
+              <option>Year</option>
+            </select>
+          </div>
+        </div>
 
-                        <!-- MAIN SUMMARY  -->
-                        <div class="main-summary grid">
-                            <div class="main-box">
-                                <span class="arrow">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
-                                        <path fill=""
-                                            d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
-                                        </path>
-                                    </svg>
-                                </span>
-                                <p class="title">Total Projects</p>
-                                <h1 class="value">130</h1>
-                            </div>
-                            <div class="main-box">
-                                <span class="arrow">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
-                                        <path fill=""
-                                            d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
-                                        </path>
-                                    </svg>
-                                </span>
-                                <p class="title">Total Revenue</p>
-                                <h1 class="value">&#8377;13000</h1>
-                            </div>
-                            <div class="main-box">
-                                <span class="arrow">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
-                                        <path fill=""
-                                            d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
-                                        </path>
-                                    </svg>
-                                </span>
-                                <p class="title">Total Expenses</p>
-                                <h1 class="value">&#8377;13000</h1>
-                            </div>
-                            <div class="main-box">
-                                <span class="arrow">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
-                                        <path fill=""
-                                            d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
-                                        </path>
-                                    </svg>
-                                </span>
-                                <p class="title">Total Users</p>
-                                <h1 class="value">12</h1>
-                            </div>
-                        </div>
+        <!-- MAIN SUMMARY  -->
+        <div class="main-summary grid">
+          <div class="main-box">
+            <span class="arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
+                <path fill="" d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
+                </path>
+              </svg>
+            </span>
+            <p class="title">Total Projects</p>
+            <h1 class="value"><%= data[0][0]?.total_projects %></h1>
+          </div>
+          <div class="main-box">
+            <span class="arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
+                <path fill="" d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
+                </path>
+              </svg>
+            </span>
+            <p class="title">Total Revenue</p>
+            <h1 class="value">&#8377;<%= data[5][0]?.total_sum+data[5][1]?.total_sum %></h1>
+          </div>
+          <div class="main-box">
+            <span class="arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
+                <path fill="" d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
+                </path>
+              </svg>
+            </span>
+            <p class="title">Total Expenses</p>
+            <h1 class="value">&#8377;<%= data[6][0]?.cash_expenses+data[6][0]?.online_expenses %></h1>
+          </div>
+          <div class="main-box">
+            <span class="arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
+                <path fill="" d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
+                </path>
+              </svg>
+            </span>
+            <p class="title">Total Users</p>
+            <h1 class="value"><%= data[1][0]?.users %></h1>
+          </div>
+        </div>
 
-                        <!-- Overview -->
-                        <div class="sub-summary grid">
-                            <div class="first-part">
-                                <div class="summary-heading flex align-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="bag">
-                                        <path
-                                            d="M19,6H16V5a2,2,0,0,0-2-2H10A2,2,0,0,0,8,5V6H5A3,3,0,0,0,2,9v9a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V9A3,3,0,0,0,19,6ZM10,5h4V6H10ZM20,18a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V12.39L8.68,14A1.19,1.19,0,0,0,9,14h6a1.19,1.19,0,0,0,.32-.05L20,12.39Zm0-7.72L14.84,12H9.16L4,10.28V9A1,1,0,0,1,5,8H19a1,1,0,0,1,1,1Z">
-                                        </path>
-                                    </svg>
-                                    <h3 class="title flex-1">Projects Overview</h3>
-                                    <select name="" id="">
-                                        <option value="normal">Normal</option>
-                                        <option value="miscellaneous">Miscellaneous</option>
-                                    </select>
-                                </div>
-                                <div class="sub-flex flex align-center">
-                                    <div class="sub-box flex-1">
-                                        <p class="title">Total Projects</p>
-                                        <h2 class="value">120</h2>
-                                    </div>
-                                    <div class="sub-box flex-1">
-                                        <p class="title">In Progress</p>
-                                        <h2 class="value">120</h2>
-                                    </div>
-                                    <div class="sub-box flex-1">
-                                        <p class="title">Completed</p>
-                                        <h2 class="value">120</h2>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="second-part">
-                                <div class="summary-heading flex align-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="moneybag"><path fill="" d="M12,11a3,3,0,1,0,3,3A3,3,0,0,0,12,11Zm0,4a1,1,0,1,1,1-1A1,1,0,0,1,12,15Zm7-9H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H5A3,3,0,0,0,2,9V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V9A3,3,0,0,0,19,6ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10ZM4,9A1,1,0,0,1,5,8H6a2,2,0,0,1-2,2ZM5,20a1,1,0,0,1-1-1V18a2,2,0,0,1,2,2Zm15-1a1,1,0,0,1-1,1H18a2,2,0,0,1,2-2Zm0-3a4,4,0,0,0-4,4H8a4,4,0,0,0-4-4V12A4,4,0,0,0,8,8h8a4,4,0,0,0,4,4Zm0-6a2,2,0,0,1-2-2h1a1,1,0,0,1,1,1Z"></path></svg>
-                                    <h3 class="title flex-1">Projects Finance</h3>
-                                    <select name="" id="">
-                                        <option value="normal">Normal</option>
-                                        <option value="miscellaneous">Miscellaneous</option>
-                                    </select>
-                                </div>
-                                <div class="sub-flex flex align-center">
-                                    <div class="sub-box flex-1">
-                                        <p class="title">Total Amount</p>
-                                        <h2 class="value">&#8377;12000</h2>
-                                    </div>
-                                    <div class="sub-box flex-1">
-                                        <p class="title">Cash In Hand</p>
-                                        <h2 class="value">&#8377;10000</h2>
-                                    </div>
-                                    <div class="sub-box flex-1">
-                                        <p class="title">Amount In Bank</p>
-                                        <h2 class="value">&#8377;70000</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Overview -->
+        <div class="sub-summary grid">
+          <div class="first-part">
+            <div class="summary-heading flex align-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="bag">
+                <path d="M19,6H16V5a2,2,0,0,0-2-2H10A2,2,0,0,0,8,5V6H5A3,3,0,0,0,2,9v9a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V9A3,3,0,0,0,19,6ZM10,5h4V6H10ZM20,18a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V12.39L8.68,14A1.19,1.19,0,0,0,9,14h6a1.19,1.19,0,0,0,.32-.05L20,12.39Zm0-7.72L14.84,12H9.16L4,10.28V9A1,1,0,0,1,5,8H19a1,1,0,0,1,1,1Z">
+                </path>
+              </svg>
+              <h3 class="title flex-1">Projects Overview</h3>
+              <select name="" id="">
+                <option value="normal">Normal</option>
+                <option value="miscellaneous">Miscellaneous</option>
+              </select>
+            </div>
+            <%
+                let [completed, pending] = [0, 0];
+                let [misc_completed, misc_pending] = [0, 0];
+                data[2].forEach(e => { e.project_status == 'completed' ? completed++ : pending++; });
+                data[3].forEach(e => { e.project_status == 'completed' ? misc_completed++ : misc_pending++; });
+            %>
+            <div class="sub-flex flex align-center">
+              <div class="sub-box flex-1">
+                <p class="title">Total Projects</p>
+                <h2 class="value"><%= pending+completed %></h2>
+                <h2 class="value"><%= misc_completed+misc_pending %></h2>
+              </div>
+              <div class="sub-box flex-1">
+                <p class="title">In Progress</p>
+                <h2 class="value"><%= pending %></h2>
+                <h2 class="value"><%= misc_pending %></h2>
+              </div>
+              <div class="sub-box flex-1">
+                <p class="title">Completed</p>
+                <h2 class="value"><%= completed %></h2>
+                <h2 class="value"><%= misc_completed %></h2>
+              </div>
+            </div>
+          </div>
+          <div class="second-part">
+            <div class="summary-heading flex align-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="moneybag">
+                <path fill="" d="M12,11a3,3,0,1,0,3,3A3,3,0,0,0,12,11Zm0,4a1,1,0,1,1,1-1A1,1,0,0,1,12,15Zm7-9H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H5A3,3,0,0,0,2,9V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V9A3,3,0,0,0,19,6ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10ZM4,9A1,1,0,0,1,5,8H6a2,2,0,0,1-2,2ZM5,20a1,1,0,0,1-1-1V18a2,2,0,0,1,2,2Zm15-1a1,1,0,0,1-1,1H18a2,2,0,0,1,2-2Zm0-3a4,4,0,0,0-4,4H8a4,4,0,0,0-4-4V12A4,4,0,0,0,8,8h8a4,4,0,0,0,4,4Zm0-6a2,2,0,0,1-2-2h1a1,1,0,0,1,1,1Z"></path>
+              </svg>
+              <h3 class="title flex-1">Projects Finance</h3>
+              <select name="" id="">
+                <option value="normal">Normal</option>
+                <option value="miscellaneous">Miscellaneous</option>
+              </select>
+            </div>
+            <div class="sub-flex flex align-center">
+              <div class="sub-box flex-1">
+                <p class="title">Total Amount</p>
+                <h2 class="value">&#8377;<%= data[4][1]?.total_amount_got %></h2>
+                <h2 class="value">&#8377;<%= data[4][0]?.total_amount_got %></h2>
+              </div>
+              <div class="sub-box flex-1">
+                <p class="title">Cash In Hand</p>
+                <h2 class="value">&#8377;<%= data[4][1]?.cash_sum %></h2>
+                <h2 class="value">&#8377;<%= data[4][0]?.cash_sum %></h2>
+              </div>
+              <div class="sub-box flex-1">
+                <p class="title">Amount In Bank</p>
+                <h2 class="value">&#8377;<%= data[4][1]?.online_sum %></h2>
+                <h2 class="value">&#8377;<%= data[4][0]?.online_sum %></h2>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                        <!-- Finance -->
-                        <div class="sub-summary grid finance">
-                            <div class="first-part">
-                                <div class="summary-heading flex align-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="rupee-sign"><path fill="" d="M18 7h-2.21a5.49 5.49 0 0 0-1-2H18a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h3.5a3.5 3.5 0 0 1 3.15 2H7a1 1 0 0 0 0 2h7a3.5 3.5 0 0 1-3.45 3H7a.7.7 0 0 0-.14 0 .65.65 0 0 0-.2 0 .69.69 0 0 0-.19.1l-.12.07a.75.75 0 0 0-.14.17 1.1 1.1 0 0 0-.09.14.61.61 0 0 0 0 .18A.65.65 0 0 0 6 13a.7.7 0 0 0 0 .14.65.65 0 0 0 0 .2.69.69 0 0 0 .1.19s0 .08.07.12l6 7a1 1 0 0 0 1.52-1.3L9.18 14h1.32A5.5 5.5 0 0 0 16 9h2a1 1 0 0 0 0-2Z"></path></svg>
-                                    <h3 class="title">Finance Overview</h3>
-                                </div>
-                                <div class="sub-flex flex align-center">
-                                    <div class="sub-box flex-1">
-                                        <p class="title">Total Amount</p>
-                                        <h2 class="value">&#8377;12000</h2>
-                                    </div>
-                                    <div class="sub-box flex-1">
-                                        <p class="title">Cash In Hand</p>
-                                        <h2 class="value">&#8377;10000</h2>
-                                    </div>
-                                    <div class="sub-box flex-1">
-                                        <p class="title">Amount In Bank</p>
-                                        <h2 class="value">&#8377;70000</h2>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="second-part">
-                                <div class="summary-heading flex align-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-withdrawal"><path fill="" d="M22,2H2A1,1,0,0,0,1,3v8a1,1,0,0,0,1,1H5v9a1,1,0,0,0,1,1H18a1,1,0,0,0,1-1V12h3a1,1,0,0,0,1-1V3A1,1,0,0,0,22,2ZM7,20V18a2,2,0,0,1,2,2Zm10,0H15a2,2,0,0,1,2-2Zm0-4a4,4,0,0,0-4,4H11a4,4,0,0,0-4-4V8H17Zm4-6H19V7a1,1,0,0,0-1-1H6A1,1,0,0,0,5,7v3H3V4H21Zm-9,5a3,3,0,1,0-3-3A3,3,0,0,0,12,15Zm0-4a1,1,0,1,1-1,1A1,1,0,0,1,12,11Z"></path></svg>
-                                    <h3 class="title">Expenses Overview</h3>
-                                </div>
-                                <div class="sub-flex flex align-center">
-                                    <div class="sub-box flex-1">
-                                        <p class="title">Total Amount</p>
-                                        <h2 class="value">&#8377;12000</h2>
-                                    </div>
-                                    <div class="sub-box flex-1">
-                                        <p class="title">Cash In Hand</p>
-                                        <h2 class="value">&#8377;10000</h2>
-                                    </div>
-                                    <div class="sub-box flex-1">
-                                        <p class="title">Amount In Bank</p>
-                                        <h2 class="value">&#8377;70000</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                </div>
+        <!-- Finance -->
+        <div class="sub-summary grid finance">
+          <div class="first-part">
+            <div class="summary-heading flex align-center">
+              <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="rupee-sign">
+                <path fill="" d="M18 7h-2.21a5.49 5.49 0 0 0-1-2H18a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h3.5a3.5 3.5 0 0 1 3.15 2H7a1 1 0 0 0 0 2h7a3.5 3.5 0 0 1-3.45 3H7a.7.7 0 0 0-.14 0 .65.65 0 0 0-.2 0 .69.69 0 0 0-.19.1l-.12.07a.75.75 0 0 0-.14.17 1.1 1.1 0 0 0-.09.14.61.61 0 0 0 0 .18A.65.65 0 0 0 6 13a.7.7 0 0 0 0 .14.65.65 0 0 0 0 .2.69.69 0 0 0 .1.19s0 .08.07.12l6 7a1 1 0 0 0 1.52-1.3L9.18 14h1.32A5.5 5.5 0 0 0 16 9h2a1 1 0 0 0 0-2Z"></path>
+              </svg>
+              <h3 class="title">Finance Overview</h3>
+            </div>
+            <div class="sub-flex flex align-center">
+              <div class="sub-box flex-1">
+                <p class="title">Total Amount</p>
+                <h2 class="value">&#8377;<%= data[4][0]?.total_amount_got+data[4][1]?.total_amount_got %></h2>
+              </div>
+              <div class="sub-box flex-1">
+                <p class="title">Cash In Hand</p>
+                <h2 class="value">&#8377;<%= data[4][0]?.cash_sum+data[4][1]?.cash_sum %></h2>
+              </div>
+              <div class="sub-box flex-1">
+                <p class="title">Amount In Bank</p>
+                <h2 class="value">&#8377;<%= data[4][0]?.online_sum+data[4][1]?.online_sum %></h2>
+              </div>
+            </div>
+          </div>
+          <div class="second-part">
+            <div class="summary-heading flex align-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-withdrawal">
+                <path fill="" d="M22,2H2A1,1,0,0,0,1,3v8a1,1,0,0,0,1,1H5v9a1,1,0,0,0,1,1H18a1,1,0,0,0,1-1V12h3a1,1,0,0,0,1-1V3A1,1,0,0,0,22,2ZM7,20V18a2,2,0,0,1,2,2Zm10,0H15a2,2,0,0,1,2-2Zm0-4a4,4,0,0,0-4,4H11a4,4,0,0,0-4-4V8H17Zm4-6H19V7a1,1,0,0,0-1-1H6A1,1,0,0,0,5,7v3H3V4H21Zm-9,5a3,3,0,1,0-3-3A3,3,0,0,0,12,15Zm0-4a1,1,0,1,1-1,1A1,1,0,0,1,12,11Z"></path>
+              </svg>
+              <h3 class="title">Expenses Overview</h3>
+            </div>
+            <div class="sub-flex flex align-center">
+              <div class="sub-box flex-1">
+                <p class="title">Total Amount</p>
+                <h2 class="value">&#8377;<%= data[6][0]?.cash_expenses+data[6][0]?.online_expenses %></h2>
+              </div>
+              <div class="sub-box flex-1">
+                <p class="title">Cash In Hand</p>
+                <h2 class="value">&#8377;<%= data[6][0]?.cash_expenses %></h2>
+              </div>
+              <div class="sub-box flex-1">
+                <p class="title">Amount In Bank</p>
+                <h2 class="value">&#8377;<%= data[6][0]?.online_expenses %></h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-                <%- include('../partials/tasks/notification.ejs') %>
-            <%- include('../partials/tasks/alert.ejs') %>
-            </main>
-    </section>
+      <%- include('../partials/tasks/notification.ejs') %>
+      <%- include('../partials/tasks/alert.ejs') %>
+    </main>
+  </section>
 
 
-    <!-- JAVASCRIPT -->
+  <!-- JAVASCRIPT -->
 
-    <script src="../../js/admin/index.js"></script>
-    <script src="../../js/admin/common.js"></script>
-    <script src="../../js/admin/dashboard.render.js"></script>
-    <script src="../../js/admin/dashboard.js"></script>
+  <script src="../../js/admin/index.js"></script>
+  <script src="../../js/admin/common.js"></script>
+  <script src="../../js/admin/dashboard.render.js"></script>
+  <script src="../../js/admin/dashboard.js"></script>
 </body>
 
 </html>

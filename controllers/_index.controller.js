@@ -10,9 +10,21 @@ const {dataUnity, arrangeFinance} = require('../utils/arrange')
 // ---- All Index routes here ----
 exports.dashboard = async(req, res) =>{
     if (req.session.isLoggedIn == true && req.session.role == 'admin'){
-        res.status(200).render('../views/admin/dashboard.ejs')
+        let query = `SELECT COUNT(deals.id) as total_projects FROM deals;SELECT COUNT(em_id) as users FROM employee;
+        SELECT id, CASE WHEN COUNT(DISTINCT project_status) = 1 AND MAX(project_status) = 'completed' THEN 'completed' ELSE 'pending' END AS project_status FROM ( SELECT deals.id, normal_project_cat.project_status FROM deals INNER JOIN normal_project_cat ON deals.id = normal_project_cat.ndeal_id ) AS subquery GROUP BY id;
+        SELECT misc_project_subtask.mdeal_id ,misc_project_subtask.mstask_status as project_status FROM single_deal INNER JOIN misc_project_subtask on single_deal.sdid =misc_project_subtask.mdeal_id GROUP BY misc_project_subtask.mdeal_id;
+        SELECT 'misc_project_finance' AS tName, SUM(amount_got) AS total_amount_got, SUM(CASE WHEN modeofpay='online' THEN amount_got ELSE 0 END) AS online_sum, SUM(CASE WHEN modeofpay='cash' THEN amount_got ELSE 0 END) AS cash_sum FROM misc_project_finance GROUP BY tName UNION ALL SELECT 'normal_projects_finance' AS tName, SUM(amount_got) AS total_amount_got, SUM(CASE WHEN modeofpay='online' THEN amount_got ELSE 0 END) AS online_sum, SUM(CASE WHEN modeofpay='cash' THEN amount_got ELSE 0 END) AS cash_sum FROM normal_projects_finance GROUP BY tName;SELECT  SUM(total_price) AS total_sum FROM single_deal  UNION ALL SELECT  SUM(total_price) AS total_sum FROM deals;SELECT SUM(CASE WHEN md_type ='cash' THEN amount ELSE 0 END) AS cash_expenses, sum(case when md_type ='online' THEN amount ELSE 0 END) as online_expenses FROM expenses; `
+    db.query(query,(err,results)=>{
+        console.log(results);
+      if (!err) {
+          res.status(200).render('../views/admin/dashboard.ejs',{data:results})
+      } else {
+        res.status(401).render('../views/admin/dashboard.ejs',{})
+      }
+
+    })
     }
-}
+    }
 exports.indexDeshboard = async (req, res) => {
     if (req.session.isLoggedIn == true && req.session.role == 'admin') {
         let normalQuery =`SELECT deals.*, normal_project_cat.category_id,normal_project_cat.npcid, task.task_name, normal_project_cat.cat_status, normal_project_subtask.stask_id, subtask.sub_task_name, normal_project_subtask.stask_status, normal_project_cat.project_status, normal_project_cat.dateofdeadline FROM (SELECT * FROM deals ORDER BY id DESC LIMIT ${Number(req.query.from) * 10}, 10) AS deals INNER JOIN normal_project_cat ON normal_project_cat.ndeal_id = deals.id INNER JOIN task ON normal_project_cat.category_id = task.task_id LEFT JOIN normal_project_subtask ON normal_project_subtask.ndeal_id = deals.id AND normal_project_subtask.category_id = normal_project_cat.category_id LEFT JOIN subtask ON subtask.sub_task_id = normal_project_subtask.stask_id ORDER BY deals.id DESC`
@@ -31,7 +43,7 @@ exports.indexDeshboard = async (req, res) => {
                 for (const key in grouped) { sentData.push(grouped[key][0]) }
                 // res.status(200).send({data : sentData});
                 const sortedData = sentData.sort((a, b) => b.id - a.id);
-                // console.log(sortedData)
+                console.log(sortedData)
                 res.status(200).render('../views/admin/_index.ejs', { sortedData })
             }
         })
