@@ -33,7 +33,7 @@
                 </div>
                 <div class="switch grid">
                     
-                    <div class="switch-content" id="0">
+                    <div class="switch-content">
                         <div class="switch-title">
                             <h3>Miscellaneous</h3>
                         </div>
@@ -41,34 +41,34 @@
                             <input type="text" name="miscel-task" id="miscel-task">
                             <button onclick="addMiscTask()">Add</button>
                         </div>
-                        <div class="switch-data">
+                        <div class="switch-data" id="0">
                             <ul>
                                 <% data[1].forEach(mtask=>{ %>
                                 <li class="flex align-center" data-elmId="<%= mtask.msub_task_id %>">
                                     <span class="dot"></span>
                                     <span class="flex-1"><%= mtask.msub_task_name %></span>
-                                    <button onclick="ModelOpen(this,0)">Edit</button>
+                                    <button onclick="editMiscTask('.misc-task',this)">Edit</button>
                                 </li>
                                 <% }) %>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="switch-content" id="1">
+                    <div class="switch-content">
                         <div class="switch-title">
                             <h3>Sub Tasks</h3>
                         </div>
                         <div class="switch-btn flex align-center">
-                            <input type="text" name="miscel-task" id="sub-task">
+                            <input type="text" name="sub-task" id="small-task">
                             <button onclick="addSubTask()">Add</button>
                         </div>
-                        <div class="switch-data">
+                        <div class="switch-data" id="1">
                             <ul>
                                 <% data[0].forEach(subTask=>{ %>
                                 <li class="flex align-center" data-elmId='<%= subTask.sub_task_id %>'>
                                     <span class="dot"></span>
                                     <span class="flex-1"><%= subTask.sub_task_name %></span>
-                                    <button onclick="ModelOpen(this,1)">Edit</button>
+                                    <button onclick="editSubTask('.small-task', this)">Edit</button>
                                 </li>
                                 <% })%>
                             </ul>
@@ -76,21 +76,21 @@
                     </div>
 
                     <!-- --------------Split Ratio-------------- -->
-                    <div class="switch-content" id="2">
+                    <div class="switch-content">
                         <div class="switch-title">
                             <h3>Split Ratio <span>(Arch: Strc: 3D)</span></h3>
                         </div>
                         <div class="switch-btn flex align-center">
-                            <input type="text" name="miscel-task" id="split-ratio">
-                            <button onclick="addSplitRatio(this)" id="">Add</button>
+                            <input type="text" name="split-ratio" id="split-ratio">
+                            <button onclick="addSplitRatio()" id="">Add</button>
                         </div>
-                        <div class="switch-data">
+                        <div class="switch-data" id="2">
                             <ul>
                                 <% data[2].forEach(split=>{ %>
                                 <li class="flex align-center" data-elmId="<%= split.cid %>">
                                     <span class="dot"></span>
                                     <span class="flex-1"><%= split.splitvalue %></span>
-                                    <button onclick="ModelOpen(this,2)">Edit</button>
+                                    <button onclick="editSplitRatio('.split-ratio',this)">Edit</button>
                                 </li>
                                 <% }) %>
                             </ul>
@@ -101,7 +101,7 @@
             </div>
 
             <!-- POPUPS  -->
-                 
+            <div class="main-popup hide"></div>
             <%- include('../partials/tasks/notification.ejs') %>
             <%- include('../partials/tasks/alert.ejs') %>
         </main>

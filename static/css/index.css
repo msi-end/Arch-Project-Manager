@@ -1352,7 +1352,7 @@ span.info {
     margin-top: var(--px-10);
     grid-template-columns: repeat(3, 1fr);
 }
-.expense-grid{
+.extra-grid{
     margin-top: var(--px-10);
 }
 /* USER DASHBOARD */
@@ -1493,4 +1493,8 @@ span.info {
 }
 .switch-data ul li:is(:hover, :focus){
     background: var(--light-accent-300);
+}
+
+:is(.misc-task, .small-task, .split-ratio) .field{
+    margin-top: var(--px-10);
 }
