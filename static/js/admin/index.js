@@ -134,4 +134,45 @@ function openNotification(){
 function hideNotificationPopup(){
     document.querySelector(`.section-popup`).classList.toggle(`hide`);
 }
+//NOTIFICATION TOGGLE
+function changeTab(Id) {
+    const tabList = document.querySelectorAll(`.notification-type p`);
+    const tabContent = document.querySelectorAll(`.notification-column > div`);
+    tabContent.forEach(tab => {
+        if (tab.id === Id) {
+            tab.classList.remove('hide');
+        } else {
+            tab.classList.add('hide');
+        }
+    })
+    tabList.forEach(tab => {
+        if (tab.getAttribute('onclick').includes(Id)) {
+            tab.classList.add('active');
+        } else {
+            tab.classList.remove('active');
+        }   
+    })
+  }
 
+//ANALYTICS TAB
+
+function changeType(target){
+    let n = document.querySelectorAll(`.n`);
+    let m = document.querySelectorAll(`.m`);
+    if(target.value == "normal"){
+        n.forEach(n => {
+            n.classList.remove('hide');
+        })
+        m.forEach(m =>{
+            m.classList.add('hide');
+        })
+    }
+    else if(target.value == "misc"){
+        m.forEach(m =>{
+            m.classList.remove('hide');
+        })
+        n.forEach(n => {
+            n.classList.add('hide');
+        })
+    }
+}

@@ -8,7 +8,6 @@ document.querySelectorAll(`.category-assignees`).forEach((item) => {
     async function renderEmployee() {
         const renderId = item.querySelector(`#emp-in-np`);
         renderId.innerHTML = ``;
-        console.log(renderId);
         if (item.dataset.taskid) {
             const empNp = await feature.GET_POST(`apiv1/employee/${item.dataset.ndealid}/${item.dataset.taskid}`, 'GET');
             empNp.forEach((item) => {
@@ -32,9 +31,11 @@ document.querySelectorAll(`.category-assignees`).forEach((item) => {
         }
 
     }
+    renderEmployee()
 })
 
-// ADD NEW SUB TASK 
+
+// POST NEW SUB TASK 
 addNewSubtasks = async (param, e) => {
     e.preventDefault();
     const target = param.dataset
@@ -44,6 +45,7 @@ addNewSubtasks = async (param, e) => {
     feature.GET_POST('apiv1/addsubtaskto-nproject', 'POST', addSubtaskNp, 'form')
     hidePopup()
 }
+
 addNewEmp = async (param, e) => {
     if (param.dataset.npcid != 'false') {
         const exdata = { title: `You have been assigned to a new project with ref no. ${document.querySelector('#refid').innerHTML} on ${new Date()}`, assignDate: "20/02/2023" }
@@ -70,16 +72,6 @@ async function removeEmpNp(data, type) {
 async function addTaskStatus(target, type, route) {
     let body = null;
     const dataSet = target.parentNode.dataset
-    if (target.value == 'completed') {
-        target.classList.remove('blue', 'red')
-        target.classList.add('green')
-    } else if (target.value == 'On Progress') {
-        target.classList.remove('green', 'red')
-        target.classList.add('blue')
-    } else if (target.value == 'Not Started') {
-        target.classList.remove('blue', 'green')
-        target.classList.add('red')
-    }
     if (type === 'normal') {
         body = { status: target.value, dealId: Number(dataSet.ndealid), catId: Number(dataSet.taskid) }
     } else {
@@ -107,9 +99,6 @@ async function getProjectsStatus() {
     try {
         let e = await feature.GET_POST(`apiv1/${EndPoint}`, 'GET');
         e.data.forEach(e => { e.project_status == 'completed' ? completed++ : pending++; });
-        project_status_ctn[0].children[0].innerText = e.data.length;
-        project_status_ctn[1].children[0].innerText = completed;
-        project_status_ctn[2].children[0].innerText = pending;
     } catch (err) { console.error('Error project status:', err); }
 }
 setTimeout(() => { getProjectsStatus() }, 1500)
@@ -142,8 +131,6 @@ async function DeleteProject(e, o) {
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
     }).then(async (pers) => {
         if (pers.isConfirmed) {
@@ -159,8 +146,6 @@ async function DeleteMiscProject(e, o) {
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
     }).then(async (pers) => {
         if (pers.isConfirmed) {

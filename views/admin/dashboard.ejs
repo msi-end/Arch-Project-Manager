@@ -84,16 +84,16 @@
 
         <!-- Overview -->
         <div class="sub-summary grid">
-          <div class="first-part">
+          <div class="first-part part">
             <div class="summary-heading flex align-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="bag">
                 <path d="M19,6H16V5a2,2,0,0,0-2-2H10A2,2,0,0,0,8,5V6H5A3,3,0,0,0,2,9v9a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V9A3,3,0,0,0,19,6ZM10,5h4V6H10ZM20,18a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V12.39L8.68,14A1.19,1.19,0,0,0,9,14h6a1.19,1.19,0,0,0,.32-.05L20,12.39Zm0-7.72L14.84,12H9.16L4,10.28V9A1,1,0,0,1,5,8H19a1,1,0,0,1,1,1Z">
                 </path>
               </svg>
               <h3 class="title flex-1">Projects Overview</h3>
-              <select name="" id="">
+              <select onchange="changeType(this)">
                 <option value="normal">Normal</option>
-                <option value="miscellaneous">Miscellaneous</option>
+                <option value="misc">Miscellaneous</option>
               </select>
             </div>
             <%
@@ -105,47 +105,47 @@
             <div class="sub-flex flex align-center">
               <div class="sub-box flex-1">
                 <p class="title">Total Projects</p>
-                <h2 class="value"><%= pending+completed %></h2>
-                <h2 class="value"><%= misc_completed+misc_pending %></h2>
+                <h2 class="value n"><%= pending+completed %></h2>
+                <h2 class="value m hide"><%= misc_completed+misc_pending %></h2>
               </div>
               <div class="sub-box flex-1">
                 <p class="title">In Progress</p>
-                <h2 class="value"><%= pending %></h2>
-                <h2 class="value"><%= misc_pending %></h2>
+                <h2 class="value n"><%= pending %></h2>
+                <h2 class="value m hide"><%= misc_pending %></h2>
               </div>
               <div class="sub-box flex-1">
                 <p class="title">Completed</p>
-                <h2 class="value"><%= completed %></h2>
-                <h2 class="value"><%= misc_completed %></h2>
+                <h2 class="value n"><%= completed %></h2>
+                <h2 class="value m hide"><%= misc_completed %></h2>
               </div>
             </div>
           </div>
-          <div class="second-part">
+          <div class="second-part part">
             <div class="summary-heading flex align-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="moneybag">
                 <path fill="" d="M12,11a3,3,0,1,0,3,3A3,3,0,0,0,12,11Zm0,4a1,1,0,1,1,1-1A1,1,0,0,1,12,15Zm7-9H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H5A3,3,0,0,0,2,9V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V9A3,3,0,0,0,19,6ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10ZM4,9A1,1,0,0,1,5,8H6a2,2,0,0,1-2,2ZM5,20a1,1,0,0,1-1-1V18a2,2,0,0,1,2,2Zm15-1a1,1,0,0,1-1,1H18a2,2,0,0,1,2-2Zm0-3a4,4,0,0,0-4,4H8a4,4,0,0,0-4-4V12A4,4,0,0,0,8,8h8a4,4,0,0,0,4,4Zm0-6a2,2,0,0,1-2-2h1a1,1,0,0,1,1,1Z"></path>
               </svg>
               <h3 class="title flex-1">Projects Finance</h3>
-              <select name="" id="">
+              <select name="" id="" onchange="changeType(this)">
                 <option value="normal">Normal</option>
-                <option value="miscellaneous">Miscellaneous</option>
+                <option value="misc">Miscellaneous</option>
               </select>
             </div>
             <div class="sub-flex flex align-center">
               <div class="sub-box flex-1">
                 <p class="title">Total Amount</p>
-                <h2 class="value">&#8377;<%= data[4][1]?.total_amount_got %></h2>
-                <h2 class="value">&#8377;<%= data[4][0]?.total_amount_got %></h2>
+                <h2 class="value n">&#8377;<%= data[4][1]?.total_amount_got %></h2>
+                <h2 class="value m hide">&#8377;<%= data[4][0]?.total_amount_got %></h2>
               </div>
               <div class="sub-box flex-1">
                 <p class="title">Cash In Hand</p>
-                <h2 class="value">&#8377;<%= data[4][1]?.cash_sum %></h2>
-                <h2 class="value">&#8377;<%= data[4][0]?.cash_sum %></h2>
+                <h2 class="value n">&#8377;<%= data[4][1]?.cash_sum %></h2>
+                <h2 class="value m hide">&#8377;<%= data[4][0]?.cash_sum %></h2>
               </div>
               <div class="sub-box flex-1">
                 <p class="title">Amount In Bank</p>
-                <h2 class="value">&#8377;<%= data[4][1]?.online_sum %></h2>
-                <h2 class="value">&#8377;<%= data[4][0]?.online_sum %></h2>
+                <h2 class="value n">&#8377;<%= data[4][1]?.online_sum %></h2>
+                <h2 class="value m hide">&#8377;<%= data[4][0]?.online_sum %></h2>
               </div>
             </div>
           </div>

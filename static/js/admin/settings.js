@@ -28,6 +28,8 @@ function addMiscTask() {
             else {
                 AlertNotifier(res.status, res.msg, 'error');
             }
+        }).catch(err => {
+            console.log('Error(fn-addTask):', err);
         });
 }
 
@@ -78,6 +80,8 @@ function updMiscTask() {
             else {
                 AlertNotifier(res.status, res.msg, 'error');
             }
+        }).catch(err => {
+            console.log('Error(fn-addTask):', err);
         });
 }
 
@@ -99,6 +103,8 @@ function addSubTask() {
             else {
                 AlertNotifier(res.status, res.msg, 'error');
             }
+        }).catch(err => {
+            console.log('Error(fn-addTask):', err);
         });
 }
 //OPEN SUBTASK POPUP
@@ -149,5 +155,102 @@ function updSubTask() {
             else {
                 AlertNotifier(res.status, res.msg, 'error');
             }
+        }).catch(err => {
+            console.log('Error(fn-addTask):', err);
         });
+}
+
+function verifyRatio(value) {
+    const vals = value.value.split(':')
+    if (vals.length === 3) {
+        const sum = vals.reduce((acc, el) => Number(acc) + Number(el))
+        if (sum === 10) { return true
+        } else { return false }    
+    } else {
+        return false;
+    }
+}
+//ADD SUBTASK
+function addSplitRatio() {
+    let inputValue = document.getElementById('split-ratio');
+    let mainCtn = document.getElementById('2');
+    let taskCtn = mainCtn.querySelector(`ul li span.flex-1`);
+    const verification = verifyRatio(inputValue)
+    if (verification) {
+        ReqHandler.POST(ReqURI.splitRatio, { splitValue: inputValue.value })
+            .then((res) => {
+                if (res.status == true && inputValue.value != null) {
+                    AlertNotifier(res.status, res.msg, 'success');
+                    taskCtn.textContent = inputValue.value;
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                }
+                else {
+                    AlertNotifier(res.status, res.msg, 'error');
+                }
+            }).catch(err => {
+                console.log('Error(fn-addTask):', err);
+            });
+    }else{
+        alert('Ratio must contain 3 value & Sum must be 10')
+    }
+
+
+}
+//OPEN SUBTASK POPUP
+function editSplitRatio(e) {
+    const maindrop = document.querySelector('.main-popup');
+    maindrop.classList.remove('hide');
+    maindrop.innerHTML = ""
+    maindrop.innerHTML = `
+        <div class="split-ratio blur hide">
+    <form action="" class="form">
+        <h2>Update Split Ratio</h2>
+        <div class="field">
+            <p class="title">Split Ratio <span>(Arch:Strl:3D)</span></p>
+            <input type="text" id="upd-split-ratio">
+        </div>
+        <div class="action-btn flex align-center">
+            <button class="flex-1" onclick="updSplitRatio()">Update</button>
+            <button class="flex-1 delete" onclick="hidePopup(this)">Cancel</button>
+        </div>
+    </form>
+</div>`
+const dropDownTarget = document.querySelector('.split-ratio');
+dropDownTarget.classList.toggle('hide');  
+let SId = document.getElementById(`2`);
+if(e == `.split-ratio`){
+    dropDownTarget.querySelector(`#upd-split-ratio`).value =
+    SId.querySelector(`ul li span.flex-1`).textContent;
+} 
+}
+
+//UPDATE SUBTASK
+function updSplitRatio() {
+    let inputValue = document.getElementById('upd-split-ratio');
+    let mainCtn = document.getElementById('2');
+    let taskCtn = mainCtn.querySelector(`ul li span.flex-1`);
+    let id = mainCtn.querySelector(`ul li`).dataset.id;
+    const verification = verifyRatio(inputValue)
+
+    if (verification) {
+        ReqHandler.PUT(ReqURI.updSplitRatio + id, { splitValue: inputValue.value })
+            .then((res) => {
+                if (res.status == true) {
+                    AlertNotifier(res.status, res.msg, 'success');
+                    taskCtn.textContent = inputValue.value;
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                }
+                else {
+                    AlertNotifier(res.status, res.msg, 'error');
+                }
+            }).catch(err => {
+                console.log('Error(fn-addTask):', err);
+            });
+    }else{
+        alert('Ratio must contain 3 value & Sum must be 10')
+    }
 }

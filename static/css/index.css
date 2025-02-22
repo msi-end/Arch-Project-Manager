@@ -566,7 +566,7 @@ button.success:hover {
     height: 80vh;
     overflow-y: scroll;
 }
-.all-notifications p{
+:is(.all-notifications, .finance-notifications) p{
     font-size: var(--f-size-14);
     padding: var(--px-10) var(--px-15);
     gap: var(--px-10);
@@ -574,7 +574,7 @@ button.success:hover {
     border-bottom: 1px solid var(--light-primary-400);
 
 }
-.all-notifications p span.text{
+:is(.all-notifications, .finance-notifications) p span.text{
     display: inline-block;
     word-break: break-all;
     width: 100%;
@@ -583,7 +583,7 @@ button.success:hover {
     border-right: 1px solid var(--light-primary-400);
     color: var(--primary-900);
 }
-.all-notifications p span.delete{
+:is(.all-notifications, .finance-notifications) p span.delete{
     display: inline-block;
     padding: var(--px-5);
     border-radius: var(--px-6);
@@ -972,13 +972,13 @@ main .more-data {
 }
 
 .grid-box span.icon {
-    width: 18px;
-    height: 18px;
+    width: var(--px-25);
+    height: var(--px-25);
 }
 
 .grid-box span.icon svg {
-    width: 15px;
-    height: 15px;
+    width: var(--px-15);
+    height: var(--px-15);
 }
 
 .grid-box ul {

@@ -4,11 +4,11 @@
             <h2>Notifications</h2>
             <button type="button" class="delete close" onclick="hideNotificationPopup()">Close</button>
             <div class="notification-type flex align-center">
-                <p class="title active">All</p>
-                <p class="title">Finance</p>
+                <p class="title active" onclick="changeTab('proTab', this)">All</p>
+                <p class="title" onclick="changeTab('finTab', this)">Finance</p>
             </div>
             <div class="notification-column">
-                <div class="all-notifications">
+                <div class="all-notifications" id="proTab">
                     <p class="notification-alert flex align-center">
                         <span class="text">
                             Project has been completed
@@ -16,8 +16,13 @@
                         <span class="delete">Delete</span>
                     </p>
                 </div>
-                <div class="finance-notifications">
-
+                <div class="finance-notifications hide" id="finTab">
+                    <p class="notification-alert flex align-center">
+                        <span class="text">
+                            Payment for project is pending
+                        </span>
+                        <span class="delete">Delete</span>
+                    </p>
                 </div>
             </div>
         </div>

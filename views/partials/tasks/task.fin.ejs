@@ -35,7 +35,6 @@
     </div>
     <div class="amountInfo-popup hide">
         <% let incrmentId=0;  %>
-        <% task.amount_rcv.forEach((pay) => {incrmentId++%>
         <table>
             <thead>
                 <tr>
@@ -45,16 +44,17 @@
                     <th>Mode of Payment</th>
                 </tr>
                 <tbody>
+                    <% task.amount_rcv.forEach((pay) => {incrmentId++%>
                     <tr>
                         <td><%= incrmentId %></td>
                         <td><%= pay.date %></td>
                         <td class="flex align-center">&#8377; <%= pay.amount %> </td>
                         <td><%= pay.mode %></td>
                     </tr>
+                    <% }) %>
                 </tbody>
             </thead>
         </table>
-        <% }) %>
     </div>
     <div class="category-amount blnc-amnt flex align-center j-between">
         <p class="title">Balance Amount</p>

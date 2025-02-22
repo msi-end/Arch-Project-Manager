@@ -17,7 +17,7 @@ function addExpenseForm() {
   maindrop.innerHTML = `<div class="add-expense blur hide">
     <form class="form">
         <h2>Add an Expense</h2>
-        <div class="grid expense-grid">
+        <div class="grid extra-grid">
             <div class="field">
                 <p class="title">Name of the Expense</p>
                 <input type="text" name="expname" id="exp-name">

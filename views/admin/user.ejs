@@ -103,20 +103,20 @@
 
                                 <tbody>
                                     <% data?.forEach(user=>{ %>
-                                        <tr class="user-profile" data-id="<%= user.em_id  %>">
-                                            <td>
+                                        <tr>
+                                            <td class="user-profile" data-id="<%= user.em_id  %>" data-dealId="<%= user.em_id %>">
                                                 <%= user.em_id %>
                                             </td>
-                                            <td>
+                                            <td class="name">
                                                 <%= user.name %>
                                             </td>
-                                            <td>
+                                            <td class="designation">
                                                 <%= user.job_role %>
                                             </td>
-                                            <td>
+                                            <td class="number">
                                                 +91 <%= user.number=='' ?'N/A':user.number %>
                                             </td>
-                                            <td>
+                                            <td class="email">
                                                 <%= user.email %>
                                             </td>
                                             <td class="date">

@@ -189,8 +189,8 @@ function updatePwd() {
 }
 
 function GetUserAttenDetail() {
-    let id = document.querySelector(`.user-profile`).dataset.id;
-    let AttenCtn = document.querySelector(`.attendance-table`);
+    let id = document.querySelector(`.user-profile`).dataset.dealid;
+    let AttenCtn = document.querySelector(`.attendance table tbody tr`);
 
     let year = (new Date).getFullYear();
     let month = (new Date).getUTCMonth();

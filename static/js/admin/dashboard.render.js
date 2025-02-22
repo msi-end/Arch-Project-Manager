@@ -5,6 +5,7 @@ function hidePopup(event) {
     document.querySelector(".main-popup").classList.add('hide');
 }
 
+//EDIT PROJECT POPUP
 async function editProject(target, type){
     const data = await dataMethod.GET_POST(`apiv1/get-data-update?id=${target.dataset.dealid}&type=${type}`, 'GET');
     const getSplitVals = await dataMethod.GET_POST(`admin/settings/get-amountsplit`, 'GET');
@@ -83,7 +84,7 @@ async function editProject(target, type){
         document.getElementsByClassName('field')[9].remove();
     }
 }
-
+//POST PROJECT
 async function UpdateProjectDetails(target, type) {
     const formUpdate = new FormData(document.getElementById('update-detail-form'))
     formUpdate.append('dealid', target.dataset.dealid)
@@ -93,7 +94,7 @@ async function UpdateProjectDetails(target, type) {
     hidePopup()
 }
 
-
+// ADD EMPLOYEE to PROJECT POPUP
 async function empPopup(target) {
     const getId = target.parentNode.dataset
     const mainDrop = document.querySelector('.main-popup')
@@ -111,11 +112,11 @@ async function empPopup(target) {
     mainDrop.innerHTML = empHtml
     mainDrop.classList.toggle('hide')
     const dropDownTarget = document.querySelector(`.emp-drop-menu`)
-    const subtasks = await feature.GET_POST('apiv1/get-employee', 'GET')
+    const empData = await feature.GET_POST('apiv1/get-employee', 'GET')
     dropDownTarget.classList.toggle(`hide`);
     const renderTarget = dropDownTarget.querySelector('#emp-list')
     renderTarget.innerHTML = ''
-    subtasks.forEach((item) => {
+    empData.forEach((item) => {
         const html = `<li class="flex align-center">
                                     <input type="checkbox" name="emid" value="${item.em_id}">
                                     <span class="name">${item.name}</span>
@@ -124,7 +125,7 @@ async function empPopup(target) {
     })
 }
 
-
+//ADD SUBTASK TO POPUP
 async function subPopup(target) {
     const getId = target.parentNode.dataset
     const mainDrop = document.querySelector('.main-popup')
