@@ -35,7 +35,7 @@ function addExpenseForm() {
             </div>
             <div class="field">
                 <p class="title">Date <span>(DD/MM/YYYY)</span></p>
-                <input type="text" name="date" id="date">
+                <input type="date" name="date" id="date">
             </div>
             <div class="field">
                 <p class="title">Remarks <span>(*optional)</span></p>
@@ -76,7 +76,7 @@ function setExpenseToModel(e) {
   editCtn.children[0].dataset.exps_id = ExpsCtn.dataset.exps_id;
   editCtn.querySelector("#exp-name").value =ExpsCtn.children[1].innerText;
   editCtn.querySelector("#amount").value =ExpsCtn.children[2].innerText;
-  editCtn.querySelector("#date").value = date_Split(`${ExpsCtn.children[3].innerText}`,"/",true);
+  editCtn.querySelector("#date").value = date_Split(`${ExpsCtn.children[3].innerText}`,"/",false);
   editCtn.querySelector("#mode").value =ExpsCtn.children[4].innerText;
   editCtn.querySelector("#remark").value =ExpsCtn.children[5].innerText;
   editCtn.classList.remove(`hide`);

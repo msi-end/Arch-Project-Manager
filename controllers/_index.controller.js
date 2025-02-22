@@ -78,7 +78,6 @@ exports.expense = (req, res) => {
         db.query(query, (err, result, field) => {
             res.status(200).render('../views/admin/expense.finance.ejs', { data: result })
             // res.send(result)
-            console.log(result);
             
 
         })
