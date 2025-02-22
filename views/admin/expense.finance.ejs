@@ -86,7 +86,7 @@
             </thead>
 
             <tbody>
-              <% data[0]?.forEach(exps=>{ %>
+              <% data?.forEach(exps=>{ %>
               <tr data-exps_id="<%= exps.id %>">
                 <td>
                   <%= exps.id %>
@@ -147,7 +147,7 @@
             </div>
             <div class="field">
               <p class="title">Date <span>(DD/MM/YYYY)</span></p>
-              <input type="text" name="date" id="date">
+              <input type="date" name="date" id="date">
             </div>
             <div class="field">
               <p class="title">Remarks <span>(*optional)</span></p>
