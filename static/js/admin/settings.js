@@ -35,6 +35,8 @@ function addMiscTask() {
 
 //OPEN MISCELLANEOUS TASK POPUP
 function editMiscTask(e) {
+    let id = e.dataset.id;
+    let type = e.parentElement.children[1].textContent;
     const maindrop = document.querySelector('.main-popup');
     maindrop.classList.remove('hide');
     maindrop.innerHTML = ""
@@ -47,32 +49,28 @@ function editMiscTask(e) {
             <input type="text" id="upd-misc-task">
         </div>
         <div class="action-btn flex align-center">
-            <button class="flex-1" onclick="updMiscTask()">Update</button>
+            <button class="flex-1" onclick="updMiscTask(${id},'${type}')">Update</button>
             <button class="flex-1 delete" onclick="hidePopup(this)">Cancel</button>
         </div>
     </form>
 </div>`
 const dropDownTarget = document.querySelector('.misc-task');
-dropDownTarget.classList.toggle('hide');  
-let MId = document.getElementById(`0`);
-if(e == `.misc-task`){
-    dropDownTarget.querySelector(`#upd-misc-task`).value =
-    MId.querySelector(`ul li span.flex-1`).textContent;
+dropDownTarget.classList.toggle('hide');
+if(e){
+    dropDownTarget.querySelector(`#upd-misc-task`).value = type;
 } 
 }
 
 //UPDATE MISCELLANEOUS TASK
-function updMiscTask() {
+function updMiscTask(id) {
     let inputValue = document.getElementById('upd-misc-task');
     let mainCtn = document.getElementById('0');
-    let taskCtn = mainCtn.querySelector(`ul li span.flex-1`);
-    let id = mainCtn.querySelector(`ul li`).dataset.id;
 
     ReqHandler.PUT(ReqURI.updMiscTask + id, { miscTask: inputValue.value })
         .then((res) => {
             if (res.status == true) {
                 AlertNotifier(res.status, res.msg, 'success');
-                taskCtn.textContent = inputValue.value;
+                type.textContent = inputValue.value;
                 setTimeout(() => {
                     location.reload();
                 }, 1000);
@@ -109,6 +107,8 @@ function addSubTask() {
 }
 //OPEN SUBTASK POPUP
 function editSubTask(e) {
+    let id = e.dataset.id;
+    let type = e.parentElement.children[1].textContent;
     const maindrop = document.querySelector('.main-popup');
     maindrop.classList.remove('hide');
     maindrop.innerHTML = ""
@@ -121,17 +121,15 @@ function editSubTask(e) {
             <input type="text" id="upd-sub-task">
         </div>
         <div class="action-btn flex align-center">
-            <button class="flex-1" onclick="updSubTask()">Update</button>
+            <button class="flex-1" onclick="updSubTask(${id},'${type}')">Update</button>
             <button class="flex-1 delete" onclick="hidePopup(this)">Cancel</button>
         </div>
     </form>
 </div>`
 const dropDownTarget = document.querySelector('.small-task');
 dropDownTarget.classList.toggle('hide');  
-let SId = document.getElementById(`1`);
-if(e == `.small-task`){
-    dropDownTarget.querySelector(`#upd-sub-task`).value =
-    SId.querySelector(`ul li span.flex-1`).textContent;
+if(e){
+    dropDownTarget.querySelector(`#upd-sub-task`).value = type;
 } 
 }
 
@@ -200,6 +198,8 @@ function addSplitRatio() {
 }
 //OPEN SUBTASK POPUP
 function editSplitRatio(e) {
+    let id = e.dataset.id;
+    let type = e.parentElement.children[1].textContent;
     const maindrop = document.querySelector('.main-popup');
     maindrop.classList.remove('hide');
     maindrop.innerHTML = ""
@@ -212,17 +212,15 @@ function editSplitRatio(e) {
             <input type="text" id="upd-split-ratio">
         </div>
         <div class="action-btn flex align-center">
-            <button class="flex-1" onclick="updSplitRatio()">Update</button>
+            <button class="flex-1" onclick="updSplitRatio(${id},'${type}')">Update</button>
             <button class="flex-1 delete" onclick="hidePopup(this)">Cancel</button>
         </div>
     </form>
 </div>`
 const dropDownTarget = document.querySelector('.split-ratio');
 dropDownTarget.classList.toggle('hide');  
-let SId = document.getElementById(`2`);
-if(e == `.split-ratio`){
-    dropDownTarget.querySelector(`#upd-split-ratio`).value =
-    SId.querySelector(`ul li span.flex-1`).textContent;
+if(e){
+    dropDownTarget.querySelector(`#upd-split-ratio`).value = type;
 } 
 }
 

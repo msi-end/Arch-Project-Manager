@@ -74,6 +74,8 @@ function addNewUser() {
 
 // UPDATE USER POPUP
 function editUser(e) {
+    let id = e.dataset.id;
+    let target = e.parentElement.parentElement.parentElement.children[1];
     const maindrop = document.querySelector(`.main-popup`);
     maindrop.classList.toggle(`hide`);
     maindrop.innerHTML = ""
@@ -99,33 +101,31 @@ function editUser(e) {
                                 </div>
                             </div>
                             <div class="action-btn flex align-center">
-                                <button type="button" class="flex-1" onclick="updateUser()">Update</button>
+                                <button type="button" class="flex-1" onclick="updateUser(${id})">Update</button>
                                 <button type="button" class="flex-1 delete" onclick="hidePopup(this)">Cancel</button>
                             </div>
                         </form>
                     </div>`
     const dropDownTarget = document.querySelector(`.edit-user`);
     dropDownTarget.classList.toggle(`hide`);
-    if (e == `.edit-user`) {
-        dropDownTarget.dataset.id = document.querySelector(`.user-profile`).dataset.id;
-        dropDownTarget.querySelector(`#editname`).value = document.querySelector(`.name`).innerText;
-        dropDownTarget.querySelector(`#editnumber`).value = document.querySelector(`.number`).innerText;
-        dropDownTarget.querySelector(`#editemail`).value = document.querySelector(`.email`).innerText;
-        dropDownTarget.querySelector(`#editdesignation`).value = document.querySelector(`.designation`).innerText;
+    if (e) {
+        dropDownTarget.querySelector(`#editname`).value = target.querySelector(`.name`).innerText;
+        dropDownTarget.querySelector(`#editnumber`).value = target.querySelector(`.number`).innerText;
+        dropDownTarget.querySelector(`#editemail`).value = target.querySelector(`.email`).innerText;
+        dropDownTarget.querySelector(`#editdesignation`).value = target.querySelector(`.designation`).innerText;
     } else {
         null;
     }
 }
 //UPDATING USER DATA
-function updateUser() {
-    let u_id = document.querySelector(`.userDetails`).dataset.id;
+function updateUser(id) {
     let dataObj = {
         name: document.querySelector('#editname').value,
         job_role: document.querySelector('#editdesignation').value,
         number: document.querySelector('#editnumber').value,
         email: document.querySelector('#editemail').value,
     }
-    ReqHandler.PUT(ReqURI.updUser + u_id, dataObj)
+    ReqHandler.PUT(ReqURI.updUser + id, dataObj)
         .then((result) => {
             if (result.status == true) {
                 AlertNotifier(result.status, result.msg, 'success');

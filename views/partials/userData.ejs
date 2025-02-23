@@ -11,31 +11,31 @@
         </div>
         <div class="edit-more-data flex align-center">
             <p class="title" onclick="editPwd(this) ">Change Password</p>
-            <button onclick="editUser('.edit-user',true)">Edit</button>
+            <button data-id="<%= user.em_id %>" onclick="editUser(this, true)">Edit</button>
         </div>
     </div>
     <!-- DETAILS  -->
     <div class="contents grid">
         <div class="description flex align-center">
             <h3>Name:</h3>
-            <p class="text">
+            <p class="text name">
                 <%= user.name %>
             </p>
         </div>
         <div class="description flex align-center">
             <h3>Phone Number:</h3>
-            <p class="text">+91 <%= user.number=='' ?'N/A':user.number %>
+            <p class="text">+91 <span class="number"> <%= user.number=='' ?'N/A':user.number %></span>
             </p>
         </div>
         <div class="description flex align-center">
             <h3>Email ID:</h3>
-            <p class="text">
+            <p class="text email">
                 <%= user.email %>
             </p>
         </div>
         <div class="description flex align-center">
             <h3>Designation:</h3>
-            <p class="text">
+            <p class="text designation">
                 <%= user.job_role %>
             </p>
         </div>

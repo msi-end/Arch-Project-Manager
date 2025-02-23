@@ -44,10 +44,10 @@
                         <div class="switch-data" id="0">
                             <ul>
                                 <% data[1].forEach(mtask=>{ %>
-                                <li class="flex align-center" data-elmId="<%= mtask.msub_task_id %>">
+                                <li class="flex align-center" data-id="<%= mtask.msub_task_id %>">
                                     <span class="dot"></span>
                                     <span class="flex-1"><%= mtask.msub_task_name %></span>
-                                    <button onclick="editMiscTask('.misc-task',this)">Edit</button>
+                                    <button data-id="<%= mtask.msub_task_id %>" onclick="editMiscTask(this)">Edit</button>
                                 </li>
                                 <% }) %>
                             </ul>
@@ -65,10 +65,10 @@
                         <div class="switch-data" id="1">
                             <ul>
                                 <% data[0].forEach(subTask=>{ %>
-                                <li class="flex align-center" data-elmId='<%= subTask.sub_task_id %>'>
+                                <li class="flex align-center" data-id='<%= subTask.sub_task_id %>'>
                                     <span class="dot"></span>
                                     <span class="flex-1"><%= subTask.sub_task_name %></span>
-                                    <button onclick="editSubTask('.small-task', this)">Edit</button>
+                                    <button data-id='<%= subTask.sub_task_id %>' onclick="editSubTask(this)">Edit</button>
                                 </li>
                                 <% })%>
                             </ul>
@@ -87,10 +87,10 @@
                         <div class="switch-data" id="2">
                             <ul>
                                 <% data[2].forEach(split=>{ %>
-                                <li class="flex align-center" data-elmId="<%= split.cid %>">
+                                <li class="flex align-center" data-id="<%= split.cid %>">
                                     <span class="dot"></span>
                                     <span class="flex-1"><%= split.splitvalue %></span>
-                                    <button onclick="editSplitRatio('.split-ratio',this)">Edit</button>
+                                    <button data-id="<%= split.cid %>" onclick="editSplitRatio(this)">Edit</button>
                                 </li>
                                 <% }) %>
                             </ul>

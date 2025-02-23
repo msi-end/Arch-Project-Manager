@@ -15,7 +15,6 @@ exports.dashboard = async(req, res) =>{
         SELECT misc_project_subtask.mdeal_id ,misc_project_subtask.mstask_status as project_status FROM single_deal INNER JOIN misc_project_subtask on single_deal.sdid =misc_project_subtask.mdeal_id GROUP BY misc_project_subtask.mdeal_id;
         SELECT 'misc_project_finance' AS tName, SUM(amount_got) AS total_amount_got, SUM(CASE WHEN modeofpay='online' THEN amount_got ELSE 0 END) AS online_sum, SUM(CASE WHEN modeofpay='cash' THEN amount_got ELSE 0 END) AS cash_sum FROM misc_project_finance GROUP BY tName UNION ALL SELECT 'normal_projects_finance' AS tName, SUM(amount_got) AS total_amount_got, SUM(CASE WHEN modeofpay='online' THEN amount_got ELSE 0 END) AS online_sum, SUM(CASE WHEN modeofpay='cash' THEN amount_got ELSE 0 END) AS cash_sum FROM normal_projects_finance GROUP BY tName;SELECT  SUM(total_price) AS total_sum FROM single_deal  UNION ALL SELECT  SUM(total_price) AS total_sum FROM deals;SELECT SUM(CASE WHEN md_type ='cash' THEN amount ELSE 0 END) AS cash_expenses, sum(case when md_type ='online' THEN amount ELSE 0 END) as online_expenses FROM expenses; `
     db.query(query,(err,results)=>{
-        console.log(results);
       if (!err) {
           res.status(200).render('../views/admin/dashboard.ejs',{data:results})
       } else {
@@ -43,7 +42,6 @@ exports.indexDeshboard = async (req, res) => {
                 for (const key in grouped) { sentData.push(grouped[key][0]) }
                 // res.status(200).send({data : sentData});
                 const sortedData = sentData.sort((a, b) => b.id - a.id);
-                console.log(sortedData)
                 res.status(200).render('../views/admin/_index.ejs', { sortedData })
             }
         })
@@ -93,7 +91,6 @@ exports.insertNewNormalDeal = async (req, res) => {
             conn.beginTransaction(function (err) {
                 if (err) {
                     res.status(500).send({ msg: "something error occured" })
-                    console.log(err);
                     return;
                 }
                 const dealsTableData = [req.body.name, req.body.rfNo, req.body.contactNo, req.body.agreementAm, req.body.workName, req.body.email, req.body.city, req.body.TotalAm, req.body.npdeadline, req.body.split]
@@ -241,7 +238,6 @@ exports.renderNormalProjectFinance = async (req, res) => {
                 // console.log(sortedData)
                 res.render('../views/admin/np.finance.ejs', { sortedData });
             } else {
-                console.log(err);
                 res.status(500).send({ msg: "Internal server error!!!" })
             }
         })
