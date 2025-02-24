@@ -86,7 +86,8 @@ function addExpense() {
 
 //EDIT EXPENSE
 function editExpense(e){
-  let id = e.dataset.e_id;
+  console.log(e);
+  let id = e.parentElement.parentElement.dataset.exps_id;  
   let target = e.parentElement.parentElement;
   const maindrop = document.querySelector(`.main-popup`);
     maindrop.classList.toggle(`hide`);
@@ -138,7 +139,7 @@ function updExpense(exp_id) {
   let editCtn = document.querySelector(".editexpense");
   let dataObj = {
     title: editCtn.querySelector("#exp-name").value,
-    amount: editCtn.querySelector("#amount").value,
+    amount: editCtn.querySelector("#amount").value.substring(2),
     mode: editCtn.querySelector("#mode").value,
     remark: editCtn.querySelector("#remark").value,
     date: date_Split(editCtn.querySelector("#date").value, "-", true),
