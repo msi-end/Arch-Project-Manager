@@ -18,10 +18,11 @@ exports.dashboard = async (req, res) => {
         console.log(results);
         res
           .status(200)
-          .render("../views/admin/dashboard.ejs", { data: results ||[] });
+          .render("../views/admin/dashboard.ejs", { data: results || [] });
       } else {
-          console.log(err);
-        res.status(401).render("../views/admin/dashboard.ejs", {data:[]});
+        console.log(results);
+        console.log(err);
+        res.status(401).render("../views/admin/dashboard.ejs", { data: [] });
       }
     });
   }
