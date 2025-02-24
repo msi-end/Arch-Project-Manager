@@ -13,7 +13,6 @@ exports.GetNotification = (req, res) => {
 
 }
 exports.SetNotification = (req, res) => {
-    console.log(req.body, req.body.id);
     let query=`INSERT INTO emp_task_notify(emid,title , dateofnotify) VALUES(?,?,?);`
     db.query(query,[req.body.id,req.body.title,req.body.date],(err,result)=>{
         if (!err) {
