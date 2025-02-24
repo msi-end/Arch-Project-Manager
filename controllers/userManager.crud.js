@@ -56,7 +56,6 @@ exports.Update = (req, res) => {
         if (index < arr.length - 1) { query += ','; }
     });
     query += 'WHERE em_id =?'; val.push(req.params.id)
-    console.log(query, val);
     db.query(query, val, (err, result, field) => {
         if (err) throw new errorHandler(err.statusCode, err);
         res.status(200).send({ status: true, msg: 'Life success!' })
