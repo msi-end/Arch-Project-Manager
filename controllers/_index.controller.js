@@ -13,10 +13,9 @@ exports.dashboard = async (req, res) => {
     db.query(query, (err, results) => {
       if (!err) {
         console.log(results);
-        // res
-        //   .status(200)
-        //   .render("../views/admin/dashboard.ejs", { data: results || [] });
-        res.redirect('/admin/default?from=0&to=1')
+        res
+          .status(200)
+          .render("../views/admin/dashboard.ejs", { data: results || [] });
       } else {
         console.log(results);
         console.log(err);
