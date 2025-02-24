@@ -9,17 +9,13 @@ const { dataUnity, arrangeFinance } = require("../utils/arrange");
 // ---- All Index routes here ----
 exports.dashboard = async (req, res) => {
   if (req.session.isLoggedIn == true && req.session.role == "admin") {
-    let query = `SELECT ((SELECT COUNT(sdid) FROM single_deal) + (SELECT COUNT(id) FROM deals))AS total_projects;SELECT COUNT(em_id) as users FROM employee;
-        SELECT id, CASE WHEN COUNT(DISTINCT project_status) = 1 AND MAX(project_status) = 'completed' THEN 'completed' ELSE 'pending' END AS project_status FROM ( SELECT deals.id, normal_project_cat.project_status FROM deals INNER JOIN normal_project_cat ON deals.id = normal_project_cat.ndeal_id ) AS subquery GROUP BY id;
-        SELECT misc_project_subtask.mdeal_id ,misc_project_subtask.mstask_status as project_status FROM single_deal INNER JOIN misc_project_subtask on single_deal.sdid =misc_project_subtask.mdeal_id GROUP BY misc_project_subtask.mdeal_id;
-        SELECT 'misc_project_finance' AS tName, SUM(amount_got) AS total_amount_got, SUM(CASE WHEN modeofpay='online' THEN amount_got ELSE 0 END) AS online_sum, SUM(CASE WHEN modeofpay='cash' THEN amount_got ELSE 0 END) AS cash_sum FROM misc_project_finance GROUP BY tName UNION ALL SELECT 'normal_projects_finance' AS tName, SUM(amount_got) AS total_amount_got, SUM(CASE WHEN modeofpay='online' THEN amount_got ELSE 0 END) AS online_sum, SUM(CASE WHEN modeofpay='cash' THEN amount_got ELSE 0 END) AS cash_sum FROM normal_projects_finance GROUP BY tName;SELECT  SUM(total_price) AS total_sum FROM single_deal  UNION ALL SELECT  SUM(total_price) AS total_sum FROM deals;SELECT SUM(CASE WHEN md_type ='cash' THEN amount ELSE 0 END) AS cash_expenses, sum(case when md_type ='online' THEN amount ELSE 0 END) as online_expenses FROM expenses; `;
+    let query =`SELECT ((SELECT COUNT(sdid) FROM single_deal) + (SELECT COUNT(id) FROM deals)) AS total_projects; SELECT COUNT(em_id) AS users FROM employee; SELECT id, CASE WHEN COUNT(DISTINCT project_status) = 1 AND MAX(project_status) = 'completed' THEN 'completed' ELSE 'pending' END AS project_status FROM (SELECT deals.id, normal_project_cat.project_status FROM deals INNER JOIN normal_project_cat ON deals.id = normal_project_cat.ndeal_id) AS subquery GROUP BY id; SELECT misc_project_subtask.mdeal_id, GROUP_CONCAT(misc_project_subtask.mstask_status) AS project_status FROM single_deal INNER JOIN misc_project_subtask ON single_deal.sdid = misc_project_subtask.mdeal_id GROUP BY misc_project_subtask.mdeal_id; SELECT 'misc_project_finance' AS tName, SUM(amount_got) AS total_amount_got, SUM(CASE WHEN modeofpay='online' THEN amount_got ELSE 0 END) AS online_sum, SUM(CASE WHEN modeofpay='cash' THEN amount_got ELSE 0 END) AS cash_sum FROM misc_project_finance GROUP BY tName UNION ALL SELECT 'normal_projects_finance' AS tName, SUM(amount_got) AS total_amount_got, SUM(CASE WHEN modeofpay='online' THEN amount_got ELSE 0 END) AS online_sum, SUM(CASE WHEN modeofpay='cash' THEN amount_got ELSE 0 END) AS cash_sum FROM normal_projects_finance GROUP BY tName; SELECT SUM(total_price) AS total_sum FROM single_deal UNION ALL SELECT SUM(total_price) AS total_sum FROM deals; SELECT SUM(CASE WHEN md_type = 'cash' THEN amount ELSE 0 END) AS cash_expenses, SUM(CASE WHEN md_type = 'online' THEN amount ELSE 0 END) AS online_expenses FROM expenses;`;
     db.query(query, (err, results) => {
       if (!err) {
         console.log(results);
-        // res
-        //   .status(200)
-        //   .render("../views/admin/dashboard.ejs", { data: results || [] });
-        res.redirect('/admin/default?from=0&to=1')
+        res
+          .status(200)
+          .render("../views/admin/dashboard.ejs", { data: results || [] });
       } else {
         console.log(results);
         console.log(err);
