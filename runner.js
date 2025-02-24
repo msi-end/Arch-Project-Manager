@@ -53,3 +53,5 @@ create(name, email, password, role)
 // 77ee3625f508f3051360327fb67668b2ba769f13f56599bb45a4a923bb850c49
 
 // NODE_ENV=development node runner.js msi msi@gmail.com msi admin
+{/* <h1 class="value"><%= data[0][0]?.total_projects %></h1> */}
+// 
