@@ -91,23 +91,23 @@
                 <td>
                   <%= exps.id %>
                 </td>
-                <td>
+                <td class="exp-name-data">
                   <%= exps.title %>
                 </td>
-                <td>
+                <td class="exp-amount-data">
                   &#8377; <%= exps.amount %>
                 </td>
-                <td>
+                <td class="exp-date-data">
                   <%= exps.date %>
                 </td>
-                <td>
+                <td class="exp-mode-data">
                   <%= exps.md_type %>
                 </td>
                 <td>
                   <%= exps.remark %>
                 </td>
                 <td class="flex align-center">
-                  <button class="edit" onclick="Opn_ExpenseCtn('.editexpense',this)">Edit</button>
+                  <button class="edit" data-exps_id="<%= exps.id %>" onclick="editExpense(this)">Edit</button>
                 </td>
               </tr>
               <% }) %>
@@ -126,43 +126,8 @@
 
 
       <!-- POPUPS  -->
-      <div class="editexpense blur hide">
-        <form class="form">
-          <h2>Edit an Expense</h2>
-          <div class="grid expense-grid">
-            <div class="field">
-              <p class="title">Name of the Expense</p>
-              <input type="text" name="expname" id="exp-name">
-            </div>
-            <div class="field">
-              <p class="title">Expense Amount <span>(in &#8377;)</span></p>
-              <input type="text" name="expamount" id="amount">
-            </div>
-            <div class="field">
-              <p class="title">Mode of Payment</p>
-              <select name="modeOfPays" id="mode">
-                <option value="cash">Cash</option>
-                <option value="online">Online</option>
-              </select>
-            </div>
-            <div class="field">
-              <p class="title">Date <span>(DD/MM/YYYY)</span></p>
-              <input type="date" name="date" id="date">
-            </div>
-            <div class="field">
-              <p class="title">Remarks <span>(*optional)</span></p>
-              <input type="text" id="remark">
-            </div>
-          </div>
-          <div class="action-btn flex align-center">
-            <button type="button" onclick="addExpense()" class="flex-1">Add</button>
-            <button type="reset" class="flex-1 delete" onclick="hidePopup(this)">Cancel</button>
-          </div>
-        </form>
-      </div>
 
-      <div class="main-popup hide">
-      </div>
+      <div class="main-popup hide"></div>
       <%- include('../partials/tasks/notification.ejs') %>
       <%- include('../partials/tasks/alert.ejs') %>
     </main>
