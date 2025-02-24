@@ -1,0 +1,23 @@
+<div class="section-popup hide">
+    <div class="notification-popup">
+        <div class="notification-inner">
+            <h2>Notifications</h2>
+            <button type="button" class="delete close" onclick="hideNotificationPopup()">Close</button>
+            <div class="notification-type flex align-center">
+                <p class="title active" onclick="changeTab('proTab', this)">All</p>
+                <p class="title" onclick="changeTab('finTab', this)">Finance</p>
+            </div>
+            <div class="notification-column">
+                <div class="all-notifications" id="proTab">
+                    <p class="notification-alert flex align-center">
+                        <span class="text">
+                            Project has been completed
+                        </span>
+                        <span class="delete">Delete</span>
+                    </p>
+                </div>
+                <div class="finance-notifications hide" id="finTab"></div>
+            </div>
+        </div>
+    </div>
+</div>

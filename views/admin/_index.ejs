@@ -2,213 +2,132 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/admin/main.css">
-    <link rel="stylesheet" href="../../css/darkMode.css">
-    <link rel="stylesheet" href="../../css/admin/header.css">
-    <link rel="stylesheet" href="../../css/admin/responsive.css">
-    <link rel="stylesheet" href="sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../js/admin/dashboard.module.js"></script>
-    <!-- <link href="
-    https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css
-    " rel="stylesheet"> -->
-    <title>Admin | EBAH</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/darkMode.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <link rel="stylesheet" href="sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../../js/admin/dashboard.module.js"></script>
+  <title>Admin | EBAH</title>
 </head>
 
 <body>
-    <%- include('../partials/admin.header.ejs') %>
-        <main class="main" data-app-page="dashboard">
-            <!------------- DATA-OVERALL-------------  -->
-            <div class="main-data flex">
-                <!-- -------TOTAL PROJECTS--------- -->
-                <div class="total-data flex data">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="users-alt" class="svg">
-                        <path fill="##000000"
-                            d="M12.3,12.22A4.92,4.92,0,0,0,14,8.5a5,5,0,0,0-10,0,4.92,4.92,0,0,0,1.7,3.72A8,8,0,0,0,1,19.5a1,1,0,0,0,2,0,6,6,0,0,1,12,0,1,1,0,0,0,2,0A8,8,0,0,0,12.3,12.22ZM9,11.5a3,3,0,1,1,3-3A3,3,0,0,1,9,11.5Zm9.74.32A5,5,0,0,0,15,3.5a1,1,0,0,0,0,2,3,3,0,0,1,3,3,3,3,0,0,1-1.5,2.59,1,1,0,0,0-.5.84,1,1,0,0,0,.45.86l.39.26.13.07a7,7,0,0,1,4,6.38,1,1,0,0,0,2,0A9,9,0,0,0,18.74,11.82Z">
-                        </path>
+  <section>
+    <%- include('../partials/admin.aside.ejs') %>
+    <main data-app-page="default">
+      <div class="main-data">
+        <%- include('../partials/admin.header.ejs') %>
+        <!-- --HEADING-- -->
+        <div class="heading">
+          <h2>Project Dashboard</h2>
+          <p class="title">Find all project details here</p>
+        </div>
+        <!-- --SUB-HEADING-- -->
+        <div class="top-section flex align-center j-between">
+          <div class="section-text">
+            <h3 class="flex">All Projects</h3>
+          </div>
+          <div class="searchBox flex align-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search" onclick="SearchFromInput()">
+              <path fill="##000000" d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z">
+              </path>
+            </svg>
+            <input type="text" id="searchQuery" oninput="search()" placeholder="Search for anything...">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="times" class="close" onclick="clearInput()">
+              <path fill="##000000" d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
+              </path>
+            </svg>
+          </div>
+        </div>
+        <!-- ----------- DATA TABLE----------- -->
+
+        <div class="data-info">
+          <table>
+            <thead>
+              <tr>
+                <th>Ref No.</th>
+                <th>Client Name</th>
+                <th>Project Name</th>
+                <th>Agreement Date</th>
+                <th>Status</th>
+                <th>Action</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% sortedData?.forEach((pdata)=>{ %>
+              <tr>
+                <td data-dealId="<%= pdata.id %>" id="refid">
+                  <%= pdata.reference_no %>
+                </td>
+                <td>
+                  <%= pdata.deal_name %>
+                </td>
+                <td>
+                  <%= pdata.work_name %>
+                </td>
+                <td>
+                  <%= pdata.np_deadline ? pdata.np_deadline : "N/A" %>
+                </td>
+                <% let overallStatus=pdata.category.every((el)=>{
+                    if(el.cat_mp_status.toLowerCase() === 'completed'){
+                    return true;}else{return false;}})%>
+
+                <td class=""><button class="<%= overallStatus ? 'status success' : 'status warning' %>">
+                    <%= overallStatus ? "completed" : "pending" %>
+                  </button></td>
+                <td class="flex align-center">
+                  <button class="edit" data-dealid="<%= pdata.id %>" onclick="editProject(this, 'normal')">Edit</button>
+                  <button class="delete" onclick="DeleteProject(this,<%= pdata.id %>)">Delete</button>
+                </td>
+                <td>
+                  <span class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-right">
+                      <path fill="" d="M8.46,8.29A1,1,0,1,0,7,9.71L9.34,12,7,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3a1,1,0,0,0,0-1.42Zm8.5,3-3-3a1,1,0,0,0-1.42,1.42L14.84,12l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3A1,1,0,0,0,17,11.29Z">
+                      </path>
                     </svg>
-                    <div class="total_user_data">
-                        <p class="size">0</p>
-                        <p class="text">Total Projects</p>
-                    </div>
-                </div>
-                <!-- ---------------cOMPLETED PROJECTS ------------ -->
-                <div class="in_progress-data flex data">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="users-alt" class="svg">
-                        <path fill="##000000"
-                            d="M12.3,12.22A4.92,4.92,0,0,0,14,8.5a5,5,0,0,0-10,0,4.92,4.92,0,0,0,1.7,3.72A8,8,0,0,0,1,19.5a1,1,0,0,0,2,0,6,6,0,0,1,12,0,1,1,0,0,0,2,0A8,8,0,0,0,12.3,12.22ZM9,11.5a3,3,0,1,1,3-3A3,3,0,0,1,9,11.5Zm9.74.32A5,5,0,0,0,15,3.5a1,1,0,0,0,0,2,3,3,0,0,1,3,3,3,3,0,0,1-1.5,2.59,1,1,0,0,0-.5.84,1,1,0,0,0,.45.86l.39.26.13.07a7,7,0,0,1,4,6.38,1,1,0,0,0,2,0A9,9,0,0,0,18.74,11.82Z">
-                        </path>
-                    </svg>
-                    <div class="total_user_data">
-                        <p class="size">0</p>
-                        <p class="text">Completed</p>
-                    </div>
-                </div>
-                <!-- ---------IN PROGRESS----------- -->
-                <div class="not_start-data flex data">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="users-alt" class="svg">
-                        <path fill="##000000"
-                            d="M12.3,12.22A4.92,4.92,0,0,0,14,8.5a5,5,0,0,0-10,0,4.92,4.92,0,0,0,1.7,3.72A8,8,0,0,0,1,19.5a1,1,0,0,0,2,0,6,6,0,0,1,12,0,1,1,0,0,0,2,0A8,8,0,0,0,12.3,12.22ZM9,11.5a3,3,0,1,1,3-3A3,3,0,0,1,9,11.5Zm9.74.32A5,5,0,0,0,15,3.5a1,1,0,0,0,0,2,3,3,0,0,1,3,3,3,3,0,0,1-1.5,2.59,1,1,0,0,0-.5.84,1,1,0,0,0,.45.86l.39.26.13.07a7,7,0,0,1,4,6.38,1,1,0,0,0,2,0A9,9,0,0,0,18.74,11.82Z">
-                        </path>
-                    </svg>
-                    <div class="total_user_data">
-                        <p class="size">0</p>
-                        <p class="text">In Progress</p>
-                    </div>
-                </div>
-            </div>
-            <!-- ---------ALERT BOX----------- -->
-            <div class="status hide">
-                <div class="alert flex green">
-                    <span class="hide">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="exclamation-triangle"
-                            class="alove">
-                            <path fill="##000000"
-                                d="M12,16a1,1,0,1,0,1,1A1,1,0,0,0,12,16Zm10.67,1.47-8.05-14a3,3,0,0,0-5.24,0l-8,14A3,3,0,0,0,3.94,22H20.06a3,3,0,0,0,2.61-4.53Zm-1.73,2a1,1,0,0,1-.88.51H3.94a1,1,0,0,1-.88-.51,1,1,0,0,1,0-1l8-14a1,1,0,0,1,1.78,0l8.05,14A1,1,0,0,1,20.94,19.49ZM12,8a1,1,0,0,0-1,1v4a1,1,0,0,0,2,0V9A1,1,0,0,0,12,8Z">
-                            </path>
-                        </svg>
-                    </span>
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="check-circle" class="alove">
-                            <path fill="##000000"
-                                d="M14.72,8.79l-4.29,4.3L8.78,11.44a1,1,0,1,0-1.41,1.41l2.35,2.36a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29l5-5a1,1,0,0,0,0-1.42A1,1,0,0,0,14.72,8.79ZM12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z">
-                            </path>
-                        </svg>
-                    </span>
-                    <p>Project work is due on <span>19/05/23</span> </p>
-                    <span class="caution" onclick="closeAlert()">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="times" class="svg">
-                            <path fill="##000000"
-                                d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
-                            </path>
-                        </svg>
-                    </span>
-                </div>
-            </div>
-            <!-- ----------- DATA TABLE----------- -->
-            <div class="data-info box">
-                <!-- headings -->
-                <div class="info-head grid">
-                    <p class="uppercase phead none">Ref. No.</p>
-                    <p class="uppercase phead none">CLIENT</p>
-                    <p class="uppercase phead none">name of the project</p>
-                    <p class="uppercase phead none">deadline</p>
-                    <p class="uppercase phead none">status</p>
-                    <p class="uppercase phead none">action</p>
-                    <!-- ------resposnive class------- -->
-                    <p class="responsive uppercase phead hide block">project details</p>
-                </div>
-                <!-- ----------project information----------- -->
-                <div class="info-content">
-                    <!-- --------1st project----------->
-                    <% sortedData?.forEach((el)=>{ %>
-                        <%- include('../partials/np.ejs', {pdata: el }) %>
-                    <% }) %>
-                </div>
+                  </span>
+                </td>
+              </tr>
 
-                <!-- ----------PAGINATION--------- -->
-                <%- include('../partials/pagin.ejs') %>
-            </div>
+              <% }) %>
+            </tbody>
 
-            <!-- ----------POPUPS----------------- -->
-            <div class="main-dropdown">
-                <!-- <div class="status-dropdown-menu common_dropdown">
-                <ul>
-                    <li class="red">
-                        <input type="radio" name="start">
-                        <span data-name="start">Not Started</span>
-                    </li>
-                    <li class="blue">
-                        <input type="radio" name="start">
-                        <span>In Progress</span>
-                    </li>
-                    <li class="green">
-                        <input type="radio" name="start">
-                        <span>Completed</span>
-                    </li>
-                </ul>
-            </div> -->
-                <!-- <div class="emp-drop-menu common_dropdown">
-                <ul>
-                    <li>
-                        <input type="checkbox" name="employee">
-                        <span>Anand Kumar</span>
-                    </li>
-                </ul>
-                <button class="uppercase">update</button>
-            </div> -->
-                <!-- <div class="deadline-drop-menu common_dropdown">
-                <p class="uppercase"><span>Architecture</span> Deadline</p>
-                <input type="text">
-                <div class="drop-btn flex">
-                    <button class="uppercase">update</button>
-                    <button class="uppercase">Cancel</button>
-                </div>
-            </div> -->
-                <div class="edit-menu common_dropdown">
-                    <form action="">
-                        <h4 class="uppercase">contact details</h4>
-                        <div class="edit-grid">
-                            <div class="field">
-                                <label for="name">Name</label>
-                                <input type="text" name="name" id="ename" placeholder="e.g.: Pragyan Tamuli">
-                            </div>
-                            <div class="field">
-                                <label for="cnumber">Phone Number</label>
-                                <input type="text" name="econtact" id="enumber" placeholder="e.g.: 9874561230">
-                            </div>
-                            <div class="field">
-                                <label for="email">Email</label>
-                                <input type="text" name="egmail" id="egmail" placeholder="e.g.: ebah@gmail.com">
-                            </div>
-                            <div class="field">
-                                <label for="address">Address</label>
-                                <input type="text" name="ecity" id="eaddress">
-                            </div>
-                        </div>
-                        <h4 class="uppercase">project details</h4>
-                        <div class="edit-grid">
-                            <div class="field">
-                                <label for="ref">Reference No</label>
-                                <input type="text" name="eref" id="eref">
-                            </div>
-                            <div class="field">
-                                <label for="workName">Name of The Project</label>
-                                <input type="text" name="ework" id="ework">
-                            </div>
-                            <div class="field">
-                                <label for="amount">Total Amount</label>
-                                <input type="text" name="etotal" id="eamount" placeholder="&#8377;">
-                            </div>
-                            <div class="field">
-                                <label for="amount">Advance Amount</label>
-                                <input type="text" name="eagre" id="eaamount"  placeholder="&#8377;">
-                            </div>
-                            <div class="field">
-                                <label for="amount">Project deadline</label>
-                                <input type="text" name="edeadline" id="" placeholder="dd/mm/yyyy, Eg:01/06/2024">
-                            </div>
-                        </div>
-                        <div class="drop-btn flex">
-                            <button type="button" class="uppercase">Update</button>
-                            <button type="button" class="uppercase">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <tfoot>
+              <tr>
+                <td colspan="4"></td>
+                <td colspan="3"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
 
-        </main>
-        </section>
+      <!-- --MORE-DATA-- -->
+      <div class="more-data hide">
+        <% sortedData?.forEach((el)=>{ %>
+        <%- include('../partials/nTableData.ejs', {pdata: el }) %>
+        <% }) %>
+      </div>
+
+      <!-- POPUPS  -->
+
+      <div class="main-popup hide"></div>
+      <%- include('../partials/tasks/notification.ejs') %>
+      <%- include('../partials/tasks/alert.ejs') %>
+    </main>
+  </section>
 
 
-        <!-- JAVASCRIPT -->
+  <!-- JAVASCRIPT -->
 
-        <script src="../../js/admin/header.js"></script>
-        <script src="../../js/admin/common.js"></script>
-        <script src="../../js/admin/dashboard.render.js"></script>
-        <script src="../../js/admin/dashboard.js"></script>
+  <script src="../../js/admin/index.js"></script>
+  <script src="../../js/admin/common.js"></script>
+  <script src="../../js/admin/dashboard.render.js"></script>
+  <script src="../../js/admin/dashboard.js"></script>
 </body>
 
 </html>

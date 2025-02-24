@@ -120,3 +120,15 @@ exports.getCheckCompletedUnpaid = async (req, res) => {
     } else { res.status(500).send({ msg: "Something went wrong!" }) }
   })
 }
+
+exports.DeleteNormalProjectData = async (req, res) => {
+  const q = `DELETE FROM single_deal WHERE sdid =? `;
+  await dbcon.query(q, [ req.params.id], async (err, result) => {
+    if (!err) {
+      res.status(200).send({ status: true, msg: 'Successfully data Deletd' })
+    } else {
+      res.status(500).send({ status: false, msg: 'failed to delete the Data'+err })
+      console.log(err);
+    }
+  })
+}

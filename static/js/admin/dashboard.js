@@ -1,47 +1,41 @@
 const feature = new DataCall()
-// EMPLOYEE ACCORDION
-document.querySelectorAll(`.assign-to`).forEach((item, index) => {
-    let header = item.querySelector(".eaccordion");
-    header.addEventListener("click", async () => {
-        const renderId = item.querySelector('#emp-in-np')
-        renderId.innerHTML = ''
-        if (item.classList.contains("open") != true) {
-            if (item.dataset.taskid) {
-                const empNp = await feature.GET_POST(`apiv1/employee/${item.dataset.ndealid}/${item.dataset.taskid}`, 'GET');
-                empNp.forEach((item) => {
-                    const html = `<li class="add-empl"><span>${item.name}</span> <span class="icon" data-ndealid=${item.ndeal_id} data-catid=${item.category_id} data-emid=${item.em_id} onclick="removeEmpNp(this, 'normal')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="minus-circle" class="svg"><path fill="##000000" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z"></path></svg></span></li>`
-                    renderId.innerHTML += html
-                })
-            } else {
-                const empMp = await feature.GET_POST(`apiv1/get-misc-emp/${item.dataset.ndealid}/${item.dataset.staskid}`, 'GET');
-                empMp.forEach((item) => {
-                    const html = `<li class="add-empl"><span>${item.name}</span> <span class="icon" data-ndealid=${item.mdeal_id} data-catid=${item.mstask_id} data-emid=${item.em_id} onclick="removeEmpNp(this)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="minus-circle" class="svg"><path fill="##000000" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z"></path></svg></span></li>`
-                    renderId.innerHTML += html
-                })
-            }
-        }
 
-        item.classList.toggle("open");
-        let description = item.querySelector(".emp-acc-data");
-        let arr = item.querySelector(`.right-arr`);
-        if (item.classList.contains("open")) {
-            // description.style.height = `${description.scrollHeight}px`;
-            description.classList.add(`open`);
-            arr.classList.add(`open`);
+function hidePopup(event) {
+    document.querySelector(".main-popup").classList.add('hide');
+}
+// RENDER EMPLOYEE 
+document.querySelectorAll(`.category-assignees`).forEach((item) => {
+    async function renderEmployee() {
+        const renderId = item.querySelector(`#emp-in-np`);
+        renderId.innerHTML = ``;
+        if (item.dataset.taskid) {
+            const empNp = await feature.GET_POST(`apiv1/employee/${item.dataset.ndealid}/${item.dataset.taskid}`, 'GET');
+            empNp.forEach((item) => {
+                const html = `<li class="flex align-center j-between">
+                                <span class="name">${item.name}</span>
+                                <span class="icon delete" data-ndealid=${item.ndeal_id} data-catid=${item.category_id} data-emid=${item.em_id} onclick="removeEmpNp(this, 'normal')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                        id="trash-alt">
+                                        <path fill=""
+                                            d="M10,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,10,18ZM20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Zm-3-1a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,14,18Z">
+                                        </path>
+                                    </svg></span>
+                            </li>`
+                renderId.innerHTML += html
+            })
         } else {
-            // description.style.height = "0px";
-            description.classList.remove(`open`);
-            arr.classList.remove(`open`);
+            const empMp = await feature.GET_POST(`apiv1/get-misc-emp/${item.dataset.ndealid}/${item.dataset.staskid}`, 'GET');
+            empMp.forEach((item) => {
+                const html = `<li class="add-empl"><span>${item.name}</span> <span class="icon" data-ndealid=${item.mdeal_id} data-catid=${item.mstask_id} data-emid=${item.em_id} onclick="removeEmpNp(this)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="minus-circle" class="svg"><path fill="##000000" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z"></path></svg></span></li>`
+                renderId.innerHTML += html
+            })
         }
 
-    })
+    }
+    renderEmployee()
 })
 
-function closeSubBox() {
-    const mainDrop = document.querySelector('.main-dropdown')
-    mainDrop.classList.remove('active')
-}
 
+// POST NEW SUB TASK 
 addNewSubtasks = async (param, e) => {
     e.preventDefault();
     const target = param.dataset
@@ -49,16 +43,16 @@ addNewSubtasks = async (param, e) => {
     addSubtaskNp.append('ndeal_id', Number(target.ndeal_id));
     addSubtaskNp.append('category_id', Number(target.category_id));
     feature.GET_POST('apiv1/addsubtaskto-nproject', 'POST', addSubtaskNp, 'form')
-    closeSubBox()
+    hidePopup()
 }
 
 addNewEmp = async (param, e) => {
     if (param.dataset.npcid != 'false') {
         const exdata = { title: `You have been assigned to a new project with ref no. ${document.querySelector('#refid').innerHTML} on ${new Date()}`, assignDate: "20/02/2023" }
-        await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id', 'npcid'], 'apiv1/add-employee-to-project', closeSubBox, exdata)
+        await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id', 'npcid'], 'apiv1/add-employee-to-project', hidePopup, exdata)
     } else {
         const exdataM = { title: `You have been assigned to a new Miscallaneous project with ref no. ${document.querySelector('#mrefid').innerHTML} on ${new Date()}`, dateofassign: "20/02/2023" }
-        await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id'], 'apiv1/add-employee-to-miscproject', closeSubBox, exdataM)
+        await feature.addNewItemToNp(param, e, 'all-emp', ['ndeal_id', 'category_id'], 'apiv1/add-employee-to-miscproject', hidePopup, exdataM)
     }
 
 }
@@ -78,17 +72,6 @@ async function removeEmpNp(data, type) {
 async function addTaskStatus(target, type, route) {
     let body = null;
     const dataSet = target.parentNode.dataset
-    if (target.value == 'completed') {
-        target.classList.remove('blue', 'red')
-        target.classList.add('green')
-    } else if (target.value == 'On Progress') {
-        target.classList.remove('green', 'red')
-        target.classList.add('blue')
-    }else if (target.value == 'Not Started') {
-        target.classList.remove('blue', 'green')
-        target.classList.add('red')
-    } 
-
     if (type === 'normal') {
         body = { status: target.value, dealId: Number(dataSet.ndealid), catId: Number(dataSet.taskid) }
     } else {
@@ -116,9 +99,6 @@ async function getProjectsStatus() {
     try {
         let e = await feature.GET_POST(`apiv1/${EndPoint}`, 'GET');
         e.data.forEach(e => { e.project_status == 'completed' ? completed++ : pending++; });
-        project_status_ctn[0].children[0].innerText = e.data.length;
-        project_status_ctn[1].children[0].innerText = completed;
-        project_status_ctn[2].children[0].innerText = pending;
     } catch (err) { console.error('Error project status:', err); }
 }
 setTimeout(() => { getProjectsStatus() }, 1500)
@@ -144,39 +124,39 @@ async function CheckDeadline() {
         } else { console.log('No work has close to Deadline'); }
     }
 }
-function search() {
-    var inpValue = document.getElementById('searchQuery').value.toLowerCase();
-    var elmCtn = document.querySelectorAll('.accordion-content');
-    elmCtn.forEach(function (e) {
-        var contentText = e.textContent.toLowerCase();
-        if (contentText.includes(inpValue)) {
-            e.style.display = 'block';
-        } else { e.style.display = 'none'; }
-    });
-}
 CheckDeadline()
-
-
-async function DeleteProject(e,o) {
+async function DeleteProject(e, o) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
     }).then(async (pers) => {
         if (pers.isConfirmed) {
-            await ReqHandler.GET(location.origin + '/apiv1/delete-project/'+o).then(res => {
-               if (res.status) {e.parentElement.parentElement.parentElement.remove();}
+            await ReqHandler.GET(location.origin + '/apiv1/delete-project/' + o).then(res => {
+                if (res.status) { e.parentElement.parentElement.remove(); }
             })
         }
     });
 }
-
+async function DeleteMiscProject(e, o) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!'
+    }).then(async (pers) => {
+        if (pers.isConfirmed) {
+            await ReqHandler.GET(location.origin + '/apiv1/delete-project/misc/' + o).then(res => {
+                if (res.status) { e.parentElement.parentElement.remove(); }
+            })
+        }
+    });
+}
 function SearchFromInput() {
-    let query= document.getElementById('searchQuery').value
-    location.href=location.href+`&search=${query}`
-    
+    let query = document.getElementById('searchQuery').value
+    location.href = location.href + `&search=${query}`
+
 }

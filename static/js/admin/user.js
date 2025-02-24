@@ -1,178 +1,240 @@
+
 let ReqURI = { addUser: BASE_URL + `/add-User`, updUser: BASE_URL + `/Update-User/`, updUserPwd: BASE_URL + `/upd-password/`, getUserAtten: BASE_URL + `/getAttendence/`, getUserAttenyMth: BASE_URL + `/getAttenMonth/`, getWorkInfo: BASE_URL + '/getWorkInfo/' }
-function Disable_BtnHandler(e, ep) {
-    if (ep) {
-        let elmCtn = document.querySelector(e)
-        let inputs = elmCtn.getElementsByTagName('input')
-        for (const e of inputs) { e.removeAttribute('disabled') }
-        elmCtn.getElementsByTagName('Button')[0].classList.remove('hide')
 
-    } else {
-        let elmCtn = document.querySelector(e)
-        let inputs = elmCtn.getElementsByTagName('input')
-        for (const e of inputs) { e.setAttribute('disabled', '') }
-        elmCtn.getElementsByTagName('Button')[0].classList.add('hide')
-    }
+function hidePopup(event) {
+    document.querySelector(".main-popup").classList.add('hide');
 }
-function setUserToModel(e) {
-    // if (document.documentElement.clientWidth < 480) {
-    //     document.getElementsByClassName('main')[0].classList.add('glow');
-    // } else { document.getElementsByClassName('main')[0].classList.add('flow'); }
-    let usrCtn = e.parentElement;
-    let uProfileMdl = document.querySelector('.user-profile-settings').children[2]
-    uProfileMdl.dataset.id = usrCtn.dataset.id
-    uProfileMdl.querySelector('#name').value = usrCtn.getElementsByClassName('username')[0].innerText
-    uProfileMdl.querySelector('#designation').value = usrCtn.getElementsByClassName('userdesignation')[0].innerText
-    uProfileMdl.querySelector('#cnumber').value = usrCtn.getElementsByClassName('uphone')[0].innerText
-    uProfileMdl.querySelector('#email').value = usrCtn.getElementsByClassName('uemail')[0].innerText
-    uProfileMdl.querySelector('.pro-logout-status').innerText = usrCtn.getElementsByClassName('data-log')[0].innerText
-    uProfileMdl.querySelector('.pro-login-status').innerText = usrCtn.getElementsByClassName('data-log')[1].innerText
-    uProfileMdl.querySelector('.ustatus').innerText = usrCtn.getElementsByClassName('ustatus')[0].innerText;
-    GetUserDetailsReq(usrCtn.dataset.id)
-}
-function setUserToMdl_pwd(e, elm) {
-    if (document.documentElement.clientWidth < 480) {
-        document.getElementsByClassName('main')[0].classList.add('glow');
-    } else { document.getElementsByClassName('main')[0].classList.add('flow'); }
-    (document.querySelector(`${e}`)).classList.remove(`hide`);
-    Cls_UserCtn('.uprofile-settings')
-    let ParentElm = document.querySelector('.uprofile-settings')
-    let pwdCtn = document.querySelector('.password-settings')
-    pwdCtn.children[0].children[0].innerText = ParentElm.querySelector('#name').value
-    pwdCtn.children[0].dataset.id = ParentElm.querySelector('.flex-box').dataset.id
-}
-function Opn_UserCtn(e, elm) {
-    // if (document.documentElement.clientWidth < 480) {
-    //     document.getElementsByClassName('main')[0].classList.add('glow');
-    // } else { document.getElementsByClassName('main')[0].classList.add('flow'); }
-    (document.querySelector(`${e}`)).classList.remove(`hide`);
-    e == '.uprofile-settings' ? setUserToModel(elm) : null
-}
-function Cls_UserCtn(e) {
-    if (document.documentElement.clientWidth < 480) {
-        document.getElementsByClassName('main')[0].classList.remove('glow');
-    } else { document.getElementsByClassName('main')[0].classList.remove('flow'); }
-    (document.querySelector(`${e}`)).classList.add(`hide`);
-    e == '.uprofile-settings' ? Disable_BtnHandler('.profile-grid', false) : null
-}
+
 function AlertNotifier(status, msg, icon) {
-    Swal.fire({ title: status ? 'Sucess' : 'Error', text: msg, icon: icon, confirmButtonText: 'Done' });
+    Swal.fire({ title: status ? 'Success' : 'Error', text: msg, icon: icon, confirmButtonText: 'Done' });
 }
 
+// ADD USER POPUP
 function addUser() {
-    let user = document.getElementsByClassName('userform')[0]
+    const maindrop = document.querySelector(`.main-popup`);
+    maindrop.classList.toggle(`hide`);
+    maindrop.innerHTML = ""
+    maindrop.innerHTML = `<div class="add-user blur hide">
+                        <form action="" class="form">
+                            <h2>Add User</h2>
+                            <div class="grid extra-grid">
+                                <div class="field">
+                                    <p class="title">Name</p>
+                                    <input type="text" name="" id="username">
+                                </div>
+                                <div class="field">
+                                    <p class="title">Phone Number</p>
+                                    <input type="text" name="" id="usernumber">
+                                </div>
+                                <div class="field">
+                                    <p class="title">Email</p>
+                                    <input type="email" name="" id="useremail">
+                                </div>
+                                <div class="field">
+                                    <p class="title">Designation</p>
+                                    <input type="text" name="" id="userdesignation">
+                                </div>
+                                <div class="field">
+                                    <p class="title">Password</p>
+                                    <input type="text" name="" id="userpassword">
+                                </div>
+                            </div>
+                            <div class="action-btn flex align-center">
+                                <button type="button" class="flex-1" onclick="addNewUser()">Add</button>
+                                <button type="button" class="flex-1 delete" onclick="hidePopup(this)">Cancel</button>
+                            </div>
+                        </form>
+                    </div>`
+    const dropDownTarget = document.querySelector(`.add-user`);
+    dropDownTarget.classList.toggle(`hide`);
+}
+//SENDING NEW USER DATA TO SERVER
+function addNewUser() {
     let dataObj = {
-        Name: user.querySelector('#name').value,
-        jobRole: user.querySelector('#designation').value,
-        Number: user.querySelector('#cnumber').value,
-        Email: user.querySelector('#email').value,
-        Password: user.querySelector('#password').value
+        Name: document.querySelector('#username').value,
+        jobRole: document.querySelector('#userdesignation').value,
+        Number: document.querySelector('#usernumber').value,
+        Email: document.querySelector('#useremail').value,
+        Password: document.querySelector('#userpassword').value
     }
     ReqHandler.POST(ReqURI.addUser, dataObj)
-        .then((res) => {
-            console.log(res);
-            if (res.status == true) {
-                AlertNotifier(res.status, res.msg, 'success');
-                Cls_UserCtn('.uprofile-settings')
-                Disable_BtnHandler('.profile-grid', false)
-                Cls_UserCtn('.usform')
+        .then((result) => {
+            if (result.status == true) {
+                AlertNotifier(result.status, result.msg, 'success');
                 setTimeout(() => {
                     location.reload()
                 }, 2000);
             } else {
-                AlertNotifier(res.status, res.msg, 'error');
+                AlertNotifier(result.status, result.msg, 'error');
             }
-        }).catch(err => {
+        }).catch((err) => {
             console.log('Error(fn-UserAdd):', err);
-        })
+        });
 }
-function updUser() {
-    let user = document.getElementsByClassName('profile-grid')[0]
-    let u_id = user.parentElement.parentElement.dataset.id
-    let dataObj = {
-        name: user.querySelector('#name').value,
-        job_role: user.querySelector('#designation').value,
-        number: user.querySelector('#cnumber').value,
-        email: user.querySelector('#email').value,
+
+// UPDATE USER POPUP
+function editUser(e) {
+    let id = e.dataset.id;
+    let target = e.parentElement.parentElement.parentElement.children[1];
+    const maindrop = document.querySelector(`.main-popup`);
+    maindrop.classList.toggle(`hide`);
+    maindrop.innerHTML = ""
+    maindrop.innerHTML = `<div class="edit-user blur hide" data-id="">
+                        <form action="" class="form">
+                            <h2>Edit User</h2>
+                            <div class="grid extra-grid">
+                                <div class="field">
+                                    <p class="title">Name</p>
+                                    <input type="text" name="" id="editname">
+                                </div>
+                                <div class="field">
+                                    <p class="title">Phone Number</p>
+                                    <input type="text" name="" id="editnumber">
+                                </div>
+                                <div class="field">
+                                    <p class="title">Email</p>
+                                    <input type="email" name="" id="editemail">
+                                </div>
+                                <div class="field">
+                                    <p class="title">Designation</p>
+                                    <input type="text" name="" id="editdesignation">
+                                </div>
+                            </div>
+                            <div class="action-btn flex align-center">
+                                <button type="button" class="flex-1" onclick="updateUser(${id})">Update</button>
+                                <button type="button" class="flex-1 delete" onclick="hidePopup(this)">Cancel</button>
+                            </div>
+                        </form>
+                    </div>`
+    const dropDownTarget = document.querySelector(`.edit-user`);
+    dropDownTarget.classList.toggle(`hide`);
+    if (e) {
+        dropDownTarget.querySelector(`#editname`).value = target.querySelector(`.name`).innerText;
+        dropDownTarget.querySelector(`#editnumber`).value = target.querySelector(`.number`).innerText;
+        dropDownTarget.querySelector(`#editemail`).value = target.querySelector(`.email`).innerText;
+        dropDownTarget.querySelector(`#editdesignation`).value = target.querySelector(`.designation`).innerText;
+    } else {
+        null;
     }
-    ReqHandler.PUT(ReqURI.updUser + u_id, dataObj)
-        .then((res) => {
-            console.log(res);
-            if (res.status == true) {
-                AlertNotifier(res.status, res.msg, 'success');
+}
+//UPDATING USER DATA
+function updateUser(id) {
+    let dataObj = {
+        name: document.querySelector('#editname').value,
+        job_role: document.querySelector('#editdesignation').value,
+        number: document.querySelector('#editnumber').value,
+        email: document.querySelector('#editemail').value,
+    }
+    ReqHandler.PUT(ReqURI.updUser + id, dataObj)
+        .then((result) => {
+            if (result.status == true) {
+                AlertNotifier(result.status, result.msg, 'success');
                 setTimeout(() => {
                     location.reload()
                 }, 2000);
             } else {
-                AlertNotifier(res.status, res.msg, 'error');
+                AlertNotifier(result.status, result.msg, 'error');
             }
-        }).catch(err => {
+        }).catch((err) => {
             console.log('Error(fn-UserUpdate):', err);
-        })
+        });
 }
-function updUserPwd() {
-    let user = document.querySelector('.password-settings')
-    let u_id = user.children[0].dataset.id
+
+// UPDATE PASSWORD POPUP
+function editPwd() {
+    const maindrop = document.querySelector(`.main-popup`);
+    maindrop.classList.toggle(`hide`);
+    maindrop.innerHTML = ""
+    maindrop.innerHTML = `<div class="edit-pwd blur hide">
+                        <form action="" class="form">
+    <h2>Update Password</h2>
+    <div class="grid extra-grid">
+        <div class="field">
+            <p class="title">New Password</p>
+            <input type="text" name="" id="newpwd">
+        </div>
+        <div class="field">
+            <p class="title">Confirm Password</p>
+            <input type="text" name="" id="confirmpwd">
+         </div> 
+         </div>
+         <div class="action-btn flex align-center">
+            <button type="submit" class="flex-1" onclick="updatePwd()">Update</button>
+            <button type="button" class="flex-1 delete" onclick="hidePopup(this)">Cancel</button>
+         </div>  
+</form>
+</div>`
+    const dropDownTarget = document.querySelector(`.edit-pwd`);
+    dropDownTarget.classList.toggle(`hide`);
+}
+// UPDATE PASSWORD
+function updatePwd() {
+    let u_id = document.querySelector(`.userDetails`).dataset.id;
     let dataObj = {
-        Password: user.querySelector('#password2').value,
+        Password: document.querySelector('#confirmpwd').value,
     }
     ReqHandler.PUT(ReqURI.updUserPwd + u_id, dataObj)
-        .then((res) => {
-            if (res.status == true) {
-                AlertNotifier(res.status, res.msg, 'success')
-                Cls_UserCtn('.password-settings')
+        .then((result) => {
+            if (result.status == true) {
+                AlertNotifier(result.status, result.msg, 'success');
+                setTimeout(() => {
+                    location.reload()
+                }, 2000);
             } else {
-                AlertNotifier(res.status, res.msg, 'error');
+                AlertNotifier(result.status, result.msg, 'error');
             }
-        }).catch(err => {
+        }).catch((err) => {
             console.log('Error(fn-UserUpdate):', err);
-        })
+        });
 }
-function GetUserDetailsReq(e) {
-    let AttenCtn = document.querySelector('.attendance-column');
-    let WrokStatusCtn = document.querySelectorAll('.profile-main');
-    let year = (new Date).getFullYear()
-    let month = (new Date).getUTCMonth()
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    ReqHandler.GET(ReqURI.getUserAtten + e)
+
+function GetUserAttenDetail() {
+    let id = document.querySelector(`.user-profile`).dataset.dealid;
+    let AttenCtn = document.querySelector(`.attendance table tbody tr`);
+
+    let year = (new Date).getFullYear();
+    let month = (new Date).getUTCMonth();
+
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    ReqHandler.GET(ReqURI.getUserAtten + id)
         .then((res) => {
             if (res.status == true) {
-                document.querySelector('#month').innerHTML = `${res.data[0].totalAtten} in Day ${monthNames[month]}`
+                document.querySelector(`#attValue`).textContent = `${res.data[0].totalAtten}`
             }
         }).catch(err => {
-            console.log('Error(fn-getAtten):', err);
+            console.log(`Error(fn-getAtten):`, err)
         })
-    ReqHandler.GET(ReqURI.getUserAttenyMth + e)
+    ReqHandler.GET(ReqURI.getUserAttenyMth + id)
         .then((res) => {
             if (res.status == true) {
-                AttenCtn.innerHTML = '';
+                AttenCtn.innerHTML = ``;
                 for (let i = 0; i < res.data.length; i++) {
-                    AttenCtn.innerHTML += ` <p class="attendance-name"><span>${res.data[i].date} ${monthNames[month]} ${year}</span><span class="green">${res.data[i][monthNames[month]]}</span> </p>`
+                    AttenCtn.innerHTML += `<td>${res.data[i].date}-${months[month]}-${year}</td>
+                        <td></td>
+                        <td></td>`
                 }
             }
         }).catch(err => {
-            console.log('Error(fn-GetAttenByM):', err);
+            console.log(`Error(fn-GetAttenByM):`, err)
         })
-    ReqHandler.GET(ReqURI.getWorkInfo + e)
+    ReqHandler.GET(ReqURI.getWorkInfo + id)
         .then((res) => {
             if (res.status) {
-                WrokStatusCtn[0].querySelector('.primary').innerText = res.data[1].length
-                WrokStatusCtn[0].querySelector('.blue').innerText = res.data[0][0].total_cats
-                WrokStatusCtn[0].querySelector('.red').innerText = res.data[0][0].total_cats - res.data[0][0].num_cats_completed
-                WrokStatusCtn[1].querySelector('.primary').innerText = res.data[3].length
-                WrokStatusCtn[1].querySelector('.blue').innerText = res.data[2][0].total_mtask
-                WrokStatusCtn[1].querySelector('.red').innerText = res.data[2][0].total_mtask - res.data[2][0].num_task_completed
+                document.querySelector(`.project-involved p.value`).textContent = res.data[1].length + res.data[3].length
+                document.querySelector(`#nip`).textContent = res.data[0][0].total_cats
+                document.querySelector(`#nc`).textContent = res.data[0][0].total_cats - res.data[0][0].num_cats_completed
+                document.querySelector(`#mip`).textContent = res.data[2][0].total_mtask
+                document.querySelector(`#mc`).textContent = res.data[2][0].total_mtask - res.data[2][0].num_task_completed
             }
         }).catch(err => {
-            console.log('Error(fn-getAtten):', err);
+            console.log(`Error(fn-GetWorkInfo):`, err)
         })
+
 }
-function search() {
-    var inpValue = document.getElementById('searchQuery').value.toLowerCase();
-    var elmCtn = document.querySelectorAll('.user-list');
-    elmCtn.forEach(function (e) {
-        var contentText = e.textContent.toLowerCase();
-        if (contentText.includes(inpValue)) {
-            e.style.display = 'grid';
-        } else { e.style.display = 'none'; }
-    });
-}
+GetUserAttenDetail()
+
+document.querySelectorAll(`.date`).forEach((date) => {
+    date.textContent = new Date(date.textContent).toDateString();
+})
+

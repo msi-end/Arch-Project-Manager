@@ -1,0 +1,49 @@
+<div class="grid-box">
+    <div class="category-title flex align-center">
+        <span class="dot"></span>
+        <p class="category uppercase">
+            <%= cat.name %>
+        </p>
+    </div>
+    <div class="category-btns flex align-center j-between" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>"
+        data-npcid="<%= cat.npcid %>">
+        <select data-taskstatus="" class="flex-1" data-taskstatus="<%= cat.cat_status %>" name="status"
+            onchange="addTaskStatus(this, 'normal', 'apiv1/update-task-status')">
+            <option value="Not Started" class="success" <%=cat.cat_status=="Not started" ? "selected" : "" %>>Not
+                started</option>
+            <option value="On Progress" <%=cat.cat_status=="On Progress" ? "selected" : "" %>>On Progress</option>
+            <option value="completed" <%=cat.cat_status=="completed" ? "selected" : "" %>>Completed</option>
+        </select>
+        <button class="flex-1" onclick="empPopup(this)">Employee</button>
+        <button class="flex-1" onclick="subPopup(this)">Tasks</button>
+    </div>
+    <!-- --ASSIGNED EMPLOYEES-- -->
+    <div class="category-assignees" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>">
+        <p class="title">Assigned To</p>
+        <ul id="emp-in-np"></ul>
+    </div>
+    <!-- --SUB-TASKS-- -->
+    <div class="category-tasks">
+        <p class="title">Tasks</p>
+        <ul>
+            <% cat.sub?.forEach((el)=>{
+                if(el.s_name){ %>
+                <li class="flex align-center" data-taskid="<%= cat.cat_id %>" data-ndealid="<%= dealId %>">
+                    <input type="checkbox" name="" id="" data-subtaskid="<%= el.s_id %>"
+                        onchange="updateSubtaskStatus(this)" <%=el.s_status=="completed" ? `checked` : "" %>>
+                    <span class="name">
+                        <%= el.s_name %>
+                    </span>
+                </li>
+                <% }}) %>
+        </ul>
+    </div>
+    <!-- --DEADLINE-- -->
+    <div class="category-deadline flex align-center j-between" data-taskid="<%= cat.cat_id %>"
+        data-ndealid="<%= dealId %>">
+        <p class="title">Deadline</p>
+        <span class="name" onclick="deadDrop(this)">
+            <%= cat.cat_deadline ? cat.cat_deadline : "..!" %>
+        </span>
+    </div>
+</div>
