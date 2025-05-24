@@ -95,7 +95,7 @@ function editExpense(e){
     maindrop.innerHTML = `<div class="editexpense blur hide">
         <form class="form">
           <h2>Edit an Expense</h2>
-          <div class="grid expense-grid">
+          <div class="grid extra-grid">
             <div class="field">
               <p class="title">Name of the Expense</p>
               <input type="text" name="expname" id="exp-name">
@@ -161,30 +161,38 @@ function updExpense(exp_id) {
     });
 }
 function ChangeExpsByMonths(e) {
-  let dataCtn = document.querySelector(".expense-page");
-  let Elm = document.querySelector(".expense-list");
-  let m = e.querySelector("#ExpsMonth").value;
-  let y = e.querySelector("#ExpsYear").value;
+  let dataCtn = document.querySelector(".expense-table table tbody");
+  let m = document.querySelector("#ExpsMonth").value;
+  let y = document.querySelector("#ExpsYear").value;
   ReqHandler.GET(ReqURI.getExpsBymonths + `?m=${m}&y=${y}`)
     .then((res) => {
       dataCtn.innerHTML = "";
       if (res.status) {
         res.data.forEach((e) => {
-          let html = `<div class="expense-list flex" data-e_id="${e.id}"> <div class="expense-ref"><p class="uppercase exp-ref">Ref. no.</p>
-                   <p class="exp-refn"> ${e.id} </p></div>
-               <!-- -------------------  -->
-               <div class="expense-name"> <p class="uppercase exp-name">expense name</p><p class="exp-name-data">${e.title}</p> </div>
-               <!-- ----------------------------------  -->
-               <div class="expense-amount"><p class="uppercase exp-amo">Amount</p><p class="exp-amo-data">&#8377; <span class="exp-amount-data">${e.amount} </span></p> </div>
-               <!-- ----------------------------------  -->
-               <div class="expense-date"><p class="uppercase exp-date">date</p><p class="exp-date-data">${e.date}</p> </div>
-               <!-- ----------------------------------  -->
-               <div class="expense-mode"> <p class="uppercase exp-mode">mode of payment</p> <p class="exp-mode-data"> ${e.md_type} </p> </div>
-               <!-- ---------------------------------  -->
-               <div class="expense-remarks"> <p class="uppercase exp-rem">remarks</p> <p class="exp-rem-content"> ${e.remark}</p></div>
-               <!-- ---------------------------------  -->
-               <div class="expense-edit"><a class="eicon" onclick="Opn_ExpenseCtn('.editexpense',this)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="pen"><path fill="##000000"   d="M22,7.24a1,1,0,0,0-.29-.71L17.47,2.29A1,1,0,0,0,16.76,2a1,1,0,0,0-.71.29L13.22,5.12h0L2.29,16.05a1,1,0,0,0-.29.71V21a1,1,0,0,0,1,1H7.24A1,1,0,0,0,8,21.71L18.87,10.78h0L21.71,8a1.19,1.19,0,0,0,.22-.33,1,1,0,0,0,0-.24.7.7,0,0,0,0-.14ZM6.83,20H4V17.17l9.93-9.93,2.83,2.83ZM18.17,8.66,15.34,5.83l1.42-1.41,2.82,2.82Z">
-               </path> </svg></a> <span class="edit">Edit</span></div> </div>`;
+          let html =
+               `<tr data-e_id="${e.id}">
+                      <td>
+                        ${e.id}
+                      </td>
+                      <td class="exp-name-data">
+                        ${e.title}
+                      </td>
+                      <td class="exp-amount-data">
+                        &#8377; ${e.amount}
+                      </td>
+                      <td class="exp-date-data">
+                        ${e.date}
+                      </td>
+                      <td class="exp-mode-data">
+                        ${e.md_type}
+                      </td>
+                      <td>
+                        ${e.remark}
+                      </td>
+                      <td class="flex align-center">
+                        <button class="edit" data-exps_id="<%= exps.id %>" onclick="editExpense(this)">Edit</button>
+                      </td>
+                    </tr>`;
           dataCtn.innerHTML += html;
         });
       } else {

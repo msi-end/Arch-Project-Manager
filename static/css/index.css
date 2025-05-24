@@ -70,7 +70,7 @@
     --mainPopupbg: rgba(0, 0, 0, 0.4);
     --sectionPopupbg: rgba(0, 0, 0, 0.3);
 
-    --gradient-1: linear-gradient(45deg, var(--accent-500), var(--accent-700), var(--accent-900));
+    --gradient-1: linear-gradient(60deg, var(--accent-500), var(--accent-700), var(--accent-900));
     --gradient-2: linear-gradient(90deg, var(--accent-500), var(--accent-700), var(--accent-900));
     --btn-color: #fff;
     --f-size-10: 10px;
@@ -816,6 +816,19 @@ h3 {
     max-width: 250px;
 }
 
+.filter-list{
+    gap: var(--px-5);
+}
+.filter-list select{
+    padding: var(--px-8) var(--px-10);
+}
+.filter-list span.icon{
+    border-radius: var(--px-6);
+}
+.filter-list span.icon svg{
+    width: var(--px-18);
+    height: var(--px-18);
+}
 main .data-info {
     padding: var(--rem-1);
     overflow-x: auto;
@@ -883,7 +896,7 @@ table td button.status.warning {
     color: var(--warning);
 }
 
-table td.flex {
+table td.flex,table td .flex {
     gap: var(--px-5);
 }
 
@@ -897,7 +910,14 @@ table span.icon {
     width: 25px;
     height: 25px;
 }
-
+.pagination-btn.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+table tfoot td{
+    font-size: var(--f-size-13);
+    font-weight: var(--f-weight-500);
+}
 main .more-data {
     position: absolute;
     top: 0;
@@ -1017,6 +1037,11 @@ span.dot {
     padding: var(--px-6);
 }
 
+select.success{
+    background: var(--success-bg);
+    border: 1px solid var(--success-outline);
+    color: var(--success);
+}
 .category-tasks ul li {
     gap: var(--px-5);
 }
@@ -1321,7 +1346,7 @@ span.info {
     gap: var(--px-5);
 }
 .btn-primary{
-    background: var(--accent-700);
+    background: var(--gradient-1);
     color: var(--btn-color);
 }
 .btn-primary:is(:hover, :focus){
