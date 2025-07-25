@@ -458,7 +458,7 @@ hr {
 
 :is(.search, .searchBox) input {
     width: 100%;
-    padding: var(--px-10);
+    padding: var(--px-8) var(--px-10);
     border-left: 1px solid var(--light-primary-400);
     border-right: 1px solid var(--light-primary-400);
     font-size: var(--f-size-14);
@@ -489,17 +489,17 @@ hr {
     font-size: 12px;
 }
 .section-popup{
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     background: var(--sectionPopupbg);
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     z-index: 50;
+    overflow-y: scroll;
 }
 .notification-popup{
     width: 100%;
-    height: 96%;
     max-width: 450px;
     margin: var(--px-15);
     position: absolute;
@@ -1062,17 +1062,17 @@ select.success{
 
 /* --POPUP-- */
 .main-popup, .alert-popup {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     background: var(--mainPopupbg);
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     z-index: 50;
+    overflow-y: auto;
 }
 .main-popup .blur {
     width: 100%;
-    height: 100%;
     max-width: 950px;
     margin: 30px auto;
     border-radius: var(--px-6);

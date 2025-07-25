@@ -85,8 +85,9 @@ CREATE TABLE `deals` (
 --
 
 INSERT INTO `deals` (`id`, `deal_name`, `reference_no`, `contact`, `agreement_amount`, `work_name`, `email`, `city`, `total_price`, `np_deadline`, `split`) VALUES
-(3, 'Mintu Sharma7', 16, NULL, 1500, 'Mintu Sharma', 'aditya01377@gmail.com', 'siwan', 15000, '12/12/2026', '2:3:5'),
+(3, 'Mintu Sharma7', 16, 6000192289, 1500, 'Mintu Sharma', 'aditya01377@gmail.com', 'siwan', 15000, '12/12/2026', '2:3:5'),
 (4, 'Mintu Sharma', 2, 940106937, 1500, 'Mintu Sharma', 'aditya01377@gmail.com', 'siwan', 15000, '12/12/2026', '2:3:5');
+(5, 'Mintu Sharma', 2, 940106937, 1500, 'Kankan Jyoti Nath', 'aditya01377@gmail.com', 'siwan', 15000, '12/12/2026', '2:3:5');
 
 -- --------------------------------------------------------
 
