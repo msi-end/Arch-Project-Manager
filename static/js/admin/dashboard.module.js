@@ -69,7 +69,6 @@ class DataCall {
           document.getElementById('loading-container').classList.remove('hide')
           const fet = await fetch(this.urlHead + url, { method: method })
           const res = await fet.json()
-          console.log(fet)
           if (fet.ok) { 
             document.getElementById('loading-container').classList.add('hide')
             this.GET_Notify('Removed Successfully', 'Successfull', 'success') } else {
@@ -93,7 +92,6 @@ class DataCall {
           body: JSON.stringify(body)
         })
         const res = await fet.json()
-        console.log(fet)
         if (fet.ok) { 
           document.getElementById('loading-container').classList.add('hide')
           this.GET_Notify('Updated Successfully', 'Successfull', 'success') } else {

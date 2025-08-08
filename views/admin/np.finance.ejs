@@ -7,100 +7,134 @@
     <title>EBAH ERP | Admin</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../../css/admin/main.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
     <link rel="stylesheet" href="../../css/darkMode.css">
-    <link rel="stylesheet" href="../../css/admin/header.css">
-    <link rel="stylesheet" href="../../css/admin/responsive.css">
-    <link rel="stylesheet" href="../../css/admin/np.finance.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../js/admin/dashboard.module.js"></script>
 </head>
 
 <body>
-    <%- include('../partials/admin.header.ejs') %>
-        <!-- MAIN SECTION STARTS HERE  -->
-        <main class="main" data-app-page="finance">
-            <!------------- FINANCE-OVERALL-------------  -->
-            <div class="main-data flex">
-                <!-- -------TOTAL AMOUNT--------- -->
-                <div class="total-amount flex data ">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
-                        <path fill="##000000"
-                            d="M20,1H4A3,3,0,0,0,1,4V20a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V4A3,3,0,0,0,20,1ZM8,21H4a1,1,0,0,1-1-1V18.82A3,3,0,0,0,4,19H8Zm0-4H4a1,1,0,0,1-1-1V14.82A3,3,0,0,0,4,15H8Zm0-4H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H8Zm6,8H10V15h4Zm0-8H10V3h4Zm7,7a1,1,0,0,1-1,1H16V19h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V15h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V3h4a1,1,0,0,1,1,1ZM18,7a1,1,0,1,0,1,1A1,1,0,0,0,18,7ZM6,9A1,1,0,1,0,5,8,1,1,0,0,0,6,9Z">
-                        </path>
-                    </svg>
-                    <div class="total_user_data">
-                        <p class="size">&#8377;<span></span>/-</p>
-                        <p class="text">Total Amount</p>
-                    </div>
-                </div>
-                <!-- ---------------AMOUNT IN BANK ------------ -->
-                <div class="amount_in-bank flex data">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
-                        <path fill="##000000"
-                            d="M20,1H4A3,3,0,0,0,1,4V20a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V4A3,3,0,0,0,20,1ZM8,21H4a1,1,0,0,1-1-1V18.82A3,3,0,0,0,4,19H8Zm0-4H4a1,1,0,0,1-1-1V14.82A3,3,0,0,0,4,15H8Zm0-4H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H8Zm6,8H10V15h4Zm0-8H10V3h4Zm7,7a1,1,0,0,1-1,1H16V19h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V15h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V3h4a1,1,0,0,1,1,1ZM18,7a1,1,0,1,0,1,1A1,1,0,0,0,18,7ZM6,9A1,1,0,1,0,5,8,1,1,0,0,0,6,9Z">
-                        </path>
-                    </svg>
-                    <div class="total_user_data">
-                        <p class="size">&#8377;<span></span>/-</p>
-                        <p class="text">Cash in Hand</p>
-                    </div>
-                </div>
-                <!-- ---------CASH IN HAND----------- -->
-                <div class="cash_in-hand flex data">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-bill-stack" class="svg">
-                        <path fill="##000000"
-                            d="M20,1H4A3,3,0,0,0,1,4V20a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V4A3,3,0,0,0,20,1ZM8,21H4a1,1,0,0,1-1-1V18.82A3,3,0,0,0,4,19H8Zm0-4H4a1,1,0,0,1-1-1V14.82A3,3,0,0,0,4,15H8Zm0-4H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H8Zm6,8H10V15h4Zm0-8H10V3h4Zm7,7a1,1,0,0,1-1,1H16V19h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V15h4a3,3,0,0,0,1-.18Zm0-4a1,1,0,0,1-1,1H16V3h4a1,1,0,0,1,1,1ZM18,7a1,1,0,1,0,1,1A1,1,0,0,0,18,7ZM6,9A1,1,0,1,0,5,8,1,1,0,0,0,6,9Z">
-                        </path>
-                    </svg>
-                    <div class="total_user_data">
-                        <p class="size">&#8377;<span></span>/-</p>
-                        <p class="text">Amount in Bank</p>
-                    </div>
-                </div>
-            </div>
-            <!-- <div class="misContainer">
-                <h4 class="uppercase">Finance</h4>
-            </div> -->
 
-            <!-- ----------- FINANCE TABLE----------- -->
-            <div class="data-info box">
-                <!-- headings -->
-                <div class="info-head finegrid">
-                    <p class="uppercase phead none">Ref. No.</p>
-                    <p class="uppercase phead none">project name</p>
-                    <p class="uppercase phead none">location</p>
-                    <p class="uppercase phead none">total </p>
-                    <p class="uppercase phead none">received</p>
-                    <p class="uppercase phead none">balance</p>
-                    <p class="uppercase phead none">ratio</p>
-                    <!-- ------resposnive class------- -->
-                    <p class="responsive uppercase phead hide block">project finances</p>
+    <section>
+        <%- include('../partials/admin.aside.ejs') %>
+            <main data-app-page="finance">
+                <div class="main-data">
+                    <%- include('../partials/admin.header.ejs') %>
+                        <!-- --HEADING-- -->
+                        <div class="heading">
+                            <h2>Project Finance</h2>
+                            <p class="title">Find all project finances here</p>
+                        </div>
+                        <!-- --SUB-HEADING-- -->
+                        <div class="top-section flex align-center j-between">
+                            <div class="section-text">
+                                <h3 class="flex">All Finances</h3>
+                            </div>
+                            <div class="searchBox flex align-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search"
+                                    onclick="SearchFromInput()">
+                                    <path fill="##000000"
+                                        d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z">
+                                    </path>
+                                </svg>
+                                <input type="text" class="searchQuery" oninput="search()"
+                                    placeholder="Search for anything...">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="times" class="close"
+                                    onclick="clearInput()">
+                                    <path fill="##000000"
+                                        d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                        <!-- ----------- DATA TABLE----------- -->
+
+                        <div class="data-info">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Ref No.</th>
+                                        <th>Client Name</th>
+                                        <th>Address</th>
+                                        <th>Project Amount</th>
+                                        <th>Received Amount</th>
+                                        <th>Balance</th>
+                                        <th>Split Ratio</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% sortedData?.forEach((fdata)=>{ %>
+                                        <tr >
+                                            <td data-dealid="<%= fdata[0].id %>">
+                                                <%= fdata[0].reference_no %>
+                                            </td>
+                                            <td>
+                                                <%= fdata[0].deal_name %>
+                                            </td>
+                                            <td>
+                                                <%= fdata[0].city %>
+                                            </td>
+                                            <td>
+                                                &#8377;<%= fdata[0].total_price %>
+                                            </td>
+                                            <% const rAmount=fdata?.flatMap((task)=> {
+                                                return task.amount_rcv.reduce((sum, amount)=>sum + amount.amount, 0)
+                                                })
+                                                const rAmountRender = rAmount.reduce((acc, curr) => acc + curr, 0);
+
+                                                %>
+
+                                                <td>
+                                                    &#8377;<%= rAmountRender %>
+                                                </td>
+                                                <td>
+                                                    &#8377;<%= fdata[0]?.total_price - rAmountRender %>
+                                                </td>
+                                                <td>
+                                                    <%= fdata[0].split %>
+                                                </td>
+                                                <td>
+                                                    <span class="icon">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                            id="angle-double-right">
+                                                            <path fill=""
+                                                                d="M8.46,8.29A1,1,0,1,0,7,9.71L9.34,12,7,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3a1,1,0,0,0,0-1.42Zm8.5,3-3-3a1,1,0,0,0-1.42,1.42L14.84,12l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3A1,1,0,0,0,17,11.29Z">
+                                                            </path>
+                                                        </svg>
+                                                    </span>
+                                                </td>
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5"></td>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                 </div>
-                <!-- ----------project information----------- -->
-                <div class="info-content">
-                    <!-- --------1st project---------  -->
+                <div class="more-data hide">
                     <%  sortedData?.forEach((el)=>{ %>
                         <%- include('../partials/np.fin.ejs', {fdata: el }) %>
                     <% }) %>
-                    <!-- ------------------------------ -->
                 </div>
 
-                <!-- ----------PAGINATION--------- -->
-                <%- include('../partials/pagin.ejs') %>
-            </div>
-
-            <!-- -----DROPDOWN----- -->
-            <div class="main-dropdown hide">
-                        
-            </div>
-
-        </main>
+                <!-- POPUPS  -->
+                 
+                <div class="main-popup hide"></div>
+                <%- include('../partials/tasks/notification.ejs') %>
+                <%- include('../partials/tasks/alert.ejs') %>
+            </main>
     </section>
 
-
     <!-- JAVASCRIPT -->
-    <script src="../../js/admin/header.js"></script>
+    <script src="../../js/admin/index.js"></script>
     <script src="../../js/admin/common.js"></script>
     <script src="../../js/admin/np.finance.js"></script>
 </body>

@@ -1,15 +1,23 @@
 // form 
 const method = new DataCall();
-function toggleForm(formId, target) {
-  document.querySelector('#p-name').innerHTML = target.id;
-  const forms = document.querySelectorAll('.formContainer > div');
-  forms.forEach(form => {
-    if (form.id === formId) {
-      form.classList.remove('hide');
-    } else {
-      form.classList.add('hide');
-    }
-  });
+
+function openTab(Id) {
+  const tabList = document.querySelectorAll(`.side-nav p`);
+  const tabContent = document.querySelectorAll(`.form-container > div`);
+  tabContent.forEach(tab => {
+      if (tab.id === Id) {
+          tab.classList.remove('hide');
+      } else {
+          tab.classList.add('hide');
+      }
+  })
+  tabList.forEach(tab => {
+      if (tab.getAttribute('onclick').includes(Id)) {
+          tab.classList.add('active');
+      } else {
+          tab.classList.remove('active');
+      }   
+  })
 }
 
 function getMiscTask(params) {

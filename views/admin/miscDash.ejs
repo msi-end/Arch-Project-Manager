@@ -2,132 +2,123 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EBAH ERP | Admin</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EBAH ERP | Admin</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="../../css/admin/main.css">
-    <link rel="stylesheet" href="../../css/darkMode.css">
-    <link rel="stylesheet" href="../../css/admin/header.css">
-    <link rel="stylesheet" href="../../css/admin/responsive.css">
-    <link rel="stylesheet" href="sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../js/admin/dashboard.module.js"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../css/darkMode.css">
+  <link rel="stylesheet" href="../../css/index.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../../js/admin/dashboard.module.js"></script>
 
 </head>
 
 <body>
-    <%- include('../partials/admin.header.ejs') %>
-        <!-- ASIDE SECTION  -->
-        <!-- MAIN SECTION STARTS HERE  -->
-        <main class="main"data-app-page="dashboard-misc">
-            <!------------- DATA-OVERALL-------------  -->
-            <div class="main-data flex">
-                <!-- -------TOTAL PROJECTS--------- -->
-                <div class="total-data flex data">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="users-alt" class="svg">
-                        <path fill="##000000"
-                            d="M12.3,12.22A4.92,4.92,0,0,0,14,8.5a5,5,0,0,0-10,0,4.92,4.92,0,0,0,1.7,3.72A8,8,0,0,0,1,19.5a1,1,0,0,0,2,0,6,6,0,0,1,12,0,1,1,0,0,0,2,0A8,8,0,0,0,12.3,12.22ZM9,11.5a3,3,0,1,1,3-3A3,3,0,0,1,9,11.5Zm9.74.32A5,5,0,0,0,15,3.5a1,1,0,0,0,0,2,3,3,0,0,1,3,3,3,3,0,0,1-1.5,2.59,1,1,0,0,0-.5.84,1,1,0,0,0,.45.86l.39.26.13.07a7,7,0,0,1,4,6.38,1,1,0,0,0,2,0A9,9,0,0,0,18.74,11.82Z">
-                        </path>
-                    </svg>
-                    <div class="total_user_data">
-                        <p class="size">0</p>
-                        <p class="text">Total Projects</p>
-                    </div>
-                </div>
-                <!-- ---------------cOMPLETED PROJECTS ------------ -->
-                <div class="in_progress-data flex data">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="users-alt" class="svg">
-                        <path fill="##000000"
-                            d="M12.3,12.22A4.92,4.92,0,0,0,14,8.5a5,5,0,0,0-10,0,4.92,4.92,0,0,0,1.7,3.72A8,8,0,0,0,1,19.5a1,1,0,0,0,2,0,6,6,0,0,1,12,0,1,1,0,0,0,2,0A8,8,0,0,0,12.3,12.22ZM9,11.5a3,3,0,1,1,3-3A3,3,0,0,1,9,11.5Zm9.74.32A5,5,0,0,0,15,3.5a1,1,0,0,0,0,2,3,3,0,0,1,3,3,3,3,0,0,1-1.5,2.59,1,1,0,0,0-.5.84,1,1,0,0,0,.45.86l.39.26.13.07a7,7,0,0,1,4,6.38,1,1,0,0,0,2,0A9,9,0,0,0,18.74,11.82Z">
-                        </path>
-                    </svg>
-                    <div class="total_user_data">
-                        <p class="size">0</p>
-                        <p class="text">Completed</p>
-                    </div>
-                </div>
-                <!-- ---------IN PROGRESS----------- -->
-                <div class="not_start-data flex data">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="users-alt" class="svg">
-                        <path fill="##000000"
-                            d="M12.3,12.22A4.92,4.92,0,0,0,14,8.5a5,5,0,0,0-10,0,4.92,4.92,0,0,0,1.7,3.72A8,8,0,0,0,1,19.5a1,1,0,0,0,2,0,6,6,0,0,1,12,0,1,1,0,0,0,2,0A8,8,0,0,0,12.3,12.22ZM9,11.5a3,3,0,1,1,3-3A3,3,0,0,1,9,11.5Zm9.74.32A5,5,0,0,0,15,3.5a1,1,0,0,0,0,2,3,3,0,0,1,3,3,3,3,0,0,1-1.5,2.59,1,1,0,0,0-.5.84,1,1,0,0,0,.45.86l.39.26.13.07a7,7,0,0,1,4,6.38,1,1,0,0,0,2,0A9,9,0,0,0,18.74,11.82Z">
-                        </path>
-                    </svg>
-                    <div class="total_user_data">
-                        <p class="size">0</p>
-                        <p class="text">In Progress</p>
-                    </div>
-                </div>
-            </div>
-            <!-- ---------Information Container----------- -->
-            <!-- <div class="misContainer">
-                <h4 class="uppercase">Miscellaneous Project</h4>
-            </div> -->
-
-            <!-- ----------- DATA TABLE----------- -->
-            <div class="data-info box">
-                <!-- headings -->
-                <div class="info-head grid">
-                    <p class="uppercase phead none">Ref. No.</p>
-                    <p class="uppercase phead none">CLIENT</p>
-                    <p class="uppercase phead none">name of the project</p>
-                    <p class="uppercase phead none">deadline</p>
-                    <p class="uppercase phead none">status</p>
-                    <!-- ------resposnive class------- -->
-                    <p class="responsive uppercase phead hide block">project details</p>
-                </div>
-                <!-- ----------project information----------- -->
-                <div class="info-content">
-                    <!-- --------1st project---------  -->
-                    <% result?.forEach((data)=>{ %>
-                      <%- include('../partials/mp.ejs', {data: data}) %>  
-                    <% }) %>
-                    <!-- ------------------------------ -->
-                </div>
-
-                <!-- ----------PAGINATION--------- -->
-                <%- include('../partials/pagin.ejs') %>
-            </div>
-            <!-- ----------POPUPS----------------- -->
-        <div class="main-dropdown">
-          <div class="status-dropdown-menu common_dropdown">
-                <ul>
-                    <li class="red">
-                        <input type="radio" name="start">
-                        <span data-name="start">Not Started</span>
-                    </li>
-                    <li class="blue">
-                        <input type="radio" name="start">
-                        <span>In Progress</span>
-                    </li>
-                    <li class="green">
-                        <input type="radio" name="start">
-                        <span>Completed</span>
-                    </li>
-                </ul>
-            </div> 
-            <!-- <div class="emp-drop-menu common_dropdown">
-                <ul>
-                    <li>
-                        <input type="checkbox" name="employee">
-                        <span>Anand Kumar</span>
-                    </li>
-                </ul>
-                <button class="uppercase">update</button>
-            </div> -->
+  <section>
+    <%- include('../partials/admin.aside.ejs') %>
+    <main class="main" data-app-page="dashboard-misc">
+      <div class="main-data">
+        <%- include('../partials/admin.header.ejs') %>
+        <!-- --HEADING-- -->
+        <div class="heading">
+          <h2>Miscellaneous Projects</h2>
+          <p class="title">Find all miscellaneous project details here</p>
         </div>
+        <!-- --SUB-HEADING-- -->
+        <div class="top-section flex align-center j-between">
+          <div class="section-text">
+            <h3 class="flex">All Projects</h3>
+          </div>
+          <div class="searchBox flex align-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search" onclick="SearchFromInput()">
+              <path fill="##000000" d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z">
+              </path>
+            </svg>
+            <input type="text" class="searchQuery" oninput="search()" placeholder="Search for anything...">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="times" class="close" onclick="clearInput()">
+              <path fill="##000000" d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
+              </path>
+            </svg>
+          </div>
+        </div>
+        <!-- ----------- DATA TABLE----------- -->
 
-        </main>
-    </section>
+        <div class="data-info">
+          <table>
+            <thead>
+              <tr>
+                <th>Ref No.</th>
+                <th>Client Name</th>
+                <th>Project Name</th>
+                <th>Agreement Date</th>
+                <th>Status</th>
+                <th>Action</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% result?.forEach((data)=>{ %>
+              <tr>
+                <td data-dealId="<%= data.sdid %>" id="mrefid">
+                  <%= data.reference_no %>
+                </td>
+                <td>
+                  <%= data.sdeal_name %>
+                </td>
+                <td>
+                  <%= data.work_name %>
+                </td>
+                <td>
+                  <%= data.mp_deadline %>
+                </td>
+                <td class=""><button class="<%= data.mstask_status.toLowerCase() === 'completed' ? 'status success' : 'status warning' %>">
+                    <%= data.mstask_status %>
+                  </button></td>
+                <td class="flex align-center">
+                  <button class="edit" data-dealid="<%= data.sdid %>" onclick="editProject(this, 'misc')">Edit</button>
+                  <button class="delete" onclick="DeleteMiscProject(this,<%= data.sdid %>)">Delete</button>
+                </td>
+                <td>
+                  <span class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-right">
+                      <path fill="" d="M8.46,8.29A1,1,0,1,0,7,9.71L9.34,12,7,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3a1,1,0,0,0,0-1.42Zm8.5,3-3-3a1,1,0,0,0-1.42,1.42L14.84,12l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3A1,1,0,0,0,17,11.29Z">
+                      </path>
+                    </svg>
+                  </span>
+                </td>
+              </tr> 
+              <% }) %>
+            </tbody>
+            <%- include('../partials/pagin.ejs') %>
+          </table>
+        </div>
+      </div>
+
+      <!-- --MORE-DATA-- -->
+      <div class="more-data hide">
+        <% result?.forEach((data)=>{ %>
+        <%- include('../partials/miscTableData.ejs', {data: data}) %>
+        <% }) %>
+      </div>
+
+      <!-- POPUPS  -->
+      <div class="main-popup hide"></div>
+      <%- include('../partials/tasks/notification.ejs') %>
+      <%- include('../partials/tasks/alert.ejs') %>
+
+    </main>
+  </section>
 
 
-    <!-- JAVASCRIPT -->
-    <script src="../../js/admin/header.js"></script>
-    <script src="../../js/admin/dashboard.render.js"></script>
-    <script src="../../js/admin/common.js"></script>
-    <script src="../../js/admin/dashboard.js"></script>
+  <!-- JAVASCRIPT -->
+  <script src="../../js/admin/index.js"></script>
+  <script src="../../js/admin/common.js"></script>
+  <script src="../../js/admin/dashboard.render.js"></script>
+  <script src="../../js/admin/dashboard.js"></script>
 </body>
 
 </html>
