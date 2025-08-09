@@ -243,6 +243,9 @@ input:is([type="checkbox"], [type="radio"]) {
 .hide {
   display: none;
 }
+.show {
+  display: block !important;
+}
 
 .flex {
   display: flex;
@@ -297,6 +300,15 @@ section {
   min-height: 100vh;
   position: relative;
   /* display: flex; */
+}
+.click-effect {
+  cursor: pointer;
+  transition: all 0.1s ease; /* This makes the effect smooth */
+}
+.click-effect:active {
+  opacity: 0.7;
+  transform: translateY(2px); /* Moves the button down slightly */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Optional shadow effect */
 }
 #loading-container {
   position: absolute;
@@ -871,6 +883,7 @@ table th {
 table thead tr,
 table tfoot tr {
   background: var(--light-primary-300);
+  border-left: 5px solid hsl(49.4, 29.8%, 88.8%);
 }
 
 table tbody tr {
@@ -1088,7 +1101,7 @@ select.success {
 }
 .main-popup .blur {
   width: 100%;
-  max-width: 950px;
+  max-width: 750px;
   margin: 30px auto;
   border-radius: var(--px-6);
   padding: var(--rem-1);
@@ -1353,16 +1366,45 @@ span.info {
 .fin-info table {
   overflow: visible;
 }
+
 /* EXPENSES */
-.heading-ctn{
+.heading-ctn {
   display: flex;
   justify-content: space-between;
 }
-.expense-setting svg{
-width: 25px;
-height: 25px;
+.expense-setting {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-
+.expense-setting svg {
+  width: 25px;
+  height: 25px;
+}
+.top-expense-section .section-text {
+  gap: 10px;
+}
+.main-filter {
+  background: #fff0c7;
+  padding: 5px 10px;
+  font-size: 12px;
+  gap: 10px;
+  display: flex;
+  border-radius: 8px;
+  border: 1px solid #ffe08a;
+  font-weight: 700;
+}
+.main-filter span {
+  padding: 0px;
+}
+.main-filter span:first-child {
+  color: forestgreen;
+  /* background-color: rgb(225, 255, 225); */
+}
+.main-filter span:last-child {
+  color: rgb(192, 7, 7);
+  /* background-color: rgb(255, 229, 225); */
+}
 .utility-section {
   gap: var(--px-8);
 }
@@ -1371,6 +1413,34 @@ height: 25px;
   font-size: var(--f-size-14);
   gap: var(--px-5);
 }
+.add-button-child {
+  display: none;
+  width: 9rem;
+  position: absolute;
+  right: 1rem;
+  border-radius: 10px;
+  background: #fff0c7;
+  box-shadow: 1px 0px 5px #d7d7d7;
+}
+.add-button-child button {
+  width: 9rem;
+  justify-content: space-evenly;
+}
+.add-button-child button:last-child {
+  background: rgb(248, 203, 203);
+  color: red;
+  border-radius: 0px 0px 10px 10px;
+}
+.add-button-child button:first-child {
+  background: rgb(187, 255, 187);
+  color: green;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.hidden-checkbox:checked ~ .add-button-child {
+  display: block;
+}
+
 .btn-primary {
   background: var(--gradient-1);
   color: var(--btn-color);
@@ -1380,7 +1450,7 @@ height: 25px;
   color: var(--btn-color);
 }
 .btn-primary svg {
-  width: 18px;
+  width: 40px;
   height: 18px;
   fill: var(--btn-color);
 }
@@ -1406,6 +1476,13 @@ height: 25px;
 .extra-grid {
   margin-top: var(--px-10);
 }
+.expense-border {
+  border-left: 3px solid red;
+}
+.income-border {
+  border-left: 3px solid green;
+}
+
 /* USER DASHBOARD */
 .more-btn {
   margin-bottom: var(--px-10);

@@ -1,58 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html;">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, follow">
-    <title>Admin Login | EBAH</title>
-    <!-- CSS -->
-    <link rel="stylesheet" href="/css/loginPage.css">
-    <!-- --ICON CSS--  -->
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-</head>
-<body>
-    <div class="login-container">
-        <div class="left">
-            <!-- <img src="/img/bg.jpg" alt="login" id="loginImg"> -->
-            <img src="/img/logo.png" alt="logo" id="logo">
-        </div>
-        <div class="right">
-            <h1>EBAH</h1>
-            <p>Welcome, Admin</p>
-            <form method="POST" action="/admin/auth" id="login-form">
-                <div class="field">
-                    <label for="your_name">Email Address</label>
-                    <input type="text" name="Email" id="Email">
-                </div>
-                <div class="field">
-                    <label for="your_pass">Password</label>
-                    <input type="text" name="Password" id="Password">
-                    <i class="uil uil-eye-slash" id="eye"></i>
-                </div>
-                <div class="field field-btn">
-                    <button type="submit" name="signin" id="signin">Log In</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
-    <!-- --JS-- -->
-    <script>
-        const passField = document.querySelector("#Password");
-        const toggleBtn = document.querySelector("#eye");
-    
-        toggleBtn.onclick = () => {
-          if (passField.type == "password") {
-            passField.type = "text";
-            toggleBtn.classList.add("active");
-          }
-          else {
-            passField.type = "password";
-            toggleBtn.classList.remove("active");
-          }
-        }
-      </script>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, follow">
+  <title>Admin Login | EBAH</title>
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/loginPage.css">
+  <!-- --ICON CSS--  -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+</head>
+
+<body>
+  <div class="login-container">
+    <div class="left">
+      <!-- <img src="/img/bg.jpg" alt="login" id="loginImg"> -->
+      <img src="/img/logo.png" alt="logo" id="logo">
+    </div>
+    <div class="right">
+      <h1>EBAH</h1>
+      <h4>Administrator Login</h4>
+      <p>Welcome, Admin</p>
+      <form method="POST" action="/admin/auth" id="login-form">
+        <div class="field">
+          <label for="your_name">Email Address</label>
+          <input type="text" name="Email" id="Email">
+        </div>
+        <div class="field">
+          <label for="your_pass">Password</label>
+          <input type="text" name="Password" id="Password">
+          <i class="uil uil-eye-slash" id="eye"></i>
+        </div>
+        <div class="field field-btn">
+          <button type="submit" name="signin" id="signin">Log In</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- --JS-- -->
+  <script>
+    const passField = document.querySelector("#Password");
+    const toggleBtn = document.querySelector("#eye");
+
+    toggleBtn.onclick = () => {
+      if (passField.type == "password") {
+        passField.type = "text";
+        toggleBtn.classList.add("active");
+      } else {
+        passField.type = "password";
+        toggleBtn.classList.remove("active");
+      }
+    }
+  </script>
 </body>
+
 </html>
