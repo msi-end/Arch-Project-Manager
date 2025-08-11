@@ -92,7 +92,7 @@
               <div class="section-text flex">
                 <h3 class="flex">All Expenses</h3>
                 <div class="main-filter">
-                  <span class="in-filter click-effect">Income</span><span class="ex-filter click-effect">Expense</span>
+                  <span class="in-filter click-effect" onclick="filterByDataType('income')">Income</span><span class="ex-filter click-effect" onclick="filterByDataType('expense')">Expense</span>
                 </div>
               </div>
               <div class="utility-section flex align-center">
@@ -112,8 +112,10 @@
                 </div>
                 
                 <div class="filter-list flex align-center">
-                   <select id="category" onchange="">
-                    <option value="">Category</option>
+                   <select id="category" data-fn-type="categoryFilter" onclick="SortTableByCategory()">
+                    <option value="">All Category</option>
+                    <option value="Misc Project">Misc Project</option>
+                    <option value="Normal Project">Normal Project</option>
                   </select>
                   <select id="ExpsMonth">
                     <option value="1">January</option>
@@ -221,9 +223,9 @@
                   </tr>
                 </thead>
 
-                <tbody>
+                <tbody id="dataTable">
                   <% data?.forEach(exps=>{ %>
-                    <tr data-exps_id="<%= exps.id %>" class="expense-border">
+                    <tr data-exps_id="<%= exps.id %>" data-type="<%= exps.type %>" class="<%= exps.type=="expense"?"expense-border":"income-border" %> ">
                       <td>
                         <%= exps.id %>
                       </td>
@@ -237,12 +239,12 @@
                         <%= exps.date %>
                       </td>
                       <td class="exp-mode-data">
-                        <%= exps.md_type %>
+                        <%= exps.mode_of_pay %>
                       </td>
-                      <td>
+                      <td class="exp-category">
                         <%= exps.category? exps.category:'N/A' %>
                       </td>
-                      <td>
+                      <td class="exp-remark">
                         <%= exps.remark? exps.remark : 'No remarks' %>
                       </td>
                       <td class="flex align-center">

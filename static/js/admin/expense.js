@@ -5,6 +5,10 @@ let ReqURI = {
   getExpsBymonths: BASE_URL + "/getExps",
   NisProjectPaid: location.origin + "/apiv1/nIsProjectPaid",
   MisProjectPaid: location.origin + "/apiv1/mIsProjectPaid",
+  Expense_category: location.origin + location.pathname + "/category/readAll",
+};
+let STATES = {
+  Expense_category: [],
 };
 
 function AlertNotifier(status, msg, icon) {
@@ -136,7 +140,7 @@ function addExpenseForm() {
             </div>
              <div class="field">
                 <p class="title">Category</p>
-                <select name="category" id="category">
+                <select name="category" id="expense_category">
                     <option value="">Select from Categories</option>
                     <option value="cash">Fuel</option>
                     <option value="online">Trevel</option>
@@ -150,6 +154,10 @@ function addExpenseForm() {
     </form>
 </div>`;
   const dropDownTarget = document.querySelector(`.add-expense`);
+  let expense_category = document.querySelector("#expense_category");
+  STATES.Expense_category.data.forEach((e) => {
+    expense_category.innerHTML += `<option value="${e.cat_name}">${e.cat_name}</option>`;
+  });
   dropDownTarget.classList.toggle(`hide`);
 }
 function addExpense() {
@@ -160,6 +168,7 @@ function addExpense() {
     mode: expAddCtn.querySelector("#mode").value,
     remark: expAddCtn.querySelector("#remark").value,
     date: date_Split(expAddCtn.querySelector("#date").value, "-" || "/", true),
+    category: expAddCtn.querySelector("#expense_category").value,
   };
   ReqHandler.POST(ReqURI.addExps, dataObj)
     .then((res) => {
@@ -303,6 +312,56 @@ function ChangeExpsByMonths(e) {
     });
 }
 
+//EXPENSE CATEGORY
+function getExpense_Category() {
+  let category = document.querySelector("#category");
+  ReqHandler.GET(ReqURI.Expense_category)
+    .then((res) => {
+      STATES.Expense_category = res;
+      res.data.forEach((e) => {
+        category.innerHTML += `<option value="${e.cat_name}">${e.cat_name}</option>`;
+      });
+      console.log("fn-getExpense_Category working fine");
+    })
+    .catch((err) => {
+      console.log("Error(fn-getExpense_Category):", err);
+    });
+}
+
+//Filter BY Category
+function SortTableByCategory(e) {
+  const selectedCategory = document.querySelector(
+    '[data-fn-type="categoryFilter"]'
+  ).value;
+  const rows = document.querySelectorAll("#dataTable tr");
+  rows.forEach((row) => {
+    let rowCategory = row.querySelector(".exp-category");
+    row.classList.remove("hide");
+    if (!selectedCategory || rowCategory.innerText === selectedCategory) {
+      row.classList.remove("hide");
+    } else {
+      row.classList.add("hide");
+    }
+  });
+}
+//Filter BY Type
+function filterByDataType(type) {
+  const rows = document.querySelectorAll("#dataTable tr[data-type]");
+
+  rows.forEach((row) => {
+    const rowType = row.getAttribute("data-type");
+
+    // Show only matching type
+    if (rowType == "expense") {
+      row.classList.remove("hide");
+    } else if (rowType !== "expense") {
+      row.classList.remove("hide");
+    } else {
+      row.classList.add("hide");
+    }
+  });
+}
+
 (function IsProjectPaid() {
   let IsPainCtn = document.querySelector(".finance-notifications");
   ReqHandler.GET(ReqURI.NisProjectPaid)
@@ -352,3 +411,4 @@ function ChangeExpsByMonths(e) {
       );
     });
 })();
+getExpense_Category();
