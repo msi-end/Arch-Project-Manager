@@ -1,6 +1,11 @@
 const { log } = require('winston')
 const databaseCon = require('../config/db.config')
 
+/**
+ * 
+ * 
+ * Sub task
+ */
 exports.getTask = async (req, res) => {
    const q = "select * from task"
    await databaseCon.query(q, (err, results) => {
@@ -22,6 +27,13 @@ exports.setTask = async (req, res) => {
    })
 }
 
+
+/**
+ * 
+ * 
+ * Sub task
+ */
+
 exports.getSubtask = async (req, res) => {
    const q = "select * from subtask"
    await databaseCon.query(q, (err, results) => {
@@ -35,7 +47,7 @@ exports.getSubtask = async (req, res) => {
 
 exports.setSubtask = async (req, res) => {
    const q = "INSERT INTO subtask (sub_task_name) VALUES(?)"
-   await databaseCon.query(q,[req.body.subTask],(err,results) => {
+   await databaseCon.query(q, [req.body.subTask], (err, results) => {
       if (!err) {
          res.status(200).send({ status: true, msg: 'Successfully added Sub-Task', data: results.insertId })
       } else {
@@ -45,7 +57,7 @@ exports.setSubtask = async (req, res) => {
 }
 exports.updateSubtask = async (req, res) => {
    const q = `UPDATE subtask SET sub_task_name=?  WHERE sub_task_id =${req.params.id}`
-   await databaseCon.query(q,[req.body.subTask],(err,results) => {
+   await databaseCon.query(q, [req.body.subTask], (err, results) => {
       if (!err) {
          res.status(200).send({ status: true, msg: 'Successfully Updated Sub-Task', data: results.insertId })
       } else {
@@ -54,7 +66,11 @@ exports.updateSubtask = async (req, res) => {
    })
 }
 
-
+/**
+ * 
+ * 
+ * Misc task
+ */
 exports.getMiscTask = async (req, res) => {
    const q = "select * from mis_subtask"
    await databaseCon.query(q, (err, results) => {
@@ -86,11 +102,17 @@ exports.updateMiscTask = async (req, res) => {
    })
 }
 
+/**
+ * 
+ * 
+ * Amount Split
+ */
+
 exports.getAmountSplit = async (req, res) => {
    const q = "select splitvalue from amount_split"
    await databaseCon.query(q, (err, results) => {
       if (!err) {
-         res.status(200).send({ status: true, msg: 'Successfully Retrived Splits',data:results })
+         res.status(200).send({ status: true, msg: 'Successfully Retrived Splits', data: results })
       } else {
          res.status(500).send({ status: false, msg: "Internal error occurs!" });
       }
@@ -121,5 +143,10 @@ exports.updateAmountSplit = async (req, res) => {
             res.status(500).send({ status: false, msg: "Internal error occurs!" });
          }
       })
-
 }
+
+/**
+ * 
+ * 
+ * Payment Methods
+ */

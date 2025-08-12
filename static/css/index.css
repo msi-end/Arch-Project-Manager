@@ -1383,6 +1383,7 @@ span.info {
 }
 .top-expense-section .section-text {
   gap: 10px;
+  cursor: pointer;
 }
 .main-filter {
   background: #fff0c7;

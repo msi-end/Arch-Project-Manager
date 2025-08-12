@@ -42,14 +42,13 @@ function addIncomeForm() {
                 <p class="title">Enter Project</p>
                 <input type="text" name="project" id="project" placeholder="Search Project by Name,Ref ID. etc.">
                 <div>
-
                 </div>
                 <select name="modeOfPays" id="mode" placeholder="Search Project by Name,Ref ID. etc."  >
                     <option value="cash">Select From last 10 Projects</option>
                 </select>
             </div>
             <div class="field">
-                <p class="title">Expense Amount <span>(in &#8377;)</span></p>
+                <p class="title">Enter Phase Amount <span>(in &#8377;)</span></p>
               <select name="modeOfPays" id="mode"  >
                     <option value="cash">Select Project Phase</option>
                 </select>
@@ -185,8 +184,6 @@ function addExpense() {
       console.log("Error(fn-ExpsAdd):" + err);
     });
 }
-
-//EDIT EXPENSE
 function editExpense(e) {
   console.log(e);
   let id = e.parentElement.parentElement.dataset.exps_id;
@@ -347,20 +344,16 @@ function SortTableByCategory(e) {
 //Filter BY Type
 function filterByDataType(type) {
   const rows = document.querySelectorAll("#dataTable tr[data-type]");
-
-  rows.forEach((row) => {
-    const rowType = row.getAttribute("data-type");
-
-    // Show only matching type
-    if (rowType == "expense") {
-      row.classList.remove("hide");
-    } else if (rowType !== "expense") {
-      row.classList.remove("hide");
-    } else {
-      row.classList.add("hide");
-    }
+  rows.forEach(row => {
+    const rowType = row.dataset.type;
+    const showRow =
+      type === "allType" ||
+      (type === "expense" && rowType === "expense") ||
+      (type !== "expense" && rowType !== "expense");
+    row.classList.toggle("hide", !showRow);
   });
 }
+
 
 (function IsProjectPaid() {
   let IsPainCtn = document.querySelector(".finance-notifications");
