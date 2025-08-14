@@ -1477,6 +1477,44 @@ span.info {
 .extra-grid {
   margin-top: var(--px-10);
 }
+.search-project-ctn {
+  display: none;
+  width: 49%;
+  background: #f7f6f6;
+  border: 1px solid #ffe08a;
+  border-radius: 5px;
+  padding: 5px 10px;
+  position: absolute;
+  height: 300px;
+  top: 116px;
+  font-size: 14px;
+  overflow-y: scroll;
+}
+.search-project-ctn p {
+  font-size: 13px;
+  padding: 8px 14px;
+  background-color: #ffe08a91;
+  border-radius: 5px;
+  margin: 5px 0px;
+}
+.search-project-ctn p strong{
+  font-size: 14px;
+}
+
+.search-project-ctn::-webkit-scrollbar-track {
+  background: var(--accent-600);
+  border-radius: 10px;
+}
+
+.search-project-ctn::-webkit-scrollbar-thumb {
+  background-color: var(--accent-600);
+  border-radius: 10px;
+  border: 3px solid var(--accent-600);
+}
+.search-project-ctn {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-600) #f0e9e2;
+}
 .expense-border {
   border-left: 3px solid red;
 }

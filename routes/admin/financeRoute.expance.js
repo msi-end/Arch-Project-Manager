@@ -10,6 +10,8 @@ router.get('/category/readAll', expenseController.getExpenseCategories);
 router.get('/category/readOne/:id', expenseController.getExpenseCategoryById);
 router.put('/category/update/:id', expenseController.updateExpenseCategory);
 router.delete('/category/delete/:id', expenseController.deleteExpenseCategory);
+router.get('/last_project/get', expenseController.getLastProjects);
+router.get('/last_project/search/:search_term', expenseController.SearchLastProjects);
 
 
 module.exports = router;

@@ -81,6 +81,6 @@ app.get('*',(req,res)=>{
 app.use(errHandler);
 app.listen(PORT,
     () => {
-        console.log(`working at port ${PORT} .env ${process.env.NODE_ENV}`);
+        console.log(`working at port http://localhost:${PORT} .env ${process.env.NODE_ENV}`);
     }
 )

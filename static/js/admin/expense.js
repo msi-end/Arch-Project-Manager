@@ -6,9 +6,13 @@ let ReqURI = {
   NisProjectPaid: location.origin + "/apiv1/nIsProjectPaid",
   MisProjectPaid: location.origin + "/apiv1/mIsProjectPaid",
   Expense_category: location.origin + location.pathname + "/category/readAll",
+  last_project: location.origin + location.pathname + "/last_project/get",
+  search_last_project: location.origin + location.pathname + "/last_project/search/",
 };
 let STATES = {
   Expense_category: [],
+  Last_projects:[],
+  Search_Last_projects:[]
 };
 
 function AlertNotifier(status, msg, icon) {
@@ -40,16 +44,17 @@ function addIncomeForm() {
         <div class="grid extra-grid">
             <div class="field">
                 <p class="title">Enter Project</p>
-                <input type="text" name="project" id="project" placeholder="Search Project by Name,Ref ID. etc.">
-                <div>
+                <input type="text" name="project" id="project" onchange="search_projects(this)" placeholder="Search Project by Name,Ref ID. etc.">
+                <div class="search-project-ctn">
+                  <p class="searched-projects click-effect">sadfadf</p>
                 </div>
-                <select name="modeOfPays" id="mode" placeholder="Search Project by Name,Ref ID. etc."  >
+                <select name="last-project" id="income-last-project" placeholder="Search Project by Name,Ref ID. etc."  >
                     <option value="cash">Select From last 10 Projects</option>
                 </select>
             </div>
             <div class="field">
                 <p class="title">Enter Phase Amount <span>(in &#8377;)</span></p>
-              <select name="modeOfPays" id="mode"  >
+              <select name="search-last-project" id="income-search-last-project"  >
                     <option value="cash">Select Project Phase</option>
                 </select>
             </div>
@@ -354,6 +359,57 @@ function filterByDataType(type) {
   });
 }
 
+// GET LAST PROJECT AND SEARCH DATA
+async function getLast_Projects_and_Search(search_term) {
+    try {
+        let res = await ReqHandler.GET(
+            search_term? ReqURI.search_last_project + search_term : ReqURI.last_project
+        );
+        console.log(res);
+        console.log(search_term);
+        
+        if (search_term) {
+            STATES.Search_Last_projects = res.data;
+        } else {
+            STATES.Last_projects = res.data;
+        }
+        console.log("fn-getLast_Projects_and_Search working fine");
+        return true; // Now this will be returned to caller
+    } catch (err) {
+        console.log("Error(fn-getLast_Projects_and_Search):", err);
+        return false;
+    }
+}
+
+// SEARCH PROJECTS
+async function search_projects(e) {
+    let search_value = e.value;
+    let data_Status = await getLast_Projects_and_Search(search_value);
+    if (data_Status) {
+        let project_listCtn = document.querySelector('.search-project-ctn');
+        project_listCtn.classList.add('show');
+        project_listCtn.innerHTML = ""; // clear old results before appending
+        STATES.Search_Last_projects.normal.forEach((p) => {
+            project_listCtn.innerHTML += `
+                <p class="searched-projects click-effect" onclick="Select_Project_getPhase(${p.id},"Normal")" >
+                    <strong>Normal:</strong>ID:${p.id} | <strong>Name:</strong> ${p.name} <br> <strong>Reference no:</strong> ${p.reference_no}
+                </p>`;
+        });
+         STATES.Search_Last_projects.misc.forEach((p) => {
+            project_listCtn.innerHTML += `
+                <p class="searched-projects click-effect" onclick="Select_Project_getPhase(${p.id},"Misc")" >
+                    <strong>Misc:</strong>ID:${p.id} | <strong>Name:</strong> ${p.name} <br> <strong>Reference no:</strong> ${p.reference_no}
+                </p>`;
+        });
+    }
+}
+
+function Select_Project_getPhase(){
+  let project_listCtn = document.querySelector('.search-project-ctn');
+        project_listCtn.classList.add('hide');
+}
+
+
 
 (function IsProjectPaid() {
   let IsPainCtn = document.querySelector(".finance-notifications");
@@ -405,3 +461,4 @@ function filterByDataType(type) {
     });
 })();
 getExpense_Category();
+getLast_Projects_and_Search();

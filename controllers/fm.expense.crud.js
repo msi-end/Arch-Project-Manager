@@ -2,7 +2,7 @@ const db = require('../config/db.config');
 
 
 exports.addExpense = (req, res) => {
-    let q = `INSERT  INTO  expenses(title,remark,amount,date,md_type,category) VALUE(?,?,?,?,?,?)`
+    let q = `INSERT  INTO  expenses(title,remark,amount,date,md_type,category) VALUE(?,?,?,?,?,?);`
     db.query(q, [req.body.title, req.body.remark, req.body.amount, req.body.date, req.body.mode, req.body.category], (err, results) => {
         if (!err) {
             res.status(200).send({ status: true, msg: 'Successfully Expense Added' })
@@ -98,6 +98,38 @@ exports.deleteExpenseCategory = (req, res) => {
                 res.status(200).send({ status: true, msg: 'Expense category deleted successfully' });
             } else {
                 res.status(404).send({ status: false, msg: "Expense category not found" });
+            }
+        } else {
+            res.status(500).send({ status: false, msg: "Internal error occurs!\n" + err });
+        }
+    });
+};
+
+exports.getLastProjects = (req, res) => {
+    let q = `SELECT id,deal_name as name ,reference_no FROM deals ORDER BY id DESC LIMIT 10;
+             SELECT sdid as id ,sdeal_name as name ,reference_no FROM single_deal ORDER BY sdid DESC LIMIT 5;`;
+    db.query(q, [req.params.id], (err, results) => {
+        if (!err) {
+            if (results) {
+                res.status(200).send({ status: true, msg: 'Expense Last Project retrived successfully',data:{normal:results[0] ,misc:results[1]} });
+            } else {
+                res.status(404).send({ status: false, msg: "Expense Last Project not found" });
+            }
+        } else {
+            res.status(500).send({ status: false, msg: "Internal error occurs!\n" + err });
+        }
+    });
+};
+exports.SearchLastProjects = (req, res) => {
+    let searchterm =req.params.search_term
+    let q = `SELECT id, deal_name AS name, reference_no FROM deals WHERE (deal_name LIKE '%${searchterm}%' OR reference_no LIKE '%${searchterm}%') ORDER BY id DESC LIMIT 10;
+             SELECT sdid AS id, sdeal_name AS name, reference_no FROM single_deal WHERE (sdeal_name LIKE '%${searchterm}%' OR reference_no LIKE '%${searchterm}%') ORDER BY sdid DESC LIMIT 5;`;
+    db.query(q,(err, results) => {
+        if (!err) {
+            if (results) {
+                res.status(200).send({ status: true, msg: 'Expense Search Last Projects retrived successfully' ,data:{normal:results[0] ,misc:results[1]}});
+            } else {
+                res.status(404).send({ status: false, msg: "Expense Search Last Project not found" });
             }
         } else {
             res.status(500).send({ status: false, msg: "Internal error occurs!\n" + err });
