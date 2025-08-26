@@ -45,18 +45,18 @@ function addIncomeForm() {
     <div class="grid extra-grid">
       <div class="field">
         <p class="title">Enter Project</p>
-        <input type="text" name="project" id="search_project" onchange="search_projects(this)" placeholder="Search Project by Name,Ref ID. etc.">
+        <input type="text" name="project" id="search_project" onchange="search_projects(this,'fromSearch')" placeholder="Search Project by Name,Ref ID. etc.">
         <div class="search-project-ctn">
         <span class="cancel-btn" onclick="close_project_listCtn()">x</span>
         <span class="content"></span>
         </div>
-        <select name="last-project" id="income-last-project" placeholder="Search Project by Name,Ref ID. etc.">
-          <option value="cash">Select From last 10 Projects</option>
+        <select name="last-project" id="income-last-project" onchange="Select_Project_getPhase(this,'fromList')" placeholder="Search Project by Name,Ref ID. etc.">
+          <option value="">Select From last 10 Projects</option>
         </select>
       </div>
       <div class="field">
-        <p class="title">Enter Phase Amount <span>(in &#8377;)</span></p>
-        <select name="search-last-project" id="income-search-last-project">
+        <p class="title">Enter Phase <span>(in &#8377;)</span></p>
+        <select name="last-project-phase" id="income-last-project-phase">
           <option value="cash">Select Project Phase</option>
         </select>
       </div>
@@ -84,6 +84,13 @@ function addIncomeForm() {
 </div>`;
   const dropDownTarget = document.querySelector(`.add-expense`);
   dropDownTarget.classList.toggle(`hide`);
+  let last_project_ctn = document.querySelector("#income-last-project");
+  STATES.Last_projects.normal.forEach((e) => {
+    last_project_ctn.innerHTML += `<option value="normal|${e.id}|${e.name}">${e.reference_no} | ${e.name}</option>`;
+  });
+  STATES.Last_projects.misc.forEach((e) => {
+    last_project_ctn.innerHTML += `<option value="misc|${e.id}|${e.name}">${e.reference_no} | ${e.name}</option>`;
+  });
 }
 function addincome() {
   let expAddCtn = document.getElementsByClassName("add-expense")[0];
@@ -391,26 +398,29 @@ async function search_projects(e) {
   let data_Status = await getLast_Projects_and_Search(search_value);
   if (data_Status) {
     let project_listCtn = document.querySelector(".search-project-ctn");
-  project_listCtn.classList.remove("hide");
+    project_listCtn.classList.remove("hide");
     project_listCtn.classList.add("show");
-    project_listCtn=  project_listCtn.getElementsByClassName('content')[0]
+    project_listCtn = project_listCtn.getElementsByClassName("content")[0];
     project_listCtn.innerHTML = ""; // clear old results before appending
-    if (STATES.Search_Last_projects.normal.length > 0 || STATES.Search_Last_projects.misc.length > 0 ) {
+    if (
+      STATES.Search_Last_projects.normal.length > 0 ||
+      STATES.Search_Last_projects.misc.length > 0
+    ) {
       STATES.Search_Last_projects.normal.forEach((p) => {
         project_listCtn.innerHTML += `
-          <p class="searched-projects click-effect" onclick="Select_Project_getPhase(${p.id},'Normal')">
+          <p class="searched-projects click-effect" onclick="Select_Project_getPhase('${p.id}-${p.name}','Normal')">
             <strong>Normal:</strong>ID:${p.id} | <strong>Name:</strong> ${p.name} <br> <strong>Reference no:</strong>
             ${p.reference_no}
           </p>`;
       });
       STATES.Search_Last_projects.misc.forEach((p) => {
         project_listCtn.innerHTML += `
-          <p class="searched-projects click-effect" onclick="Select_Project_getPhase(${p.id},'Misc')">
+          <p class="searched-projects click-effect" onclick="Select_Project_getPhase('${p.id}-${p.name}','Misc')">
             <strong>Misc:</strong>ID:${p.id} | <strong>Name:</strong> ${p.name} <br> <strong>Reference no:</strong>
             ${p.reference_no}
           </p>`;
       });
-    }else{
+    } else {
       project_listCtn.innerHTML += `<h1 class="searched-projects click-effect" style="text-align:center;margin: 70px;opacity: 0.3;" ><strong>No data Found!</strong></h1>`;
     }
   }
@@ -420,14 +430,47 @@ function close_project_listCtn() {
   project_listCtn.classList.remove("show");
   project_listCtn.classList.add("hide");
 }
-function Select_Project_getPhase(val,e) {
-  let search_projectInput = document.querySelector('#search_project')
+
+function Select_Project_getPhase(e, type) {
+  let project_id, pro_type, pro_name, project_PhaseInput;
+  if (type == "fromList") {
+    project_id = e.value.split("|")[1];
+    pro_type = e.value.split("|")[0];
+    pro_name = e.value.split("|")[2];
+  } else {
+    project_id = e.split("-")[0];
+    pro_type = type;
+    pro_name = e.split("-")[1];
+  }
+  console.log(project_id, pro_type, pro_name);
+  let search_projectInput = document.querySelector("#search_project");
+  search_projectInput.value = `${pro_type.toUpperCase()}-${project_id} | ${pro_name}`;
   let project_listCtn = document.querySelector(".search-project-ctn");
+  project_PhaseInput = document.querySelector("#income-last-project-phase");
+  ReqHandler.GET(ReqURI.getProjectPhase)
+    .then((res) => {
+      for (let i = 0; i < res.length; i++) {
+        if (res[i].total_price > res[i].amount_got) {
+          Ctn = `<p class="notification-alert flex align-center">
+      <span class="text">
+        Project (${res[i].sdeal_name}) is completed while payment of ${
+            res[i].total_price - res[i].amount_got
+          } is still pending.
+      </span>
+      <span class="delete">Delete</span>
+    </p>`;
+          IsPainCtn.innerHTML += Ctn;
+        }
+      }
+    })
+    .catch((err) => {
+      console.log(
+        "error getting IsProjectPaid() data expanse.js |ln:110 " + err
+      );
+    });
+
   project_listCtn.classList.remove("show");
   project_listCtn.classList.add("hide");
-
-
-
 }
 
 (function IsProjectPaid() {
