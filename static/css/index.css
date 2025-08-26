@@ -1483,12 +1483,23 @@ span.info {
   background: #f7f6f6;
   border: 1px solid #ffe08a;
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 25px 10px 0px 10px;
   position: absolute;
   height: 300px;
   top: 116px;
   font-size: 14px;
   overflow-y: scroll;
+}
+.search-project-ctn .cancel-btn {
+  cursor: pointer;
+  border: 2px solid #de690269;
+  padding: 0px 6px 3px 6px;
+  border-radius: 20px;
+  color: #de69029c;
+  font-weight: 600;
+  position: absolute;
+  margin-top: -22px;
+  margin-left: -1px;
 }
 .search-project-ctn p {
   font-size: 13 px;
@@ -1497,7 +1508,7 @@ span.info {
   border-radius: 5px;
   margin: 5px 0px;
 }
-.search-project-ctn p strong{
+.search-project-ctn p strong {
   font-size: 14px;
 }
 
