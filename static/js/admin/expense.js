@@ -391,7 +391,7 @@ async function search_projects(e) {
         project_listCtn.innerHTML = ""; // clear old results before appending
         STATES.Search_Last_projects.normal.forEach((p) => {
             project_listCtn.innerHTML += `
-                <p class="searched-projects click-effect" onclick="Select_Project_getPhase(${p.id},"Normal")" >
+                <p class="searched-projects click-effect" onclick='Select_Project_getPhase(${p.id},"Normal")' >
                     <strong>Normal:</strong>ID:${p.id} | <strong>Name:</strong> ${p.name} <br> <strong>Reference no:</strong> ${p.reference_no}
                 </p>`;
         });
@@ -406,7 +406,7 @@ async function search_projects(e) {
 
 function Select_Project_getPhase(){
   let project_listCtn = document.querySelector('.search-project-ctn');
-        project_listCtn.classList.add('hide');
+        project_listCtn.style.display='none!important';
 }
 
 

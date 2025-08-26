@@ -1491,7 +1491,7 @@ span.info {
   overflow-y: scroll;
 }
 .search-project-ctn p {
-  font-size: 13px;
+  font-size: 13 px;
   padding: 8px 14px;
   background-color: #ffe08a91;
   border-radius: 5px;
