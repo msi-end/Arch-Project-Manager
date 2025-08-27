@@ -20,7 +20,7 @@ app.use(session({
 
 
 // Administrator 
-const auth = require('./controllers/adminAuth')
+const auth = require('./routes/admin/auth.js')
 const indexRoutes = require('./routes/admin/indexRoutes')
 const userManager = require('./routes/admin/userManagerRoute.js')
 const settings = require('./routes/admin/settingRoute.js')

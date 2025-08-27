@@ -23,6 +23,8 @@ api.put('/update-task-deadline', pmNormalAPI.updatetaskDeadline)
 api.delete('/delete-task', pmNormalAPI.deleteTask)
 api.get('/ngetProjectStatus', pmNormalAPI.getProjectsStaus)
 api.get('/nIsProjectPaid', pmNormalAPI.getCheckCompletedUnpaid)
+api.get('/normal/getProjectPhase/:id', pmNormalAPI.getNormalPhaseList)
+
 
 
 //=================MISC PROJECT ROUTE==========================
@@ -38,12 +40,17 @@ api.get('/employee-misc/:dealId/:catId', pmMiscAPI.getEmployListPerProject)
 api.put('/update-misctask-status', pmMiscAPI.updateMiscTaskStatus)
 api.get('/mgetProjectStatus', pmMiscAPI.getProjectsStaus)
 api.get('/mIsProjectPaid', pmMiscAPI.getCheckCompletedUnpaid)
+api.get('/misc/getProjectPhase/:id', pmMiscAPI.getMiscPhaseList)
 
+
+/**
+ * @
+ */
 // -----Update task route for bith normal and misc task-----
-
 api.get('/get-data-update', pmNormalAPI.getDataToUpdate)
 api.put('/np-data-update', pmNormalAPI.UpdateNormalProjectData)
 api.put('/misc-data-update', pmNormalAPI.UpdateMiscProjectData)
+
 
 
 

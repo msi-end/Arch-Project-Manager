@@ -249,6 +249,20 @@ exports.DeleteNormalProjectData = async (req, res) => {
   })
 }
 
+exports.getNormalPhaseList = async (req, res) => {
+  const q = `SELECT npf.task, t.task_id as id, t.task_name as name, SUM(npf.amount_got) AS total_received, MAX(npf.totalamount) AS total_amount FROM normal_projects_finance npf LEFT JOIN task t ON npf.task=t.task_id WHERE npf.ndeal_id = ? GROUP BY npf.task, t.task_id, t.task_name;  `;
+  await databaseCon.query(q, [req.params.id], async (err, result) => {
+    if (!err) {
+      res.status(200).send({ status: true, msg: 'Successfully data Deleted',data:result })
+    } else {
+      res.status(500).send({ status: false, msg: 'failed to delete the Data'+err })
+      console.log(err);
+    }
+  })
+}
+
+
+
 
 
 

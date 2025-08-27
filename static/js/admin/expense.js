@@ -9,11 +9,14 @@ let ReqURI = {
   last_project: location.origin + location.pathname + "/last_project/get",
   search_last_project:
     location.origin + location.pathname + "/last_project/search/",
+  getProjectPhaseNormal: location.origin + "/apiv1/normal/getProjectPhase/",
+  getProjectPhaseMisc: location.origin + "/apiv1/misc/getProjectPhase/",
 };
 let STATES = {
   Expense_category: [],
   Last_projects: [],
   Search_Last_projects: [],
+  Selected_projectPhase_info: [],
 };
 
 function AlertNotifier(status, msg, icon) {
@@ -45,7 +48,7 @@ function addIncomeForm() {
     <div class="grid extra-grid">
       <div class="field">
         <p class="title">Enter Project</p>
-        <input type="text" name="project" id="search_project" onchange="search_projects(this,'fromSearch')" placeholder="Search Project by Name,Ref ID. etc.">
+        <input type="text" name="project_id" id="search_project" onchange="search_projects(this,'fromSearch')" placeholder="Search Project by Name,Ref ID. etc.">
         <div class="search-project-ctn">
         <span class="cancel-btn" onclick="close_project_listCtn()">x</span>
         <span class="content"></span>
@@ -56,13 +59,15 @@ function addIncomeForm() {
       </div>
       <div class="field">
         <p class="title">Enter Phase <span>(in &#8377;)</span></p>
-        <select name="last-project-phase" id="income-last-project-phase">
-          <option value="cash">Select Project Phase</option>
+        <select name="last-project-phase" id="income-last-project-phase"  onchange="Select_Phase_showDate(this)">
+          <option value="">Select Project Phase</option>
         </select>
+      <span id="Project_phaseData_show" class="hide" >  </span>
+
       </div>
       <div class="field">
         <p class="title">Mode of Payment</p>
-        <select name="modeOfPays" id="mode">
+        <select name="mode" id="mode">
           <option value="cash">Cash</option>
           <option value="online">Online</option>
         </select>
@@ -73,7 +78,7 @@ function addIncomeForm() {
       </div>
       <div class="field">
         <p class="title">Amount <span>(*optional)</span></p>
-        <input type="text" id="amount">
+        <input type="text" name="amount" id="amount">
       </div>
     </div>
     <div class="action-btn flex align-center">
@@ -86,21 +91,29 @@ function addIncomeForm() {
   dropDownTarget.classList.toggle(`hide`);
   let last_project_ctn = document.querySelector("#income-last-project");
   STATES.Last_projects.normal.forEach((e) => {
-    last_project_ctn.innerHTML += `<option value="normal|${e.id}|${e.name}">${e.reference_no} | ${e.name}</option>`;
+    last_project_ctn.innerHTML += `<option value="normal-${e.id}-${e.name}-${e.reference_no}">${e.reference_no} | ${e.name}</option>`;
   });
   STATES.Last_projects.misc.forEach((e) => {
-    last_project_ctn.innerHTML += `<option value="misc|${e.id}|${e.name}">${e.reference_no} | ${e.name}</option>`;
+    last_project_ctn.innerHTML += `<option value="misc-${e.id}-${e.name}-${e.reference_no}">${e.reference_no} | ${e.name}</option>`;
   });
 }
 function addincome() {
   let expAddCtn = document.getElementsByClassName("add-expense")[0];
-  let dataObj = {
-    title: expAddCtn.querySelector("#exp-name").value,
-    amount: expAddCtn.querySelector("#amount").value,
-    mode: expAddCtn.querySelector("#mode").value,
-    remark: expAddCtn.querySelector("#remark").value,
-    date: date_Split(expAddCtn.querySelector("#date").value, "-" || "/", true),
+  let Normal_dataObj = {
+    ndeal_id: expAddCtn.querySelector("[name='project_id']").value,
+    task: expAddCtn.querySelector("[name='last-project-phase']").value,
+    amount_got: expAddCtn.querySelector("[name='amount']").value,
+    modeofpay: expAddCtn.querySelector("[name='mode']").value,
+    dateofpay: date_Split(expAddCtn.querySelector("[name='date']").value, "-" || "/", true),
   };
+  let Misc_dataObj = {
+    ndeal_id: expAddCtn.querySelector("[name='project_id']").value,
+    task: expAddCtn.querySelector("[name='last-project-phase']").value,
+    amount_got: expAddCtn.querySelector("[name='amount']").value,
+    modeofpay: expAddCtn.querySelector("[name='mode']").value,
+    dateofpay: date_Split(expAddCtn.querySelector("[name='date']").value, "-" || "/", true),
+  };
+  
   ReqHandler.POST(ReqURI.addExps, dataObj)
     .then((res) => {
       if (res.status == true) {
@@ -408,14 +421,14 @@ async function search_projects(e) {
     ) {
       STATES.Search_Last_projects.normal.forEach((p) => {
         project_listCtn.innerHTML += `
-          <p class="searched-projects click-effect" onclick="Select_Project_getPhase('${p.id}-${p.name}','Normal')">
+          <p class="searched-projects click-effect" onclick="Select_Project_getPhase('${p.id}-${p.name}-${p.reference_no}','Normal')">
             <strong>Normal:</strong>ID:${p.id} | <strong>Name:</strong> ${p.name} <br> <strong>Reference no:</strong>
             ${p.reference_no}
           </p>`;
       });
       STATES.Search_Last_projects.misc.forEach((p) => {
         project_listCtn.innerHTML += `
-          <p class="searched-projects click-effect" onclick="Select_Project_getPhase('${p.id}-${p.name}','Misc')">
+          <p class="searched-projects click-effect" onclick="Select_Project_getPhase('${p.id}-${p.name}-${p.reference_no}','Misc')">
             <strong>Misc:</strong>ID:${p.id} | <strong>Name:</strong> ${p.name} <br> <strong>Reference no:</strong>
             ${p.reference_no}
           </p>`;
@@ -432,45 +445,59 @@ function close_project_listCtn() {
 }
 
 function Select_Project_getPhase(e, type) {
-  let project_id, pro_type, pro_name, project_PhaseInput;
+  let project_id,
+    pro_type,
+    pro_ref,
+    pro_name,
+    project_PhaseInput,
+    validPro_type;
   if (type == "fromList") {
-    project_id = e.value.split("|")[1];
-    pro_type = e.value.split("|")[0];
-    pro_name = e.value.split("|")[2];
+    project_id = e.value.split("-")[1];
+    pro_type = e.value.split("-")[0];
+    pro_name = e.value.split("-")[2];
+    pro_ref = e.value.split("-")[3];
   } else {
     project_id = e.split("-")[0];
     pro_type = type;
     pro_name = e.split("-")[1];
+    pro_ref = e.split("-")[2];
   }
-  console.log(project_id, pro_type, pro_name);
+  console.log(project_id, pro_type, pro_ref, pro_name);
+  let last_project_ctn = document.querySelector("#income-last-project");
   let search_projectInput = document.querySelector("#search_project");
-  search_projectInput.value = `${pro_type.toUpperCase()}-${project_id} | ${pro_name}`;
+  last_project_ctn.value = "";
+  search_projectInput.value = `${pro_type.toUpperCase()}-${pro_ref} | ${pro_name}`;
   let project_listCtn = document.querySelector(".search-project-ctn");
   project_PhaseInput = document.querySelector("#income-last-project-phase");
-  ReqHandler.GET(ReqURI.getProjectPhase)
+  ReqHandler.GET(
+    (pro_type.toUpperCase() == "NORMAL"
+      ? ReqURI.getProjectPhaseNormal
+      : ReqURI.getProjectPhaseMisc) + project_id)
     .then((res) => {
-      for (let i = 0; i < res.length; i++) {
-        if (res[i].total_price > res[i].amount_got) {
-          Ctn = `<p class="notification-alert flex align-center">
-      <span class="text">
-        Project (${res[i].sdeal_name}) is completed while payment of ${
-            res[i].total_price - res[i].amount_got
-          } is still pending.
-      </span>
-      <span class="delete">Delete</span>
-    </p>`;
-          IsPainCtn.innerHTML += Ctn;
-        }
-      }
+      STATES.Selected_projectPhase_info = res.data;
+      project_PhaseInput.innerHTML = `<option value="">Select Project Phase</option>`;
+      res.data.forEach((e) => {
+        console.log(e);
+        project_PhaseInput.innerHTML += `<option value="${e.id}">${e.name}</option>`;
+      });
     })
     .catch((err) => {
       console.log(
         "error getting IsProjectPaid() data expanse.js |ln:110 " + err
       );
     });
-
   project_listCtn.classList.remove("show");
   project_listCtn.classList.add("hide");
+}
+function Select_Phase_showDate(e) {
+  let showDataCtn = document.querySelector("#Project_phaseData_show");
+  showDataCtn.classList.remove("hide");
+  showDataCtn.classList.add("show");
+  STATES.Selected_projectPhase_info.find((data) => {
+    if (data.id == e.value) {
+      showDataCtn.innerHTML = `<span>Name: ${data.name}</span> <span>Total Recieved: ${data.total_received}</span><span>Total Project Amount: ${data.total_amount}</span>`;
+    }
+  });
 }
 
 (function IsProjectPaid() {
@@ -480,13 +507,10 @@ function Select_Project_getPhase(e, type) {
       for (let i = 0; i < res.length; i++) {
         if (res[i].total_price > res[i].amount_got) {
           Ctn = `<p class="notification-alert flex align-center">
-    <span class="text">
-      Project (${res[i].deal_name}) is completed while payment of ${
-            res[i].total_price - res[i].amount_got
-          } is still pending.
-    </span>
-    <span class="delete">Delete</span>
-  </p>`;
+      <span class="text">
+      Project (${res[i].deal_name}) is completed while payment of 
+      ${res[i].total_price - res[i].amount_got} is still pending.
+    </span><span class="delete">Delete</span></p>`;
           IsPainCtn.innerHTML += Ctn;
         }
       }
