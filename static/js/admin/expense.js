@@ -107,7 +107,7 @@ function addincome() {
     dateofpay: date_Split(expAddCtn.querySelector("[name='date']").value, "-" || "/", true),
   };
   let Misc_dataObj = {
-    ndeal_id: expAddCtn.querySelector("[name='project_id']").value,
+    mdeal_id: expAddCtn.querySelector("[name='project_id']").value,
     task: expAddCtn.querySelector("[name='last-project-phase']").value,
     amount_got: expAddCtn.querySelector("[name='amount']").value,
     modeofpay: expAddCtn.querySelector("[name='mode']").value,

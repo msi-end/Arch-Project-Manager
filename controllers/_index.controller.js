@@ -383,19 +383,77 @@ exports.renderMiscProjectDashboard = async (req, res) => {
 };
 
 exports.miscProjectFinance = async (req, res) => {
-  if (req.session.isLoggedIn == true && req.session.role == "admin") {
+  if (req.session.isLoggedIn === true && req.session.role === "admin") {
     let currentPage = Number(req.query.to) || 1;
     let offset = (currentPage - 1) * 10;
-    const q = `select single_deal.sdid, single_deal.reference_no, single_deal.sdeal_name, single_deal.work_name, single_deal.city, single_deal.total_price, single_deal.agreement_amount, mis_subtask.*, misc_project_finance.*
-        from misc_project_finance 
-        inner join single_deal on single_deal.sdid = misc_project_finance.mdeal_id 
-        inner join mis_subtask on mis_subtask.msub_task_id = misc_project_finance.task order by single_deal.sdid desc;`;
-    await db.query(q, (err, result) => {
-      if (!err) {
-        res.status(200).render("../views/admin/mp.finance.ejs", { result });
-      } else {
-        res.status(500).send({ msg: "Internal server error!!!" });
+    const q = `
+      SELECT 
+        sd.sdid,
+        sd.reference_no,
+        sd.sdeal_name,
+        sd.work_name,
+        sd.city,
+        sd.total_price,
+        sd.agreement_amount,
+        ms.msub_task_id,
+        ms.msub_task_name,
+        mpf.mfid,
+        mpf.mdeal_id,
+        mpf.totalamount,
+        mpf.task,
+        mpf.amount_got,
+        mpf.dateofpay,
+        mpf.modeofpay
+      FROM misc_project_finance mpf
+      INNER JOIN single_deal sd ON sd.sdid = mpf.mdeal_id
+      INNER JOIN mis_subtask ms ON ms.msub_task_id = mpf.task
+      ORDER BY sd.sdid DESC
+      LIMIT 10 OFFSET ?;
+    `;
+    await db.query(q, [offset], (err, rows) => {
+      if (err) {
+        return res.status(500).send({ msg: "Internal server error!!!" });
       }
+      const grouped = {};
+      rows.forEach(row => {
+        if (!grouped[row.sdid]) {
+          grouped[row.sdid] = {
+            sdid: row.sdid,
+            reference_no: row.reference_no,
+            sdeal_name: row.sdeal_name,
+            work_name: row.work_name,
+            city: row.city,
+            total_price: row.total_price,
+            agreement_amount: row.agreement_amount,
+            total_received: 0,
+            subtasks: {}
+          };
+        }
+        if (!grouped[row.sdid].subtasks[row.msub_task_id]) {
+          grouped[row.sdid].subtasks[row.msub_task_id] = {
+            msub_task_id: row.msub_task_id,
+            msub_task_name: row.msub_task_name,
+            subtask_total_received: 0,
+            payments: []
+          };
+        }
+        grouped[row.sdid].subtasks[row.msub_task_id].payments.push({
+          mfid: row.mfid,
+          amount_got: row.amount_got,
+          dateofpay: row.dateofpay,
+          modeofpay: row.modeofpay
+        });
+        grouped[row.sdid].subtasks[row.msub_task_id].subtask_total_received += row.amount_got || 0;
+        grouped[row.sdid].total_received += row.amount_got || 0;
+      });
+      const result = Object.values(grouped).map(deal => {
+        deal.subtasks = Object.values(deal.subtasks);
+        deal.balance = (deal.total_price || 0) - deal.total_received;
+        return deal;
+      });
+
+      res.status(200).render("../views/admin/mp.finance.ejs", { result });
+      console.log(JSON.stringify(result, null, 2));
     });
   }
 };

@@ -71,7 +71,7 @@
                                                 <%= data.reference_no %>
                                             </td>
                                             <td>
-                                                <%= data.work_name %>
+                                                <%= data.sdeal_name %>
                                             </td>
                                             <td>
                                                 <%= data.city %>
@@ -80,7 +80,7 @@
                                                 &#8377;<%= data.total_price %>
                                             </td>
                                             <td class="flex align-center amount-info">
-                                                &#8377;<%= data.agreement_amount %>
+                                                &#8377;<%= data.total_amount_got %>
                                                 <div class="amountInfo hide">
                                                     <table>
                                                         <thead>
@@ -91,19 +91,21 @@
                                                                 <th>Mode of Payment</th>
                                                             </tr>
                                                             <tbody>
+                                                                <% data.subtasks[0].payments.forEach((payments)=>{ %>
                                                                 <tr>
                                                                     <td>1</td>
-                                                                    <td>12/12/2024</td>
-                                                                    <td class="flex align-center">&#8377; <%= data.agreement_amount %></td>
-                                                                    <td><%= data.modeofpay && data.modeofpay %></td>
+                                                                    <td><%= payments.dateodpay %></td>
+                                                                    <td class="flex align-center">&#8377; <%= payments.agreement_amount %></td>
+                                                                    <td><%= payments.modeofpay %></td>
                                                                 </tr>
+                                                                   <% }) %>
                                                             </tbody>
                                                         </thead>
                                                     </table>
                                                 </div>
                                             </td>
                                             <td>
-                                                &#8377;<%= data.total_price - data.agreement_amount %>
+                                                &#8377;<%= data.total_price - data.total_amount_got %>
                                             </td>
                                             <td class="flex align-center">
                                                 <button class="edit" onclick="advOpen(this)" data-mdealid="<%= data.sdid %>" data-taskid="<%= data.task %>">Add</button>

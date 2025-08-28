@@ -44,10 +44,12 @@ exports.updateMpAmountGot = async (req, res) => {
     [req.body.amount_got, req.body.mdealid],
     async (err, result) => {
       if (err) {
+        console.log(err);
+
         res.status(500).send("some error occurred!..");
         return;
       }
-      const q2 = `update misc_project_finance set amount_got = ?, dateofpay = ?, modeofpay = ? where mdeal_id = ? and task = ?`;
+      const q2 = `INSERT INTO misc_project_finance (amount_got, dateofpay, modeofpay, mdeal_id, task) VALUES (?, ?, ?, ?, ?)`;
       await dbcon.query(
         q2,
         [
@@ -59,6 +61,8 @@ exports.updateMpAmountGot = async (req, res) => {
         ],
         (err2, result) => {
           if (err2) {
+            console.log(err2);
+
             res.status(500).send("some error occurred!..");
             return;
           }
