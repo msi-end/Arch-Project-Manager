@@ -858,6 +858,7 @@ h3 {
 main .data-info {
   padding: var(--rem-1);
   overflow-x: auto;
+  height: 80vh;
 }
 
 table {
@@ -1357,11 +1358,15 @@ span.info {
   position: relative;
 }
 .amountInfo {
-  position: absolute;
-  min-width: 350px;
+position: absolute;
+  min-width: 470px;
   z-index: 50;
   top: 100%;
-  right: 100%;
+  right: 0%;
+  padding: 20px;
+  background: #ebe8da;
+  border-radius: 13px;
+  box-shadow: 0px 2px 2px 0px #b7b7b7;
 }
 .fin-info table {
   overflow: visible;
@@ -1436,6 +1441,16 @@ span.info {
   background: rgb(187, 255, 187);
   color: green;
   border-radius: 10px 10px 0px 0px;
+}
+#Project_phaseData_show{
+  background: var(--accent-700);
+  padding: 5px;
+  font-size: 14px;
+  display: flex!important;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-radius: 6px;
+  color: white;
 }
 
 .hidden-checkbox:checked ~ .add-button-child {

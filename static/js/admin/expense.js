@@ -7,8 +7,7 @@ let ReqURI = {
   MisProjectPaid: location.origin + "/apiv1/mIsProjectPaid",
   Expense_category: location.origin + location.pathname + "/category/readAll",
   last_project: location.origin + location.pathname + "/last_project/get",
-  search_last_project:
-    location.origin + location.pathname + "/last_project/search/",
+  search_last_project:location.origin + location.pathname + "/last_project/search/",
   getProjectPhaseNormal: location.origin + "/apiv1/normal/getProjectPhase/",
   getProjectPhaseMisc: location.origin + "/apiv1/misc/getProjectPhase/",
 };

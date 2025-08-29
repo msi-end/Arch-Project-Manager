@@ -45,7 +45,6 @@ exports.updateMpAmountGot = async (req, res) => {
     async (err, result) => {
       if (err) {
         console.log(err);
-
         res.status(500).send("some error occurred!..");
         return;
       }
@@ -62,7 +61,6 @@ exports.updateMpAmountGot = async (req, res) => {
         (err2, result) => {
           if (err2) {
             console.log(err2);
-
             res.status(500).send("some error occurred!..");
             return;
           }
@@ -71,4 +69,44 @@ exports.updateMpAmountGot = async (req, res) => {
       );
     }
   );
+};
+
+exports.deleteMisc_FinancePaymentsByID = (req, res) => {
+  const { id } = req.params;
+  const query = `DELETE FROM misc_project_finance WHERE mfid = ?`;
+
+  dbcon.query(query, [id], (err, result) => {
+    if (err) {
+      console.error("Error deleting from misc_project_finance:", err);
+      return res
+        .status(500)
+        .json({ error: "An error occurred while deleting data" });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Record not found" });
+    }
+
+    res.status(200).json({ status:200, msg: "Deleted successfully" });
+  });
+};
+
+exports.deleteNormal_FinancePaymentsByID = (req, res) => {
+  const { id } = req.params;
+  const query = `DELETE FROM normal_projects_finance WHERE fid = ?`;
+
+  dbcon.query(query, [id], (err, result) => {
+    if (err) {
+      console.error("Error deleting from normal_projects_finance:", err);
+      return res
+        .status(500)
+        .json({ error: "An error occurred while deleting data" });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({status:400, error: "Record not found" });
+    }
+
+    res.status(200).json({status:200, msg: "Deleted successfully" });
+  });
 };

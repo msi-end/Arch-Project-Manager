@@ -106,8 +106,8 @@ exports.deleteExpenseCategory = (req, res) => {
 };
 
 exports.getLastProjects = (req, res) => {
-    let q = `SELECT id,deal_name as name ,reference_no FROM deals ORDER BY id DESC LIMIT 10;
-             SELECT sdid as id ,sdeal_name as name ,reference_no FROM single_deal ORDER BY sdid DESC LIMIT 5;`;
+    let q = `SELECT id,deal_name as name ,reference_no,split FROM deals ORDER BY id DESC LIMIT 10;
+             SELECT sdid as id ,sdeal_name as name ,reference_no,split FROM single_deal ORDER BY sdid DESC LIMIT 5;`;
     db.query(q, [req.params.id], (err, results) => {
         if (!err) {
             if (results) {
@@ -122,8 +122,8 @@ exports.getLastProjects = (req, res) => {
 };
 exports.SearchLastProjects = (req, res) => {
     let searchterm =req.params.search_term
-    let q = `SELECT id, deal_name AS name, reference_no FROM deals WHERE (deal_name LIKE '%${searchterm}%' OR reference_no LIKE '%${searchterm}%') ORDER BY id DESC LIMIT 10;
-             SELECT sdid AS id, sdeal_name AS name, reference_no FROM single_deal WHERE (sdeal_name LIKE '%${searchterm}%' OR reference_no LIKE '%${searchterm}%') ORDER BY sdid DESC LIMIT 5;`;
+    let q = `SELECT id, deal_name AS name, reference_no,split FROM deals WHERE (deal_name LIKE '%${searchterm}%' OR reference_no LIKE '%${searchterm}%') ORDER BY id DESC LIMIT 10;
+             SELECT sdid AS id, sdeal_name AS name, reference_no,split FROM single_deal WHERE (sdeal_name LIKE '%${searchterm}%' OR reference_no LIKE '%${searchterm}%') ORDER BY sdid DESC LIMIT 5;`;
     db.query(q,(err, results) => {
         if (!err) {
             if (results) {

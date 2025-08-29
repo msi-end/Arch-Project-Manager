@@ -1,20 +1,18 @@
-
 function hidePopup(event) {
-  document.querySelector(".main-popup").classList.add('hide');
+  document.querySelector(".main-popup").classList.add("hide");
 }
-
 
 async function advOpen(data) {
   const maindrop = document.querySelector(`.main-popup`);
-  maindrop.classList.toggle(`hide`)
-  maindrop.innerHTML = ""
+  maindrop.classList.toggle(`hide`);
+  maindrop.innerHTML = "";
   maindrop.innerHTML = `<div class="advance-dropdown blur hide">
         <form class="form" id="advanced-form">
     <h2>Update Amount</h2>
     <div class="grid">
         <div class="field">
             <p class="title">Date <span>(DD/MM/YYYY)</p>
-            <input type="text" name="dateofpay" id="finc-date">
+            <input type="text" name="dateofpay" id="finc-date" placeholder="dd/mm/yyyy">
         </div>
         <div class="field">
             <p class="title">Advance Amount <span>(in &#8377;)</span></p>
@@ -33,19 +31,51 @@ async function advOpen(data) {
         <button type ="reset" class="flex-1 delete" onclick="hidePopup(this)" >Cancel</button>
     </div>
 </form>
-    </div>`
-    const dropDownTarget = document.querySelector(`.advance-dropdown`);
-    dropDownTarget.classList.toggle(`hide`);
+    </div>`;
+  flatpickr("#finc-date", { dateFormat: "d/m/Y", allowInput: true });
+  const dropDownTarget = document.querySelector(`.advance-dropdown`);
+  dropDownTarget.classList.toggle(`hide`);
 }
 
 async function sendRecievedStatus(target) {
-  const project = document.getElementById('advanced-form')
-  const body = { amount_got: document.querySelector('#finc-amount').value, dateofpay: document.querySelector('#finc-date').value, modeofpay: document.querySelector('#misc-mode').value, mdealid: target.dataset.mdealid, taskid: target.dataset.taskid }
+  const project = document.getElementById("advanced-form");
+  const body = {
+    amount_got: document.querySelector("#finc-amount").value,
+    dateofpay: document.querySelector("#finc-date").value,
+    modeofpay: document.querySelector("#misc-mode").value,
+    mdealid: target.dataset.mdealid,
+    taskid: target.dataset.taskid,
+  };
   const feature = new DataCall();
-  await feature.DEL_UPD('admin/finance/update-advancepay-mp', 'PUT', body)
+  await feature.DEL_UPD("admin/finance/update-advancepay-mp", "PUT", body);
   document.querySelector(`.main-popup`).classList.toggle(`hide`);
 }
-
-function showAllAmount(){
-  document.querySelector(`.amountInfo`).classList.toggle(`hide`);
+function delete_miscPayments(params, e) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it!",
+  }).then(async (pers) => {
+    if (pers.isConfirmed) {
+      await ReqHandler.DEL(
+        location.origin + "/admin/finance/delete_misc_payment/" + params
+      ).then((res) => {
+        if (res.status) {
+          Swal.fire({
+            title: "Success",
+            text: res.msg,
+            icon: "success",
+            confirmButtonText: "Done",
+          });
+          e.parentElement.remove();
+        }
+      });
+    }
+  });
+}
+function showAllAmount(e) {
+  let mainCtn = e.parentElement.parentElement;
+  mainCtn.querySelector(`.amountInfo`).classList.toggle(`hide`);
 }

@@ -2,7 +2,6 @@ const { error } = require("winston");
 const db = require("../config/db.config");
 const { dataUnity, arrangeFinance } = require("../utils/arrange");
 
-
 // ---- All Index routes here ----
 exports.dashboard = async (req, res) => {
   if (req.session.isLoggedIn == true && req.session.role == "admin") {
@@ -140,10 +139,14 @@ exports.expense = (req, res) => {
       unifiedData.sort((a, b) => {
         const dateA = new Date(a.date || "1970-01-01");
         const dateB = new Date(b.date || "1970-01-01");
-        if (dateB - dateA !== 0) {return dateB - dateA;        }
-        return b.id - a.id; // high ID 
+        if (dateB - dateA !== 0) {
+          return dateB - dateA;
+        }
+        return b.id - a.id; // high ID
       });
-      res.status(200).render("../views/admin/expense.finance.ejs", { data: unifiedData });
+      res
+        .status(200)
+        .render("../views/admin/expense.finance.ejs", { data: unifiedData });
       // res.send(unifiedData)
     });
   }
@@ -387,35 +390,34 @@ exports.miscProjectFinance = async (req, res) => {
     let currentPage = Number(req.query.to) || 1;
     let offset = (currentPage - 1) * 10;
     const q = `
-      SELECT 
-        sd.sdid,
-        sd.reference_no,
-        sd.sdeal_name,
-        sd.work_name,
-        sd.city,
-        sd.total_price,
-        sd.agreement_amount,
-        ms.msub_task_id,
-        ms.msub_task_name,
-        mpf.mfid,
-        mpf.mdeal_id,
-        mpf.totalamount,
-        mpf.task,
-        mpf.amount_got,
-        mpf.dateofpay,
-        mpf.modeofpay
-      FROM misc_project_finance mpf
-      INNER JOIN single_deal sd ON sd.sdid = mpf.mdeal_id
-      INNER JOIN mis_subtask ms ON ms.msub_task_id = mpf.task
-      ORDER BY sd.sdid DESC
-      LIMIT 10 OFFSET ?;
-    `;
+     SELECT 
+    sd.sdid,
+    sd.reference_no,
+    sd.sdeal_name,
+    sd.work_name,
+    sd.city,
+    sd.total_price,
+    sd.agreement_amount,
+    ms.msub_task_id,
+    ms.msub_task_name,
+    mpf.mfid,
+    mpf.mdeal_id,
+    mpf.totalamount,
+    mpf.task,
+    mpf.amount_got,
+    mpf.dateofpay,
+    mpf.modeofpay
+FROM single_deal sd
+LEFT JOIN misc_project_finance mpf ON sd.sdid = mpf.mdeal_id
+LEFT JOIN mis_subtask ms ON ms.msub_task_id = mpf.task
+ORDER BY sd.sdid DESC
+LIMIT 10 OFFSET ?;`;
     await db.query(q, [offset], (err, rows) => {
       if (err) {
         return res.status(500).send({ msg: "Internal server error!!!" });
       }
       const grouped = {};
-      rows.forEach(row => {
+      rows.forEach((row) => {
         if (!grouped[row.sdid]) {
           grouped[row.sdid] = {
             sdid: row.sdid,
@@ -426,7 +428,7 @@ exports.miscProjectFinance = async (req, res) => {
             total_price: row.total_price,
             agreement_amount: row.agreement_amount,
             total_received: 0,
-            subtasks: {}
+            subtasks: {},
           };
         }
         if (!grouped[row.sdid].subtasks[row.msub_task_id]) {
@@ -434,19 +436,20 @@ exports.miscProjectFinance = async (req, res) => {
             msub_task_id: row.msub_task_id,
             msub_task_name: row.msub_task_name,
             subtask_total_received: 0,
-            payments: []
+            payments: [],
           };
         }
         grouped[row.sdid].subtasks[row.msub_task_id].payments.push({
           mfid: row.mfid,
           amount_got: row.amount_got,
           dateofpay: row.dateofpay,
-          modeofpay: row.modeofpay
+          modeofpay: row.modeofpay,
         });
-        grouped[row.sdid].subtasks[row.msub_task_id].subtask_total_received += row.amount_got || 0;
+        grouped[row.sdid].subtasks[row.msub_task_id].subtask_total_received +=
+          row.amount_got || 0;
         grouped[row.sdid].total_received += row.amount_got || 0;
       });
-      const result = Object.values(grouped).map(deal => {
+      const result = Object.values(grouped).map((deal) => {
         deal.subtasks = Object.values(deal.subtasks);
         deal.balance = (deal.total_price || 0) - deal.total_received;
         return deal;

@@ -2,143 +2,162 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EBAH ERP | Admin</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EBAH ERP | Admin</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="../../css/index.css">
-    <link rel="stylesheet" href="../../css/responsive.css">
-    <link rel="stylesheet" href="../../css/darkMode.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../js/admin/dashboard.module.js"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../css/index.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="../../css/darkMode.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../../js/admin/dashboard.module.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4/dist/flatpickr.min.js"></script>
 </head>
 
 <body>
-    <section>
-        <%- include('../partials/admin.aside.ejs') %>
-            <main data-app-page="finance-misc">
-                <div class="main-data">
-                    <%- include('../partials/admin.header.ejs') %>
-                        <!-- --HEADING-- -->
-                        <div class="heading">
-                            <h2>Miscellaneous Finance</h2>
-                            <p class="title">Find all miscellaneous project finances here</p>
-                        </div>
-                        <!-- --SUB-HEADING-- -->
-                        <div class="top-section flex align-center j-between">
-                            <div class="section-text">
-                                <h3 class="flex">All Finances</h3>
-                            </div>
-                            <div class="searchBox flex align-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search"
-                                    onclick="SearchFromInput()">
-                                    <path fill="##000000"
-                                        d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z">
-                                    </path>
-                                </svg>
-                                <input type="text" class="searchQuery" oninput="search()"
-                                    placeholder="Search for anything...">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="times" class="close"
-                                    onclick="clearInput()">
-                                    <path fill="##000000"
-                                        d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
-                                    </path>
-                                </svg>
-                            </div>
-                        </div>
+  <section>
+    <%- include('../partials/admin.aside.ejs') %>
+      <main data-app-page="finance-misc">
+        <div class="main-data">
+          <%- include('../partials/admin.header.ejs') %>
+            <!-- --HEADING-- -->
+            <div class="heading">
+              <h2>Miscellaneous Finance</h2>
+              <p class="title">Find all miscellaneous project finances here</p>
+            </div>
+            <!-- --SUB-HEADING-- -->
+            <div class="top-section flex align-center j-between">
+              <div class="section-text">
+                <h3 class="flex">All Finances</h3>
+              </div>
+              <div class="searchBox flex align-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search" onclick="SearchFromInput()">
+                  <path fill="##000000"
+                    d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z">
+                  </path>
+                </svg>
+                <input type="text" class="searchQuery" oninput="search()" placeholder="Search for anything...">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="times" class="close"
+                  onclick="clearInput()">
+                  <path fill="##000000"
+                    d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
+                  </path>
+                </svg>
+              </div>
+            </div>
 
-                        <!-- ----------- DATA TABLE----------- -->
+            <!-- ----------- DATA TABLE----------- -->
 
-                        <div class="data-info fin-info">
+            <div class="data-info fin-info">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Ref No.</th>
+                    <th>Project Name</th>
+                    <th>Address</th>
+                    <th>Project Amount</th>
+                    <th>Received Amount</th>
+                    <th>Balance Amount</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <% result?.forEach((data)=>{ %>
+                    <tr>
+                      <td>
+                        <%= data.reference_no %>
+                      </td>
+                      <td>
+                        <%= data.sdeal_name %>
+                      </td>
+                      <td>
+                        <%= data.city %>
+                      </td>
+                      <td>
+                        &#8377;<%= data.total_price %>
+                      </td>
+                      <td class="flex align-center amount-info">
+                        &#8377;<%= data.total_received %>
+                          <div class="amountInfo hide">
                             <table>
-                                <thead>
-                                    <tr>
-                                        <th>Ref No.</th>
-                                        <th>Project Name</th>
-                                        <th>Address</th>
-                                        <th>Project Amount</th>
-                                        <th>Received Amount</th>
-                                        <th>Balance Amount</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
+                              <thead>
+                                <tr>
+                                  <th>Sl No.</th>
+                                  <th>Date</th>
+                                  <th>Amount</th>
+                                  <th>Mode of Payment</th>
+                                  <th>Actions</th>
+                                </tr>
+                              <tbody>
+                                <% let count=1 %>
+                                  <% data.subtasks[0]?.payments?.forEach((payments)=>{ %>
 
-                                <tbody>
-                                    <% result?.forEach((data)=>{ %>
-                                        <tr>
-                                            <td>
-                                                <%= data.reference_no %>
-                                            </td>
-                                            <td>
-                                                <%= data.sdeal_name %>
-                                            </td>
-                                            <td>
-                                                <%= data.city %>
-                                            </td>
-                                            <td>
-                                                &#8377;<%= data.total_price %>
-                                            </td>
-                                            <td class="flex align-center amount-info">
-                                                &#8377;<%= data.total_amount_got %>
-                                                <div class="amountInfo hide">
-                                                    <table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Sl No.</th>
-                                                                <th>Date</th>
-                                                                <th>Amount</th>
-                                                                <th>Mode of Payment</th>
-                                                            </tr>
-                                                            <tbody>
-                                                                <% data.subtasks[0].payments.forEach((payments)=>{ %>
-                                                                <tr>
-                                                                    <td>1</td>
-                                                                    <td><%= payments.dateodpay %></td>
-                                                                    <td class="flex align-center">&#8377; <%= payments.agreement_amount %></td>
-                                                                    <td><%= payments.modeofpay %></td>
-                                                                </tr>
-                                                                   <% }) %>
-                                                            </tbody>
-                                                        </thead>
-                                                    </table>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                &#8377;<%= data.total_price - data.total_amount_got %>
-                                            </td>
-                                            <td class="flex align-center">
-                                                <button class="edit" onclick="advOpen(this)" data-mdealid="<%= data.sdid %>" data-taskid="<%= data.task %>">Add</button>
-                                                |
-                                                <button class="info" onclick="showAllAmount(this)">Info</button>
-                                            </td>
-                                        </tr>
-                                        <% }) %>
-                                </tbody>
-
-                                <tfoot>
                                     <tr>
-                                        <td colspan="4"></td>
-                                        <td colspan="3"></td>
+                                      <td>
+                                        <%= count++ %>
+                                      </td>
+                                      <td>
+                                        <%= payments.dateofpay %>
+                                      </td>
+                                      <td class="flex align-center">&#8377; <%= payments.amount_got %>
+                                      </td>
+                                      <td>
+                                        <%= payments.modeofpay %>
+                                      </td>
+                                      <td onclick="delete_miscPayments(<%= payments.mfid %>,this)">
+                                        <svg fill="#782d0d" width="22px" height="22px" viewBox="0 0 24 24"
+                                          xmlns="http://www.w3.org/2000/svg">
+                                          <path
+                                            d="M5.755,20.283,4,8H20L18.245,20.283A2,2,0,0,1,16.265,22H7.735A2,2,0,0,1,5.755,20.283ZM21,4H16V3a1,1,0,0,0-1-1H9A1,1,0,0,0,8,3V4H3A1,1,0,0,0,3,6H21a1,1,0,0,0,0-2Z">
+                                          </path>
+                                        </svg>
+                                      </td>
                                     </tr>
-                                </tfoot>
+                                    <% }) %>
+                              </tbody>
+                              </thead>
                             </table>
-                        </div>
-                </div>
+                          </div>
+                      </td>
+                      <td>
+                        &#8377;<%= data.balance %>
+                      </td>
+                      <td class="flex align-center">
+                        <button class="edit" onclick="advOpen(this)" data-mdealid="<%= data.sdid %>"
+                          data-taskid="<%= data.subtasks[0].msub_task_id %>">Add</button>
+                        |
+                        <button class="info" onclick="showAllAmount(this)">Info</button>
+                      </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
 
-                <!-- POPUPS  -->
-                 
-                <div class="main-popup hide"></div>
-                <%- include('../partials/tasks/notification.ejs') %>
-                <%- include('../partials/tasks/alert.ejs') %>
-            </main>
-    </section>
+                <tfoot>
+                  <tr>
+                    <td colspan="4"></td>
+                    <td colspan="3"></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+        </div>
+
+        <!-- POPUPS  -->
+
+        <div class="main-popup hide"></div>
+        <%- include('../partials/tasks/notification.ejs') %>
+          <%- include('../partials/tasks/alert.ejs') %>
+      </main>
+  </section>
 
 
-    <!-- JAVASCRIPT -->
-    <script src="../../js/admin/index.js"></script>
-    <script src="../../js/admin/common.js"></script>
-    <script src="../../js/admin/mp.finance.js"></script>
+  <!-- JAVASCRIPT -->
+  <script src="../../js/admin/index.js"></script>
+  <script src="../../js/admin/common.js"></script>
+  <script src="../../js/admin/mp.finance.js"></script>
 </body>
 
 </html>
