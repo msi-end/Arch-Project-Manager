@@ -134,10 +134,14 @@ exports.DeleteNormalProjectData = async (req, res) => {
 }
 
 exports.getMiscPhaseList = async (req, res) => {
-  const q = `SELECT npf.task, t.msub_task_id as id, t.msub_task_name as name, SUM(npf.amount_got) AS total_received, MAX(npf.totalamount) AS total_amount FROM misc_project_finance npf LEFT JOIN mis_subtask t ON npf.task=t.msub_task_id WHERE npf.mdeal_id = ? GROUP BY npf.task, t.msub_task_id, t.msub_task_name;  `;
+  const q = `SELECT npf.mdeal_id as project_id, npf.task, t.msub_task_id as id, t.msub_task_name as name, SUM(npf.amount_got) AS total_received, MAX(npf.totalamount) AS total_amount FROM misc_project_finance npf LEFT JOIN mis_subtask t ON npf.task=t.msub_task_id WHERE npf.mdeal_id = ? GROUP BY npf.task, t.msub_task_id, t.msub_task_name;  `;
   await dbcon.query(q, [req.params.id], async (err, result) => {
     if (!err) {
-      res.status(200).send({ status: true, msg: 'Successfully data Deleted',data:result })
+       result = result.map((item) => ({
+        ...item,
+        type: "misc",
+      }));
+      res.status(200).send({ status: true, msg: 'Successfully data',data:result })
     } else {
       res.status(500).send({ status: false, msg: 'failed to delete the Data'+err })
       console.log(err);

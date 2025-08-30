@@ -28,7 +28,9 @@ exports.updateNpAmountRecieved = async (req, res) => {
     ],
     (err, result) => {
       if (err) {
+        console.log(err);
         res.status(500).send("some error occurred!..");
+        return;
       }
       res.status(200).send({ msg: "added successfully" });
     }
@@ -38,35 +40,23 @@ exports.updateNpAmountRecieved = async (req, res) => {
 //-----------Misc project finance -----------------
 
 exports.updateMpAmountGot = async (req, res) => {
-  const q1 = `update single_deal set agreement_amount	 = ? where sdid = ?`;
+  const q2 = `INSERT INTO misc_project_finance (amount_got, dateofpay, modeofpay, mdeal_id, task) VALUES (?, ?, ?, ?, ?)`;
   await dbcon.query(
-    q1,
-    [req.body.amount_got, req.body.mdealid],
-    async (err, result) => {
-      if (err) {
-        console.log(err);
+    q2,
+    [
+      req.body.amount_got,
+      req.body.dateofpay,
+      req.body.modeofpay,
+      req.body.mdealid,
+      req.body.taskid,
+    ],
+    (err2, result) => {
+      if (err2) {
+        console.log(err2);
         res.status(500).send("some error occurred!..");
         return;
       }
-      const q2 = `INSERT INTO misc_project_finance (amount_got, dateofpay, modeofpay, mdeal_id, task) VALUES (?, ?, ?, ?, ?)`;
-      await dbcon.query(
-        q2,
-        [
-          req.body.amount_got,
-          req.body.dateofpay,
-          req.body.modeofpay,
-          req.body.mdealid,
-          req.body.taskid,
-        ],
-        (err2, result) => {
-          if (err2) {
-            console.log(err2);
-            res.status(500).send("some error occurred!..");
-            return;
-          }
-          res.status(200).send({ msg: "added successfully" });
-        }
-      );
+      res.status(200).send({ msg: "added successfully" });
     }
   );
 };
@@ -87,7 +77,7 @@ exports.deleteMisc_FinancePaymentsByID = (req, res) => {
       return res.status(404).json({ error: "Record not found" });
     }
 
-    res.status(200).json({ status:200, msg: "Deleted successfully" });
+    res.status(200).json({ status: 200, msg: "Deleted successfully" });
   });
 };
 
@@ -104,9 +94,9 @@ exports.deleteNormal_FinancePaymentsByID = (req, res) => {
     }
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({status:400, error: "Record not found" });
+      return res.status(404).json({ status: 400, error: "Record not found" });
     }
 
-    res.status(200).json({status:200, msg: "Deleted successfully" });
+    res.status(200).json({ status: 200, msg: "Deleted successfully" });
   });
 };

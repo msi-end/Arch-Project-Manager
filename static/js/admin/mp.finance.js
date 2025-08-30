@@ -51,6 +51,15 @@ async function sendRecievedStatus(target) {
   document.querySelector(`.main-popup`).classList.toggle(`hide`);
 }
 function delete_miscPayments(params, e) {
+  if (e.parentElement.parentElement.children.length >= 1) {
+    Swal.fire({
+      title: "You can't Delete?",
+      text: "You won't be able to revert this Project!",
+      icon: "warning",
+      confirmButtonText: "Done",
+    });
+    return;
+  }
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",

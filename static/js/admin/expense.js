@@ -7,9 +7,12 @@ let ReqURI = {
   MisProjectPaid: location.origin + "/apiv1/mIsProjectPaid",
   Expense_category: location.origin + location.pathname + "/category/readAll",
   last_project: location.origin + location.pathname + "/last_project/get",
-  search_last_project:location.origin + location.pathname + "/last_project/search/",
+  search_last_project:
+    location.origin + location.pathname + "/last_project/search/",
   getProjectPhaseNormal: location.origin + "/apiv1/normal/getProjectPhase/",
   getProjectPhaseMisc: location.origin + "/apiv1/misc/getProjectPhase/",
+  createProjectFinMisc: location.origin + "/admin/finance/update-advancepay-mp",
+  createProjectFinNormal: location.origin + "/admin/finance/update-advancepay",
 };
 let STATES = {
   Expense_category: [],
@@ -73,7 +76,7 @@ function addIncomeForm() {
       </div>
       <div class="field">
         <p class="title">Date <span>(DD/MM/YYYY)</span></p>
-        <input type="date" name="date" id="date">
+        <input type="text" name="date" id="date" placeholder="DD/MM/YYYY">
       </div>
       <div class="field">
         <p class="title">Amount <span>(*optional)</span></p>
@@ -81,13 +84,14 @@ function addIncomeForm() {
       </div>
     </div>
     <div class="action-btn flex align-center">
-      <button type="button" onclick="addExpense()" class="flex-1">Add</button>
+      <button type="button" onclick="addIncome()" class="flex-1">Add</button>
       <button type="reset" class="flex-1 delete" onclick="hidePopup(this)">Cancel</button>
     </div>
   </form>
 </div>`;
   const dropDownTarget = document.querySelector(`.add-expense`);
   dropDownTarget.classList.toggle(`hide`);
+  flatpickr("#date", { dateFormat: "d/m/Y", allowInput: true });
   let last_project_ctn = document.querySelector("#income-last-project");
   STATES.Last_projects.normal.forEach((e) => {
     last_project_ctn.innerHTML += `<option value="normal-${e.id}-${e.name}-${e.reference_no}">${e.reference_no} | ${e.name}</option>`;
@@ -96,37 +100,89 @@ function addIncomeForm() {
     last_project_ctn.innerHTML += `<option value="misc-${e.id}-${e.name}-${e.reference_no}">${e.reference_no} | ${e.name}</option>`;
   });
 }
-function addincome() {
-  let expAddCtn = document.getElementsByClassName("add-expense")[0];
-  let Normal_dataObj = {
-    ndeal_id: expAddCtn.querySelector("[name='project_id']").value,
-    task: expAddCtn.querySelector("[name='last-project-phase']").value,
-    amount_got: expAddCtn.querySelector("[name='amount']").value,
-    modeofpay: expAddCtn.querySelector("[name='mode']").value,
-    dateofpay: date_Split(expAddCtn.querySelector("[name='date']").value, "-" || "/", true),
-  };
-  let Misc_dataObj = {
-    mdeal_id: expAddCtn.querySelector("[name='project_id']").value,
-    task: expAddCtn.querySelector("[name='last-project-phase']").value,
-    amount_got: expAddCtn.querySelector("[name='amount']").value,
-    modeofpay: expAddCtn.querySelector("[name='mode']").value,
-    dateofpay: date_Split(expAddCtn.querySelector("[name='date']").value, "-" || "/", true),
-  };
-  
-  ReqHandler.POST(ReqURI.addExps, dataObj)
-    .then((res) => {
-      if (res.status == true) {
-        AlertNotifier(res.status, res.msg, "success");
-        setTimeout(() => {
-          location.reload();
-        }, 2000);
-      } else {
-        AlertNotifier(res.status, res.msg, "error");
-      }
-    })
-    .catch((err) => {
-      console.log("Error(fn-ExpsAdd):" + err);
-    });
+function addIncome() {
+  let incomeAddCtn = document.getElementsByClassName("add-expense")[0];
+  let projectInput = incomeAddCtn.querySelector("[name='project_id']").value;
+  let selectedPhase = incomeAddCtn.querySelector(
+    "[name='last-project-phase']"
+  ).value;
+  let selectedProject = incomeAddCtn.querySelector(
+    "[name='last-project']"
+  ).value;
+  let projectType, projectId;
+  if (projectInput) {
+    if (projectInput.includes("NORMAL-")) {
+      projectType = "normal";
+      projectId = projectInput.split("-")[1].split("|")[0].trim();
+    } else if (projectInput.includes("MISC-")) {
+      projectType = "misc";
+      projectId = projectInput.split("-")[1].split("|")[0].trim();
+    }
+  }
+  console.log(projectType, projectId);
+  let dataObj;
+  if (projectType === "normal") {
+    dataObj = {
+      ndeal_id: projectId,
+      task: selectedPhase,
+      amount_got: incomeAddCtn.querySelector("[name='amount']").value,
+      modeofpay: incomeAddCtn.querySelector("[name='mode']").value,
+      dateofpay: incomeAddCtn.querySelector("[name='date']").value,
+    };
+    ReqHandler.POST(ReqURI.createProjectFinNormal, dataObj)
+      .then((res) => {
+        if (res.status == true) {
+          AlertNotifier(res.status, res.msg, "success");
+          setTimeout(() => {
+            location.reload();
+          }, 2000);
+        } else {
+          AlertNotifier(res.status, res.msg, "error");
+        }
+      })
+      .catch((err) => {
+        console.log("Error(fn-IncomeAdd):" + err);
+        AlertNotifier(false, "An error occurred while adding income", "error");
+      });
+  } else if (projectType === "misc") {
+    dataObj = {
+      mdeal_id: projectId,
+      task: selectedPhase,
+      amount_got: incomeAddCtn.querySelector("[name='amount']").value,
+      modeofpay: incomeAddCtn.querySelector("[name='mode']").value,
+      dateofpay: incomeAddCtn.querySelector("[name='date']").value,
+    };
+    ReqHandler.PUT(ReqURI.createProjectFinMisc, dataObj)
+      .then((res) => {
+        if (res.status == true) {
+          AlertNotifier(res.status, res.msg, "success");
+          setTimeout(() => {
+            location.reload();
+          }, 2000);
+        } else {
+          AlertNotifier(res.status, res.msg, "error");
+        }
+      })
+      .catch((err) => {
+        console.log("Error(fn-IncomeAdd):" + err);
+        AlertNotifier(false, "An error occurred while adding income", "error");
+      });
+  } else {
+    AlertNotifier(false, "Please select a valid project", "error");
+    return;
+  }
+  if (!dataObj.task) {
+    AlertNotifier(false, "Please select a project phase", "error");
+    return;
+  }
+  if (!dataObj.modeofpay) {
+    AlertNotifier(false, "Please select mode of payment", "error");
+    return;
+  }
+  if (!dataObj.dateofpay) {
+    AlertNotifier(false, "Please enter a valid date", "error");
+    return;
+  }
 }
 
 //ADD EXPENSE
@@ -167,8 +223,8 @@ function addExpenseForm() {
         <p class="title">Category</p>
         <select name="category" id="expense_category">
           <option value="">Select from Categories</option>
-          <option value="cash">Fuel</option>
-          <option value="online">Trevel</option>
+          <option value="Fuel">Fuel</option>
+          <option value="Trevel">Trevel</option>
         </select>
       </div>
     </div>
@@ -471,13 +527,16 @@ function Select_Project_getPhase(e, type) {
   ReqHandler.GET(
     (pro_type.toUpperCase() == "NORMAL"
       ? ReqURI.getProjectPhaseNormal
-      : ReqURI.getProjectPhaseMisc) + project_id)
+      : ReqURI.getProjectPhaseMisc) + project_id
+  )
     .then((res) => {
+      console.log(res);
+
       STATES.Selected_projectPhase_info = res.data;
       project_PhaseInput.innerHTML = `<option value="">Select Project Phase</option>`;
       res.data.forEach((e) => {
         console.log(e);
-        project_PhaseInput.innerHTML += `<option value="${e.id}">${e.name}</option>`;
+        project_PhaseInput.innerHTML += `<option data-type="${pro_type}" value="${e.id}">${e.name}</option>`;
       });
     })
     .catch((err) => {
@@ -488,15 +547,51 @@ function Select_Project_getPhase(e, type) {
   project_listCtn.classList.remove("show");
   project_listCtn.classList.add("hide");
 }
+
 function Select_Phase_showDate(e) {
   let showDataCtn = document.querySelector("#Project_phaseData_show");
   showDataCtn.classList.remove("hide");
   showDataCtn.classList.add("show");
-  STATES.Selected_projectPhase_info.find((data) => {
-    if (data.id == e.value) {
-      showDataCtn.innerHTML = `<span>Name: ${data.name}</span> <span>Total Recieved: ${data.total_received}</span><span>Total Project Amount: ${data.total_amount}</span>`;
-    }
-  });
+  let type = e.options[e.selectedIndex].dataset.type;
+
+  console.log(e);
+  console.log(STATES.Selected_projectPhase_info[0].type == "normal");
+
+  if (STATES.Selected_projectPhase_info[0].type == "normal") {
+  
+    if (!spiltval) return;
+    let ratios = spiltval.split(":").map(Number);
+    let totalParts = ratios.reduce((a, b) => a + b, 0);
+    let onePart =
+      STATES.Selected_projectPhase_info[0].total_amount / totalParts;
+    let result = ratios.map((r) => r * onePart);
+    let labels = ["Architecture", "Structural", "3D"];
+    let showLabels = ratios
+      .map((val, i) => (val > 0 ? `${labels[i]} ${result[i]}` : null))
+      .filter(Boolean)
+      .join(" | ");
+    STATES.Selected_projectPhase_info.find((data) => {
+      if (data.id == e.value) {
+        showDataCtn.innerHTML = `
+          <span>Name: ${data.name}</span>
+          <span>Recieved in Phase: ${data.total_received}</span>
+          <span>Total Project Amount: ${data.total_amount}</span><br>
+          <span>Split: ${spiltval}</span><br>
+          <span>${showLabels}</span>
+        `;
+      }
+    });
+  } else {
+    STATES.Selected_projectPhase_info.find((data) => {
+      if (data.id == e.value) {
+        showDataCtn.innerHTML = `
+          <span>Name: ${data.name}</span>
+          <span>Total Recieved: ${data.total_received}</span>
+          <span>Total Project Amount: ${data.total_amount}</span>
+        `;
+      }
+    });
+  }
 }
 
 (function IsProjectPaid() {
