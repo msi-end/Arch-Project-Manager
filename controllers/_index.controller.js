@@ -87,70 +87,93 @@ exports.settings = (req, res) => {
   }
 };
 
+function parseDMY(dateStr) {
+  if (!dateStr) return new Date("1970-01-01");
+  let [day, month, year] = dateStr.split("/");
+  return new Date(`${year}-${month}-${day}`);
+}
+
 exports.expense = (req, res) => {
-  let months = new Date().getMonth() + 1;
-  let year = new Date().getFullYear();
   if (req.session.isLoggedIn == true && req.session.role == "admin") {
-    let currentPage = Number(req.query.to) || 1;
-    let offset = (currentPage - 1) * 10;
-    const query = `SELECT * FROM expenses ORDER BY id DESC LIMIT 50; SELECT sd.sdeal_name,mpf.*, ms.msub_task_name FROM misc_project_finance mpf LEFT JOIN single_deal sd on mpf.mdeal_id=sd.sdid LEFT join mis_subtask ms on mpf.task=ms.msub_task_id Where amount_got != '0' order by mpf.mfid desc limit 20;
-   SELECT d.deal_name,npf.*, t.task_name FROM normal_projects_finance npf LEFT JOIN deals d on npf.ndeal_id=d.id LEFT join task t on npf.task=t.task_id Where amount_got != '0'  order by npf.fid desc limit 40;`;
+    const query = `
+      SELECT * FROM expenses ORDER BY id DESC LIMIT 50;
+      SELECT sd.sdeal_name,mpf.*, ms.msub_task_name 
+        FROM misc_project_finance mpf 
+        LEFT JOIN single_deal sd on mpf.mdeal_id=sd.sdid 
+        LEFT JOIN mis_subtask ms on mpf.task=ms.msub_task_id 
+        WHERE amount_got != '0' 
+        ORDER BY mpf.mfid desc LIMIT 20;
+      SELECT d.deal_name,npf.*, t.task_name 
+        FROM normal_projects_finance npf 
+        LEFT JOIN deals d on npf.ndeal_id=d.id 
+        LEFT JOIN task t on npf.task=t.task_id 
+        WHERE amount_got != '0'  
+        ORDER BY npf.fid desc LIMIT 40;
+    `;
+
     db.query(query, (err, result, field) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Database error");
+      }
+
       let unifiedData = [];
+
       // Expenses
       result[0].forEach((row) => {
         unifiedData.push({
           id: row.id,
           title: row.title,
           amount: row.amount,
-          date: row.date,
+          date: row.date, // assumed "dd/mm/yyyy"
           mode_of_pay: row.md_type || "",
           category: row.category || "",
           remarks: row.remark || "",
           type: "expense",
         });
       });
+
       // Misc project finance
       result[1].forEach((row) => {
         unifiedData.push({
           id: row.mfid,
           title: row.sdeal_name || "",
           amount: row.amount_got,
-          date: row.dateofpay,
+          date: row.dateofpay, // assumed "dd/mm/yyyy"
           mode_of_pay: row.modeofpay || "",
           category: "Normal Project",
           remarks: row.msub_task_name || "",
           type: "Normal",
         });
       });
+
       // Normal projects finance
       result[2].forEach((row) => {
         unifiedData.push({
           id: row.fid,
           title: row.deal_name || "",
           amount: row.amount_got,
-          date: row.dateofpay,
+          date: row.dateofpay, // assumed "dd/mm/yyyy"
           mode_of_pay: row.modeofpay || "",
           category: "Misc Project",
           remarks: row.task_name || "",
           type: "Misc",
         });
       });
+
+      // 🔹 Sort by dd/mm/yyyy correctly
       unifiedData.sort((a, b) => {
-        const dateA = new Date(a.date || "1970-01-01");
-        const dateB = new Date(b.date || "1970-01-01");
-        if (dateB - dateA !== 0) {
-          return dateB - dateA;
-        }
-        return b.id - a.id; // high ID
+        const dateA = parseDMY(a.date);
+        const dateB = parseDMY(b.date);
+        if (dateB - dateA !== 0) return dateB - dateA;
+        return b.id - a.id;
       });
-      res
-        .status(200)
-        .render("../views/admin/expense.finance.ejs", { data: unifiedData });
-      // res.send(unifiedData)
+
+      res.status(200).render("../views/admin/expense.finance.ejs", { data: unifiedData });
     });
   }
 };
+
 
 //---Normal project form works-------
 exports.insertNewNormalDeal = async (req, res) => {
@@ -269,8 +292,10 @@ exports.insertNewMiscDeal = async (req, res) => {
             req.body.TotalAm,
             Number(req.body.task),
             req.body.agreementAm,
+            req.body.mpdeadline,
+            "Advance Pay",
           ];
-          const qTonpf = `insert into misc_project_finance (mdeal_id, totalamount, task, amount_got) values (?, ?, ?, ?)`;
+          const qTonpf = `insert into misc_project_finance (mdeal_id, totalamount, task, amount_got,dateofpay,modeofpay) values (?, ?, ?, ?,?,?)`;
           conn.query(qTonpf, finTableData, (err3, response3) => {
             if (err3) {
               return conn.rollback(function () {

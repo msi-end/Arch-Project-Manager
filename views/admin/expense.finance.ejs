@@ -10,12 +10,15 @@
   <link rel="stylesheet" href="../../css/index.css">
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="../../css/darkMode.css">
+  <link rel="stylesheet" href="../../css/admin/analytics-popup.css">
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="../../js/admin/dashboard.module.js"></script>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr@4/dist/flatpickr.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
 
 </head>
 
@@ -30,7 +33,8 @@
               <div class="heading-ctn">
                 <h2>Expenses</h2>
                 <div class="expense-setting ">
-                  <button class="btn-primary flex align-center click-effect" type="button" onclick=""> Analytics
+                  <button class="btn-primary flex align-center click-effect" type="button"
+                    onclick="openAnalyticsPopup()"> Analytics
                     <svg fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1"
                       xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                       viewBox="0 0 512 512" xml:space="preserve">
@@ -94,9 +98,10 @@
             <!-- --SUB-HEADING-- -->
             <div class="top-section flex align-center j-between top-expense-section">
               <div class="section-text flex">
-                <h3 class="flex" onclick="filterByDataType('allType')" >All Expenses</h3>
+                <h3 class="flex" onclick="filterByDataType('allType')">All Expenses</h3>
                 <div class="main-filter">
-                  <span class="in-filter click-effect" onclick="filterByDataType('income')">Income</span><span class="ex-filter click-effect" onclick="filterByDataType('expense')">Expense</span>
+                  <span class="in-filter click-effect" onclick="filterByDataType('income')">Income</span><span
+                    class="ex-filter click-effect" onclick="filterByDataType('expense')">Expense</span>
                 </div>
               </div>
               <div class="utility-section flex align-center">
@@ -114,9 +119,9 @@
                     </path>
                   </svg>
                 </div>
-                
+
                 <div class="filter-list flex align-center">
-                   <select id="category" data-fn-type="categoryFilter" onclick="SortTableByCategory()">
+                  <select id="category" data-fn-type="categoryFilter" onclick="SortTableByCategory()">
                     <option value="">All Category</option>
                     <option value="Misc Project">Misc Project</option>
                     <option value="Normal Project">Normal Project</option>
@@ -191,7 +196,8 @@
                       onclick="addIncomeForm(this)">
                       <span class="text">Add Income</span>
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="plus-circle" class="">
-                        <path fill="green" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H13V8a1,1,0,0,0-2,0v3H8a1,1,0,0,0,0,2h3v3a1,1,0,0,0,2,0V13h3a1,1,0,0,0,0-2Z">
+                        <path fill="green"
+                          d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H13V8a1,1,0,0,0-2,0v3H8a1,1,0,0,0,0,2h3v3a1,1,0,0,0,2,0V13h3a1,1,0,0,0,0-2Z">
                         </path>
                       </svg>
                     </button>
@@ -199,7 +205,8 @@
                       onclick="addExpenseForm(this)">
                       <span class="text">Add Expense</span>
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="plus-circle" class="">
-                        <path fill="red" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H13V8a1,1,0,0,0-2,0v3H8a1,1,0,0,0,0,2h3v3a1,1,0,0,0,2,0V13h3a1,1,0,0,0,0-2Z">
+                        <path fill="red"
+                          d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H13V8a1,1,0,0,0-2,0v3H8a1,1,0,0,0,0,2h3v3a1,1,0,0,0,2,0V13h3a1,1,0,0,0,0-2Z">
                         </path>
                       </svg>
                     </button>
@@ -246,7 +253,7 @@
                         <%= exps.category? exps.category:'N/A' %>
                       </td>
                       <td class="exp-remark">
-                        <%= exps.remark? exps.remark : 'No remarks' %>
+                        <%= exps.remark?exps.remark : 'No remarks' %>
                       </td>
                       <td class="flex align-center">
                         <button class="edit" data-exps_id="<%= exps.id %>" onclick="editExpense(this)">Edit</button>
@@ -263,13 +270,89 @@
                 </tfoot>
               </table>
             </div>
+
         </div>
 
 
 
         <!-- POPUPS  -->
 
-        <div class="main-popup hide"></div>
+        <div class="main-popup hide">
+          <div class="popup-overlay" id="popupOverlay">
+            <div class="popup">
+              <div class="popup-header">
+                <h1 class="popup-title">Income Expense Analytics</h1>
+                <p class="popup-subtitle">Comprehensive insights into your spending patterns</p>
+                <button class="close-btn" onclick="closeAnalyticsPopup()">×</button>
+              </div>
+
+              <div class="popup-content">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                  <div class="stat-card">
+                    <div class="stat-value">₹1,68,267</div>
+                    <div class="stat-label">Total Expenses</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-value">13</div>
+                    <div class="stat-label">Total Transactions</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-value">₹12,944</div>
+                    <div class="stat-label">Average Amount</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-value">₹56,200</div>
+                    <div class="stat-label">Highest Expense</div>
+                  </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="charts-container">
+                  <div class="chart-wrapper">
+                    <h3 class="chart-title">Category-wise Expenses</h3>
+                    <div class="chart-container">
+                      <canvas id="categoryChart"></canvas>
+                    </div>
+                  </div>
+
+                  <div class="chart-wrapper">
+                    <h3 class="chart-title">Monthly Trend</h3>
+                    <div class="chart-container">
+                      <canvas id="trendChart"></canvas>
+                    </div>
+                  </div>
+
+                  <div class="chart-wrapper full-width-chart">
+                    <h3 class="chart-title">Payment Method Distribution</h3>
+                    <div class="chart-container">
+                      <canvas id="paymentChart"></canvas>
+                    </div>
+
+                    <div class="payment-modes">
+                      <div class="payment-mode">
+                        <div class="payment-icon">💰</div>
+                        <div class="payment-label">Cash</div>
+                        <div class="payment-amount">₹1,13,500</div>
+                      </div>
+                      <div class="payment-mode">
+                        <div class="payment-icon">💳</div>
+                        <div class="payment-label">Online</div>
+                        <div class="payment-amount">₹23,867</div>
+                      </div>
+                      <div class="payment-mode">
+                        <div class="payment-icon">💵</div>
+                        <div class="payment-label">Advance Pay</div>
+                        <div class="payment-amount">₹56,200</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
         <%- include('../partials/tasks/notification.ejs') %>
           <%- include('../partials/tasks/alert.ejs') %>
       </main>
@@ -280,6 +363,191 @@
   <script src="../../js/admin/index.js"></script>
   <script src="/js/admin/common.js"></script>
   <script src="/js/admin/expense.js"></script>
+
+
+  <script>
+    // Expense data from the image
+    const expenseData = [
+      { category: 'Normal Project', amount: 132200, mode: 'cash' },
+      { category: 'Normal Project', amount: 56200, mode: 'Advance Pay' },
+      { category: 'Misc Project', amount: 34000, mode: 'cash' },
+      { category: 'Misc Project', amount: 8000, mode: 'online' },
+      { category: 'online', amount: 7867, mode: 'online' },
+      { category: 'online', amount: 500, mode: 'cash' },
+      { category: 'N/A', amount: 2000, mode: 'cash' }
+    ];
+
+    let charts = {};
+
+    function openAnalyticsPopup() {
+      document.getElementById('popupOverlay').classList.add('active');
+      setTimeout(() => {
+        initializeCharts();
+      }, 500);
+    }
+
+    function closeAnalyticsPopup() {
+      document.getElementById('popupOverlay').classList.remove('active');
+      // Destroy charts to prevent memory leaks
+      Object.values(charts).forEach(chart => {
+        if (chart) chart.destroy();
+      });
+      charts = {};
+    }
+
+    function initializeCharts() {
+      const colorPalette = {
+        primary: ['#ff6b35', '#f7931e', '#667eea', '#764ba2'],
+        secondary: ['rgba(255, 107, 53, 0.8)', 'rgba(247, 147, 30, 0.8)', 'rgba(102, 126, 234, 0.8)', 'rgba(118, 75, 162, 0.8)'],
+        light: ['rgba(255, 107, 53, 0.2)', 'rgba(247, 147, 30, 0.2)', 'rgba(102, 126, 234, 0.2)', 'rgba(118, 75, 162, 0.2)']
+      };
+
+      // Category Chart
+      const categoryData = expenseData.reduce((acc, item) => {
+        acc[item.category] = (acc[item.category] || 0) + item.amount;
+        return acc;
+      }, {});
+
+      charts.category = new Chart(document.getElementById('categoryChart'), {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(categoryData),
+          datasets: [{
+            data: Object.values(categoryData),
+            backgroundColor: colorPalette.secondary,
+            borderColor: colorPalette.primary,
+            borderWidth: 3,
+            hoverOffset: 10
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                padding: 20,
+                usePointStyle: true,
+                font: { size: 12, weight: '600' }
+              }
+            }
+          },
+          animation: {
+            animateRotate: true,
+            duration: 1500
+          }
+        }
+      });
+
+      // Monthly Trend Chart (simulated data)
+      charts.trend = new Chart(document.getElementById('trendChart'), {
+        type: 'line',
+        data: {
+          labels: ['Jul', 'Aug', 'Sep'],
+          datasets: [{
+            label: 'Monthly Expenses',
+            data: [2000, 35367, 130900],
+            borderColor: colorPalette.primary[0],
+            backgroundColor: colorPalette.light[0],
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: colorPalette.primary[0],
+            pointBorderColor: '#fff',
+            pointBorderWidth: 3,
+            pointRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: 'rgba(0,0,0,0.1)' },
+              ticks: {
+                callback: function (value) {
+                  return '₹' + value.toLocaleString();
+                }
+              }
+            },
+            x: {
+              grid: { display: false }
+            }
+          },
+          animation: {
+            duration: 2000,
+            easing: 'easeInOutQuart'
+          }
+        }
+      });
+
+      // Payment Method Chart
+      const paymentData = expenseData.reduce((acc, item) => {
+        acc[item.mode] = (acc[item.mode] || 0) + item.amount;
+        return acc;
+      }, {});
+
+      charts.payment = new Chart(document.getElementById('paymentChart'), {
+        type: 'bar',
+        data: {
+          labels: Object.keys(paymentData),
+          datasets: [{
+            label: 'Amount (₹)',
+            data: Object.values(paymentData),
+            backgroundColor: colorPalette.secondary,
+            borderColor: colorPalette.primary,
+            borderWidth: 2,
+            borderRadius: 8,
+            borderSkipped: false,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: 'rgba(0,0,0,0.1)' },
+              ticks: {
+                callback: function (value) {
+                  return '₹' + value.toLocaleString();
+                }
+              }
+            },
+            x: {
+              grid: { display: false }
+            }
+          },
+          animation: {
+            duration: 1500,
+            easing: 'easeOutBounce'
+          }
+        }
+      });
+    }
+
+    // Close popup when clicking outside
+    document.getElementById('popupOverlay').addEventListener('click', function (e) {
+      if (e.target === this) {
+        closePopup();
+      }
+    });
+
+    // Close popup with Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closePopup();
+      }
+    });
+  </script>
 </body>
 
 </html>

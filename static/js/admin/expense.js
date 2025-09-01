@@ -103,9 +103,7 @@ function addIncomeForm() {
 function addIncome() {
   let incomeAddCtn = document.getElementsByClassName("add-expense")[0];
   let projectInput = incomeAddCtn.querySelector("[name='project_id']").value;
-  let selectedPhase = incomeAddCtn.querySelector(
-    "[name='last-project-phase']"
-  ).value;
+  let selectedPhase = incomeAddCtn.querySelector("[name='last-project-phase']");
   let selectedProject = incomeAddCtn.querySelector(
     "[name='last-project']"
   ).value;
@@ -113,10 +111,10 @@ function addIncome() {
   if (projectInput) {
     if (projectInput.includes("NORMAL-")) {
       projectType = "normal";
-      projectId = projectInput.split("-")[1].split("|")[0].trim();
+      projectId = selectedPhase.options[selectedPhase.selectedIndex].dataset.project_id;
     } else if (projectInput.includes("MISC-")) {
       projectType = "misc";
-      projectId = projectInput.split("-")[1].split("|")[0].trim();
+      projectId = selectedPhase.options[selectedPhase.selectedIndex].dataset.project_id;
     }
   }
   console.log(projectType, projectId);
@@ -124,7 +122,7 @@ function addIncome() {
   if (projectType === "normal") {
     dataObj = {
       ndeal_id: projectId,
-      task: selectedPhase,
+      task: selectedPhase.value,
       amount_got: incomeAddCtn.querySelector("[name='amount']").value,
       modeofpay: incomeAddCtn.querySelector("[name='mode']").value,
       dateofpay: incomeAddCtn.querySelector("[name='date']").value,
@@ -146,8 +144,8 @@ function addIncome() {
       });
   } else if (projectType === "misc") {
     dataObj = {
-      mdeal_id: projectId,
-      task: selectedPhase,
+      mdealid: projectId,
+      taskid: selectedPhase.value,
       amount_got: incomeAddCtn.querySelector("[name='amount']").value,
       modeofpay: incomeAddCtn.querySelector("[name='mode']").value,
       dateofpay: incomeAddCtn.querySelector("[name='date']").value,
@@ -536,7 +534,7 @@ function Select_Project_getPhase(e, type) {
       project_PhaseInput.innerHTML = `<option value="">Select Project Phase</option>`;
       res.data.forEach((e) => {
         console.log(e);
-        project_PhaseInput.innerHTML += `<option data-type="${pro_type}" value="${e.id}">${e.name}</option>`;
+        project_PhaseInput.innerHTML += `<option data-type="${pro_type}" data-project_id="${e.project_id}" value="${e.id}">${e.name}</option>`;
       });
     })
     .catch((err) => {
@@ -558,7 +556,18 @@ function Select_Phase_showDate(e) {
   console.log(STATES.Selected_projectPhase_info[0].type == "normal");
 
   if (STATES.Selected_projectPhase_info[0].type == "normal") {
-  
+    let lastNormal =
+      (STATES.Last_projects && STATES.Last_projects.normal) || [];
+    let searchNormal =
+      (STATES.Search_Last_projects && STATES.Search_Last_projects.normal) || [];
+    let combined = [...lastNormal, ...searchNormal];
+
+    let found = combined.find(
+      (item) => item.id === STATES.Selected_projectPhase_info[0].project_id
+    );
+
+    let spiltval = found ? found.split : null;
+
     if (!spiltval) return;
     let ratios = spiltval.split(":").map(Number);
     let totalParts = ratios.reduce((a, b) => a + b, 0);

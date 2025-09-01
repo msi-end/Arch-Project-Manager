@@ -107,7 +107,7 @@
                                       <td>
                                         <%= payments.modeofpay %>
                                       </td>
-                                      <td onclick="delete_miscPayments(<%= payments.mfid %>,this)">
+                                      <td onclick="delete_miscPayments(<%= payments.modeofpay=='Advance Pay'? '0': payments.mfid %>,this)">
                                         <svg fill="#782d0d" width="22px" height="22px" viewBox="0 0 24 24"
                                           xmlns="http://www.w3.org/2000/svg">
                                           <path

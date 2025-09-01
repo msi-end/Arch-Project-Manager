@@ -32,7 +32,7 @@ exports.updateNpAmountRecieved = async (req, res) => {
         res.status(500).send("some error occurred!..");
         return;
       }
-      res.status(200).send({ msg: "added successfully" });
+      res.status(200).send({ status: true, msg: "added successfully" });
     }
   );
 };
@@ -56,7 +56,7 @@ exports.updateMpAmountGot = async (req, res) => {
         res.status(500).send("some error occurred!..");
         return;
       }
-      res.status(200).send({ msg: "added successfully" });
+      res.status(200).send({ status: true, msg: "added successfully" });
     }
   );
 };

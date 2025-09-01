@@ -51,7 +51,9 @@ async function sendRecievedStatus(target) {
   document.querySelector(`.main-popup`).classList.toggle(`hide`);
 }
 function delete_miscPayments(params, e) {
-  if (e.parentElement.parentElement.children.length >= 1) {
+  console.log(e);
+
+  if (e.parentElement.parentElement.children.length <= 1) {
     Swal.fire({
       title: "You can't Delete?",
       text: "You won't be able to revert this Project!",
@@ -60,6 +62,16 @@ function delete_miscPayments(params, e) {
     });
     return;
   }
+  if (params == 0) {
+    Swal.fire({
+      title: "You can't Delete Advance payment Data?",
+      text: "You won't be able to revert!",
+      icon: "error",
+      confirmButtonText: "Done",
+    });
+    return;
+  }
+
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
