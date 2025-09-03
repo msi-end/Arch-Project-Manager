@@ -6,6 +6,8 @@ const userManager = require('../../controllers/userManager.crud')
 router.post('/add-User', userManager.add);
 router.get('/getOne-User/:id', userManager.getOne);
 router.put('/Update-User/:id', userManager.Update);
+router.put('/Delete-User/:id', userManager.inactive_user);
+router.put('/Delete-User/:id', userManager.parmanent_delete_user);
 router.put('/upd-password/:id', userManager.ChangePwd);
 router.get('/getAttendence/:id', userManager.getAttendence);
 router.get('/getAttenMonth/:id', userManager.getAttendenceByMonth);

@@ -41,6 +41,33 @@ let ReqHandler = {
 function closeMainDropdown() {
   document.querySelector(`.main-dropdown`).classList.remove(`hide`);
 }
+
+function handleStatusChange(selectElement) {
+    const status = selectElement.value;
+    switch (status.toLowerCase()) {
+        case 'not started':
+            selectElement.style.backgroundColor = '#f8d7da'; // light red
+            selectElement.style.color = '#721c24';
+            break;
+        case 'on progress':
+            selectElement.style.backgroundColor = 'rgb(255 128 0 / 38%)'; // light yellow
+            selectElement.style.color = 'rgb(219 73 0)';
+            break;
+        case 'completed':
+            selectElement.style.backgroundColor = '#d4edda'; // light green
+            selectElement.style.color = '#155724';
+            break;
+        default:
+            selectElement.style.backgroundColor = '';
+            selectElement.style.color = '';
+    }
+}
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('select[name="status"]').forEach(select => {
+        handleStatusChange(select);
+    });
+});
+
 // if (pageNo + 2 == lastPageNo) {
 //     document.getElementById('way-2').style.display = `none`
 // } else {

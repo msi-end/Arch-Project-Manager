@@ -271,87 +271,84 @@
               </table>
             </div>
 
-        </div>
-
-
-
-        <!-- POPUPS  -->
-
-        <div class="main-popup hide">
-          <div class="popup-overlay" id="popupOverlay">
-            <div class="popup">
-              <div class="popup-header">
-                <h1 class="popup-title">Income Expense Analytics</h1>
-                <p class="popup-subtitle">Comprehensive insights into your spending patterns</p>
-                <button class="close-btn" onclick="closeAnalyticsPopup()">×</button>
-              </div>
-
-              <div class="popup-content">
-                <!-- Stats Grid -->
-                <div class="stats-grid">
-                  <div class="stat-card">
-                    <div class="stat-value">₹1,68,267</div>
-                    <div class="stat-label">Total Expenses</div>
-                  </div>
-                  <div class="stat-card">
-                    <div class="stat-value">13</div>
-                    <div class="stat-label">Total Transactions</div>
-                  </div>
-                  <div class="stat-card">
-                    <div class="stat-value">₹12,944</div>
-                    <div class="stat-label">Average Amount</div>
-                  </div>
-                  <div class="stat-card">
-                    <div class="stat-value">₹56,200</div>
-                    <div class="stat-label">Highest Expense</div>
-                  </div>
+            <!-- POPUPS  -->
+            <!-- POPUPS  -->
+            <div class="popup-overlay" id="popupOverlay">
+              <div class="popup">
+                <div class="popup-header">
+                  <h1 class="popup-title">Income Expense Analytics</h1>
+                  <p class="popup-subtitle">Comprehensive insights into your spending patterns</p>
+                  <button class="close-btn" onclick="closeAnalyticsPopup()">×</button>
                 </div>
 
-                <!-- Charts -->
-                <div class="charts-container">
-                  <div class="chart-wrapper">
-                    <h3 class="chart-title">Category-wise Expenses</h3>
-                    <div class="chart-container">
-                      <canvas id="categoryChart"></canvas>
+                <div class="popup-content">
+                  <!-- Stats Grid -->
+                  <div class="stats-grid">
+                    <div class="stat-card">
+                      <div class="stat-value">₹1,68,267</div>
+                      <div class="stat-label">Total Expenses</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-value">13</div>
+                      <div class="stat-label">Total Transactions</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-value">₹12,944</div>
+                      <div class="stat-label">Average Amount</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-value">₹56,200</div>
+                      <div class="stat-label">Highest Expense</div>
                     </div>
                   </div>
 
-                  <div class="chart-wrapper">
-                    <h3 class="chart-title">Monthly Trend</h3>
-                    <div class="chart-container">
-                      <canvas id="trendChart"></canvas>
-                    </div>
-                  </div>
-
-                  <div class="chart-wrapper full-width-chart">
-                    <h3 class="chart-title">Payment Method Distribution</h3>
-                    <div class="chart-container">
-                      <canvas id="paymentChart"></canvas>
+                  <!-- Charts -->
+                  <div class="charts-container">
+                    <div class="chart-wrapper">
+                      <h3 class="chart-title">Category-wise Expenses</h3>
+                      <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                      </div>
                     </div>
 
-                    <div class="payment-modes">
-                      <div class="payment-mode">
-                        <div class="payment-icon">💰</div>
-                        <div class="payment-label">Cash</div>
-                        <div class="payment-amount">₹1,13,500</div>
+                    <div class="chart-wrapper">
+                      <h3 class="chart-title">Monthly Trend</h3>
+                      <div class="chart-container">
+                        <canvas id="trendChart"></canvas>
                       </div>
-                      <div class="payment-mode">
-                        <div class="payment-icon">💳</div>
-                        <div class="payment-label">Online</div>
-                        <div class="payment-amount">₹23,867</div>
+                    </div>
+
+                    <div class="chart-wrapper full-width-chart">
+                      <h3 class="chart-title">Payment Method Distribution</h3>
+                      <div class="chart-container">
+                        <canvas id="paymentChart"></canvas>
                       </div>
-                      <div class="payment-mode">
-                        <div class="payment-icon">💵</div>
-                        <div class="payment-label">Advance Pay</div>
-                        <div class="payment-amount">₹56,200</div>
+
+                      <div class="payment-modes">
+                        <div class="payment-mode">
+                          <div class="payment-icon">💰</div>
+                          <div class="payment-label">Cash</div>
+                          <div class="payment-amount">₹1,13,500</div>
+                        </div>
+                        <div class="payment-mode">
+                          <div class="payment-icon">💳</div>
+                          <div class="payment-label">Online</div>
+                          <div class="payment-amount">₹23,867</div>
+                        </div>
+                        <div class="payment-mode">
+                          <div class="payment-icon">💵</div>
+                          <div class="payment-label">Advance Pay</div>
+                          <div class="payment-amount">₹56,200</div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-
+        </div>
+        <!-- POPUPS  -->
+        <div class="main-popup hide">
         </div>
         <%- include('../partials/tasks/notification.ejs') %>
           <%- include('../partials/tasks/alert.ejs') %>

@@ -68,8 +68,10 @@ function addIncomeForm() {
 
       </div>
       <div class="field">
-        <p class="title">Mode of Payment</p>
+        <p class="title">Payment Method</p>
+        
         <select name="mode" id="mode">
+          <option value="">Select Payment Method</option>
           <option value="cash">Cash</option>
           <option value="online">Online</option>
         </select>
@@ -111,10 +113,12 @@ function addIncome() {
   if (projectInput) {
     if (projectInput.includes("NORMAL-")) {
       projectType = "normal";
-      projectId = selectedPhase.options[selectedPhase.selectedIndex].dataset.project_id;
+      projectId =
+        selectedPhase.options[selectedPhase.selectedIndex].dataset.project_id;
     } else if (projectInput.includes("MISC-")) {
       projectType = "misc";
-      projectId = selectedPhase.options[selectedPhase.selectedIndex].dataset.project_id;
+      projectId =
+        selectedPhase.options[selectedPhase.selectedIndex].dataset.project_id;
     }
   }
   console.log(projectType, projectId);
@@ -202,7 +206,7 @@ function addExpenseForm() {
         <input type="text" name="expamount" id="amount">
       </div>
       <div class="field">
-        <p class="title">Mode of Payment</p>
+        <p class="title">Payment Method</p>
         <select name="modeOfPays" id="mode">
           <option value="">Select Payment Method</option>
           <option value="cash">Cash</option>
@@ -211,7 +215,7 @@ function addExpenseForm() {
       </div>
       <div class="field">
         <p class="title">Date <span>(DD/MM/YYYY)</span></p>
-        <input type="date" name="date" id="date">
+        <input type="text" name="date" id="date" placeholder="DD/MM/YYYY">
       </div>
       <div class="field">
         <p class="title">Remarks <span>(*optional)</span></p>
@@ -232,6 +236,7 @@ function addExpenseForm() {
     </div>
   </form>
 </div>`;
+  flatpickr("#date", { dateFormat: "d/m/Y", allowInput: true });
   const dropDownTarget = document.querySelector(`.add-expense`);
   let expense_category = document.querySelector("#expense_category");
   STATES.Expense_category.data.forEach((e) => {
@@ -246,7 +251,7 @@ function addExpense() {
     amount: expAddCtn.querySelector("#amount").value,
     mode: expAddCtn.querySelector("#mode").value,
     remark: expAddCtn.querySelector("#remark").value,
-    date: date_Split(expAddCtn.querySelector("#date").value, "-" || "/", true),
+    date: expAddCtn.querySelector("#date").value,
     category: expAddCtn.querySelector("#expense_category").value,
   };
   ReqHandler.POST(ReqURI.addExps, dataObj)

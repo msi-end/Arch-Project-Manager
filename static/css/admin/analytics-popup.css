@@ -21,8 +21,8 @@
 .popup-overlay {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100vw;
+  /* left: 0; */
+  width: calc(100% - 250px);
   height: 100vh;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(10px);
@@ -52,8 +52,9 @@
 }
 
 .popup-header {
-  background: linear-gradient(135deg, #ff6b35, #f7931e);
-  color: white;
+  /* background: linear-gradient(135deg, #ff6b35, #f7931e); */
+  background-color: #fbf3df;
+  color: #b74706;
   padding: 25px 30px;
   border-radius: 20px 20px 0 0;
   position: relative;
@@ -63,7 +64,7 @@
   font-size: 28px;
   font-weight: 700;
   margin: 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
 }
 
 .popup-subtitle {
@@ -76,9 +77,9 @@
   position: absolute;
   top: 20px;
   right: 25px;
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: white;
+    background: rgb(183 71 6);
+    border: none;
+    color: #fbf3df;
   width: 40px;
   height: 40px;
   border-radius: 50%;

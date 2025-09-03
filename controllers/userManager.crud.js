@@ -30,21 +30,19 @@ exports.getOne = (req, res) => {
     })
 }
 //Delete all data of employee from all tables
-exports.Del = (req, res) => {
-    const query = `UPDATE employee SET status ='inactive' WHERE em_id=?; `
+exports.parmanentDelete_or_InactiveUser = (req, res) => {
+    let query;
+    if(req.query.deletePermanently==true){
+        query = `DELETE FROM employee WHERE em_id=? ; `
+    }else{
+        query = `UPDATE employee SET status ='inactive' WHERE em_id=?; `
+    }
     db.query(query, [req.params.id], (err, result, field) => {
         if (err) throw new errorHandler(err.status, err);
         res.status(200).send({ status: true, msg: 'Life success!' })
     })
 }
-exports.Del = (req, res) => {
-    let password = createHmac('sha256', 'zxcvbnmsdasgdrf').update(req.body.Password).digest('hex')
-    const query = `UPDATE employee SET status ='inactive' WHERE em_id=?; `
-    db.query(query, [password,], (err, result, field) => {
-        if (err) throw new errorHandler('', err);
-        res.status(200).send({ status: true, msg: 'Life success!' })
-    })
-}
+
 
 
 // Updating all kind Coulmns in DB (no need to change)
