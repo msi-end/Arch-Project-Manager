@@ -1,33 +1,36 @@
 <div class="close-more-data hide" id="more-data-<%= fdata[0].id %>">
-    <span class="icon" data-id="<%= fdata[0].id %>">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-left">
-            <path fill="#"
-                d="M11.46,8.29a1,1,0,0,0-1.42,0l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L9.16,12l2.3-2.29A1,1,0,0,0,11.46,8.29ZM14.66,12,17,9.71a1,1,0,0,0-1.42-1.42l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
-            </path>
-        </svg>
-    </span>
+  <span class="icon" data-id="<%= fdata[0].id %>">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-left">
+      <path fill="#" d="M11.46,8.29a1,1,0,0,0-1.42,0l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L9.16,12l2.3-2.29A1,1,0,0,0,11.46,8.29ZM14.66,12,17,9.71a1,1,0,0,0-1.42-1.42l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
+      </path>
+    </svg>
+  </span>
 
-<div class="more-data-text flex align-center">
+  <div class="more-data-text flex align-center">
     <h2>
-        <%= fdata[0].reference_no %>
+      <%= fdata[0].reference_no %>
     </h2>
-</div>
+  </div>
 
-<!-- DETAILS  -->
-<div class="contents grid">
+  <!-- DETAILS  -->
+  <div class="contents grid">
     <div class="description flex align-center">
-        <h3>Client Name:</h3>
-        <p class="text">
-            <%= fdata[0].deal_name %>
-        </p>
+      <h3>Client Name:</h3>
+      <p class="text">
+        <%= fdata[0].deal_name %>
+      </p>
     </div>
     <div class="description flex align-center">
-        <h3>Address:</h3>
-        <p class="text"><%= fdata[0].city %></p>
+      <h3>Address:</h3>
+      <p class="text"><%= fdata[0].city %></p>
+    </div>
+     <div class="description flex align-center">
+      <h3>Project Split:</h3>
+      <p class="text"><span id="projectAmount"><%= fdata[0].split %></span></p>
     </div>
     <div class="description flex align-center">
-        <h3>Project Amount:</h3>
-        <p class="text">&#8377; <span><%= fdata[0].total_price %></span></p>
+      <h3>Project Amount:</h3>
+      <p class="text">&#8377; <span id="projectAmount"><%= fdata[0].total_price %></span></p>
     </div>
     <% 
             const rAmount = fdata?.flatMap((task)=> {
@@ -37,18 +40,63 @@
             
         %>
     <div class="description flex align-center">
-        <h3>Received Amount:</h3>
-        <p class="text">&#8377; <span><%= rAmountRender %></span></p>
+      <h3>Received Amount:</h3>
+      <p class="text">&#8377; <span id="receivedAmount"><%= rAmountRender %></span></p>
     </div>
     <div class="description flex align-center">
-        <h3>Received Amount:</h3>
-        <p class="text">&#8377; <span><%= fdata[0]?.total_price - rAmountRender %></span></p>
+      <h3>Balance Amount:</h3>
+      <p class="text">&#8377; <span id="remainingAmount"><%= fdata[0]?.total_price - rAmountRender %></span></p>
     </div>
-</div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
 
-<div class="task-grid grid">
+  <div class="task-grid grid">
     <% fdata?.sort((a, b) => a.task_name.localeCompare(b.task_name)).forEach((task)=>{ %>
-        <%- include('../partials/tasks/task.fin.ejs', {task: task, ratio: task.split.split(':')}) %>
+    <%- include('../partials/tasks/task.fin.ejs', {task: task, ratio: task.split.split(':')}) %>
     <% }) %>
-</div>
+  </div>
+  <div style="margin-bottom: 20px;"></div>
+  <hr>
+  <div class="grid-box" style="margin-top: 20px;width: 50%;">
+    <div class="category-title flex align-center" style="border-radius: 13px 13px 0 0;">
+      <span class="dot"></span>
+      <p class="category uppercase flex-1">Project Payments</p>
+    </div>
+    <div class="amountInfo-popup">
+      <% let incrmentId=0;  %>
+      <table>
+        <thead>
+          <tr>
+            <th>Sl No.</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Mode of Payment</th>
+            <th>Phase Name</th>
+            <th>Action</th>
+          </tr>
+        <tbody>
+          <% fdata?.sort((a, b) => a.task_name.localeCompare(b.task_name)).forEach((task)=>{ %>
+
+          <% task.amount_rcv.forEach((pay) => {incrmentId++%>
+          <tr>
+            <td><%= incrmentId %></td>
+            <td><%= pay.date %></td>
+            <td class="flex align-center">&#8377; <%= pay.amount %> </td>
+            <td><%= pay.mode %></td>
+            <td><%= task.task_name %></td>
+            <td class="flex align-center">
+              <button class="edit" data-exps_id="<%= pay.id %>" onclick="editFinanceData(this)">Edit</button>
+              <button class="delete" onclick="DeleteFinanceData(this,<%= pay.id %>)">Delete</button>
+            </td>
+          </tr>
+          <% }) %>
+          <% }) %>
+
+        </tbody>
+        </thead>
+      </table>
+    </div>
+  </div>
 </div>

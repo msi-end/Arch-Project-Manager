@@ -91,12 +91,24 @@
                                         </div>
                                         <div class="field">
                                             <p class="title">Agreement Date <span>(DD/MM/YYYY)</span></p>
-                                            <input type="text" name="npdeadline" oninput="checkDeadline_Valid(this)"
+                                            <input type="text" name="npdeadline" placeholder="DD/MM/YYYY" oninput="checkDeadline_Valid(this)"
                                                 id="Normal_aggrement-date">
                                         </div>
                                         <div class="field">
                                             <p class="title">Amount Split Ratio</p>
-                                            <select name="split" id="splitRatio">
+                                            <select name="split" id="splitRatio" >
+                                                    <option value="">Select Split Ratio(Arch: Strc: 3D)</option>
+                                            </select>
+                                        </div>
+                                        <div class="field">
+                                            <p class="title">Project Category</p>
+                                            <select name="category">
+                                                    <option value="">Select Project Category</option>
+                                                <% results[1]?.forEach((e)=>{ %>
+                                                    <option value="<%= e.cat_name %>">
+                                                        <%= e.cat_name %>
+                                                    </option>
+                                                    <% }) %>
                                             </select>
                                         </div>
                                     </div>
@@ -147,15 +159,27 @@
                                         </div>
                                         <div class="field">
                                             <p class="title">Agreement Date <span>(DD/MM/YYYY)</span></p>
-                                            <input type="text" name="mpdeadline" oninput="checkDeadline_Valid(this)"
+                                            <input type="text" name="mpdeadline" placeholder="DD/MM/YYYY" oninput="checkDeadline_Valid(this)"
                                                 id="Misc_aggrement-date">
                                         </div>
                                         <div class="field">
                                             <p class="title">Type Of Work</p>
                                             <select name="task">
-                                                <% results?.forEach((val)=>{ %>
+                                                    <option value="">Select Type Of Work</option>
+                                                <% results[0]?.forEach((val)=>{ %>
                                                     <option value="<%= val.msub_task_id %>">
                                                         <%= val.msub_task_name %>
+                                                    </option>
+                                                    <% }) %>
+                                            </select>
+                                        </div>
+                                        <div class="field">
+                                            <p class="title">Project Category</p>
+                                            <select name="category">
+                                                    <option value="">Select Project Category</option>
+                                                <% results[1]?.forEach((e)=>{ %>
+                                                    <option value="<%= e.cat_name %>">
+                                                        <%= e.cat_name %>
                                                     </option>
                                                     <% }) %>
                                             </select>

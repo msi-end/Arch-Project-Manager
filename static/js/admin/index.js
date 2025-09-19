@@ -85,20 +85,20 @@ document.querySelectorAll('.close-more-data span.icon').forEach((icon) => {
 })
 // SEARCH INPUT 
 function search() {
-    document.querySelectorAll('.searchQuery').forEach(query => {
-        let inpValue= query.value.toLowerCase();
-        var elmCtn = document.querySelectorAll('tbody');
-        elmCtn.forEach(function (e) {
-            var contentText = e.textContent.toLowerCase();
-            if (contentText.includes(inpValue)) {
-                e.style.display = 'table-row-group';
-            } else { e.style.display = 'none'; }
-        });
-    })
+  let inpValue = document.querySelector('.searchQuery').value.toLowerCase();
+  const rows = document.querySelectorAll('tbody tr');
+  rows.forEach(row => {
+    const contentText = row.textContent.toLowerCase();
+    if (contentText.includes(inpValue)) {
+      row.style.display = ''; // default display
+    } else {
+      row.style.display = 'none';
+    }
+  });
 }
+
 function clearInput() {
-    document.querySelector(`#searchQuery`).value = "";
-    search()
+    document.querySelector(`.searchQuery`).value = "";
 }
 
 function searchIcon(){

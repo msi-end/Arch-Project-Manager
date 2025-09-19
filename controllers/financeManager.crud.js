@@ -100,3 +100,43 @@ exports.deleteNormal_FinancePaymentsByID = (req, res) => {
     res.status(200).json({ status: 200, msg: "Deleted successfully" });
   });
 };
+
+exports.updateMisc_FinancePaymentsByID = (req, res) => {
+  const { id } = req.params;
+  const query = `UPDATE misc_project_finance SET  amount_got=?,dateofpay=?,modeofpay=? WHERE mfid = ?`;
+
+  dbcon.query(query, [req.body.amount, req.body.date, req.body.mode,id], (err, result) => {
+    if (err) {
+      console.error("Error updating from misc_project_finance:", err);
+      return res
+        .status(500)
+        .json({ error: "An error occurred while updating data" });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({status: false, error: "Record not found" });
+    }
+
+    res.status(200).json({ status: true, msg: "Updated Misc Finance data , successfully" });
+  });
+};
+
+exports.updateNormal_FinancePaymentsByID = (req, res) => {
+  const { id } = req.params;
+  const query = `UPDATE normal_projects_finance SET amount_got=?,dateofpay=?,modeofpay=? WHERE fid=?`;
+
+  dbcon.query(query, [req.body.amount, req.body.date, req.body.mode,id], (err, result) => {
+    if (err) {
+      console.error("Error updating from normal_projects_finance:", err);
+      return res
+        .status(500)
+        .json({ error: "An error occurred while updating data" });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ status: false, error: "Record not found" });
+    }
+
+    res.status(200).json({ status: true, msg: "Updated Normal Finance data , successfully" });
+  });
+};

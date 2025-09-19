@@ -11,7 +11,10 @@ router.get('/get-income-expense', financeManagerController.getIncom_Exp_total)
 router.put('/update-advancepay-mp', financeManagerController.updateMpAmountGot)
 
 router.delete('/delete_misc_payment/:id', financeManagerController.deleteMisc_FinancePaymentsByID)
+router.put('/update_misc_payment/:id', financeManagerController.updateMisc_FinancePaymentsByID)
 router.delete('/delete_normal_payment/:id', financeManagerController.deleteNormal_FinancePaymentsByID)
+router.put('/update_normal_payment/:id', financeManagerController.updateNormal_FinancePaymentsByID)
+
 
 
 module.exports = router;

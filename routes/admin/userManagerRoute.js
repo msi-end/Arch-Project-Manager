@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const userManager = require('../../controllers/userManager.crud')
+const userManager = require('../../controllers/userManager.crud.js')
 
 
 router.post('/add-User', userManager.add);
 router.get('/getOne-User/:id', userManager.getOne);
 router.put('/Update-User/:id', userManager.Update);
-router.put('/Delete-User/:id', userManager.inactive_user);
-router.put('/Delete-User/:id', userManager.parmanent_delete_user);
+router.delete('/Delete-User/:id', userManager.parmanentDelete_or_InactiveUser);
 router.put('/upd-password/:id', userManager.ChangePwd);
 router.get('/getAttendence/:id', userManager.getAttendence);
 router.get('/getAttenMonth/:id', userManager.getAttendenceByMonth);

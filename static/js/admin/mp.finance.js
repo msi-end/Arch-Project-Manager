@@ -15,7 +15,7 @@ async function advOpen(data) {
             <input type="text" name="dateofpay" id="finc-date" placeholder="dd/mm/yyyy">
         </div>
         <div class="field">
-            <p class="title">Advance Amount <span>(in &#8377;)</span></p>
+            <p class="title">Amount Paid <span>(in &#8377;)</span></p>
             <input type="text" name="amount_got" id="finc-amount">
         </div>
         <div class="field">

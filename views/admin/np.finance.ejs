@@ -2,143 +2,189 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EBAH ERP | Admin</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EBAH ERP | Admin</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="../../css/index.css">
-    <link rel="stylesheet" href="../../css/responsive.css">
-    <link rel="stylesheet" href="../../css/darkMode.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../js/admin/dashboard.module.js"></script>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4/dist/flatpickr.min.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../css/index.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="../../css/darkMode.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../../js/admin/dashboard.module.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr@4/dist/flatpickr.min.js"></script>
 </head>
 
 <body>
 
-    <section>
-        <%- include('../partials/admin.aside.ejs') %>
-            <main data-app-page="finance">
-                <div class="main-data">
-                    <%- include('../partials/admin.header.ejs') %>
-                        <!-- --HEADING-- -->
-                        <div class="heading">
-                            <h2>Project Finance</h2>
-                            <p class="title">Find all project finances here</p>
-                        </div>
-                        <!-- --SUB-HEADING-- -->
-                        <div class="top-section flex align-center j-between">
-                            <div class="section-text">
-                                <h3 class="flex">All Finances</h3>
-                            </div>
-                            <div class="searchBox flex align-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search"
-                                    onclick="SearchFromInput()">
-                                    <path fill="##000000"
-                                        d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z">
-                                    </path>
-                                </svg>
-                                <input type="text" class="searchQuery" oninput="search()"
-                                    placeholder="Search for anything...">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="times" class="close"
-                                    onclick="clearInput()">
-                                    <path fill="##000000"
-                                        d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
-                                    </path>
-                                </svg>
-                            </div>
-                        </div>
-                        <!-- ----------- DATA TABLE----------- -->
+  <section>
+    <%- include('../partials/admin.aside.ejs') %>
+    <main data-app-page="finance">
+      <div class="main-data">
+        <%- include('../partials/admin.header.ejs') %>
+        <!-- --HEADING-- -->
+        <div class="heading">
+          <div class="heading-ctn">
+            <h2>Project Finance</h2>
 
-                        <div class="data-info">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Ref No.</th>
-                                        <th>Client Name</th>
-                                        <th>Address</th>
-                                        <th>Project Amount</th>
-                                        <th>Received Amount</th>
-                                        <th>Balance</th>
-                                        <th>Split Ratio</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
+            <div class="expense-setting ">
+              <button class="btn-primary flex align-center click-effect" type="button" onclick="openAnalyticsPopup()"> Analytics
+                <svg fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+                  <g>
+                    <g>
+                      <path d="M503.467,477.867h-8.533v-8.533c0-4.719-3.814-8.533-8.533-8.533s-8.533,3.814-8.533,8.533v8.533h-25.6v-8.533
+			c0-4.719-3.814-8.533-8.533-8.533c-4.719,0-8.533,3.814-8.533,8.533v8.533h-25.6v-8.533c0-4.719-3.814-8.533-8.533-8.533
+			c-4.719,0-8.533,3.814-8.533,8.533v8.533h-25.6v-8.533c0-4.719-3.814-8.533-8.533-8.533s-8.533,3.814-8.533,8.533v8.533h-25.6
+			v-8.533c0-4.719-3.814-8.533-8.533-8.533s-8.533,3.814-8.533,8.533v8.533h-25.6v-8.533c0-4.719-3.814-8.533-8.533-8.533
+			s-8.533,3.814-8.533,8.533v8.533h-25.6v-8.533c0-4.719-3.814-8.533-8.533-8.533s-8.533,3.814-8.533,8.533v8.533h-25.6v-8.533
+			c0-4.719-3.814-8.533-8.533-8.533s-8.533,3.814-8.533,8.533v8.533h-25.6v-8.533c0-4.719-3.814-8.533-8.533-8.533
+			s-8.533,3.814-8.533,8.533v8.533h-25.6v-8.533c0-4.719-3.814-8.533-8.533-8.533s-8.533,3.814-8.533,8.533v8.533h-25.6v-8.533
+			c0-4.719-3.814-8.533-8.533-8.533s-8.533,3.814-8.533,8.533v8.533H38.613l76.749-176.512c6.263,3.618,13.432,5.845,21.171,5.845
+			c10.846,0,20.642-4.19,28.177-10.88l41.941,50.33c-1.084,3.763-1.852,7.646-1.852,11.75c0,23.526,19.14,42.667,42.667,42.667
+			c23.526,0,42.667-19.14,42.667-42.667c0-9.242-3.029-17.749-8.047-24.747l54.946-117.743c6.306,3.686,13.551,5.956,21.367,5.956
+			c8.405,0,16.205-2.526,22.818-6.741l55.782,71.714c0.188,0.247,0.469,0.333,0.683,0.555c-6.775,7.552-11.017,17.417-11.017,28.339
+			c0,23.526,19.14,42.667,42.667,42.667c23.526,0,42.667-19.14,42.667-42.667s-19.14-42.667-42.667-42.667
+			c-6.596,0-12.774,1.63-18.355,4.318c-0.196-0.333-0.265-0.708-0.512-1.024L393.6,203.247c4.693-6.861,7.467-15.13,7.467-24.047
+			c0-23.526-19.14-42.667-42.667-42.667c-23.526,0-42.667,19.14-42.667,42.667c0,9.242,3.029,17.749,8.047,24.747L268.834,321.69
+			c-6.306-3.686-13.551-5.956-21.367-5.956c-12.817,0-24.201,5.803-32.034,14.788l-38.204-45.858
+			c-0.666-0.785-1.468-1.357-2.304-1.843c2.662-5.564,4.275-11.716,4.275-18.287c0-23.526-19.14-42.667-42.667-42.667
+			c-23.526,0-42.667,19.14-42.667,42.667c0,9.276,3.055,17.809,8.107,24.815L34.133,445.38V384h8.533
+			c4.719,0,8.533-3.814,8.533-8.533s-3.814-8.533-8.533-8.533h-8.533v-25.6h8.533c4.719,0,8.533-3.814,8.533-8.533
+			s-3.814-8.533-8.533-8.533h-8.533v-25.6h8.533c4.719,0,8.533-3.814,8.533-8.533c0-4.719-3.814-8.533-8.533-8.533h-8.533V256h8.533
+			c4.719,0,8.533-3.814,8.533-8.533s-3.814-8.533-8.533-8.533h-8.533v-25.6h8.533c4.719,0,8.533-3.814,8.533-8.533
+			s-3.814-8.533-8.533-8.533h-8.533v-25.6h8.533c4.719,0,8.533-3.814,8.533-8.533s-3.814-8.533-8.533-8.533h-8.533V128h8.533
+			c4.719,0,8.533-3.814,8.533-8.533s-3.814-8.533-8.533-8.533h-8.533v-25.6h8.533c4.719,0,8.533-3.814,8.533-8.533
+			s-3.814-8.533-8.533-8.533h-8.533v-25.6h8.533c4.719,0,8.533-3.814,8.533-8.533S47.386,25.6,42.667,25.6h-8.533V8.533
+			C34.133,3.814,30.319,0,25.6,0s-8.533,3.814-8.533,8.533V25.6H8.533C3.814,25.6,0,29.414,0,34.133s3.814,8.533,8.533,8.533h8.533
+			v25.6H8.533C3.814,68.267,0,72.081,0,76.8s3.814,8.533,8.533,8.533h8.533v25.6H8.533c-4.719,0-8.533,3.814-8.533,8.533
+			S3.814,128,8.533,128h8.533v25.6H8.533C3.814,153.6,0,157.414,0,162.133s3.814,8.533,8.533,8.533h8.533v25.6H8.533
+			C3.814,196.267,0,200.081,0,204.8s3.814,8.533,8.533,8.533h8.533v25.6H8.533c-4.719,0-8.533,3.814-8.533,8.533
+			S3.814,256,8.533,256h8.533v25.6H8.533C3.814,281.6,0,285.414,0,290.133c0,4.719,3.814,8.533,8.533,8.533h8.533v25.6H8.533
+			C3.814,324.267,0,328.081,0,332.8s3.814,8.533,8.533,8.533h8.533v25.6H8.533c-4.719,0-8.533,3.814-8.533,8.533
+			S3.814,384,8.533,384h8.533v25.6H8.533C3.814,409.6,0,413.414,0,418.133s3.814,8.533,8.533,8.533h8.533v25.6H8.533
+			C3.814,452.267,0,456.081,0,460.8c0,4.719,3.814,8.533,8.533,8.533h8.533v16.964v0.034v0.068c0,0.282,0.137,0.529,0.162,0.802
+			c0.085,0.828,0.179,1.655,0.486,2.415c0.213,0.521,0.589,0.939,0.896,1.408c0.299,0.444,0.512,0.93,0.896,1.323
+			c0.597,0.614,1.331,1.05,2.091,1.459c0.222,0.12,0.367,0.316,0.606,0.418c0.009,0,0.017,0,0.026,0.009
+			c0.964,0.41,2.022,0.614,3.123,0.648c0.085,0,0.162,0.051,0.239,0.051H25.6h25.6v8.533c0,4.719,3.814,8.533,8.533,8.533
+			s8.533-3.814,8.533-8.533v-8.533h25.6v8.533c0,4.719,3.814,8.533,8.533,8.533s8.533-3.814,8.533-8.533v-8.533h25.6v8.533
+			c0,4.719,3.814,8.533,8.533,8.533s8.533-3.814,8.533-8.533v-8.533h25.6v8.533c0,4.719,3.814,8.533,8.533,8.533
+			s8.533-3.814,8.533-8.533v-8.533h25.6v8.533c0,4.719,3.814,8.533,8.533,8.533s8.533-3.814,8.533-8.533v-8.533h25.6v8.533
+			c0,4.719,3.814,8.533,8.533,8.533s8.533-3.814,8.533-8.533v-8.533h25.6v8.533c0,4.719,3.814,8.533,8.533,8.533
+			s8.533-3.814,8.533-8.533v-8.533h25.6v8.533c0,4.719,3.814,8.533,8.533,8.533s8.533-3.814,8.533-8.533v-8.533h25.6v8.533
+			c0,4.719,3.814,8.533,8.533,8.533c4.719,0,8.533-3.814,8.533-8.533v-8.533h25.6v8.533c0,4.719,3.814,8.533,8.533,8.533
+			c4.719,0,8.533-3.814,8.533-8.533v-8.533h25.6v8.533c0,4.719,3.814,8.533,8.533,8.533s8.533-3.814,8.533-8.533v-8.533h8.533
+			c4.719,0,8.533-3.814,8.533-8.533S508.186,477.867,503.467,477.867z"></path>
+                    </g>
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <p class="title">Find all project finances here</p>
+        </div>
+        <!-- --SUB-HEADING-- -->
+        <div class="top-section flex align-center j-between">
+          <div class="section-text">
+            <h3 class="flex">All Finances</h3>
+          </div>
+          <div class="searchBox flex align-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search" onclick="SearchFromInput()">
+              <path fill="##000000" d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z">
+              </path>
+            </svg>
+            <input type="text" class="searchQuery" oninput="search()" placeholder="Search for anything...">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="times" class="close" onclick="clearInput()">
+              <path fill="##000000" d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
+              </path>
+            </svg>
+          </div>
+        </div>
+        <!-- ----------- DATA TABLE----------- -->
 
-                                <tbody>
-                                    <% sortedData?.forEach((fdata)=>{ %>
-                                        <tr >
-                                            <td data-dealid="<%= fdata[0].id %>">
-                                                <%= fdata[0].reference_no %>
-                                            </td>
-                                            <td>
-                                                <%= fdata[0].deal_name %>
-                                            </td>
-                                            <td>
-                                                <%= fdata[0].city %>
-                                            </td>
-                                            <td>
-                                                &#8377;<%= fdata[0].total_price %>
-                                            </td>
-                                            <% const rAmount=fdata?.flatMap((task)=> {
-                                                return task.amount_rcv.reduce((sum, amount)=>sum + amount.amount, 0)
-                                                })
-                                                const rAmountRender = rAmount.reduce((acc, curr) => acc + curr, 0);
+        <div class="data-info">
+          <table>
+            <thead>
+              <tr>
+                <th>Ref No.</th>
+                <th>Client Name</th>
+                <th>Address</th>
+                <th>Project Amount</th>
+                <th>Received Amount</th>
+                <th>Balance</th>
+                <th>Split Ratio</th>
+                <th></th>
+              </tr>
+            </thead>
 
-                                                %>
+            <tbody>
+              <% sortedData?.forEach((fdata)=>{ %>
+              <tr>
+                <td data-dealid="<%= fdata[0].id %>">
+                  <%= fdata[0].reference_no %>
+                </td>
+                <td>
+                  <%= fdata[0].deal_name %>
+                </td>
+                <td>
+                  <%= fdata[0].city %>
+                </td>
+                <td>
+                  &#8377;<%= fdata[0].total_price %>
+                </td>
+                <% const rAmount=fdata?.flatMap((task)=> {
+                    return task.amount_rcv.reduce((sum, amount)=>sum + amount.amount, 0)
+                    })
+                    const rAmountRender = rAmount.reduce((acc, curr) => acc + curr, 0);
+                %>
+                <td>
+                  &#8377;<%= rAmountRender %>
+                </td>
+                <td>
+                  &#8377;<%= fdata[0]?.total_price - rAmountRender %>
+                </td>
+                <td>
+                  <%= fdata[0].split %>
+                </td>
+                <td>
+                  <span class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-right" >
+                      <path fill="" d="M8.46,8.29A1,1,0,1,0,7,9.71L9.34,12,7,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3a1,1,0,0,0,0-1.42Zm8.5,3-3-3a1,1,0,0,0-1.42,1.42L14.84,12l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3A1,1,0,0,0,17,11.29Z">
+                      </path>
+                    </svg>
+                  </span>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
 
-                                                <td>
-                                                    &#8377;<%= rAmountRender %>
-                                                </td>
-                                                <td>
-                                                    &#8377;<%= fdata[0]?.total_price - rAmountRender %>
-                                                </td>
-                                                <td>
-                                                    <%= fdata[0].split %>
-                                                </td>
-                                                <td>
-                                                    <span class="icon">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                            id="angle-double-right">
-                                                            <path fill=""
-                                                                d="M8.46,8.29A1,1,0,1,0,7,9.71L9.34,12,7,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3a1,1,0,0,0,0-1.42Zm8.5,3-3-3a1,1,0,0,0-1.42,1.42L14.84,12l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l3-3A1,1,0,0,0,17,11.29Z">
-                                                            </path>
-                                                        </svg>
-                                                    </span>
-                                                </td>
-                                        </tr>
-                                        <% }) %>
-                                </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="5"></td>
+                <td colspan="3"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <div class="more-data hide">
+        <% sortedData?.forEach((el)=>{ %>
+        <%- include('../partials/np.fin.ejs', {fdata: el }) %>
+        <% }) %>
+      </div>
 
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="5"></td>
-                                        <td colspan="3"></td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                </div>
-                <div class="more-data hide">
-                    <%  sortedData?.forEach((el)=>{ %>
-                        <%- include('../partials/np.fin.ejs', {fdata: el }) %>
-                    <% }) %>
-                </div>
+      <!-- POPUPS  -->
 
-                <!-- POPUPS  -->
-                 
-                <div class="main-popup hide"></div>
-                <%- include('../partials/tasks/notification.ejs') %>
-                <%- include('../partials/tasks/alert.ejs') %>
-            </main>
-    </section>
+      <div class="main-popup hide"></div>
+      <%- include('../partials/tasks/notification.ejs') %>
+      <%- include('../partials/tasks/alert.ejs') %>
+    </main>
+  </section>
 
-    <!-- JAVASCRIPT -->
-    <script src="../../js/admin/index.js"></script>
-    <script src="../../js/admin/common.js"></script>
-    <script src="../../js/admin/np.finance.js"></script>
+  <!-- JAVASCRIPT -->
+  <script src="../../js/admin/index.js"></script>
+  <script src="../../js/admin/common.js"></script>
+  <script src="../../js/admin/np.finance.js"></script>
 </body>
 
 </html>

@@ -14,10 +14,21 @@ exports.addExpense = (req, res) => {
 }
 
 exports.expenseUpdater = (req, res) => {
-    let q = `UPDATE expenses SET title =?,remark= ?,amount=?,date =?,md_type=? WHERE id=${req.params.id}`
-    db.query(q, [req.body.title, req.body.remark, req.body.amount, req.body.date, req.body.mode], (err, results) => {
+    let q = `UPDATE expenses SET title =?,remark= ?,amount=?,date =?,md_type=?,category=? WHERE id=${req.params.id}`
+    db.query(q, [req.body.title, req.body.remark, req.body.amount, req.body.date, req.body.mode,req.body.category], (err, results) => {
         if (!err) {
             res.status(200).send({ status: true, msg: 'Successfully Expense Updated' })
+        } else {
+            res.status(500).send({ status: false, msg: "Internal error occurs! \n " + err })
+        }
+    })
+
+}
+exports.expenseDeleter = (req, res) => {
+    let q = `DELETE FROM expenses WHERE id=${req.params.id}`
+    db.query(q, (err, results) => {
+        if (!err) {
+            res.status(200).send({ status: true, msg: 'Successfully Expense Deleted' })
         } else {
             res.status(500).send({ status: false, msg: "Internal error occurs! \n " + err })
         }

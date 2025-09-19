@@ -18,7 +18,7 @@ async function addSplitAdvance(data) {
             <input type="text" name="dateofpay" id="finc-date">
         </div>
         <div class="field">
-            <p class="title">Advance Amount <span>(in &#8377;)</span></p>
+            <p class="title">Amount Paid <span>(in &#8377;)</span></p>
             <input type="text" name="amount_got">
         </div>
         <div class="field">
@@ -60,4 +60,17 @@ function showAllAmount(e) {
   e.parentElement.parentElement
     .querySelector(`.amountInfo-popup`)
     .classList.toggle(`hide`);
+}
+function updateAllProgressBars() {
+    let datactn = document.querySelectorAll('[class="contents grid"]')
+    datactn.forEach(card => {
+      const projectAmount = parseFloat(card.querySelector('#projectAmount').textContent) || 0;
+      const receivedAmount = parseFloat(card.querySelector('#receivedAmount').textContent) || 0;
+      const percent = projectAmount > 0 ? (receivedAmount / projectAmount) * 100 : 0;
+      card.querySelector('.progress-bar').style.width = percent + '%';
+    });
+  }
+  updateAllProgressBars()
+function getNormalprojectFinancePayment(e) {
+  
 }

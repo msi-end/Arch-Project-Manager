@@ -156,8 +156,3 @@ async function DeleteMiscProject(e, o) {
         }
     });
 }
-function SearchFromInput() {
-    let query = document.getElementById('searchData').value
-    location.href = location.href + `&search=${query}`
-
-}

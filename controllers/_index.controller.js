@@ -80,7 +80,8 @@ exports.userManager = (req, res) => {
 
 exports.settings = (req, res) => {
   if (req.session.isLoggedIn == true && req.session.role == "admin") {
-    const query = `select * from subtask;select * from mis_subtask;select * from amount_split`;
+    const query = `select * from subtask;select * from mis_subtask;select * from amount_split;
+    SELECT * FROM expense_category;SELECT * FROM payment_methods;SELECT * FROM projects_category;`;
     db.query(query, (err, result, field) => {
       res.status(200).render("../views/admin/settings.ejs", { data: result });
     });
@@ -141,9 +142,9 @@ exports.expense = (req, res) => {
           amount: row.amount_got,
           date: row.dateofpay, // assumed "dd/mm/yyyy"
           mode_of_pay: row.modeofpay || "",
-          category: "Normal Project",
+          category: "Misc Project",
           remarks: row.msub_task_name || "",
-          type: "Normal",
+          type: "Misc",
         });
       });
 
@@ -155,9 +156,9 @@ exports.expense = (req, res) => {
           amount: row.amount_got,
           date: row.dateofpay, // assumed "dd/mm/yyyy"
           mode_of_pay: row.modeofpay || "",
-          category: "Misc Project",
+          category: "Normal Project",
           remarks: row.task_name || "",
-          type: "Misc",
+          type: "Normal",
         });
       });
 
@@ -169,11 +170,12 @@ exports.expense = (req, res) => {
         return b.id - a.id;
       });
 
-      res.status(200).render("../views/admin/expense.finance.ejs", { data: unifiedData });
+      res
+        .status(200)
+        .render("../views/admin/expense.finance.ejs", { data: unifiedData });
     });
   }
 };
-
 
 //---Normal project form works-------
 exports.insertNewNormalDeal = async (req, res) => {
@@ -196,9 +198,10 @@ exports.insertNewNormalDeal = async (req, res) => {
           req.body.TotalAm,
           req.body.npdeadline,
           req.body.split,
+          req.body.category,
         ];
 
-        const qTodeal = `insert into deals (deal_name, reference_no, contact, agreement_amount, work_name, email, city, total_price, np_deadline, split) values (?,?,?,?,?,?,?,?,?,?)`;
+        const qTodeal = `insert into deals (deal_name, reference_no, contact, agreement_amount, work_name, email, city, total_price, np_deadline, split,category) values (?,?,?,?,?,?,?,?,?,?,?)`;
 
         conn.query(qTodeal, dealsTableData, (err1, response) => {
           if (err1) {
@@ -276,9 +279,10 @@ exports.insertNewMiscDeal = async (req, res) => {
           req.body.city,
           req.body.TotalAm,
           req.body.mpdeadline,
+          req.body.category,
         ];
 
-        const qTodeal = `insert into single_deal (sdeal_name, reference_no, contact, agreement_amount, work_name, email, city, total_price, mp_deadline) values (?,?,?,?,?,?,?,?,?)`;
+        const qTodeal = `insert into single_deal (sdeal_name, reference_no, contact, agreement_amount, work_name, email, city, total_price, mp_deadline,category) values (?,?,?,?,?,?,?,?,?,?)`;
 
         conn.query(qTodeal, miscDealsTableData, (err1, response) => {
           if (err1) {
@@ -336,7 +340,7 @@ exports.renderNormalProjectFinance = async (req, res) => {
   if (req.session.isLoggedIn == true && req.session.role == "admin") {
     let currentPage = Number(req.query.to) || 1;
     let offset = (currentPage - 1) * 10;
-    const q = `SELECT deals.id, deals.reference_no, deals.city, deals.deal_name, deals.total_price, deals.split, normal_projects_finance.task, task.task_name, normal_projects_finance.amount_got, normal_projects_finance.modeofpay, normal_projects_finance.dateofpay FROM (SELECT * FROM deals ORDER BY id DESC LIMIT ${
+    const q = `SELECT deals.id, deals.reference_no, deals.city, deals.deal_name, deals.total_price, deals.split, normal_projects_finance.task, task.task_name, normal_projects_finance.fid, normal_projects_finance.amount_got, normal_projects_finance.modeofpay, normal_projects_finance.dateofpay FROM (SELECT * FROM deals ORDER BY id DESC LIMIT ${
       Number(req.query.from) * 10
     }, 10) AS deals INNER JOIN normal_projects_finance ON deals.id = normal_projects_finance.ndeal_id INNER JOIN task ON task.task_id = normal_projects_finance.task ORDER BY deals.id DESC;`;
     await db.query(q, (err, result) => {
@@ -358,7 +362,6 @@ exports.renderNormalProjectFinance = async (req, res) => {
         const sortedData = arrangeFinance(sortedTasks);
         //  res.status(200).send(sortedData);
         // const sortedData = sentData.sort((a, b) => b[0].id - a[0].id);
-        // console.log(sortedData)
         res.render("../views/admin/np.finance.ejs", { sortedData });
       } else {
         res.status(500).send({ msg: "Internal server error!!!" });
@@ -369,7 +372,7 @@ exports.renderNormalProjectFinance = async (req, res) => {
 
 exports.renderNormalProjectForm = async (req, res) => {
   if (req.session.isLoggedIn == true && req.session.role == "admin") {
-    const q = `select * from mis_subtask`;
+    const q = `select * from mis_subtask;SELECT * FROM projects_category`;
     await db.query(q, (err, results) => {
       if (!err) {
         res.status(200).render("../views/admin/np.form.ejs", { results });

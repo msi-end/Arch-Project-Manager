@@ -68,10 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// if (pageNo + 2 == lastPageNo) {
-//     document.getElementById('way-2').style.display = `none`
-// } else {
-//     document.getElementById('way-2').style.display = `flex`}
+
 async function CheckNotification() {
   let nCtn = document.querySelector(".notification-column");
   let nCount = document.querySelector("#notification-count");
@@ -97,6 +94,10 @@ async function CheckNotification() {
       }
     }
   });
+}
+function SearchFromInput() {
+    let query = document.getElementById('searchData').value
+    location.href = location.href + `&search=${query}`
 }
 async function UpdateNotify(act, e) {
   await ReqHandler.GET(

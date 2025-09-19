@@ -253,10 +253,11 @@
                         <%= exps.category? exps.category:'N/A' %>
                       </td>
                       <td class="exp-remark">
-                        <%= exps.remark?exps.remark : 'No remarks' %>
+                        <%= exps.remarks?exps.remarks : 'No remarks' %>
                       </td>
                       <td class="flex align-center">
-                        <button class="edit" data-exps_id="<%= exps.id %>" onclick="editExpense(this)">Edit</button>
+                        <button class="edit" data-exps_id="<%= exps.id %>" onclick="editIncome_expense(this)">Edit</button>
+                        <button class="delete" onclick="DeleteIncome_expense(this,'<%= exps.type %>',<%= exps.id %>)">Delete</button>
                       </td>
                     </tr>
                     <% }) %>

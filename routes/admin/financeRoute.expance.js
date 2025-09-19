@@ -4,6 +4,7 @@ let expenseController = require('../../controllers/fm.expense.crud')
 
 router.post('/add-Exps', expenseController.addExpense);
 router.put('/expsUpdate/:id', expenseController.expenseUpdater);
+router.delete('/delete/:id', expenseController.expenseDeleter);
 router.get('/getExps', expenseController.GetExpensesByMonths);
 router.post('/category/create', expenseController.createExpenseCategory);
 router.get('/category/readAll', expenseController.getExpenseCategories);

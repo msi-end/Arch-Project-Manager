@@ -6,6 +6,7 @@ let ReqURI = {
   NisProjectPaid: location.origin + "/apiv1/nIsProjectPaid",
   MisProjectPaid: location.origin + "/apiv1/mIsProjectPaid",
   Expense_category: location.origin + location.pathname + "/category/readAll",
+  Payment_methods: location.origin + "/settings/get-payment-methods",
   last_project: location.origin + location.pathname + "/last_project/get",
   search_last_project:
     location.origin + location.pathname + "/last_project/search/",
@@ -13,9 +14,17 @@ let ReqURI = {
   getProjectPhaseMisc: location.origin + "/apiv1/misc/getProjectPhase/",
   createProjectFinMisc: location.origin + "/admin/finance/update-advancepay-mp",
   createProjectFinNormal: location.origin + "/admin/finance/update-advancepay",
+  delProjectFinNormal:
+    location.origin + "/admin/finance/delete_normal_payment/",
+  delProjectFinMisc: location.origin + "/admin/finance/delete_misc_payment/",
+  delExpense: location.origin + location.pathname + "/delete/",
+  updateProjectFinNormal:
+    location.origin + "/admin/finance/update_normal_payment/",
+  updateProjectFinMisc: location.origin + "/admin/finance/update_misc_payment/",
 };
 let STATES = {
   Expense_category: [],
+  Payment_methods: [],
   Last_projects: [],
   Search_Last_projects: [],
   Selected_projectPhase_info: [],
@@ -269,16 +278,16 @@ function addExpense() {
       console.log("Error(fn-ExpsAdd):" + err);
     });
 }
-function editExpense(e) {
-  console.log(e);
+function editIncome_expense(e) {
   let id = e.parentElement.parentElement.dataset.exps_id;
+  let type = e.parentElement.parentElement.dataset.type;
   let target = e.parentElement.parentElement;
   const maindrop = document.querySelector(`.main-popup`);
   maindrop.classList.toggle(`hide`);
   maindrop.innerHTML = "";
   maindrop.innerHTML = `<div class="editexpense blur hide">
   <form class="form">
-    <h2>Edit an Expense</h2>
+    <h2>Edit an Income / Expense</h2>
     <div class="grid extra-grid">
       <div class="field">
         <p class="title">Name of the Expense</p>
@@ -291,6 +300,7 @@ function editExpense(e) {
       <div class="field">
         <p class="title">Mode of Payment</p>
         <select name="modeOfPays" id="mode">
+          <option value="">Select Payment Method</option>
           <option value="cash">Cash</option>
           <option value="online">Online</option>
         </select>
@@ -303,15 +313,29 @@ function editExpense(e) {
         <p class="title">Remarks <span>(*optional)</span></p>
         <input type="text" id="remark">
       </div>
+      <div class="field">
+        <p class="title">Select Category</p>
+        <select name="category" id="category">
+          <option value="">Select Category</option>
+        </select>
+      </div>
     </div>
     <div class="action-btn flex align-center">
-      <button type="button" onclick="updExpense(${id})" class="flex-1">Update</button>
+      <button type="button" onclick="updateIncome_expense(${id},'${type}')" class="flex-1">Update</button>
       <button type="reset" class="flex-1 delete" onclick="hidePopup(this)">Cancel</button>
     </div>
   </form>
 </div>`;
+  if (type !== 'expense') {
+    maindrop.children[0].querySelectorAll("div")[5].style.display = "none";
+    maindrop.children[0].querySelectorAll("div")[6].style.display = "none";
+  }
   const dropDownTarget = document.querySelector(`.editexpense`);
   dropDownTarget.classList.toggle(`hide`);
+  let expense_category = dropDownTarget.querySelector(`#category`);
+  STATES.Expense_category.data.forEach((e) => {
+    expense_category.innerHTML += `<option value="${e.cat_name}">${e.cat_name}</option>`;
+  });
   if (e) {
     dropDownTarget.querySelector(`#exp-name`).value =
       target.querySelector(`.exp-name-data`).innerText;
@@ -324,18 +348,29 @@ function editExpense(e) {
     );
     dropDownTarget.querySelector(`#mode`).value =
       target.querySelector(`.exp-mode-data`).innerText;
+    dropDownTarget.querySelector(`#remark`).value =
+      target.querySelector(`.exp-remark`).innerText;
   }
 }
-function updExpense(exp_id) {
+function updateIncome_expense(exp_id, type) {
+  let elemetCtn, requestURI;
+  if (type == "Normal") {
+    requestURI = ReqURI.updateProjectFinNormal;
+  } else if (type == "Misc") {
+    requestURI = ReqURI.updateProjectFinMisc;
+  } else {
+    requestURI = ReqURI.updExps;
+  }
   let editCtn = document.querySelector(".editexpense");
   let dataObj = {
     title: editCtn.querySelector("#exp-name").value,
     amount: editCtn.querySelector("#amount").value.substring(2),
     mode: editCtn.querySelector("#mode").value,
-    remark: editCtn.querySelector("#remark").value,
     date: date_Split(editCtn.querySelector("#date").value, "-", true),
+    remark: editCtn.querySelector("#remark").value,
+    category: editCtn.querySelector("#category").value,
   };
-  ReqHandler.PUT(ReqURI.updExps + exp_id, dataObj)
+  ReqHandler.PUT(requestURI + exp_id, dataObj)
     .then((res) => {
       console.log(res);
       if (res.status == true) {
@@ -351,6 +386,7 @@ function updExpense(exp_id) {
       console.log("Error(fn-ExpsUpdate):", err);
     });
 }
+
 function ChangeExpsByMonths(e) {
   let dataCtn = document.querySelector(".expense-table table tbody");
   let m = document.querySelector("#ExpsMonth").value;
@@ -361,28 +397,28 @@ function ChangeExpsByMonths(e) {
       if (res.status) {
         res.data.forEach((e) => {
           let html = `<tr data-e_id="${e.id}" class="expense-border">
-  <td>
-    ${e.id}
-  </td>
-  <td class="exp-name-data">
-    ${e.title}
-  </td>
-  <td class="exp-amount-data">
-    &#8377; ${e.amount}
-  </td>
-  <td class="exp-date-data">
-    ${e.date}
-  </td>
-  <td class="exp-mode-data">
-    ${e.md_type}
-  </td>
-  <td>
-    ${e.remark}
-  </td>
-  <td class="flex align-center">
-    <button class="edit" data-exps_id="<%= exps.id %>" onclick="editExpense(this)">Edit</button>
-  </td>
-</tr>`;
+                      <td>
+                        ${e.id}
+                      </td>
+                      <td class="exp-name-data">
+                        ${e.title}
+                      </td>
+                      <td class="exp-amount-data">
+                        &#8377; ${e.amount}
+                      </td>
+                      <td class="exp-date-data">
+                        ${e.date}
+                      </td>
+                      <td class="exp-mode-data">
+                        ${e.md_type}
+                      </td>
+                      <td>
+                        ${e.remark}
+                      </td>
+                      <td class="flex align-center">
+                        <button class="edit" data-exps_id="<%= exps.id %>" onclick="editExpense(this)">Edit</button>
+                      </td>
+                    </tr>`;
           dataCtn.innerHTML += html;
         });
       } else {
@@ -395,7 +431,7 @@ function ChangeExpsByMonths(e) {
 }
 
 //EXPENSE CATEGORY
-function getExpense_Category() {
+function getExpense_Category_payment_methods() {
   let category = document.querySelector("#category");
   ReqHandler.GET(ReqURI.Expense_category)
     .then((res) => {
@@ -403,7 +439,13 @@ function getExpense_Category() {
       res.data.forEach((e) => {
         category.innerHTML += `<option value="${e.cat_name}">${e.cat_name}</option>`;
       });
-      console.log("fn-getExpense_Category working fine");
+    })
+    .catch((err) => {
+      console.log("Error(fn-getExpense_Category):", err);
+    });
+  ReqHandler.GET(ReqURI.Payment_methods)
+    .then((res) => {
+      STATES.Payment_methods = res;
     })
     .catch((err) => {
       console.log("Error(fn-getExpense_Category):", err);
@@ -447,9 +489,6 @@ async function getLast_Projects_and_Search(search_term) {
         ? ReqURI.search_last_project + search_term
         : ReqURI.last_project
     );
-    console.log(res);
-    console.log(search_term);
-
     if (search_term) {
       STATES.Search_Last_projects = res.data;
     } else {
@@ -607,7 +646,47 @@ function Select_Phase_showDate(e) {
     });
   }
 }
-
+function DeleteIncome_expense(e, type, entity_id) {
+  let elemetCtn, requestURI;
+  elemetCtn = e.parentElement.parentElement;
+  if (type == "Normal") {
+    requestURI = ReqURI.delProjectFinNormal;
+  } else if (type == "Misc") {
+    requestURI = ReqURI.delProjectFinMisc;
+  } else {
+    requestURI = ReqURI.delExpense;
+  }
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it!",
+  }).then(async (pers) => {
+    if (pers.isConfirmed) {
+      ReqHandler.DEL(requestURI + entity_id)
+        .then((res) => {
+          console.log(res);
+          AlertNotifier(res.status, res.msg, "success");
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+        })
+        .catch((err) => {
+          AlertNotifier(res.status, res.msg, "error");
+          console.log(
+            "error getting IsProjectPaid() data expanse.js |ln:110 " + err
+          );
+        });
+    }
+  });
+}
+function setCurrentMonth() {
+  const select = document.getElementById("ExpsMonth");
+  const currentMonth = new Date().getMonth() + 1;
+  select.value = currentMonth;
+}
+setCurrentMonth();
 (function IsProjectPaid() {
   let IsPainCtn = document.querySelector(".finance-notifications");
   ReqHandler.GET(ReqURI.NisProjectPaid)
@@ -650,5 +729,5 @@ function Select_Phase_showDate(e) {
       );
     });
 })();
-getExpense_Category();
+getExpense_Category_payment_methods();
 getLast_Projects_and_Search();

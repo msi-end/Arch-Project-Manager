@@ -9,7 +9,7 @@
       </span>
     </div>
     <div class="edit-more-data flex align-center">
-      <p class="title" onclick="editPwd(this) ">Change Password</p>
+      <p class="title" onclick="editPwd(this,<%= user.em_id %>)">Change Password</p>
       <button class="edit-btn" data-id="<%= user.em_id %>" onclick="editUser(this, true)">Edit</button>
       <button class="delete-btn" data-id="<%= user.em_id %>" onclick="delete_User(this, <%= user.em_id %>, true)">
         <svg fill="#000000" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -57,8 +57,8 @@
     </div>
     <div class="description flex align-center">
       <h3>Status:</h3>
-      <p class="text <%= user.status ? 'status success' : 'status warning' %>">
-        <%= user.status ? "active" : "inactive" %>
+      <p class="text <%= user.status=="active" ? 'status success' : 'status warning' %>">
+        <%= user.status ? user.status : "unknown" %>
       </p>
     </div>
   </div>

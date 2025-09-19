@@ -71,6 +71,8 @@
   font-size: 14px;
   opacity: 0.9;
   margin-top: 5px;
+      background: #fbf3df!important;
+    color: #b74706!important;
 }
 
 .close-btn {
