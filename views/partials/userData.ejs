@@ -1,119 +1,123 @@
 <div class="close-more-data hide" id="more-data-<%= user.em_id%>">
-    <div class="more-btn flex align-center j-between">
-        <div>
-            <span class="icon" data-id="<%= user.em_id %>">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-left">
-                    <path fill="#"
-                        d="M11.46,8.29a1,1,0,0,0-1.42,0l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L9.16,12l2.3-2.29A1,1,0,0,0,11.46,8.29ZM14.66,12,17,9.71a1,1,0,0,0-1.42-1.42l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
-                    </path>
-                </svg>
-            </span>
-        </div>
-        <div class="edit-more-data flex align-center">
-            <p class="title" onclick="editPwd(this) ">Change Password</p>
-            <button data-id="<%= user.em_id %>" onclick="editUser(this, true)">Edit</button>
-        </div>
+  <div class="more-btn flex align-center j-between">
+    <div>
+      <span class="icon" data-id="<%= user.em_id %>">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="angle-double-left">
+          <path fill="#" d="M11.46,8.29a1,1,0,0,0-1.42,0l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L9.16,12l2.3-2.29A1,1,0,0,0,11.46,8.29ZM14.66,12,17,9.71a1,1,0,0,0-1.42-1.42l-3,3a1,1,0,0,0,0,1.42l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z">
+          </path>
+        </svg>
+      </span>
     </div>
-    <!-- DETAILS  -->
-    <div class="contents grid">
-        <div class="description flex align-center">
-            <h3>Name:</h3>
-            <p class="text name">
-                <%= user.name %>
-            </p>
-        </div>
-        <div class="description flex align-center">
-            <h3>Phone Number:</h3>
-            <p class="text">+91 <span class="number"> <%= user.number=='' ?'N/A':user.number %></span>
-            </p>
-        </div>
-        <div class="description flex align-center">
-            <h3>Email ID:</h3>
-            <p class="text email">
-                <%= user.email %>
-            </p>
-        </div>
-        <div class="description flex align-center">
-            <h3>Designation:</h3>
-            <p class="text designation">
-                <%= user.job_role %>
-            </p>
-        </div>
-        <div class="description flex align-center">
-            <h3>Last Login:</h3>
-            <p class="text date">
-                <%= user.lastLoginAt %>
-            </p>
-        </div>
-        <div class="description flex align-center">
-            <h3>Last Logout:</h3>
-            <p class="text date">
-                <%= user.lastLogoutAt %>
-            </p>
-        </div>
-        <div class="description flex align-center">
-            <h3>Status:</h3>
-            <p class="text <%= user.status ? 'status success' : 'status warning' %>">
-                <%= user.status ? "active" : "inactive" %>
-            </p>
-        </div>
+    <div class="edit-more-data flex align-center">
+      <p class="title" onclick="editPwd(this,<%= user.em_id %>)">Change Password</p>
+      <button class="edit-btn" data-id="<%= user.em_id %>" onclick="editUser(this, true)">Edit</button>
+      <button class="delete-btn" data-id="<%= user.em_id %>" onclick="delete_User(this, <%= user.em_id %>, true)">
+        <svg fill="#000000" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5.755,20.283,4,8H20L18.245,20.283A2,2,0,0,1,16.265,22H7.735A2,2,0,0,1,5.755,20.283ZM21,4H16V3a1,1,0,0,0-1-1H9A1,1,0,0,0,8,3V4H3A1,1,0,0,0,3,6H21a1,1,0,0,0,0-2Z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <!-- DETAILS  -->
+  <div class="contents grid">
+    <div class="description flex align-center">
+      <h3>Name:</h3>
+      <p class="text name">
+        <%= user.name %>
+      </p>
+    </div>
+    <div class="description flex align-center">
+      <h3>Phone Number:</h3>
+      <p class="text">+91 <span class="number"> <%= user.number=='' ?'N/A':user.number %></span>
+      </p>
+    </div>
+    <div class="description flex align-center">
+      <h3>Email ID:</h3>
+      <p class="text email">
+        <%= user.email %>
+      </p>
+    </div>
+    <div class="description flex align-center">
+      <h3>Designation:</h3>
+      <p class="text designation">
+        <%= user.job_role %>
+      </p>
+    </div>
+    <div class="description flex align-center">
+      <h3>Last Login:</h3>
+      <p class="text date">
+        <%= user.lastLoginAt %>
+      </p>
+    </div>
+    <div class="description flex align-center">
+      <h3>Last Logout:</h3>
+      <p class="text date">
+        <%= user.lastLogoutAt %>
+      </p>
+    </div>
+    <div class="description flex align-center">
+      <h3>Status:</h3>
+      <p class="text <%= user.status=="active" ? 'status success' : 'status warning' %>">
+        <%= user.status ? user.status : "unknown" %>
+      </p>
+    </div>
+  </div>
+
+  <!-- PROJECT INVOLVED  -->
+  <div class="tabs flex">
+    <div class="project-involved flex-1">
+      <div class="tabs-header flex align-center j-between">
+        <p class="sub">Projects Involved In</p>
+        <p class="value">1</p>
+      </div>
+      <div class="tabs-content">
+        <p class="title">Normal Projects</p>
+        <ul>
+          <li class="flex align-center j-between">
+            <span class="dot"></span> <span class="flex-1">In Progress</span> <span id="nip">1</span>
+          </li>
+          <li class="flex align-center j-between">
+            <span class="dot"></span> <span class="flex-1">Completed</span> <span id="nc">1</span>
+          </li>
+        </ul>
+      </div>
+      <div class="tabs-content">
+        <p class="title">Miscellaneous Projects</p>
+        <ul>
+          <li class="flex align-center j-between">
+            <span class="dot"></span> <span class="flex-1">In Progress</span> <span id="mip">1</span>
+          </li>
+          <li class="flex align-center j-between">
+            <span class="dot"></span> <span class="flex-1">Completed</span> <span id="mc">1</span>
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <!-- PROJECT INVOLVED  -->
-    <div class="tabs flex">
-        <div class="project-involved flex-1">
-            <div class="tabs-header flex align-center j-between">
-                <p class="sub">Projects Involved In</p>
-                <p class="value">1</p>
-            </div>
-            <div class="tabs-content">
-                <p class="title">Normal Projects</p>
-                <ul>
-                    <li class="flex align-center j-between">
-                        <span class="dot"></span> <span class="flex-1">In Progress</span> <span id="nip">1</span>
-                    </li>
-                    <li class="flex align-center j-between">
-                        <span class="dot"></span> <span class="flex-1">Completed</span> <span id="nc">1</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="tabs-content">
-                <p class="title">Miscellaneous Projects</p>
-                <ul>
-                    <li class="flex align-center j-between">
-                        <span class="dot"></span> <span class="flex-1">In Progress</span> <span id="mip">1</span>
-                    </li>
-                    <li class="flex align-center j-between">
-                        <span class="dot"></span> <span class="flex-1">Completed</span> <span id="mc">1</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="attendance flex-1">
-            <div class="tabs-header flex align-center j-between">
-                <p class="sub">Attendance</p>
-                <p class="value" id="attValue">1</p>
-            </div>
-            <div class="tabs-content">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Start Time</th>
-                            <th>End Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>12/12/2024</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="attendance flex-1">
+      <div class="tabs-header flex align-center j-between">
+        <p class="sub">Attendance</p>
+        <p class="value" id="attValue">1</p>
+      </div>
+      <div class="tabs-content">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>12/12/2024</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 
 </div>

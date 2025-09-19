@@ -1,24 +1,24 @@
-const getFun = new DataCall()
+const getFun = new DataCall();
 
 function hidePopup(event) {
-    document.querySelector(".main-popup").classList.add('hide');
+  document.querySelector(".main-popup").classList.add("hide");
 }
 
 async function addSplitAdvance(data) {
-    const { ndealid, taskid } = data.dataset
-    const maindrop = document.querySelector(`.main-popup`);
-    maindrop.classList.toggle(`hide`)
-    maindrop.innerHTML = ""
-    maindrop.innerHTML = `<div class="advance-dropdown blur hide">
+  const { ndealid, taskid } = data.dataset;
+  const maindrop = document.querySelector(`.main-popup`);
+  maindrop.classList.toggle(`hide`);
+  maindrop.innerHTML = "";
+  maindrop.innerHTML = `<div class="advance-dropdown blur hide">
     <form class="form" id="advance-form">
     <h2>Update Amount</h2>
     <div class="grid">
         <div class="field">
             <p class="title">Date <span>(DD/MM/YYYY)</p>
-            <input type="text" name="dateofpay">
+            <input type="text" name="dateofpay" id="finc-date">
         </div>
         <div class="field">
-            <p class="title">Advance Amount <span>(in &#8377;)</span></p>
+            <p class="title">Amount Paid <span>(in &#8377;)</span></p>
             <input type="text" name="amount_got">
         </div>
         <div class="field">
@@ -34,25 +34,43 @@ async function addSplitAdvance(data) {
         <button type ="reset" class="flex-1 delete" onclick="hidePopup(this)" >Cancel</button>
     </div>
 </form>
-</div>`
-const dropDownTarget = document.querySelector(`.advance-dropdown`);
-    dropDownTarget.classList.toggle(`hide`);
+</div>`;
+  const dropDownTarget = document.querySelector(`.advance-dropdown`);
+  dropDownTarget.classList.toggle(`hide`);
+  flatpickr("#finc-date", { dateFormat: "d/m/Y", allowInput: true });
 
 }
 
 async function updataAdvancePay(data, e) {
-    e.preventDefault();
-    const target = data.dataset
-    const advanceData = new FormData(document.getElementById('advance-form'));
-    advanceData.append('ndeal_id', Number(target.dealid));
-    advanceData.append('task', Number(target.taskid));
-    await getFun.GET_POST('admin/finance/update-advancepay', 'POST', advanceData, 'form')
-    document.querySelector(`.main-popup`).classList.toggle(`hide`);
+  e.preventDefault();
+  const target = data.dataset;
+  const advanceData = new FormData(document.getElementById("advance-form"));
+  advanceData.append("ndeal_id", Number(target.dealid));
+  advanceData.append("task", Number(target.taskid));
+  await getFun.GET_POST(
+    "admin/finance/update-advancepay",
+    "POST",
+    advanceData,
+    "form"
+  );
+  document.querySelector(`.main-popup`).classList.toggle(`hide`);
 }
 
-
-function showAllAmount(e){
-    e.parentElement.parentElement.querySelector(`.amountInfo-popup`).classList.toggle(`hide`);
+function showAllAmount(e) {
+  e.parentElement.parentElement
+    .querySelector(`.amountInfo-popup`)
+    .classList.toggle(`hide`);
 }
-
-
+function updateAllProgressBars() {
+    let datactn = document.querySelectorAll('[class="contents grid"]')
+    datactn.forEach(card => {
+      const projectAmount = parseFloat(card.querySelector('#projectAmount').textContent) || 0;
+      const receivedAmount = parseFloat(card.querySelector('#receivedAmount').textContent) || 0;
+      const percent = projectAmount > 0 ? (receivedAmount / projectAmount) * 100 : 0;
+      card.querySelector('.progress-bar').style.width = percent + '%';
+    });
+  }
+  updateAllProgressBars()
+function getNormalprojectFinancePayment(e) {
+  
+}

@@ -20,7 +20,7 @@ app.use(session({
 
 
 // Administrator 
-const auth = require('./controllers/adminAuth')
+const auth = require('./routes/admin/auth.js')
 const indexRoutes = require('./routes/admin/indexRoutes')
 const userManager = require('./routes/admin/userManagerRoute.js')
 const settings = require('./routes/admin/settingRoute.js')
@@ -81,6 +81,6 @@ app.get('*',(req,res)=>{
 app.use(errHandler);
 app.listen(PORT,
     () => {
-        console.log(`working at port ${PORT} .env ${process.env.NODE_ENV}`);
+        console.log(`working at port http://localhost:${PORT} .env ${process.env.NODE_ENV}`);
     }
 )

@@ -1,12 +1,13 @@
 // ACTIVE NAVIGATION 
-(()=>{
-    let pageCtn=document.querySelector('nav')
-   let pageDataList= pageCtn.getElementsByTagName('a')
-   let activeElm=document.querySelector('main')
-   for (const e of pageDataList) {
-    if(activeElm.dataset.appPage==e.dataset.appPage)   {
-    e.classList.add('active')}
-   }
+(() => {
+    let pageCtn = document.querySelector('nav')
+    let pageDataList = pageCtn.getElementsByTagName('a')
+    let activeElm = document.querySelector('main')
+    for (const e of pageDataList) {
+        if (activeElm.dataset.appPage == e.dataset.appPage) {
+            e.classList.add('active')
+        }
+    }
 })()
 // HAMBURGER
 function hamburger() {
@@ -33,7 +34,7 @@ function hamburger() {
     document.querySelector('main').classList.toggle(`width`);
 }
 //MOBILE ONLY DEVICES
-function burger(){
+function burger() {
     document.querySelector('#ham').classList.toggle('mobile');
     document.querySelector('#logo-title').classList.toggle('mobile');
     document.querySelector('aside').classList.toggle('mobile');
@@ -51,11 +52,11 @@ function burger(){
     })
 }
 // FUNCTION USED 
-if(window.innerWidth > 768){
+if (window.innerWidth > 768) {
     document.querySelector(`#ham`).addEventListener("click", () => {
         hamburger()
     })
-}else{
+} else {
     document.querySelector(`#ham-mobile`).addEventListener("click", () => {
         burger()
     })
@@ -84,20 +85,26 @@ document.querySelectorAll('.close-more-data span.icon').forEach((icon) => {
 })
 // SEARCH INPUT 
 function search() {
-    var inpValue = document.getElementById('searchQuery').value.toLowerCase();
-    var elmCtn = document.querySelectorAll('tbody');
-    elmCtn.forEach(function (e) {
-        var contentText = e.textContent.toLowerCase();
-        if (contentText.includes(inpValue)) {
-            e.style.display = 'table-row-group';
-        } else { e.style.display = 'none'; }
-    });
-}
-function clearInput() {
-    document.querySelector(`#searchQuery`).value = "";
-    search()
+  let inpValue = document.querySelector('.searchQuery').value.toLowerCase();
+  const rows = document.querySelectorAll('tbody tr');
+  rows.forEach(row => {
+    const contentText = row.textContent.toLowerCase();
+    if (contentText.includes(inpValue)) {
+      row.style.display = ''; // default display
+    } else {
+      row.style.display = 'none';
+    }
+  });
 }
 
+function clearInput() {
+    document.querySelector(`.searchQuery`).value = "";
+}
+
+function searchIcon(){
+    document.querySelector(`.search`).style.display = 'flex';
+    document.querySelector(`.searchIcon`).style.display = 'none';
+}
 // DARK MODE 
 let darkMode = localStorage.getItem("mode");
 const toggle = document.querySelector(`.theme-toggler`);
@@ -127,11 +134,11 @@ toggle.addEventListener("click", () => {
 })
 
 // OPEN NOTIFICATION WINODW 
-function openNotification(){
+function openNotification() {
     document.querySelector(`.section-popup`).classList.toggle(`hide`);
 }
 
-function hideNotificationPopup(){
+function hideNotificationPopup() {
     document.querySelector(`.section-popup`).classList.toggle(`hide`);
 }
 //NOTIFICATION TOGGLE
@@ -150,25 +157,25 @@ function changeTab(Id) {
             tab.classList.add('active');
         } else {
             tab.classList.remove('active');
-        }   
+        }
     })
-  }
+}
 
 //ANALYTICS TAB
 
-function changeType(target){
+function changeType(target) {
     let n = document.querySelectorAll(`.n`);
     let m = document.querySelectorAll(`.m`);
-    if(target.value == "normal"){
+    if (target.value == "normal") {
         n.forEach(n => {
             n.classList.remove('hide');
         })
-        m.forEach(m =>{
+        m.forEach(m => {
             m.classList.add('hide');
         })
     }
-    else if(target.value == "misc"){
-        m.forEach(m =>{
+    else if (target.value == "misc") {
+        m.forEach(m => {
             m.classList.remove('hide');
         })
         n.forEach(n => {
@@ -176,3 +183,40 @@ function changeType(target){
         })
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const leftBtn = document.querySelector('#arrow-left').closest('.pagination-btn');
+    const rightBtn = document.querySelector('#arrow-right').closest('.pagination-btn');
+
+    const dataCp = document.querySelectorAll(`.dataCp`);
+    dataCp.forEach(data =>{
+        let currentPage = Number(data.dataset.currentPage) || 1;
+        const totalPages = Number(data.dataset.totalPages) || 10;
+    
+        function goToPage(page) {
+            const from = page - 1;
+            const to = page;
+            window.location.search = `?from=${from}&to=${to}`;
+        }
+    
+        if (leftBtn) {
+            leftBtn.addEventListener("click", () => {
+                if (currentPage > 1) {
+                    goToPage(currentPage - 1);
+                }
+            });
+        }
+    
+        if (rightBtn) {
+            rightBtn.addEventListener("click", () => {
+                if (currentPage < totalPages) {
+                    goToPage(currentPage + 1);
+                }
+            });
+        }
+    
+        
+        if (currentPage <= 1) leftBtn.classList.add(`disabled`);
+        if (currentPage >= totalPages) rightBtn.classList.add(`disabled`);
+    })
+});

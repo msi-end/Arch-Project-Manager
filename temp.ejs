@@ -1,35 +1,18 @@
 // ReqHandler Data
 BASE_URL = location.origin+location.pathname;
 let ReqURI = {
-  // Miscellaneous Tasks
   addMiscTask: BASE_URL + `/set-misc-task`,
   updMiscTask: BASE_URL + `/upt-misc-task/`,
   delMiscTask: BASE_URL + `/del-misc-task/`,
-  
-  // Sub Tasks
   subTask: BASE_URL + `/set-subtask`,
   updSubTask: BASE_URL + `/upt-subtask/`,
   delSubTask: BASE_URL + `/del-subtask/`,
-  
-  // Split Ratio
   splitRatio: BASE_URL + "/set-amountsplit",
   updSplitRatio: BASE_URL + "/upt-amountsplit/",
   delSplitRatio: BASE_URL + "/del-amountsplit/",
-  
-  // Expense Category
   expenseCategory: BASE_URL + "/set-expense-category",
   updExpenseCategory: BASE_URL + "/upt-expense-category/",
-  delExpenseCategory: BASE_URL + "/del-expense-category/",
-  
-  // Payment Methods
-  paymentMethods: BASE_URL + "/set-payment-methods",
-  updPaymentMethods: BASE_URL + "/upt-payment-methods/",
-  delPaymentMethods: BASE_URL + "/del-payment-methods/",
-  
-  // Project Category
-  projectCategory: BASE_URL + "/set-project-category",
-  updProjectCategory: BASE_URL + "/upt-project-category/",
-  delProjectCategory: BASE_URL + "/del-project-category/"
+  delExpenseCategory: BASE_URL + "/del-expense-category/"
 };
   
 document.addEventListener("DOMContentLoaded", () => {
@@ -105,7 +88,14 @@ function addMiscTask() {
     });
 }
 
-function editMiscTask(button) {
+function editMiscTask(e) {
+  const button = e.closest('button');
+  const isDeleteButton = button.classList.contains('delete-btn');
+  if (isDeleteButton) {
+    deleteMiscTask(button);
+    return;
+  }
+  
   let id = button.dataset.id;
   let type = button.parentElement.children[1].textContent;
   const maindrop = document.querySelector(".main-popup");
@@ -207,7 +197,15 @@ function addSubTask() {
     });
 }
 
-function editSubTask(button) {
+function editSubTask(e) {
+  const button = e.closest('button');
+  const isDeleteButton = button.classList.contains('delete-btn');
+  
+  if (isDeleteButton) {
+    deleteSubTask(button);
+    return;
+  }
+  
   let id = button.dataset.id;
   let type = button.parentElement.children[1].textContent;
   const maindrop = document.querySelector(".main-popup");
@@ -325,9 +323,9 @@ function addSplitRatio() {
   }
 }
 
-function editSplitRatio(button) {
-  let id = button.dataset.id;
-  let type = button.parentElement.children[1].textContent;
+function editSplitRatio(e) {
+  let id = e.dataset.id;
+  let type = e.parentElement.children[1].textContent;
   const maindrop = document.querySelector(".main-popup");
   maindrop.classList.remove("hide");
   maindrop.innerHTML = "";
@@ -418,17 +416,17 @@ function addExpenseCategory() {
 
   // Parse input - expecting format like "Category Name | Category Description"
   const parts = inputValue.value.split('|').map(part => part.trim());
-  const cat_name = parts[0];
-  const cat_desc = parts[1] || '';
+  const catName = parts[0];
+  const catDesc = parts[1] || '';
 
-  if (!cat_name) {
+  if (!catName) {
     AlertNotifier(false, "Please enter a category name", "warning");
     return;
   }
 
   ReqHandler.POST(ReqURI.expenseCategory, { 
-    cat_name: cat_name,
-    cat_desc: cat_desc
+    cat_name: catName,
+    cat_desc: catDesc
   })
     .then((res) => {
       if (res.status == true) {
@@ -447,11 +445,11 @@ function addExpenseCategory() {
     });
 }
 
-function editExpenseCategory(button) {
-  let id = button.dataset.id;
-  let categoryElement = button.parentElement;
-  let cat_name = categoryElement.querySelector('span.flex-1').textContent.trim();
-  let cat_desc = categoryElement.querySelector('span[style*="font-size: 13px"]').textContent.trim();
+function editExpenseCategory(e) {
+  let id = e.dataset.id;
+  let categoryElement = e.parentElement;
+  let catName = categoryElement.querySelector('span.flex-1').textContent.trim();
+  let catDesc = categoryElement.querySelector('span[style*="font-size: 13px"]').textContent.trim();
   
   const maindrop = document.querySelector(".main-popup");
   maindrop.classList.remove("hide");
@@ -462,11 +460,11 @@ function editExpenseCategory(button) {
         <h2>Update Expense Category</h2>
         <div class="field">
           <p class="title">Category Name</p>
-          <input type="text" id="upd-exp-cat-name" placeholder="Enter category name" required>
+          <input type="text" id="cat_name" placeholder="Enter category name" required>
         </div>
         <div class="field">
           <p class="title">Category Description</p>
-          <textarea id="upd-exp-cat-desc" placeholder="Enter category description" rows="3" style="padding: 10px;border-radius: 6px;border: 1px solid #e7e6df;" ></textarea>
+          <textarea id="cat_desc" placeholder="Enter category description" rows="3"  style="padding: 10px;border-radius: 6px;border: 1px solid #e7e6df;" ></textarea>
         </div>
         <div class="action-btn flex align-center">
           <button type="button" class="flex-1" onclick="updExpenseCategory(event, ${id})">Update</button>
@@ -477,23 +475,23 @@ function editExpenseCategory(button) {
   
   const dropDownTarget = document.querySelector(".expense-category");
   dropDownTarget.classList.toggle("hide");
-  dropDownTarget.querySelector(`#upd-exp-cat-name`).value = cat_name;
-  dropDownTarget.querySelector(`#upd-exp-cat-desc`).value = cat_desc;
+  dropDownTarget.querySelector(`#cat_name`).value = catName;
+  dropDownTarget.querySelector(`#cat_desc`).value = catDesc;
 }
 
 function updExpenseCategory(event, id) {
   event.preventDefault();
-  let cat_nameInput = document.getElementById("upd-exp-cat-name");
-  let cat_descInput = document.getElementById("upd-exp-cat-desc");
+  let catNameInput = document.getElementById("cat_name");
+  let catDescInput = document.getElementById("cat_desc");
   
-  if (!cat_nameInput.value.trim()) {
+  if (!catNameInput.value.trim()) {
     AlertNotifier(false, "Please enter a category name", "warning");
     return;
   }
 
   ReqHandler.PUT(ReqURI.updExpenseCategory + id, { 
-    cat_name: cat_nameInput.value.trim(),
-    cat_desc: cat_descInput.value.trim()
+    cat_name: catNameInput.value.trim(),
+    cat_desc: catDescInput.value.trim()
   })
     .then((res) => {
       if (res.status == true) {
@@ -533,260 +531,6 @@ function deleteExpenseCategory(button) {
   });
 }
 
-// ==================== PAYMENT METHODS OPERATIONS ====================
-
-function addPaymentMethods() {
-  let inputValue = document.getElementById("methods-name");
-  
-  if (!inputValue.value.trim()) {
-    AlertNotifier(false, "Please enter payment method details", "warning");
-    return;
-  }
-
-  // Parse input - expecting format like "Method Name | Method Description"
-  const parts = inputValue.value.split('|').map(part => part.trim());
-  const method_name = parts[0];
-  const method_desc = parts[1] || '';
-
-  if (!method_name) {
-    AlertNotifier(false, "Please enter a payment method name", "warning");
-    return;
-  }
-
-  ReqHandler.POST(ReqURI.paymentMethods, { 
-    method_name: method_name,
-    method_desc: method_desc
-  })
-    .then((res) => {
-      if (res.status == true) {
-        AlertNotifier(res.status, res.msg, "success");
-        inputValue.value = "";
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
-      } else {
-        AlertNotifier(res.status, res.msg, "error");
-      }
-    })
-    .catch((err) => {
-      console.log("Error(fn-addPaymentMethods):", err);
-      AlertNotifier(false, "An error occurred while adding the payment method", "error");
-    });
-}
-
-function editPaymentMethods(button) {
-  let id = button.dataset.id;
-  let methodElement = button.parentElement;
-  let method_name = methodElement.querySelector('span.flex-1').textContent.trim();
-  let method_desc = methodElement.querySelector('span[style*="font-size: 13px"]').textContent.trim();
-  
-  const maindrop = document.querySelector(".main-popup");
-  maindrop.classList.remove("hide");
-  maindrop.innerHTML = "";
-  maindrop.innerHTML = `
-    <div class="payment-method blur hide">
-      <form action="" class="form">
-        <h2>Update Payment Method</h2>
-        <div class="field">
-          <p class="title">Method Name</p>
-          <input type="text" id="upd-method-name" placeholder="Enter payment method name" required>
-        </div>
-        <div class="field">
-          <p class="title">Method Description</p>
-          <textarea id="upd-method-desc" placeholder="Enter method description" rows="3" style="padding: 10px;border-radius: 6px;border: 1px solid #e7e6df;" ></textarea>
-        </div>
-        <div class="action-btn flex align-center">
-          <button type="button" class="flex-1" onclick="updPaymentMethods(event, ${id})">Update</button>
-          <button type="button" class="flex-1 delete" onclick="hidePopup(event)">Cancel</button>
-        </div>
-      </form>
-    </div>`;
-  
-  const dropDownTarget = document.querySelector(".payment-method");
-  dropDownTarget.classList.toggle("hide");
-  dropDownTarget.querySelector(`#upd-method-name`).value = method_name;
-  dropDownTarget.querySelector(`#upd-method-desc`).value = method_desc;
-}
-
-function updPaymentMethods(event, id) {
-  event.preventDefault();
-  let method_nameInput = document.getElementById("upd-method-name");
-  let method_descInput = document.getElementById("upd-method-desc");
-  
-  if (!method_nameInput.value.trim()) {
-    AlertNotifier(false, "Please enter a payment method name", "warning");
-    return;
-  }
-
-  ReqHandler.PUT(ReqURI.updPaymentMethods + id, { 
-    method_name: method_nameInput.value.trim(),
-    method_desc: method_descInput.value.trim()
-  })
-    .then((res) => {
-      if (res.status == true) {
-        AlertNotifier(res.status, res.msg, "success");
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
-      } else {
-        AlertNotifier(res.status, res.msg, "error");
-      }
-    })
-    .catch((err) => {
-      console.log("Error(fn-updPaymentMethods):", err);
-      AlertNotifier(false, "An error occurred while updating the payment method", "error");
-    });
-}
-
-function deletePaymentMethods(button) {
-  let id = button.dataset.id;
-  
-  showDeleteConfirmation(() => {
-    ReqHandler.DEL(ReqURI.delPaymentMethods + id)
-      .then((res) => {
-        if (res.status == true) {
-          AlertNotifier(res.status, res.msg, "success");
-          setTimeout(() => {
-            location.reload();
-          }, 1000);
-        } else {
-          AlertNotifier(res.status, res.msg, "error");
-        }
-      })
-      .catch((err) => {
-        console.log("Error(fn-deletePaymentMethods):", err);
-        AlertNotifier(false, "An error occurred while deleting the payment method", "error");
-      });
-  });
-}
-
-// ==================== PROJECT CATEGORY OPERATIONS ====================
-
-function addProjectCategory() {
-  let inputValue = document.getElementById("pro_cat-name");
-  
-  if (!inputValue.value.trim()) {
-    AlertNotifier(false, "Please enter project category details", "warning");
-    return;
-  }
-
-  // Parse input - expecting format like "Category Name | Category Description"
-  const parts = inputValue.value.split('|').map(part => part.trim());
-  const cat_name = parts[0];
-  const cat_desc = parts[1] || '';
-
-  if (!cat_name) {
-    AlertNotifier(false, "Please enter a project category name", "warning");
-    return;
-  }
-
-  ReqHandler.POST(ReqURI.projectCategory, { 
-    cat_name: cat_name,
-    cat_desc: cat_desc
-  })
-    .then((res) => {
-      if (res.status == true) {
-        AlertNotifier(res.status, res.msg, "success");
-        inputValue.value = "";
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
-      } else {
-        AlertNotifier(res.status, res.msg, "error");
-      }
-    })
-    .catch((err) => {
-      console.log("Error(fn-addProjectCategory):", err);
-      AlertNotifier(false, "An error occurred while adding the project category", "error");
-    });
-}
-
-function editProjectCategory(button) {
-  let id = button.dataset.id;
-  let categoryElement = button.parentElement;
-  let cat_name = categoryElement.querySelector('span.flex-1').textContent.trim();
-  let cat_desc = categoryElement.querySelector('span[style*="font-size: 13px"]').textContent.trim();
-  
-  const maindrop = document.querySelector(".main-popup");
-  maindrop.classList.remove("hide");
-  maindrop.innerHTML = "";
-  maindrop.innerHTML = `
-    <div class="project-category blur hide">
-      <form action="" class="form">
-        <h2>Update Project Category</h2>
-        <div class="field">
-          <p class="title">Category Name</p>
-          <input type="text" id="upd-pro-cat-name" placeholder="Enter project category name" required>
-        </div>
-        <div class="field">
-          <p class="title">Category Description</p>
-          <textarea id="upd-pro-cat-desc" placeholder="Enter category description" rows="3" style="padding: 10px;border-radius: 6px;border: 1px solid #e7e6df;" ></textarea>
-        </div>
-        <div class="action-btn flex align-center">
-          <button type="button" class="flex-1" onclick="updProjectCategory(event, ${id})">Update</button>
-          <button type="button" class="flex-1 delete" onclick="hidePopup(event)">Cancel</button>
-        </div>
-      </form>
-    </div>`;
-  
-  const dropDownTarget = document.querySelector(".project-category");
-  dropDownTarget.classList.toggle("hide");
-  dropDownTarget.querySelector(`#upd-pro-cat-name`).value = cat_name;
-  dropDownTarget.querySelector(`#upd-pro-cat-desc`).value = cat_desc;
-}
-
-function updProjectCategory(event, id) {
-  event.preventDefault();
-  let cat_nameInput = document.getElementById("upd-pro-cat-name");
-  let cat_descInput = document.getElementById("upd-pro-cat-desc");
-  
-  if (!cat_nameInput.value.trim()) {
-    AlertNotifier(false, "Please enter a project category name", "warning");
-    return;
-  }
-
-  ReqHandler.PUT(ReqURI.updProjectCategory + id, { 
-    cat_name: cat_nameInput.value.trim(),
-    cat_desc: cat_descInput.value.trim()
-  })
-    .then((res) => {
-      if (res.status == true) {
-        AlertNotifier(res.status, res.msg, "success");
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
-      } else {
-        AlertNotifier(res.status, res.msg, "error");
-      }
-    })
-    .catch((err) => {
-      console.log("Error(fn-updProjectCategory):", err);
-      AlertNotifier(false, "An error occurred while updating the project category", "error");
-    });
-}
-
-function deleteProjectCategory(button) {
-  let id = button.dataset.id;
-  
-  showDeleteConfirmation(() => {
-    ReqHandler.DEL(ReqURI.delProjectCategory + id)
-      .then((res) => {
-        if (res.status == true) {
-          AlertNotifier(res.status, res.msg, "success");
-          setTimeout(() => {
-            location.reload();
-          }, 1000);
-        } else {
-          AlertNotifier(res.status, res.msg, "error");
-        }
-      })
-      .catch((err) => {
-        console.log("Error(fn-deleteProjectCategory):", err);
-        AlertNotifier(false, "An error occurred while deleting the project category", "error");
-      });
-  });
-}
-
 // ==================== UTILITY FUNCTIONS ====================
 
 // Clear all form inputs
@@ -821,46 +565,22 @@ function formatText(text, maxLength = 50) {
 
 // Export functions for potential external use
 window.SettingsManager = {
-  // Miscellaneous Tasks
   addMiscTask,
   editMiscTask,
   updMiscTask,
   deleteMiscTask,
-  
-  // Sub Tasks
   addSubTask,
   editSubTask,
   updSubTask,
   deleteSubTask,
-  
-  // Split Ratio
   addSplitRatio,
   editSplitRatio,
   updSplitRatio,
   deleteSplitRatio,
-  
-  // Expense Categories
   addExpenseCategory,
   editExpenseCategory,
   updExpenseCategory,
   deleteExpenseCategory,
-  
-  // Payment Methods
-  addPaymentMethods,
-  editPaymentMethods,
-  updPaymentMethods,
-  deletePaymentMethods,
-  
-  // Project Categories
-  addProjectCategory,
-  editProjectCategory,
-  updProjectCategory,
-  deleteProjectCategory,
-  
-  // Utilities
   clearAllInputs,
-  validateInput,
-  showLoading,
-  hideLoading,
-  formatText
+  validateInput
 };

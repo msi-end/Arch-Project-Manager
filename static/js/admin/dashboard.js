@@ -102,21 +102,22 @@ async function getProjectsStatus() {
     } catch (err) { console.error('Error project status:', err); }
 }
 setTimeout(() => { getProjectsStatus() }, 1500)
+
 async function CheckDeadline() {
-    let ctn = document.getElementsByClassName('ahead')
+    let ctn = document.getElementsByClassName('data-info')
     var crDate = new Date();
     var [y, m, d] = [crDate.getFullYear(), (crDate.getMonth() + 1).toString().padStart(2, '0'), crDate.getDate().toString().padStart(2, '0')]
     let today = new Date(`${y}/${m}/${d}`)
     let upcDate = new Date(today.valueOf() + 24 * 60 * 60 * 1000 * 10)
     // let upcDate = new Date('2024/03/05')
     for (const e of ctn) {
-        let status = e.querySelector('.stat').innerText
-        let date = date_Split(e.querySelector('.emp_date').innerText, '/', false).replaceAll('-', '/')
+        let status = e.querySelector('.status').innerText
+        let date = date_Split(document.querySelector('#dead').innerText, '/', false).replaceAll('-', '/')
         NewDate = new Date(`20${date}`)
         if (status == 'pending' && NewDate.getTime() === upcDate.getTime()) {
             data = {
                 id: 0, date: `${d}/${m}/${y}`,
-                title: `Project With Refno.${e.querySelector('.ref').children[1].innerText} ,Name:${e.querySelector('.pro').children[1].innerText} is near to it's Deadline.`,
+                title: `Project of ${e.querySelector('#clientId').innerText} with Ref No.${e.querySelector('#refid').innerText} is near to it's Deadline. Please collect payment from him`,
             }
             await ReqHandler.POST(location.origin + '/apiv1/set-notifi', data).then(res => {
                 console.log(res);
@@ -154,9 +155,4 @@ async function DeleteMiscProject(e, o) {
             })
         }
     });
-}
-function SearchFromInput() {
-    let query = document.getElementById('searchQuery').value
-    location.href = location.href + `&search=${query}`
-
 }

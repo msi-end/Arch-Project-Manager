@@ -73,7 +73,7 @@ nav.mobile{
     .main-section, .main-summary, .sub-summary, .heading{
         padding: var(--px-10);
     }
-    .top-section{
+    .top-section, .switch{
         padding: 0 var(--px-10);
     }
     .main-summary{
@@ -120,6 +120,11 @@ nav.mobile{
     .sub-box h2.value{
         font-size: var(--f-size-28);
     }
+    .top-expense-section, .top-user-section{
+        flex-direction: column;
+        align-items: start;
+        gap: var(--px-10);
+    }
 }
 @media only screen and (max-width : 680px){
     .search{
@@ -128,8 +133,18 @@ nav.mobile{
     .searchIcon{
         display: flex;
     }
-    .form-container .grid{
+    .form-container .grid, .form > .grid, .contents, .task-grid, .switch
+    {
         grid-template-columns: 1fr;
+    }
+    .add-button button span.text{
+        display: none;
+    }
+    .tabs{
+        flex-direction: column;
+    }
+    .notification-popup{
+        margin: 0;
     }
 }
 @media only screen and (max-width : 370px){

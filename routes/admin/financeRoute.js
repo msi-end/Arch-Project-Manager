@@ -1,13 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const fControl = require('../../controllers/financeManager.crud')
+const financeManagerController = require('../../controllers/financeManager.crud')
 
 router.use(express.urlencoded({extended: false}))
 router.use(express.json());
 
-router.post('/update-advancepay', fControl.updateNpAmountRecieved)
-router.get('/get-income-expense', fControl.getIncom_Exp_total)
+router.post('/update-advancepay', financeManagerController.updateNpAmountRecieved)
+router.get('/get-income-expense', financeManagerController.getIncom_Exp_total)
 
-router.put('/update-advancepay-mp', fControl.updateMpAmountGot)
+router.put('/update-advancepay-mp', financeManagerController.updateMpAmountGot)
+
+router.delete('/delete_misc_payment/:id', financeManagerController.deleteMisc_FinancePaymentsByID)
+router.put('/update_misc_payment/:id', financeManagerController.updateMisc_FinancePaymentsByID)
+router.delete('/delete_normal_payment/:id', financeManagerController.deleteNormal_FinancePaymentsByID)
+router.put('/update_normal_payment/:id', financeManagerController.updateNormal_FinancePaymentsByID)
+
+
 
 module.exports = router;

@@ -39,8 +39,8 @@
 
 - [ ] Showing list of all Projects with --
 
-  > - [ ] total amount 
-  > - [ ] All 3 spliced amount 
+  > - [*] total amount 
+  > - [*] All 3 spliced amount 
   > - [ ] Amount paid , Amount remaining
   > - [ ] Amount in Hand , Amount in Bank of each project
   > - [ ] Advance & remaining balance  insertions 

@@ -7,7 +7,7 @@ let con = mysql.createPool({
     host: process.env.MySQL_host,
     user: process.env.MySQL_user,
     password: process.env.MySQL_pass,
-    // port: 3306,
+    port: 3306,
     database: process.env.MySQL_db,
     multipleStatements: true,
 })
