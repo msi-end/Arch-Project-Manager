@@ -4,7 +4,7 @@ const { EmailSender } = require("../utils/emailSender.js");
 
 exports.getEmployListPerProject = async (req, res) => {
   const { dealId, catId } = req.params;
-  const q = `SELECT deals.deal_name, employee.em_id, employee.name, employee.email,  normal_project_employee.category_id, normal_project_employee.ndeal_id
+  const q = `SELECT deals.deal_name, employee.em_id, employee.name, employee.email,  normal_project_employee.category_id, normal_project_employee.ndeal_id,normal_project_employee.status
     FROM normal_project_employee
     INNER JOIN deals ON deals.id = normal_project_employee.ndeal_id
     INNER JOIN employee ON employee.em_id = normal_project_employee.emid
@@ -361,3 +361,39 @@ exports.getNormalPhaseList = async (req, res) => {
     }
   });
 };
+
+exports.UpdateNormalEmployeeWorkStates = async (req, res) => {
+  const q = `UPDATE normal_project_employee SET status= ? WHERE emid= ? AND category_id =? AND ndeal_id =?`;
+  const query_2 = `SELECT * FROM normal_project_employee WHERE ndeal_id = ? AND category_id= ?`;
+  const query_3 = `UPDATE normal_project_cat SET cat_status=? WHERE ndeal_id = ? AND category_id= ?`;
+  await databaseCon.query(q, [req.body.status, req.body.employee_id, req.body.cat_id, req.body.project_id], async (err, result) => {
+    if (!err) {
+      res.status(200).send({ status: true, msg: "Successfully Updated Status ", data: result });
+    } else {
+      res.status(500).send({ status: false, msg: "failed to Update the Data" + err });
+      console.log(err);
+    }
+    await databaseCon.query(query_2, [req.body.project_id, req.body.cat_id], async (err, result) => {
+      let totalStatus ;
+           console.log(result);
+      const statuses = result.map(r => (r.status || '').toLowerCase());
+           console.log(statuses);
+
+      if (statuses.includes('on progress')||statuses.includes('completed')) {
+        totalStatus = 'On Progress';
+      } else {
+        totalStatus = 'Not Started'; 
+      } 
+      if (statuses.every(s => s == 'completed')) {
+        totalStatus = 'completed';
+      }
+      await databaseCon.query(query_3, [totalStatus, req.body.project_id, req.body.cat_id], async (err, result) => {
+        console.log(totalStatus);
+        if (!err) {
+        } else {
+          console.log(err);
+        }
+      });
+    });
+  })
+}

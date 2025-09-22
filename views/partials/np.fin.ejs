@@ -24,21 +24,20 @@
       <h3>Address:</h3>
       <p class="text"><%= fdata[0].city %></p>
     </div>
-     <div class="description flex align-center">
+    <div class="description flex align-center">
       <h3>Project Split:</h3>
-      <p class="text"><span id="projectAmount"><%= fdata[0].split %></span></p>
+      <p class="text"><span><%= fdata[0].split %></span></p>
     </div>
     <div class="description flex align-center">
       <h3>Project Amount:</h3>
       <p class="text">&#8377; <span id="projectAmount"><%= fdata[0].total_price %></span></p>
     </div>
-    <% 
-            const rAmount = fdata?.flatMap((task)=> {
-            return task.amount_rcv.reduce((sum, amount)=>sum + amount.amount, 0)
-            })
-            const rAmountRender = rAmount.reduce((acc, curr) => acc + curr, 0);
-            
-        %>
+    <% const rAmount=fdata?.flatMap((task)=> {
+      return task.amount_rcv.reduce((sum, amount)=>sum + amount.amount, 0)
+      })
+      const rAmountRender = rAmount.reduce((acc, curr) => acc + curr, 0);
+    
+      %>
     <div class="description flex align-center">
       <h3>Received Amount:</h3>
       <p class="text">&#8377; <span id="receivedAmount"><%= rAmountRender %></span></p>
@@ -77,13 +76,16 @@
             <th>Action</th>
           </tr>
         <tbody>
-          <% fdata?.sort((a, b) => a.task_name.localeCompare(b.task_name)).forEach((task)=>{ %>
-
-          <% task.amount_rcv.forEach((pay) => {incrmentId++%>
+          <% fdata ?.sort((a, b)=> a.task_name.localeCompare(b.task_name))
+            .forEach((task) => {
+            %>
+          
+            <% if (task.amount_rcv && task.amount_rcv.length> 0) { %>
+              <% task.amount_rcv.forEach((pay)=> { incrmentId++ %>
           <tr>
             <td><%= incrmentId %></td>
             <td><%= pay.date %></td>
-            <td class="flex align-center">&#8377; <%= pay.amount %> </td>
+            <td class="flex align-center">&#8377; <%= pay.amount %></td>
             <td><%= pay.mode %></td>
             <td><%= task.task_name %></td>
             <td class="flex align-center">
@@ -92,9 +94,15 @@
             </td>
           </tr>
           <% }) %>
-          <% }) %>
+          <% } else { %>
+          <tr>
+            <td colspan="6" style="text-align:center;">No payments made yet for <%= task.task_name %></td>
+          </tr>
+          <% } %>
 
+          <% }) %>
         </tbody>
+
         </thead>
       </table>
     </div>

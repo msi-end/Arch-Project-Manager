@@ -5,7 +5,7 @@ const { EmailSender } = require('../utils/emailSender.js')
 
 exports.getEmpListPerMiscProject = async (req, res) => {
   const { dealId, subtaskId } = req.params
-  const q = `SELECT employee.em_id, employee.name, misc_project_employee.mdeal_id, misc_project_employee.mstask_id
+  const q = `SELECT employee.em_id, employee.name, misc_project_employee.mdeal_id, misc_project_employee.mstask_id,misc_project_employee.status
   FROM misc_project_employee
   INNER JOIN single_deal ON single_deal.sdid = misc_project_employee.mdeal_id
   INNER JOIN employee ON employee.em_id = misc_project_employee.mpemid
@@ -36,9 +36,9 @@ exports.addEmployeeToMisc = async (req, res) => {
     const mp_emp_data = []
     const mp_emp_notify = []
     req.body.emid.forEach((el) => { mp_emp_data.push([req.body.ndeal_id, req.body.category_id, el, dateofassign]) })
-    req.body.emid.forEach((el) => { mp_emp_notify.push([el, title+'#'+el, dateofassign]) })
+    req.body.emid.forEach((el) => { mp_emp_notify.push([el, title + '#' + el, dateofassign]) })
     const q = `insert misc_project_employee (mdeal_id, mstask_id, mpemid, dateofassign) values ?`
-    await dbcon.query(q, [mp_emp_data], async(err1, data) => {
+    await dbcon.query(q, [mp_emp_data], async (err1, data) => {
       if (!err1) {
         res.status(200).send({ msg: "added successfull.." })
         // mp_emp_data.forEach( async(e) => {
@@ -123,11 +123,11 @@ exports.getCheckCompletedUnpaid = async (req, res) => {
 
 exports.DeleteNormalProjectData = async (req, res) => {
   const q = `DELETE FROM single_deal WHERE sdid =? `;
-  await dbcon.query(q, [ req.params.id], async (err, result) => {
+  await dbcon.query(q, [req.params.id], async (err, result) => {
     if (!err) {
       res.status(200).send({ status: true, msg: 'Successfully data Deletd' })
     } else {
-      res.status(500).send({ status: false, msg: 'failed to delete the Data'+err })
+      res.status(500).send({ status: false, msg: 'failed to delete the Data' + err })
       console.log(err);
     }
   })
@@ -137,14 +137,46 @@ exports.getMiscPhaseList = async (req, res) => {
   const q = `SELECT npf.mdeal_id as project_id, npf.task, t.msub_task_id as id, t.msub_task_name as name, SUM(npf.amount_got) AS total_received, MAX(npf.totalamount) AS total_amount FROM misc_project_finance npf LEFT JOIN mis_subtask t ON npf.task=t.msub_task_id WHERE npf.mdeal_id = ? GROUP BY npf.task, t.msub_task_id, t.msub_task_name;  `;
   await dbcon.query(q, [req.params.id], async (err, result) => {
     if (!err) {
-       result = result.map((item) => ({
+      result = result.map((item) => ({
         ...item,
         type: "misc",
       }));
-      res.status(200).send({ status: true, msg: 'Successfully data',data:result })
+      res.status(200).send({ status: true, msg: 'Successfully data', data: result })
     } else {
-      res.status(500).send({ status: false, msg: 'failed to delete the Data'+err })
+      res.status(500).send({ status: false, msg: 'failed to delete the Data' + err })
       console.log(err);
     }
+  })
+}
+
+exports.UpdateMiscEmployeeWorkStates = async (req, res) => {
+  const q = `UPDATE misc_project_employee SET status= ? WHERE mpemid=? AND mstask_id =? AND mdeal_id =?`;
+  const query_2 = `SELECT * FROM misc_project_employee WHERE mdeal_id = ? AND mstask_id = ?`;
+  const query_3 = `UPDATE misc_project_subtask SET mstask_status=? WHERE mdeal_id = ? AND mstask_id= ?`;
+  await dbcon.query(q, [req.body.status, req.body.employee_id, req.body.cat_id, req.body.project_id], async (err, result) => {
+    if (!err) {
+      res.status(200).send({ status: true, msg: "Successfully Updated Status ", data: result });
+    } else {
+      res.status(500).send({ status: false, msg: "failed to Update the Data" + err });
+      console.log(err);
+    }
+    await dbcon.query(query_2, [req.body.project_id, req.body.cat_id], async (err, result) => {
+      let totalStatus;
+      const statuses = result.map(r => (r.status || '').toLowerCase());
+      if (statuses.includes('on progress') || statuses.includes('completed')) {
+        totalStatus = 'On Progress';
+      } else {
+        totalStatus = 'Not Started';
+      }
+      if (statuses.every(s => s == 'completed')) {
+        totalStatus = 'completed';
+      }
+      await dbcon.query(query_3, [totalStatus, req.body.project_id, req.body.cat_id], async (err, result) => {
+        if (!err) {
+        } else {
+          console.log(err);
+        }
+      });
+    });
   })
 }

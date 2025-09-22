@@ -3,6 +3,12 @@ const getFun = new DataCall();
 function hidePopup(event) {
   document.querySelector(".main-popup").classList.add("hide");
 }
+let ReqURI={
+  Payment_methods: location.origin + "/admin/settings/get-payment-methods"
+}
+let STATES = {
+  Payment_methods: [],
+};
 
 async function addSplitAdvance(data) {
   const { ndealid, taskid } = data.dataset;
@@ -23,7 +29,7 @@ async function addSplitAdvance(data) {
         </div>
         <div class="field">
             <p class="title">Mode of Payment</p>
-            <select name="modeofpay">
+            <select name="modeofpay" id="mode">
                 <option value="cash">Cash</option>
                 <option value="online">Online</option>
             </select>
@@ -38,7 +44,9 @@ async function addSplitAdvance(data) {
   const dropDownTarget = document.querySelector(`.advance-dropdown`);
   dropDownTarget.classList.toggle(`hide`);
   flatpickr("#finc-date", { dateFormat: "d/m/Y", allowInput: true });
-
+       STATES.Payment_methods.data.forEach((e) => {
+    maindrop.querySelector('#mode').innerHTML+=`<option value="${e.pm_title}">${e.pm_title}</option>`
+  });
 }
 
 async function updataAdvancePay(data, e) {
@@ -62,15 +70,23 @@ function showAllAmount(e) {
     .classList.toggle(`hide`);
 }
 function updateAllProgressBars() {
-    let datactn = document.querySelectorAll('[class="contents grid"]')
-    datactn.forEach(card => {
-      const projectAmount = parseFloat(card.querySelector('#projectAmount').textContent) || 0;
-      const receivedAmount = parseFloat(card.querySelector('#receivedAmount').textContent) || 0;
-      const percent = projectAmount > 0 ? (receivedAmount / projectAmount) * 100 : 0;
-      card.querySelector('.progress-bar').style.width = percent + '%';
-    });
-  }
-  updateAllProgressBars()
-function getNormalprojectFinancePayment(e) {
-  
+  let datactn = document.querySelectorAll('[class="contents grid"]');
+  datactn.forEach((card) => {
+    const projectAmount =
+      parseFloat(card.querySelector("#projectAmount").textContent) || 0;
+    const receivedAmount =
+      parseFloat(card.querySelector("#receivedAmount").textContent) || 0;
+    const percent =
+      projectAmount > 0 ? (receivedAmount / projectAmount) * 100 : 0;
+    card.querySelector(".progress-bar").style.width = percent + "%";
+    card.querySelector(".progress-bar").innerHTML = Math.round(percent) + "%";
+  });
 }
+function getPayment_methods() {
+  ReqHandler.GET(ReqURI.Payment_methods)
+    .then((res) => {STATES.Payment_methods = res;})
+    .catch((err) => {console.log("Error(fn-getPayment_methods):", err);});
+}
+getPayment_methods();
+updateAllProgressBars();
+function getNormalprojectFinancePayment(e) {}

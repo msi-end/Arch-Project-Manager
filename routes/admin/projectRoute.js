@@ -10,6 +10,7 @@ api.get('/employee/:dealId/:catId', pmNormalAPI.getEmployListPerProject)
 api.get('/get-employee', pmNormalAPI.getEmployListToaddOrRemove)
 api.post('/add-employee-to-project', pmNormalAPI.addEmployeeToProject)
 api.delete('/removeempnp', pmNormalAPI.removeEmployeeToProject)
+api.put('/normal/employee/work-status/update', pmNormalAPI.UpdateNormalEmployeeWorkStates)
 
 //-------normal project subtask --------
 api.post('/addsubtaskto-nproject', pmNormalAPI.addNewSubTaskToProject)
@@ -33,6 +34,7 @@ api.get('/get-misc-emp/:dealId/:subtaskId', pmMiscAPI.getEmpListPerMiscProject)
 api.post('/add-employee-to-miscproject', pmMiscAPI.addEmployeeToMisc)
 api.delete('/remove-emp-miscp', pmMiscAPI.removeEmployeeToMisc)
 api.get('/employee-misc/:dealId/:catId', pmMiscAPI.getEmployListPerProject)
+api.put('/misc/employee/work-status/update', pmMiscAPI.UpdateMiscEmployeeWorkStates)
 
 
 //---- Misc project subtask route----

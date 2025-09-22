@@ -1,7 +1,12 @@
 function hidePopup(event) {
   document.querySelector(".main-popup").classList.add("hide");
 }
-
+let ReqURI={
+  Payment_methods: location.origin + "/admin/settings/get-payment-methods"
+}
+let STATES = {
+  Payment_methods: [],
+};
 async function advOpen(data) {
   const maindrop = document.querySelector(`.main-popup`);
   maindrop.classList.toggle(`hide`);
@@ -35,6 +40,9 @@ async function advOpen(data) {
   flatpickr("#finc-date", { dateFormat: "d/m/Y", allowInput: true });
   const dropDownTarget = document.querySelector(`.advance-dropdown`);
   dropDownTarget.classList.toggle(`hide`);
+   STATES.Payment_methods.data.forEach((e) => {
+    maindrop.querySelector('#misc-mode').innerHTML+=`<option value="${e.pm_title}">${e.pm_title}</option>`
+  });
 }
 
 async function sendRecievedStatus(target) {
@@ -96,6 +104,12 @@ function delete_miscPayments(params, e) {
     }
   });
 }
+function getPayment_methods() {
+  ReqHandler.GET(ReqURI.Payment_methods)
+    .then((res) => {STATES.Payment_methods = res;})
+    .catch((err) => {console.log("Error(fn-getPayment_methods):", err);});
+}
+getPayment_methods();
 function showAllAmount(e) {
   let mainCtn = e.parentElement.parentElement;
   mainCtn.querySelector(`.amountInfo`).classList.toggle(`hide`);

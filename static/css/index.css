@@ -1000,6 +1000,18 @@ main .more-data {
   background: var(--light-accent-100);
   overflow: hidden;
 }
+.category-assignees{
+  position: relative;
+}
+.category-assignees select {
+  background: none;
+  border: none;
+  font-size: 11px;
+  font-weight: 600;
+  position: absolute;
+  right: 10%;
+  padding: 0px 10px;
+}
 
 .grid-box > div:not(.amountInfo-popup) {
   padding: var(--px-8) var(--px-10);
@@ -1178,7 +1190,7 @@ select.success {
 .alert-btn {
   gap: var(--px-10);
   width: 100%;
-  margin-top: var(--px-5);
+  margin-top: 50px;
 }
 .form .action-btn button,
 .alert-btn button {
@@ -1386,6 +1398,10 @@ span.info {
   background-color: #4caf50; /* green */
   border-radius: 10px 0 0 10px;
   transition: width 0.4s ease;
+  text-align: center;
+  font-size: 11px;
+  color: white;
+  max-width: 100%;
 }
 
 /* EXPENSES */
@@ -1558,10 +1574,10 @@ span.info {
   scrollbar-color: var(--accent-600) #f0e9e2;
 }
 .expense-border {
-  border-left: 3px solid red;
+  border-left: 5px solid red;
 }
 .income-border {
-  border-left: 3px solid green;
+  border-left: 5px solid green;
 }
 
 /* USER DASHBOARD */
