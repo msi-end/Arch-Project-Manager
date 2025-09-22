@@ -11,6 +11,7 @@ router.get('/settings', mainController.settings)
 router.get('/finance', mainController.renderNormalProjectFinance )
 router.get('/finance/expenses', mainController.expense )
 router.get('/np-form', mainController.renderNormalProjectForm)
+router.get('/invoice', mainController.renderInvoice)
 router.post('/projects-create', mainController.insertNewNormalDeal );
 
 

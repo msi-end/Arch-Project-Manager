@@ -494,3 +494,9 @@ exports.renderMiscProjectForm = (req, res) => {
     res.render("../views/admin/normalProject.ejs");
   }
 };
+
+exports.renderInvoice = (req, res) => {
+  if (req.session.isLoggedIn == true && req.session.role == "admin") {
+    res.render("../views/admin/invoice.ejs");
+  }
+};
