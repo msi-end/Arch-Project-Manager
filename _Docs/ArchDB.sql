@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 19, 2025 at 05:34 AM
+-- Generation Time: Sep 22, 2025 at 05:19 AM
 -- Server version: 8.0.40
 -- PHP Version: 8.3.16
 
@@ -102,7 +102,8 @@ INSERT INTO `deals` (`id`, `deal_name`, `reference_no`, `contact`, `agreement_am
 (351, 'Lakhyajit Sharma', '219', '8099036834', 7500, 'G+1 R.C.C Residential Building', 'NA', 'Borachuk, Puranigudam, Nagaon (Assam )', 15000, '22/1/2024', '5:5:0', NULL),
 (355, 'msi', '56458', NULL, 5648, NULL, 'msi@gmail.com', NULL, 56120, '12/09/325', '5:5:0', NULL),
 (357, 'msi2', '94010', NULL, 15000, NULL, 'msi@gmail.com', NULL, 3000, '12/05/2025', '4:4:2', NULL),
-(358, 'Mintu Sharma', 'NV-154', NULL, 1500, NULL, 'mr.roboxe@gmail.com', NULL, 15000, '16/09/2025', '5:5:0', 'new');
+(358, 'Mintu Sharma', 'NV-154', NULL, 1500, NULL, 'mr.roboxe@gmail.com', NULL, 15000, '16/09/2025', '5:5:0', 'new'),
+(360, 'Mintu Sharma', 'NV-155', '9401069337', 150, 'First floor of retail store', 'aditya01377@gmail.com', 'siwan', 15000, '20/09/2025', '8:2:0', 'new');
 
 -- --------------------------------------------------------
 
@@ -494,8 +495,8 @@ INSERT INTO `empattendance` (`January`, `February`, `March`, `April`, `May`, `Ju
 (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 885, 31, '17', NULL),
 (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 886, 31, '18', NULL),
 (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 887, 31, '19', NULL),
-(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 888, 31, '20', NULL),
-(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 889, 31, '21', NULL),
+(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'P', NULL, NULL, NULL, 888, 31, '20', '2025'),
+(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'P', NULL, NULL, NULL, 889, 31, '21', '2025'),
 (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 890, 31, '22', NULL),
 (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 891, 31, '23', NULL),
 (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 892, 31, '24', NULL),
@@ -535,7 +536,7 @@ INSERT INTO `employee` (`em_id`, `name`, `email`, `password`, `number`, `lastLog
 (28, 'Nibedita Bharali', 'nbb12898@gmail.com', '88a474440252fa07e5abf39bc99eaa8866480827a69c87f992c2eedffa27d7c0', '7896963006', '2024-12-23 12:21:14', NULL, 'active', 'Asst. Architect'),
 (29, 'Joydeep Phukan', 'joydeepphukanisl@gmail.com', '773488072e3392afa5a724477e2171f195813a6a7e8a2167f291366e671d037b', '7002058375', '2025-07-25 13:15:11', NULL, 'active', 'Engineer Incharge'),
 (30, 'Jishu Jugam Saikia', 'jishujugam01@gmail.com', '8ee23db6084d5f81dd98c90591819fa57d20ea640025b3a209812baf9a912c34', '8876270728', '2024-12-28 13:25:22', NULL, 'active', 'Senior Engineer'),
-(31, 'Jyotisman Gayan', 'mail2jyotismangayan123@gmail.com', 'e26078c823065f8179c1597156ab40f14994da132cedc2de403dc14a4a0c2fcb', '7002476940', '2024-12-27 11:45:38', NULL, 'active', 'Principal Architect');
+(31, 'Jyotisman Gayan', 'mail2jyotismangayan123@gmail.com', 'b95ab2dcee3e5f987834e0eb3188ec3e73e4c065bbee645c222e1330535b382e', '7002476940', '2025-09-21 22:41:08', NULL, 'active', 'Principal Architect');
 
 -- --------------------------------------------------------
 
@@ -581,7 +582,28 @@ INSERT INTO `emp_task_notify` (`notid`, `emid`, `title`, `dateofnotify`, `status
 (136, 25, 'You have been assigned to a new Miscallaneous project with ref no. \n                  NA\n                 on Mon Aug 25 2025 11:21:07 GMT+0530 (India Standard Time)#25', '20/02/2023', 'unread'),
 (137, 28, 'You have been assigned to a new Miscallaneous project with ref no. \n                  NV-154\n                 on Sun Sep 14 2025 18:11:49 GMT+0530 (India Standard Time)#28', '20/02/2023', 'unread'),
 (138, 29, 'You have been assigned to a new Miscallaneous project with ref no. \n                  NV-154\n                 on Sun Sep 14 2025 18:11:49 GMT+0530 (India Standard Time)#29', '20/02/2023', 'unread'),
-(139, 30, 'You have been assigned to a new Miscallaneous project with ref no. \n                  NV-154\n                 on Sun Sep 14 2025 18:11:49 GMT+0530 (India Standard Time)#30', '20/02/2023', 'unread');
+(139, 30, 'You have been assigned to a new Miscallaneous project with ref no. \n                  NV-154\n                 on Sun Sep 14 2025 18:11:49 GMT+0530 (India Standard Time)#30', '20/02/2023', 'unread'),
+(140, 27, 'You have been assigned to a new project with ref no. \n                        NV-154\n                       on Fri Sep 19 2025 13:40:28 GMT+0530 (India Standard Time)#27', '20/02/2023', 'unread'),
+(141, 28, 'You have been assigned to a new project with ref no. \n                        NV-154\n                       on Fri Sep 19 2025 13:40:28 GMT+0530 (India Standard Time)#28', '20/02/2023', 'unread'),
+(142, 29, 'You have been assigned to a new project with ref no. \n                        NV-154\n                       on Fri Sep 19 2025 13:40:28 GMT+0530 (India Standard Time)#29', '20/02/2023', 'unread'),
+(143, 29, 'You have been assigned to a new Miscallaneous project with ref no. \n                  NV-154\n                 on Fri Sep 19 2025 14:22:10 GMT+0530 (India Standard Time)', '20/02/2023', 'unread'),
+(144, 28, 'You have been assigned to a new Miscallaneous project with ref no. \n                  NV-154\n                 on Fri Sep 19 2025 14:28:41 GMT+0530 (India Standard Time)', '20/02/2023', 'unread'),
+(145, 28, 'You have been removed from a Miscellaneous project with ref no.                   NV-154                 on Sat Sep 20 2025 10:35:14 GMT 0530 (India Standard Time)', '9/20/2025', 'unread'),
+(146, 29, 'You have been assigned to a new project with ref no. \n                        NV-154\n                       on Sat Sep 20 2025 11:17:01 GMT+0530 (India Standard Time)', '20/02/2023', 'unread'),
+(147, 29, 'You have been removed from a project with ref no.                         NV-154                       on Sat Sep 20 2025 12:16:24 GMT 0530 (India Standard Time)', '9/20/2025', 'unread'),
+(148, 27, 'You have been assigned to a new project with ref no. \n                        NV-154\n                       on Sat Sep 20 2025 12:16:29 GMT+0530 (India Standard Time)#27', '20/02/2023', 'unread'),
+(149, 28, 'You have been assigned to a new project with ref no. \n                        NV-154\n                       on Sat Sep 20 2025 12:16:29 GMT+0530 (India Standard Time)#28', '20/02/2023', 'unread'),
+(150, 28, 'You have been removed from a project with ref no.                         NV-154                       on Sat Sep 20 2025 12:16:38 GMT 0530 (India Standard Time)', '9/20/2025', 'unread'),
+(151, 29, 'You have been removed from a project with ref no.                         NV-154                       on Sat Sep 20 2025 12:16:40 GMT 0530 (India Standard Time)', '9/20/2025', 'unread'),
+(152, 28, 'You have been assigned to a new project with ref no. \n                        NV-154\n                       on Sat Sep 20 2025 12:39:45 GMT+0530 (India Standard Time)#28', '20/02/2023', 'unread'),
+(153, 29, 'You have been assigned to a new project with ref no. \n                        NV-154\n                       on Sat Sep 20 2025 12:39:45 GMT+0530 (India Standard Time)#29', '20/02/2023', 'unread'),
+(154, 30, 'You have been assigned to a new project with ref no. \n                        NV-154\n                       on Sat Sep 20 2025 12:39:45 GMT+0530 (India Standard Time)#30', '20/02/2023', 'unread'),
+(155, 31, 'You have been assigned to a new project with ref no. \n                        NV-155\n                       on Sat Sep 20 2025 17:51:04 GMT+0530 (India Standard Time)', '20/02/2023', 'read'),
+(156, 31, 'You have been assigned to a new project with ref no. \n                        NV-155\n                       on Sat Sep 20 2025 17:51:09 GMT+0530 (India Standard Time)', '20/02/2023', 'read'),
+(157, 27, 'You have been assigned to a new project with ref no. \n                        NV-155\n                       on Sat Sep 20 2025 18:09:28 GMT+0530 (India Standard Time)#27', '20/02/2023', 'unread'),
+(158, 28, 'You have been assigned to a new project with ref no. \n                        NV-155\n                       on Sat Sep 20 2025 18:09:28 GMT+0530 (India Standard Time)#28', '20/02/2023', 'unread'),
+(159, 30, 'You have been assigned to a new project with ref no. \n                        NV-155\n                       on Sat Sep 20 2025 18:09:33 GMT+0530 (India Standard Time)', '20/02/2023', 'unread'),
+(160, 31, 'You have been assigned to a new Miscallaneous project with ref no. \n                  NV-154\n                 on Sun Sep 21 2025 08:24:37 GMT+0530 (India Standard Time)', '20/02/2023', 'unread');
 
 -- --------------------------------------------------------
 
@@ -639,18 +661,18 @@ CREATE TABLE `misc_project_employee` (
   `mstask_id` int DEFAULT NULL,
   `mpemid` int DEFAULT NULL,
   `dateofassign` varchar(50) DEFAULT '0',
-  `dateofremove` varchar(50) DEFAULT '0'
+  `dateofremove` varchar(50) DEFAULT '0',
+  `status` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `misc_project_employee`
 --
 
-INSERT INTO `misc_project_employee` (`mpeid`, `mdeal_id`, `mstask_id`, `mpemid`, `dateofassign`, `dateofremove`) VALUES
-(17, 31, 22, 26, '20/02/2023', '0'),
-(32, 32, 24, 28, '20/02/2023', '0'),
-(33, 32, 24, 29, '20/02/2023', '0'),
-(34, 32, 24, 30, '20/02/2023', '0');
+INSERT INTO `misc_project_employee` (`mpeid`, `mdeal_id`, `mstask_id`, `mpemid`, `dateofassign`, `dateofremove`, `status`) VALUES
+(17, 31, 22, 26, '20/02/2023', '0', NULL),
+(35, 33, 22, 29, '20/02/2023', '0', 'Completed'),
+(37, 33, 22, 31, '20/02/2023', '0', 'Completed');
 
 -- --------------------------------------------------------
 
@@ -675,7 +697,10 @@ CREATE TABLE `misc_project_finance` (
 INSERT INTO `misc_project_finance` (`mfid`, `mdeal_id`, `totalamount`, `task`, `amount_got`, `dateofpay`, `modeofpay`) VALUES
 (34, 31, NULL, 22, 1500, '18/09/2025', 'cash'),
 (35, 30, NULL, 20, 1111, '14/09/2025', 'cash'),
-(36, 31, NULL, 22, 5000, '14/09/2025', 'cash');
+(36, 31, NULL, 22, 5000, '14/09/2025', 'cash'),
+(39, 31, NULL, 22, 1500, '19/09/2025', 'cash'),
+(40, 33, 15000, 22, 150, '19/09/2025', 'Advance Pay'),
+(41, 33, NULL, 22, 15000, '19/09/2025', 'A/C:458550');
 
 -- --------------------------------------------------------
 
@@ -699,7 +724,7 @@ CREATE TABLE `misc_project_subtask` (
 INSERT INTO `misc_project_subtask` (`mpstid`, `mdeal_id`, `mstask_id`, `mstask_status`, `dateofdeadline`, `dateofcomplete`) VALUES
 (30, 30, 20, 'completed', '30/09/2013', '28/03/2033'),
 (31, 31, 22, 'completed', '30/09/2013', '28/03/2033'),
-(32, 32, 24, 'completed', '30/09/2013', '28/03/2033');
+(33, 33, 22, 'completed', '30/09/2013', '28/03/2033');
 
 -- --------------------------------------------------------
 
@@ -782,7 +807,10 @@ INSERT INTO `normal_projects_finance` (`fid`, `ndeal_id`, `totalamount`, `task`,
 (916, 358, 15000, 3, 0, NULL, NULL),
 (917, 358, NULL, 1, 1500, '18/09/2025', 'online'),
 (918, 344, NULL, 1, 1500, '18/09/2025', 'cash'),
-(919, 358, NULL, 3, 1500, '19/09/2025', 'online');
+(919, 358, NULL, 3, 1500, '19/09/2025', 'online'),
+(922, 358, NULL, 3, 5000, '19/09/2025', 'A/C:458550'),
+(926, 360, 15000, 1, 0, NULL, NULL),
+(927, 360, 15000, 2, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -827,7 +855,7 @@ INSERT INTO `normal_project_cat` (`npcid`, `ndeal_id`, `category_id`, `cat_statu
 (912, 349, 1, 'pending', 'pending', 'not set yet', '0', '0'),
 (913, 349, 2, 'pending', 'pending', 'not set yet', '0', '0'),
 (914, 349, 3, 'pending', 'pending', 'not set yet', '0', '0'),
-(918, 351, 1, 'On Progress', 'On Progress', '12/3/9', '0', '0'),
+(918, 351, 1, 'completed', 'completed', '12/3/9', '0', '0'),
 (919, 351, 2, 'completed', 'completed', 'not set yet', '0', '0'),
 (920, 355, 1, 'pending', 'pending', 'not set yet', '0', '0'),
 (921, 355, 2, 'pending', 'pending', 'not set yet', '0', '0'),
@@ -835,9 +863,11 @@ INSERT INTO `normal_project_cat` (`npcid`, `ndeal_id`, `category_id`, `cat_statu
 (926, 357, 1, 'completed', 'completed', 'not set yet', '0', '0'),
 (927, 357, 2, 'completed', 'completed', 'not set yet', '0', '0'),
 (928, 357, 3, 'On Progress', 'On Progress', 'not set yet', '0', '0'),
-(929, 358, 1, 'pending', 'pending', 'not set yet', '0', '0'),
+(929, 358, 1, 'On Progress', 'pending', 'not set yet', '0', '0'),
 (930, 358, 2, 'pending', 'pending', 'not set yet', '0', '0'),
-(931, 358, 3, 'pending', 'pending', 'not set yet', '0', '0');
+(931, 358, 3, 'completed', 'pending', 'not set yet', '0', '0'),
+(935, 360, 1, 'On Progress', 'pending', 'not set yet', '0', '0'),
+(936, 360, 2, 'On Progress', 'pending', 'not set yet', '0', '0');
 
 -- --------------------------------------------------------
 
@@ -852,6 +882,7 @@ CREATE TABLE `normal_project_employee` (
   `emid` int DEFAULT NULL,
   `dateofassign` varchar(50) DEFAULT '0',
   `dateofremove` varchar(50) DEFAULT '0',
+  `status` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'pending',
   `npcid` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -859,9 +890,20 @@ CREATE TABLE `normal_project_employee` (
 -- Dumping data for table `normal_project_employee`
 --
 
-INSERT INTO `normal_project_employee` (`npeid`, `ndeal_id`, `category_id`, `emid`, `dateofassign`, `dateofremove`, `npcid`) VALUES
-(68, 341, 3, 29, '20/02/2023', '0', 892),
-(72, 348, 3, 29, '20/02/2023', '0', 911);
+INSERT INTO `normal_project_employee` (`npeid`, `ndeal_id`, `category_id`, `emid`, `dateofassign`, `dateofremove`, `status`, `npcid`) VALUES
+(68, 341, 3, 29, '20/02/2023', '0', NULL, 892),
+(72, 348, 3, 29, '20/02/2023', '0', NULL, 911),
+(77, 358, 1, 27, '20/02/2023', '0', 'Not Started', 929),
+(82, 358, 3, 27, '20/02/2023', '0', 'Completed', 931),
+(83, 358, 3, 28, '20/02/2023', '0', 'Completed', 931),
+(87, 358, 1, 28, '20/02/2023', '0', 'Not Started', 929),
+(88, 358, 1, 29, '20/02/2023', '0', 'Not Started', 929),
+(89, 358, 1, 30, '20/02/2023', '0', 'Completed', 929),
+(90, 360, 1, 31, '20/02/2023', '0', 'Completed', 935),
+(91, 360, 2, 31, '20/02/2023', '0', 'Completed', 936),
+(92, 360, 1, 27, '20/02/2023', '0', 'pending', 935),
+(93, 360, 1, 28, '20/02/2023', '0', 'pending', 935),
+(94, 360, 2, 30, '20/02/2023', '0', 'pending', 936);
 
 -- --------------------------------------------------------
 
@@ -883,11 +925,11 @@ CREATE TABLE `normal_project_subtask` (
 --
 
 INSERT INTO `normal_project_subtask` (`npstid`, `ndeal_id`, `category_id`, `stask_id`, `stask_status`, `dateofcomplete`) VALUES
-(52, 351, 1, 20, 'completed', '0'),
+(52, 351, 1, 20, 'completed ', '0'),
 (53, 341, 1, 20, 'not  started', '0'),
 (54, 341, 3, 20, 'not started', '0'),
-(55, 351, 1, 20, 'not started', '0'),
-(57, 357, 1, 20, 'not  started', '0');
+(55, 357, 1, 20, 'not started', '0'),
+(57, 358, 3, 20, 'completed', '0');
 
 -- --------------------------------------------------------
 
@@ -955,7 +997,7 @@ CREATE TABLE `single_deal` (
 INSERT INTO `single_deal` (`sdid`, `sdeal_name`, `reference_no`, `contact`, `agreement_amount`, `work_name`, `email`, `city`, `total_price`, `mp_deadline`, `category`) VALUES
 (30, 'Giri Kr. Bora', '227', 'NA', 0, 'Interior working Drawing + 3D ', 'NA', 'Laukhuwa Road, Green Land Nagaon ( Assam )', 45000, '13/12/2024', NULL),
 (31, 'Pranab Das ', 'NA', 'NA', 0, 'Permission', 'NA', 'Pranab Das', 0, '23/12/2024', NULL),
-(32, 'Mintu Sharma', 'NV-154', '9401069337', 1500, 'First floor of retail store', 'aditya01377@gmail.com', 'siwan', 15000, '14/09/2025', 'new');
+(33, 'Mintu Sharma', 'NV-154', '9401069337', 150, 'First floor of retail store', 'aditya01377@gmail.com', 'siwan', 15000, '19/09/2025', 'new');
 
 -- --------------------------------------------------------
 
@@ -1107,7 +1149,8 @@ ALTER TABLE `normal_project_employee`
   ADD UNIQUE KEY `node` (`ndeal_id`,`category_id`,`emid`),
   ADD KEY `ndeal_id` (`ndeal_id`),
   ADD KEY `category_id` (`category_id`),
-  ADD KEY `emid` (`emid`);
+  ADD KEY `emid` (`emid`),
+  ADD KEY `npcid` (`npcid`);
 
 --
 -- Indexes for table `normal_project_subtask`
@@ -1168,7 +1211,7 @@ ALTER TABLE `amount_split`
 -- AUTO_INCREMENT for table `deals`
 --
 ALTER TABLE `deals`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=359;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=361;
 
 --
 -- AUTO_INCREMENT for table `empattendance`
@@ -1186,7 +1229,7 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `emp_task_notify`
 --
 ALTER TABLE `emp_task_notify`
-  MODIFY `notid` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+  MODIFY `notid` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
 
 --
 -- AUTO_INCREMENT for table `expenses`
@@ -1204,19 +1247,19 @@ ALTER TABLE `expense_category`
 -- AUTO_INCREMENT for table `misc_project_employee`
 --
 ALTER TABLE `misc_project_employee`
-  MODIFY `mpeid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `mpeid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `misc_project_finance`
 --
 ALTER TABLE `misc_project_finance`
-  MODIFY `mfid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `mfid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `misc_project_subtask`
 --
 ALTER TABLE `misc_project_subtask`
-  MODIFY `mpstid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `mpstid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `mis_subtask`
@@ -1228,19 +1271,19 @@ ALTER TABLE `mis_subtask`
 -- AUTO_INCREMENT for table `normal_projects_finance`
 --
 ALTER TABLE `normal_projects_finance`
-  MODIFY `fid` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=922;
+  MODIFY `fid` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=928;
 
 --
 -- AUTO_INCREMENT for table `normal_project_cat`
 --
 ALTER TABLE `normal_project_cat`
-  MODIFY `npcid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=932;
+  MODIFY `npcid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=937;
 
 --
 -- AUTO_INCREMENT for table `normal_project_employee`
 --
 ALTER TABLE `normal_project_employee`
-  MODIFY `npeid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `npeid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `normal_project_subtask`
@@ -1264,7 +1307,7 @@ ALTER TABLE `projects_category`
 -- AUTO_INCREMENT for table `single_deal`
 --
 ALTER TABLE `single_deal`
-  MODIFY `sdid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `sdid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `subtask`
@@ -1286,23 +1329,23 @@ ALTER TABLE `task`
 -- Constraints for table `misc_project_employee`
 --
 ALTER TABLE `misc_project_employee`
-  ADD CONSTRAINT `misc_project_employee_ibfk_1` FOREIGN KEY (`mdeal_id`) REFERENCES `single_deal` (`sdid`),
-  ADD CONSTRAINT `misc_project_employee_ibfk_2` FOREIGN KEY (`mstask_id`) REFERENCES `mis_subtask` (`msub_task_id`),
+  ADD CONSTRAINT `misc_project_employee_ibfk_1` FOREIGN KEY (`mdeal_id`) REFERENCES `single_deal` (`sdid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `misc_project_employee_ibfk_2` FOREIGN KEY (`mstask_id`) REFERENCES `mis_subtask` (`msub_task_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `misc_project_employee_ibfk_3` FOREIGN KEY (`mpemid`) REFERENCES `employee` (`em_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `misc_project_finance`
 --
 ALTER TABLE `misc_project_finance`
-  ADD CONSTRAINT `misc_project_finance_ibfk_1` FOREIGN KEY (`mdeal_id`) REFERENCES `single_deal` (`sdid`),
-  ADD CONSTRAINT `misc_project_finance_ibfk_2` FOREIGN KEY (`task`) REFERENCES `mis_subtask` (`msub_task_id`);
+  ADD CONSTRAINT `misc_project_finance_ibfk_1` FOREIGN KEY (`mdeal_id`) REFERENCES `single_deal` (`sdid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `misc_project_finance_ibfk_2` FOREIGN KEY (`task`) REFERENCES `mis_subtask` (`msub_task_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `misc_project_subtask`
 --
 ALTER TABLE `misc_project_subtask`
-  ADD CONSTRAINT `misc_project_subtask_ibfk_1` FOREIGN KEY (`mdeal_id`) REFERENCES `single_deal` (`sdid`),
-  ADD CONSTRAINT `misc_project_subtask_ibfk_2` FOREIGN KEY (`mstask_id`) REFERENCES `mis_subtask` (`msub_task_id`);
+  ADD CONSTRAINT `misc_project_subtask_ibfk_1` FOREIGN KEY (`mdeal_id`) REFERENCES `single_deal` (`sdid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `misc_project_subtask_ibfk_2` FOREIGN KEY (`mstask_id`) REFERENCES `mis_subtask` (`msub_task_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `normal_projects_finance`
@@ -1324,14 +1367,14 @@ ALTER TABLE `normal_project_cat`
 ALTER TABLE `normal_project_employee`
   ADD CONSTRAINT `normal_project_employee_ibfk_1` FOREIGN KEY (`ndeal_id`) REFERENCES `deals` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   ADD CONSTRAINT `normal_project_employee_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  ADD CONSTRAINT `normal_project_employee_ibfk_3` FOREIGN KEY (`emid`) REFERENCES `employee` (`em_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+  ADD CONSTRAINT `normal_project_employee_ibfk_3` FOREIGN KEY (`emid`) REFERENCES `employee` (`em_id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  ADD CONSTRAINT `normal_project_employee_ibfk_4` FOREIGN KEY (`npcid`) REFERENCES `normal_project_cat` (`npcid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `normal_project_subtask`
 --
 ALTER TABLE `normal_project_subtask`
-  ADD CONSTRAINT `normal_project_subtask_ibfk_1` FOREIGN KEY (`ndeal_id`) REFERENCES `deals` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  ADD CONSTRAINT `normal_project_subtask_ibfk_2` FOREIGN KEY (`stask_id`) REFERENCES `subtask` (`sub_task_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+  ADD CONSTRAINT `normal_project_subtask_ibfk_1` FOREIGN KEY (`ndeal_id`) REFERENCES `deals` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `subtask`
