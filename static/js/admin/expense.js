@@ -6,7 +6,7 @@ let ReqURI = {
   NisProjectPaid: location.origin + "/apiv1/nIsProjectPaid",
   MisProjectPaid: location.origin + "/apiv1/mIsProjectPaid",
   Expense_category: location.origin + location.pathname + "/category/readAll",
-  Payment_methods: location.origin + "/settings/get-payment-methods",
+  Payment_methods: location.origin + "/admin/settings/get-payment-methods",
   last_project: location.origin + location.pathname + "/last_project/get",
   search_last_project:
     location.origin + location.pathname + "/last_project/search/",
@@ -109,6 +109,9 @@ function addIncomeForm() {
   });
   STATES.Last_projects.misc.forEach((e) => {
     last_project_ctn.innerHTML += `<option value="misc-${e.id}-${e.name}-${e.reference_no}">${e.reference_no} | ${e.name}</option>`;
+  });
+   STATES.Payment_methods.data.forEach((e) => {
+    maindrop.querySelector('#mode').innerHTML+=`<option value="${e.pm_title}">${e.pm_title}</option>`
   });
 }
 function addIncome() {
@@ -251,6 +254,9 @@ function addExpenseForm() {
   STATES.Expense_category.data.forEach((e) => {
     expense_category.innerHTML += `<option value="${e.cat_name}">${e.cat_name}</option>`;
   });
+  STATES.Payment_methods.data.forEach((e) => {
+    maindrop.querySelector('#mode').innerHTML+=`<option value="${e.pm_title}">${e.pm_title}</option>`
+  });
   dropDownTarget.classList.toggle(`hide`);
 }
 function addExpense() {
@@ -335,6 +341,9 @@ function editIncome_expense(e) {
   let expense_category = dropDownTarget.querySelector(`#category`);
   STATES.Expense_category.data.forEach((e) => {
     expense_category.innerHTML += `<option value="${e.cat_name}">${e.cat_name}</option>`;
+  });
+     STATES.Payment_methods.data.forEach((e) => {
+    maindrop.querySelector('#mode').innerHTML+=`<option value="${e.pm_title}">${e.pm_title}</option>`
   });
   if (e) {
     dropDownTarget.querySelector(`#exp-name`).value =

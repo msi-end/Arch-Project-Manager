@@ -189,7 +189,7 @@ exports.insertNewNormalDeal = async (req, res) => {
         }
         const dealsTableData = [
           req.body.name,
-          req.body.rfNo,
+          req.body.rfNo, 
           req.body.contactNo,
           req.body.agreementAm,
           req.body.workName,
@@ -399,7 +399,7 @@ exports.renderMiscProjectDashboard = async (req, res) => {
         inner join single_deal on single_deal.sdid = misc_project_subtask.mdeal_id 
         inner join mis_subtask on mis_subtask.msub_task_id = misc_project_subtask.mstask_id order by single_deal.sdid DESC`;
         db.query(q, [offset], (err, result) => {
-          console.log(result);
+          // console.log(result);
           if (!err) {
             res.status(200).render("../views/admin/miscDash.ejs", {
               result,
@@ -484,7 +484,7 @@ LIMIT 10 OFFSET ?;`;
       });
 
       res.status(200).render("../views/admin/mp.finance.ejs", { result });
-      console.log(JSON.stringify(result, null, 2));
+      // console.log(JSON.stringify(result, null, 2));
     });
   }
 };
