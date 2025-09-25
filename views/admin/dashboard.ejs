@@ -11,6 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="../../js/admin/dashboard.module.js"></script>
   <link rel="stylesheet" href="../../css/admin/analytics-popup.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 
   <!-- <link href="
     https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css
@@ -20,21 +21,23 @@
 <style>
   main .main-data {
     min-height: 74vh;
-}
+  }
+
   .popup {
     background: white;
     border-radius: 20px;
-     width: 100%; 
-     max-width: auto; 
-    max-height: 100%; 
-    overflow-y: none; 
-     box-shadow: none; 
+    width: 100%;
+    max-width: auto;
+    max-height: 100%;
+    overflow-y: none;
+    box-shadow: none;
     transform: translateY(-100px);
     opacity: 0;
     animation: slideDown 0.5s ease forwards;
     position: relative;
-}
+  }
 </style>
+
 <body>
   <section>
     <%- include('../partials/admin.aside.ejs') %>
@@ -257,11 +260,11 @@
               </div>
             </div>
         </div>
-        <div class="popup">
+        <div class="popup" id="popupOverlay">
           <div class="popup-header">
             <h1 class="popup-title">Advance Analytics</h1>
-            <p class="popup-subtitle">Comprehensive insights into your spending patterns</p>
-            <button class="close-btn" onclick="closeAnalyticsPopup()">×</button>
+            <p class="popup-subtitle">Find all project details here</p>
+            <!-- <button class="close-btn" onclick="closeAnalyticsPopup()">×</button> -->
           </div>
 
           <div class="popup-content">
@@ -295,7 +298,7 @@
               </div>
 
               <div class="chart-wrapper">
-                <h3 class="chart-title">Monthly Trend</h3>
+                <h3 class="chart-title">Trend</h3>
                 <div class="chart-container">
                   <canvas id="trendChart"></canvas>
                 </div>
@@ -341,27 +344,16 @@
       { category: 'Misc Project', amount: 8000, mode: 'online' },
       { category: 'online', amount: 7867, mode: 'online' },
       { category: 'online', amount: 500, mode: 'cash' },
-      { category: 'N/A', amount: 2000, mode: 'cash' }
+      { category: 'N/A', amount: 2000, mode: 'sbi044' },
+      { category: 'N/A', amount: 2000, mode: 'Axis_bank' },
+      { category: 'N/A', amount: 258600, mode: 'Axis_bank' },
     ];
 
     let charts = {};
-
-    function openAnalyticsPopup() {
-      document.getElementById('popupOverlay').classList.add('active');
       setTimeout(() => {
         initializeCharts();
       }, 500);
-    }
-
-    function closeAnalyticsPopup() {
-      document.getElementById('popupOverlay').classList.remove('active');
-      // Destroy charts to prevent memory leaks
-      Object.values(charts).forEach(chart => {
-        if (chart) chart.destroy();
-      });
-      charts = {};
-    }
-
+  
     function initializeCharts() {
       const colorPalette = {
         primary: ['#ff6b35', '#f7931e', '#667eea', '#764ba2'],
@@ -458,6 +450,7 @@
         acc[item.mode] = (acc[item.mode] || 0) + item.amount;
         return acc;
       }, {});
+console.log(paymentData);
 
       charts.payment = new Chart(document.getElementById('paymentChart'), {
         type: 'bar',
@@ -500,20 +493,6 @@
         }
       });
     }
-
-    // Close popup when clicking outside
-    document.getElementById('popupOverlay').addEventListener('click', function (e) {
-      if (e.target === this) {
-        closePopup();
-      }
-    });
-
-    // Close popup with Escape key
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') {
-        closePopup();
-      }
-    });
   </script>
 
   <!-- JAVASCRIPT -->

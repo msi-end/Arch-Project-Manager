@@ -41,7 +41,7 @@
   background: white;
   border-radius: 20px;
   width: 95%;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
@@ -71,17 +71,17 @@
   font-size: 14px;
   opacity: 0.9;
   margin-top: 5px;
-      background: #fbf3df!important;
-    color: #b74706!important;
+  background: #fbf3df !important;
+  color: #b74706 !important;
 }
 
 .close-btn {
   position: absolute;
   top: 20px;
   right: 25px;
-    background: rgb(183 71 6);
-    border: none;
-    color: #fbf3df;
+  background: rgb(183 71 6);
+  border: none;
+  color: #fbf3df;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -110,7 +110,8 @@
 }
 
 .stat-card {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  /* background: linear-gradient(135deg, #667eea, #764ba2); */
+  background: var(--gradient-1);
   color: white;
   padding: 25px;
   border-radius: 15px;
