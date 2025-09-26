@@ -1,6 +1,4 @@
-const pool = require("../config/dbConfig");
-
-
+const pool = require("../config/db.config");
 
 function getSingleDealsAnalytics(req, res) {
   // First: total deals
@@ -48,11 +46,11 @@ function getSingleDealsAnalytics(req, res) {
                   // Task stats
                   pool.query(
                     `
-            SELECT task,
+          SELECT task,ms.msub_task_name as task_name,
                    SUM(amount_got) AS totalReceived,
                    SUM(totalamount) AS totalAmount
-            FROM misc_project_finance
-            GROUP BY task
+            FROM misc_project_finance LEFT JOIN mis_subtask ms ON task= ms.msub_task_id
+            GROUP BY task;
           `,
                     (err, taskStats) => {
                       if (err)
@@ -84,4 +82,4 @@ function getSingleDealsAnalytics(req, res) {
   );
 }
 
-module.exports = { getDealsAnalytics };
+module.exports = { getSingleDealsAnalytics };
