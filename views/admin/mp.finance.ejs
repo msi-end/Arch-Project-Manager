@@ -10,10 +10,15 @@
   <link rel="stylesheet" href="../../css/index.css">
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="../../css/darkMode.css">
+  <link rel="stylesheet" href="../../css/admin/analytics-popup.css">
+
+
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="../../js/admin/dashboard.module.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr@4/dist/flatpickr.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
 </head>
 
 <body>
@@ -204,7 +209,76 @@
         </div>
 
         <!-- POPUPS  -->
+        <div class="popup-overlay" id="popupOverlay">
+          <div class="popup">
+            <div class="popup-header">
+              <h1 class="popup-title">Miscellaneous finances Analytics</h1>
+              <p class="popup-subtitle">Comprehensive insights into your deals and income patterns</p>
+              <button class="close-btn" onclick="closeAnalyticsPopup()">×</button>
+            </div>
 
+            <div class="popup-content">
+              <!-- Stats Grid -->
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <div class="stat-value">₹150</div>
+                  <div class="stat-label">Total Agreement Amount</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-value">3</div>
+                  <div class="stat-label">Total Deals</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-value">₹22,761</div>
+                  <div class="stat-label">Total Received</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-value">-₹22,611</div>
+                  <div class="stat-label">Outstanding Balance</div>
+                </div>
+              </div>
+
+              <!-- Charts -->
+              <div class="charts-container">
+                <div class="chart-wrapper">
+                  <h3 class="chart-title">Category-wise Deals</h3>
+                  <div class="chart-container">
+                    <canvas id="categoryChart"></canvas>
+                  </div>
+                </div>
+
+                <div class="chart-wrapper">
+                  <h3 class="chart-title">Task-wise Income</h3>
+                  <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                  </div>
+                </div>
+
+                <div class="chart-wrapper full-width-chart">
+                  <h3 class="chart-title">Deal Status Overview</h3>
+                  <div class="chart-container">
+                    <canvas id="paymentChart"></canvas>
+                  </div>
+
+                  <div>
+                    <br>
+                    <h5>Category wise</h5>
+                    <div class="payment-modes" id="paymentModesCatoegoryContainer">
+                      <!-- Dynamic cards will be inserted here -->
+                    </div>
+                  </div>
+                   <div>
+                    <br>
+                    <h5>Task wise</h5>
+                    <div class="payment-modes" id="paymentModesTaskContainer">
+                      <!-- Dynamic cards will be inserted here -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="main-popup hide"></div>
         <%- include('../partials/tasks/notification.ejs') %>
           <%- include('../partials/tasks/alert.ejs') %>
@@ -216,6 +290,323 @@
   <script src="../../js/admin/index.js"></script>
   <script src="../../js/admin/common.js"></script>
   <script src="../../js/admin/mp.finance.js"></script>
+  <script>
+    // Global variables
+    let apiData = null;
+    let charts = {};
+
+    // Fetch data from API
+    async function fetchAnalyticsData() {
+      try {
+        const response = await fetch('http://localhost:3005/admin/analytics/misc');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('API Response:', data);
+        return data;
+      } catch (error) {
+        console.error('Error fetching analytics data:', error);
+        // Fallback data in case of API error
+        return {
+          "success": false,
+          "summary": {
+            "totalDeals": 0,
+            "totalAgreementAmount": 0,
+            "totalReceived": 0,
+            "totalOutstanding": 0
+          },
+          "categoryStats": [],
+          "taskStats": []
+        };
+      }
+    }
+
+    // Update stats cards with API data
+    function updateStatsCards(data) {
+      if (data && data.summary) {
+        document.querySelector('.stat-card:nth-child(1) .stat-value').textContent = `₹${data.summary.totalAgreementAmount?.toLocaleString() || '0'}`;
+        document.querySelector('.stat-card:nth-child(2) .stat-value').textContent = data.summary.totalDeals || '0';
+        document.querySelector('.stat-card:nth-child(3) .stat-value').textContent = `₹${data.summary.totalReceived?.toLocaleString() || '0'}`;
+        document.querySelector('.stat-card:nth-child(4) .stat-value').textContent = `${data.summary.totalOutstanding < 0 ? '-' : ''}₹${Math.abs(data.summary.totalOutstanding || 0).toLocaleString()}`;
+      }
+    }
+
+    // Update payment mode cards dynamically
+    function updatePaymentModes(data) {
+      const paymentModesCategoryContainer = document.querySelector('#paymentModesCatoegoryContainer');
+      const paymentModesTaskContainer = document.querySelector('#paymentModesTaskContainer');
+      paymentModesCategoryContainer.innerHTML = ''; // Clear existing cards
+      paymentModesTaskContainer.innerHTML = ''; // Clear existing cards
+      if (data && data.categoryStats && data.taskStats) {
+        // Add category cards
+        data.categoryStats.forEach((category, index) => {
+          if (category.totalAmount > 0) { // Only show categories with amounts
+            const categoryCard = document.createElement('div');
+            categoryCard.className = 'payment-mode';
+            categoryCard.innerHTML = `
+                            <div class="payment-label">${category.category || 'Uncategorized'}</div>
+                            <div class="payment-amount">₹${category.totalAmount?.toLocaleString() || '0'}</div>
+                        `;
+            paymentModesCategoryContainer.appendChild(categoryCard);
+          }
+        });
+        // Add task cards
+        data.taskStats.forEach((task, index) => {
+          const taskCard = document.createElement('div');
+          taskCard.className = 'payment-mode';
+          taskCard.innerHTML = `
+                        <div class="payment-label">${task.task_name}</div>
+                        <div class="payment-amount">₹${task.totalReceived?.toLocaleString() || '0'}</div>
+                    `;
+          paymentModesTaskContainer.appendChild(taskCard);
+        });
+      }
+    }
+
+    async function openAnalyticsPopup() {
+      // Show loading state
+      document.getElementById('popupOverlay').classList.add('active');
+
+      // Show loading indicator
+      const statsCards = document.querySelectorAll('.stat-value');
+      statsCards.forEach(card => {
+        card.innerHTML = '<div class="loading">⏳</div>';
+      });
+
+      // Fetch fresh data from API
+      apiData = await fetchAnalyticsData();
+
+      // Update UI with fetched data
+      updateStatsCards(apiData);
+      updatePaymentModes(apiData);
+
+      // Initialize charts after data is loaded
+      setTimeout(() => {
+        initializeCharts();
+      }, 500);
+    }
+
+    function closeAnalyticsPopup() {
+      document.getElementById('popupOverlay').classList.remove('active');
+      // Destroy charts to prevent memory leaks
+      Object.values(charts).forEach(chart => {
+        if (chart) chart.destroy();
+      });
+      charts = {};
+    }
+
+    function initializeCharts() {
+      if (!apiData || !apiData.success) {
+        console.error('No valid data available for charts');
+        return;
+      }
+
+      const colorPalette = {
+        primary: ['#ff6b35', '#f7931e', '#667eea', '#764ba2'],
+        secondary: ['rgba(255, 107, 53, 0.8)', 'rgba(247, 147, 30, 0.8)', 'rgba(102, 126, 234, 0.8)', 'rgba(118, 75, 162, 0.8)'],
+        light: ['rgba(255, 107, 53, 0.2)', 'rgba(247, 147, 30, 0.2)', 'rgba(102, 126, 234, 0.2)', 'rgba(118, 75, 162, 0.2)']
+      };
+
+      // Category Chart - Deal distribution by category
+      if (apiData.categoryStats && apiData.categoryStats.length > 0) {
+        const validCategories = apiData.categoryStats.filter(item => item.totalDeals > 0);
+        const categoryLabels = validCategories.map(item => item.category || 'Uncategorized');
+        const categoryDeals = validCategories.map(item => item.totalDeals || 0);
+        const categoryAmounts = validCategories.map(item => item.totalAmount || 0);
+
+        // Use amounts if available, otherwise use deal counts
+        const chartData = categoryAmounts.some(amount => amount > 0) ? categoryAmounts : categoryDeals;
+        const chartLabel = categoryAmounts.some(amount => amount > 0) ? 'Total Amount (₹)' : 'Total Deals';
+
+        charts.category = new Chart(document.getElementById('categoryChart'), {
+          type: 'doughnut',
+          data: {
+            labels: categoryLabels,
+            datasets: [{
+              data: chartData,
+              backgroundColor: colorPalette.secondary.slice(0, categoryLabels.length),
+              borderColor: colorPalette.primary.slice(0, categoryLabels.length),
+              borderWidth: 3,
+              hoverOffset: 10
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  padding: 20,
+                  usePointStyle: true,
+                  font: { size: 12, weight: '600' }
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    const label = context.label || '';
+                    const value = context.raw;
+                    const isAmount = categoryAmounts.some(amount => amount > 0);
+                    return `${label}: ${isAmount ? '₹' + value.toLocaleString() : value + ' deals'}`;
+                  }
+                }
+              }
+            },
+            animation: {
+              animateRotate: true,
+              duration: 1500
+            }
+          }
+        });
+      } else {
+        // Show empty state
+        document.getElementById('categoryChart').getContext('2d').fillText('No category data available', 50, 50);
+      }
+
+      // Task Income Chart - Enhanced for dynamic data
+      if (apiData.taskStats && apiData.taskStats.length > 0) {
+        const taskLabels = apiData.taskStats.map(item => `Task ${item.task}`);
+        const taskReceived = apiData.taskStats.map(item => item.totalReceived || 0);
+        const taskAmounts = apiData.taskStats.map(item => item.totalAmount || 0);
+
+        charts.trend = new Chart(document.getElementById('trendChart'), {
+          type: 'bar',
+          data: {
+            labels: taskLabels,
+            datasets: [{
+              label: 'Amount Received',
+              data: taskReceived,
+              backgroundColor: colorPalette.secondary.slice(0, taskLabels.length),
+              borderColor: colorPalette.primary.slice(0, taskLabels.length),
+              borderWidth: 2,
+              borderRadius: 8,
+              borderSkipped: false,
+            }, {
+              label: 'Total Amount',
+              data: taskAmounts,
+              backgroundColor: colorPalette.light.slice(0, taskLabels.length),
+              borderColor: colorPalette.primary.slice(0, taskLabels.length),
+              borderWidth: 2,
+              borderRadius: 8,
+              borderSkipped: false,
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: true,
+                position: 'top',
+                labels: {
+                  font: { size: 11, weight: '600' },
+                  usePointStyle: true
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return `${context.dataset.label}: ₹${context.raw.toLocaleString()}`;
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                grid: { color: 'rgba(0,0,0,0.1)' },
+                ticks: {
+                  callback: function (value) {
+                    return '₹' + value.toLocaleString();
+                  }
+                }
+              },
+              x: {
+                grid: { display: false }
+              }
+            },
+            animation: {
+              duration: 2000,
+              easing: 'easeInOutQuart'
+            }
+          }
+        });
+      } else {
+        // Show empty state
+        document.getElementById('trendChart').getContext('2d').fillText('No task data available', 50, 50);
+      }
+
+      // Deal Status Overview Chart
+      if (apiData.summary) {
+        const statusData = {
+          'Agreement Amount': apiData.summary.totalAgreementAmount || 0,
+          'Amount Received': apiData.summary.totalReceived || 0,
+          'Outstanding': Math.abs(apiData.summary.totalOutstanding || 0)
+        };
+
+        charts.payment = new Chart(document.getElementById('paymentChart'), {
+          type: 'line',
+          data: {
+            labels: Object.keys(statusData),
+            datasets: [{
+              label: 'Amount (₹)',
+              data: Object.values(statusData),
+              borderColor: colorPalette.primary[0],
+              backgroundColor: colorPalette.light[0],
+              borderWidth: 3,
+              fill: true,
+              tension: 0.4,
+              pointBackgroundColor: colorPalette.primary[0],
+              pointBorderColor: '#fff',
+              pointBorderWidth: 3,
+              pointRadius: 8
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                grid: { color: 'rgba(0,0,0,0.1)' },
+                ticks: {
+                  callback: function (value) {
+                    return '₹' + value.toLocaleString();
+                  }
+                }
+              },
+              x: {
+                grid: { display: false }
+              }
+            },
+            animation: {
+              duration: 1500,
+              easing: 'easeOutBounce'
+            }
+          }
+        });
+      }
+    }
+
+    // Close popup when clicking outside
+    document.getElementById('popupOverlay').addEventListener('click', function (e) {
+      if (e.target === this) {
+        closeAnalyticsPopup();
+      }
+    });
+
+    // Close popup with Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeAnalyticsPopup();
+      }
+    });
+  </script>
 </body>
 
 </html>

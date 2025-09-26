@@ -8,856 +8,592 @@
   <link rel="stylesheet" href="../../css/darkMode.css">
   <link rel="stylesheet" href="../../css/index.css">
   <link rel="stylesheet" href="../../css/responsive.css">
-  <style>
-    .invoice-container {
-      max-width: 850px;
-      margin: 0 auto;
-      background: white;
-      padding: 40px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-    }
-
-    .invoice-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 30px;
-      border-bottom: 3px solid #e67e22;
-      padding-bottom: 20px;
-    }
-
-    .company-info {
-      flex: 1;
-    }
-
-    .company-logo {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .logo-icon {
-      width: 45px;
-      height: 45px;
-      background: linear-gradient(135deg, #e67e22, #d35400);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 12px;
-      font-weight: bold;
-      color: white;
-      font-size: 20px;
-    }
-
-    .company-name {
-      color: #2c3e50;
-      font-size: 22px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .company-tagline {
-      color: #e67e22;
-      font-size: 12px;
-      font-weight: 500;
-      margin-top: 2px;
-    }
-
-    .invoice-title-section {
-      text-align: right;
-    }
-
-    .invoice-title {
-      font-size: 32px;
-      font-weight: bold;
-      color: #2c3e50;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-    }
-
-    .invoice-number {
-      font-size: 16px;
-      color: #7f8c8d;
-      margin-bottom: 15px;
-    }
-
-    .company-address {
-      color: #7f8c8d;
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    .project-info {
-      background: #ecf0f1;
-      padding: 20px;
-      border-radius: 8px;
-      margin-bottom: 25px;
-      border-left: 4px solid #e67e22;
-    }
-
-    .project-header {
-      font-size: 16px;
-      font-weight: 700;
-      color: #2c3e50;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-    }
-
-    .project-details {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    .project-field {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .field-label {
-      font-weight: 600;
-      color: #34495e;
-      font-size: 12px;
-      text-transform: uppercase;
-      margin-bottom: 5px;
-    }
-
-    .field-value {
-      color: #2c3e50;
-      font-size: 14px;
-      border: 1px solid transparent;
-      padding: 5px;
-      border-radius: 4px;
-    }
-
-    .field-value.editable:hover {
-      border-color: #bdc3c7;
-      background: white;
-    }
-
-    .field-value.editable:focus {
-      outline: none;
-      border-color: #e67e22;
-      background: white;
-    }
-
-    .invoice-details {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 30px;
-    }
-
-    .bill-to,
-    .invoice-dates {
-      flex: 1;
-    }
-
-    .bill-to {
-      margin-right: 40px;
-    }
-
-    .section-title {
-      font-weight: 700;
-      color: #2c3e50;
-      margin-bottom: 10px;
-      font-size: 14px;
-      text-transform: uppercase;
-      border-bottom: 2px solid #e67e22;
-      padding-bottom: 5px;
-      display: inline-block;
-    }
-
-    .client-info,
-    .date-info {
-      color: #7f8c8d;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .date-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      padding: 5px 0;
-    }
-
-    .date-label {
-      font-weight: 600;
-      color: #34495e;
-    }
-
-    .items-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .items-table th {
-      background: linear-gradient(135deg, #34495e, #2c3e50);
-      color: white;
-      padding: 15px 12px;
-      text-align: left;
-      font-weight: 600;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .items-table td {
-      padding: 15px 12px;
-      border-bottom: 1px solid #ecf0f1;
-      font-size: 13px;
-      color: #2c3e50;
-      background: white;
-    }
-
-    .items-table tr:nth-child(even) td {
-      background: #f8f9fa;
-    }
-
-    .items-table tr:hover td {
-      background: #e8f4f8;
-    }
-
-    .qty-col,
-    .rate-col,
-    .amount-col {
-      text-align: center;
-      width: 100px;
-    }
-
-    .amount-col {
-      text-align: right;
-      font-weight: 600;
-    }
-
-    .item-description {
-      max-width: 300px;
-    }
-
-    .item-specs {
-      font-size: 11px;
-      color: #7f8c8d;
-      font-style: italic;
-      margin-top: 3px;
-    }
-
-    .bottom-section {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 30px;
-      gap: 40px;
-    }
-
-    .left-section {
-      flex: 1;
-    }
-
-    .totals-section {
-      width: 320px;
-      flex-shrink: 0;
-      background: #f8f9fa;
-      padding: 20px;
-      border-radius: 8px;
-      border: 2px solid #e67e22;
-    }
-
-    .total-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      font-size: 14px;
-      color: #34495e;
-    }
-
-    .total-row.subtotal {
-      border-top: 1px solid #bdc3c7;
-      padding-top: 15px;
-      font-weight: 600;
-    }
-
-    .total-row.final {
-      font-weight: bold;
-      font-size: 18px;
-      border-top: 2px solid #2c3e50;
-      padding-top: 15px;
-      color: #2c3e50;
-      background: #e67e22;
-      color: white;
-      margin: 10px -20px -20px -20px;
-      padding: 15px 20px;
-    }
-
-    .total-words {
-      text-align: right;
-      font-style: italic;
-      color: #7f8c8d;
-      margin-top: 15px;
-      font-size: 13px;
-      background: white;
-      padding: 10px;
-      border-radius: 4px;
-      border: 1px solid #e67e22;
-    }
-
-    .invoice-footer {
-      border-top: 2px solid #ecf0f1;
-      padding-top: 25px;
-    }
-
-    .notes-section,
-    .payment-section,
-    .terms-section {
-      margin-bottom: 20px;
-      background: #f8f9fa;
-      padding: 15px;
-      border-radius: 6px;
-      border-left: 4px solid #e67e22;
-    }
-
-    .section-header {
-      color: #2c3e50;
-      font-weight: 700;
-      margin-bottom: 8px;
-      font-size: 14px;
-      text-transform: uppercase;
-    }
-
-    .notes-text,
-    .payment-text,
-    .terms-text {
-      color: #34495e;
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    .payment-details {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      background: #f8f9fa;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 20px 0;
-    }
-
-    .bank-details {
-      flex: 1;
-      margin-right: 20px;
-    }
-
-    .contact-info {
-      color: #7f8c8d;
-      font-size: 12px;
-      margin-bottom: 20px;
-      text-align: center;
-      background: #ecf0f1;
-      padding: 15px;
-      border-radius: 6px;
-    }
-
-    .signature-section {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 40px;
-      border-top: 1px solid #ecf0f1;
-      padding-top: 30px;
-    }
-
-    .signature-box {
-      width: 200px;
-      text-align: center;
-    }
-
-    .signature-line {
-      border-top: 2px solid #2c3e50;
-      margin-top: 50px;
-      padding-top: 10px;
-      font-size: 12px;
-      color: #7f8c8d;
-      font-weight: 600;
-    }
-
-    .controls {
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .btn {
-      background: #e67e22;
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      margin: 0 10px;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-    }
-
-    .btn:hover {
-      background: #d35400;
-      transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-      background: #34495e;
-    }
-
-    .btn-secondary:hover {
-      background: #2c3e50;
-    }
-
-    .btn-success {
-      background: #27ae60;
-    }
-
-    .btn-success:hover {
-      background: #229954;
-    }
-
-    .add-item-btn {
-      background: #27ae60;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 13px;
-      margin-top: 15px;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-
-    .add-item-btn:hover {
-      background: #229954;
-    }
-
-    .delete-item {
-      background: #e74c3c;
-      color: white;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .delete-item:hover {
-      background: #c0392b;
-    }
-
-    .editable {
-      background: transparent;
-      border: 1px dashed transparent;
-      padding: 3px;
-      border-radius: 3px;
-    }
-
-    .editable:hover {
-      border-color: #e67e22;
-      background: rgba(230, 126, 34, 0.1);
-    }
-
-    .editable:focus {
-      outline: none;
-      border-color: #e67e22;
-      background: white;
-      box-shadow: 0 0 5px rgba(230, 126, 34, 0.3);
-    }
-
-    @media print {
-      body {
-        background: white;
-        padding: 0;
-      }
-
-      .controls {
-        display: none;
-      }
-
-      .invoice-container {
-        box-shadow: none;
-        max-width: none;
-        padding: 20px;
-      }
-
-      .delete-item {
-        display: none;
-      }
-    }
-
-    .template-selector {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .template-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: #2c3e50;
-      margin-bottom: 15px;
-      text-transform: uppercase;
-    }
-
-    .template-buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .template-btn {
-      padding: 8px 16px;
-      background: #ecf0f1;
-      border: 1px solid #bdc3c7;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 12px;
-      color: #2c3e50;
-      transition: all 0.3s ease;
-    }
-
-    .template-btn:hover {
-      background: #e67e22;
-      color: white;
-      border-color: #e67e22;
-    }
-
-    .unit-selector {
-      background: #f8f9fa;
-      border: 1px solid #e67e22;
-      border-radius: 4px;
-      padding: 4px;
-      font-size: 12px;
-      color: #2c3e50;
-    }
-  </style>
+  <link rel="stylesheet" href="../../css/admin/invoice.css">
+ 
 </head>
 
 <body>
   <%- include('../partials/admin.aside.ejs') %>
-  <main class="main" data-app-page="invoice">
-    <div class="main-data">
-      <%- include('../partials/admin.header.ejs') %>
-      <div class="template-selector">
-        <div class="template-title">Quick Templates</div>
-        <div class="template-buttons">
-          <button class="template-btn" onclick="loadTemplate('residential')">Residential Construction</button>
-          <button class="template-btn" onclick="loadTemplate('commercial')">Commercial Building</button>
-          <button class="template-btn" onclick="loadTemplate('renovation')">Renovation Project</button>
-          <button class="template-btn" onclick="loadTemplate('material')">Material Supply</button>
-          <!-- <button class="template-btn" onclick="loadTemplate('labor')">Labor Only</button>
+    <main class="main" data-app-page="invoice">
+      <div class="main-data">
+        <%- include('../partials/admin.header.ejs') %>
+          <div class="template-selector">
+            <div class="template-title">Quick Templates</div>
+            <div class="template-buttons">
+              <button class="template-btn" onclick="loadTemplate('residential')">Residential Construction</button>
+              <button class="template-btn" onclick="loadTemplate('commercial')">Commercial Building</button>
+              <button class="template-btn" onclick="loadTemplate('renovation')">Renovation Project</button>
+              <button class="template-btn" onclick="loadTemplate('material')">Material Supply</button>
+              <!-- <button class="template-btn" onclick="loadTemplate('labor')">Labor Only</button>
             <button class="template-btn" onclick="loadTemplate('plumbing')">Plumbing Work</button>
             <button class="template-btn" onclick="loadTemplate('electrical')">Electrical Work</button> -->
-        </div>
-      </div>
+            </div>
+          </div>
 
-      <div class="controls">
-        <button class="btn" onclick="printInvoice()">Print Invoice</button>
-        <button class="btn btn-secondary" onclick="downloadPDF()">Download PDF</button>
-        <button class="btn btn-success" onclick="addNewItem()">Add Item</button>
-        <button class="btn btn-secondary" onclick="calculateMaterials()">Material Calculator</button>
-      </div>
+          <div class="controls">
+            <button class="btn" onclick="printInvoice('invoice-container')">Print Invoice</button>
+            <button class="btn btn-secondary" onclick="downloadPDF()">Download PDF</button>
+            <button class="btn btn-success" onclick="addNewItem()">Add Item</button>
+            <button class="btn btn-secondary" onclick="calculateMaterials()">Material Calculator</button>
+          </div>
 
-      <div class="invoice-container">
-        <div class="invoice-header">
-          <div class="company-info">
-            <div class="company-logo">
-              <div class="logo-icon">🏗️</div>
-              <div>
-                <div class="company-name editable" contenteditable="true">Engineers Build and Architect Hut ( EBAH )</div>
-                <div class="company-tagline">Building Dreams, Creating Reality</div>
+          <div class="invoice-container" id="invoice-container">
+            <div class="invoice-header">
+              <div class="company-info">
+                <div class="company-logo">
+                  <div class="logo-icon">🏗️</div>
+                  <div>
+                    <div class="company-name editable" contenteditable="true">Engineers Build and Architect Hut ( EBAH )
+                    </div>
+                    <div class="company-tagline">Building Dreams, Creating Reality</div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="invoice-title-section">
-            <div class="invoice-title">Invoice</div>
-            <div class="invoice-number">Invoice # <span class="editable" contenteditable="true">BC-2025-001</span></div>
-            <div class="company-address editable" contenteditable="true">
-              GNB Rd, Haibargaon, Daccapatty, Nagaon
-              Assam 782001, India<br>
-              License: CON/2024/12345
-            </div>
-          </div>
-        </div>
-
-        <div class="project-info">
-          <div class="project-header">Project Information</div>
-          <div class="project-details">
-            <div class="project-field">
-              <div class="field-label">Project Name</div>
-              <div class="field-value editable" contenteditable="true">Residential Villa Construction - Phase 1</div>
-            </div>
-            <div class="project-field">
-              <div class="field-label">Project Location</div>
-              <div class="field-value editable" contenteditable="true">Plot No. 45, Green Valley Society, Guwahati</div>
-            </div>
-            <div class="project-field">
-              <div class="field-label">Project Manager</div>
-              <div class="field-value editable" contenteditable="true">Rajesh Kumar</div>
-            </div>
-            <div class="project-field">
-              <div class="field-label">Work Order No.</div>
-              <div class="field-value editable" contenteditable="true">WO/2025/BC/001</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="invoice-details">
-          <div class="bill-to">
-            <div class="section-title">Bill To</div>
-            <div class="client-info editable" contenteditable="true">
-              Mr. Amit Sharma<br>
-              Green Valley Society<br>
-              Plot No. 45, Sector 15<br>
-              Guwahati, Assam 781015<br>
-              Phone: +91 9876543210<br>
-              Email: amit.sharma@email.com
-            </div>
-          </div>
-          <div class="invoice-dates">
-            <div class="date-row">
-              <span class="date-label">Invoice Date:</span>
-              <span class="editable" contenteditable="true">September 22, 2025</span>
-            </div>
-            <div class="date-row">
-              <span class="date-label">Due Date:</span>
-              <span class="editable" contenteditable="true">October 07, 2025</span>
-            </div>
-            <div class="date-row">
-              <span class="date-label">Work Period:</span>
-              <span class="editable" contenteditable="true">Sep 01 - Sep 20, 2025</span>
-            </div>
-            <div class="date-row">
-              <span class="date-label">Payment Terms:</span>
-              <span class="editable" contenteditable="true">Net 15 Days</span>
-            </div>
-          </div>
-        </div>
-
-        <table class="items-table">
-          <thead>
-            <tr>
-              <th>Description</th>
-              <th class="qty-col">Quantity</th>
-              <th class="qty-col">Unit</th>
-              <th class="rate-col">Rate (₹)</th>
-              <th class="amount-col">Amount (₹)</th>
-              <th width="50"></th>
-            </tr>
-          </thead>
-          <tbody id="items-tbody">
-            <tr>
-              <td class="item-description">
-                <div class="editable" contenteditable="true">Foundation Excavation</div>
-                <div class="item-specs">Depth: 4 feet, Area: 1200 sq.ft</div>
-              </td>
-              <td class="qty-col editable" contenteditable="true" data-type="qty">1200</td>
-              <td class="qty-col">
-                <select class="unit-selector" data-type="unit">
-                  <option>Sq.Ft</option>
-                  <option>Cu.Ft</option>
-                  <option>Sq.M</option>
-                  <option>Cu.M</option>
-                  <option>Nos</option>
-                  <option>Kg</option>
-                  <option>Ton</option>
-                  <option>Bag</option>
-                  <option>RMT</option>
-                </select>
-              </td>
-              <td class="rate-col editable" contenteditable="true" data-type="rate">45.00</td>
-              <td class="amount-col" data-type="amount">54,000.00</td>
-              <td><button class="delete-item" onclick="deleteItem(this)">×</button></td>
-            </tr>
-            <tr>
-              <td class="item-description">
-                <div class="editable" contenteditable="true">Concrete Work (M20 Grade)</div>
-                <div class="item-specs">Foundation & Footing</div>
-              </td>
-              <td class="qty-col editable" contenteditable="true" data-type="qty">85</td>
-              <td class="qty-col">
-                <select class="unit-selector" data-type="unit">
-                  <option>Cu.Ft</option>
-                  <option>Cu.M</option>
-                  <option>Sq.Ft</option>
-                  <option>Sq.M</option>
-                  <option>Nos</option>
-                </select>
-              </td>
-              <td class="rate-col editable" contenteditable="true" data-type="rate">4500.00</td>
-              <td class="amount-col" data-type="amount">3,82,500.00</td>
-              <td><button class="delete-item" onclick="deleteItem(this)">×</button></td>
-            </tr>
-            <tr>
-              <td class="item-description">
-                <div class="editable" contenteditable="true">Steel Reinforcement</div>
-                <div class="item-specs">TMT Bars - Various Sizes</div>
-              </td>
-              <td class="qty-col editable" contenteditable="true" data-type="qty">2500</td>
-              <td class="qty-col">
-                <select class="unit-selector" data-type="unit">
-                  <option>Kg</option>
-                  <option>Ton</option>
-                  <option>Nos</option>
-                </select>
-              </td>
-              <td class="rate-col editable" contenteditable="true" data-type="rate">65.00</td>
-              <td class="amount-col" data-type="amount">1,62,500.00</td>
-              <td><button class="delete-item" onclick="deleteItem(this)">×</button></td>
-            </tr>
-            <tr>
-              <td class="item-description">
-                <div class="editable" contenteditable="true">Brickwork</div>
-                <div class="item-specs">9" Wall, 1:4 Cement Mortar</div>
-              </td>
-              <td class="qty-col editable" contenteditable="true" data-type="qty">850</td>
-              <td class="qty-col">
-                <select class="unit-selector" data-type="unit">
-                  <option>Sq.Ft</option>
-                  <option>Cu.Ft</option>
-                  <option>Sq.M</option>
-                  <option>Nos</option>
-                </select>
-              </td>
-              <td class="rate-col editable" contenteditable="true" data-type="rate">180.00</td>
-              <td class="amount-col" data-type="amount">1,53,000.00</td>
-              <td><button class="delete-item" onclick="deleteItem(this)">×</button></td>
-            </tr>
-            <tr>
-              <td class="item-description">
-                <div class="editable" contenteditable="true">Labor Charges</div>
-                <div class="item-specs">Skilled + Semi-skilled Workers</div>
-              </td>
-              <td class="qty-col editable" contenteditable="true" data-type="qty">20</td>
-              <td class="qty-col">
-                <select class="unit-selector" data-type="unit">
-                  <option>Days</option>
-                  <option>Hours</option>
-                  <option>Nos</option>
-                </select>
-              </td>
-              <td class="rate-col editable" contenteditable="true" data-type="rate">3500.00</td>
-              <td class="amount-col" data-type="amount">70,000.00</td>
-              <td><button class="delete-item" onclick="deleteItem(this)">×</button></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <button class="add-item-btn" onclick="addNewItem()">+ Add New Item</button>
-
-        <div class="bottom-section">
-          <div class="left-section">
-            <div class="notes-section">
-              <div class="section-header">Work Specifications</div>
-              <div class="notes-text editable" contenteditable="true">
-                • All work to be executed as per approved drawings and specifications<br>
-                • Materials used are of ISI standard quality<br>
-                • Work includes cleaning of site after completion<br>
-                • Any additional work will be charged separately<br>
-                • Warranty: 12 months for workmanship defects
+              <div class="invoice-title-section">
+                <div class="invoice-title">Invoice</div>
+                <div class="invoice-number">Invoice # <span class="editable" contenteditable="true">BC-2025-001</span>
+                </div>
+                <div class="company-address editable" contenteditable="true">
+                  GNB Rd, Haibargaon, Daccapatty, Nagaon
+                  Assam 782001, India<br>
+                  License: CON/2024/12345
+                </div>
               </div>
             </div>
 
-            <div class="terms-section">
-              <div class="section-header">Payment Terms & Conditions</div>
-              <div class="terms-text editable" contenteditable="true">
-                • Payment due within 15 days from invoice date<br>
-                • 2% discount for payments within 7 days<br>
-                • Late payment charges: 2% per month<br>
-                • Materials remain property of BuildCorp until full payment<br>
-                • Client to provide clear site access and utilities
+            <div class="project-info">
+              <div class="project-header">Project Information</div>
+              <div class="project-details">
+                <div class="project-field">
+                  <div class="field-label">Project Name</div>
+                  <div class="field-value editable" contenteditable="true">Residential Villa Construction - Phase 1
+                  </div>
+                </div>
+                <div class="project-field">
+                  <div class="field-label">Project Location</div>
+                  <div class="field-value editable" contenteditable="true">Plot No. 45, Green Valley Society, Guwahati
+                  </div>
+                </div>
+                <div class="project-field">
+                  <div class="field-label">Project Manager</div>
+                  <div class="field-value editable" contenteditable="true">Rajesh Kumar</div>
+                </div>
+                <div class="project-field">
+                  <div class="field-label">Work Order No.</div>
+                  <div class="field-value editable" contenteditable="true">WO/2025/BC/001</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="invoice-details">
+              <div class="bill-to">
+                <div class="section-title">Bill To</div>
+                <div class="client-info editable" contenteditable="true">
+                  Mr. Amit Sharma<br>
+                  Green Valley Society<br>
+                  Plot No. 45, Sector 15<br>
+                  Guwahati, Assam 781015<br>
+                  Phone: +91 9876543210<br>
+                  Email: amit.sharma@email.com
+                </div>
+              </div>
+              <div class="invoice-dates">
+                <div class="date-row">
+                  <span class="date-label">Invoice Date:</span>
+                  <span class="editable" contenteditable="true">September 22, 2025</span>
+                </div>
+                <div class="date-row">
+                  <span class="date-label">Due Date:</span>
+                  <span class="editable" contenteditable="true">October 07, 2025</span>
+                </div>
+                <div class="date-row">
+                  <span class="date-label">Work Period:</span>
+                  <span class="editable" contenteditable="true">Sep 01 - Sep 20, 2025</span>
+                </div>
+                <div class="date-row">
+                  <span class="date-label">Payment Terms:</span>
+                  <span class="editable" contenteditable="true">Net 15 Days</span>
+                </div>
+              </div>
+            </div>
+
+            <table class="items-table">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th class="qty-col">Quantity</th>
+                  <th class="qty-col">Unit</th>
+                  <th class="rate-col">Rate (₹)</th>
+                  <th class="amount-col">Amount (₹)</th>
+                  <th width="50"></th>
+                </tr>
+              </thead>
+              <tbody id="items-tbody">
+                <tr>
+                  <td class="item-description">
+                    <div class="editable" contenteditable="true">Foundation Excavation</div>
+                    <div class="item-specs">Depth: 4 feet, Area: 1200 sq.ft</div>
+                  </td>
+                  <td class="qty-col editable" contenteditable="true" data-type="qty">1200</td>
+                  <td class="qty-col">
+                    <select class="unit-selector" data-type="unit">
+                      <option>Sq.Ft</option>
+                      <option>Cu.Ft</option>
+                      <option>Sq.M</option>
+                      <option>Cu.M</option>
+                      <option>Nos</option>
+                      <option>Kg</option>
+                      <option>Ton</option>
+                      <option>Bag</option>
+                      <option>RMT</option>
+                    </select>
+                  </td>
+                  <td class="rate-col editable" contenteditable="true" data-type="rate">45.00</td>
+                  <td class="amount-col" data-type="amount">54,000.00</td>
+                  <td><button class="delete-item" onclick="deleteItem(this)">×</button></td>
+                </tr>
+                <tr>
+                  <td class="item-description">
+                    <div class="editable" contenteditable="true">Concrete Work (M20 Grade)</div>
+                    <div class="item-specs">Foundation & Footing</div>
+                  </td>
+                  <td class="qty-col editable" contenteditable="true" data-type="qty">85</td>
+                  <td class="qty-col">
+                    <select class="unit-selector" data-type="unit">
+                      <option>Cu.Ft</option>
+                      <option>Cu.M</option>
+                      <option>Sq.Ft</option>
+                      <option>Sq.M</option>
+                      <option>Nos</option>
+                    </select>
+                  </td>
+                  <td class="rate-col editable" contenteditable="true" data-type="rate">4500.00</td>
+                  <td class="amount-col" data-type="amount">3,82,500.00</td>
+                  <td><button class="delete-item" onclick="deleteItem(this)">×</button></td>
+                </tr>
+                <tr>
+                  <td class="item-description">
+                    <div class="editable" contenteditable="true">Steel Reinforcement</div>
+                    <div class="item-specs">TMT Bars - Various Sizes</div>
+                  </td>
+                  <td class="qty-col editable" contenteditable="true" data-type="qty">2500</td>
+                  <td class="qty-col">
+                    <select class="unit-selector" data-type="unit">
+                      <option>Kg</option>
+                      <option>Ton</option>
+                      <option>Nos</option>
+                    </select>
+                  </td>
+                  <td class="rate-col editable" contenteditable="true" data-type="rate">65.00</td>
+                  <td class="amount-col" data-type="amount">1,62,500.00</td>
+                  <td><button class="delete-item" onclick="deleteItem(this)">×</button></td>
+                </tr>
+                <tr>
+                  <td class="item-description">
+                    <div class="editable" contenteditable="true">Brickwork</div>
+                    <div class="item-specs">9" Wall, 1:4 Cement Mortar</div>
+                  </td>
+                  <td class="qty-col editable" contenteditable="true" data-type="qty">850</td>
+                  <td class="qty-col">
+                    <select class="unit-selector" data-type="unit">
+                      <option>Sq.Ft</option>
+                      <option>Cu.Ft</option>
+                      <option>Sq.M</option>
+                      <option>Nos</option>
+                    </select>
+                  </td>
+                  <td class="rate-col editable" contenteditable="true" data-type="rate">180.00</td>
+                  <td class="amount-col" data-type="amount">1,53,000.00</td>
+                  <td><button class="delete-item" onclick="deleteItem(this)">×</button></td>
+                </tr>
+                <tr>
+                  <td class="item-description">
+                    <div class="editable" contenteditable="true">Labor Charges</div>
+                    <div class="item-specs">Skilled + Semi-skilled Workers</div>
+                  </td>
+                  <td class="qty-col editable" contenteditable="true" data-type="qty">20</td>
+                  <td class="qty-col">
+                    <select class="unit-selector" data-type="unit">
+                      <option>Days</option>
+                      <option>Hours</option>
+                      <option>Nos</option>
+                    </select>
+                  </td>
+                  <td class="rate-col editable" contenteditable="true" data-type="rate">3500.00</td>
+                  <td class="amount-col" data-type="amount">70,000.00</td>
+                  <td><button class="delete-item" onclick="deleteItem(this)">×</button></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <button class="add-item-btn" onclick="addNewItem()">+ Add New Item</button>
+
+            <div class="bottom-section">
+              <div class="left-section">
+                <div class="notes-section">
+                  <div class="section-header">Work Specifications</div>
+                  <div class="notes-text editable" contenteditable="true">
+                    • All work to be executed as per approved drawings and specifications<br>
+                    • Materials used are of ISI standard quality<br>
+                    • Work includes cleaning of site after completion<br>
+                    • Any additional work will be charged separately<br>
+                    • Warranty: 12 months for workmanship defects
+                  </div>
+                </div>
+
+                <div class="terms-section">
+                  <div class="section-header">Payment Terms & Conditions</div>
+                  <div class="terms-text editable" contenteditable="true">
+                    • Payment due within 15 days from invoice date<br>
+                    • 2% discount for payments within 7 days<br>
+                    • Late payment charges: 2% per month<br>
+                    • Materials remain property of BuildCorp until full payment<br>
+                    • Client to provide clear site access and utilities
+                  </div>
+                </div>
+              </div>
+
+              <div class="totals-section">
+                <div class="total-row subtotal">
+                  <span>Subtotal:</span>
+                  <span id="subtotal">8,22,000.00</span>
+                </div>
+                <div class="total-row">
+                  <span>Material Handling (3%):</span>
+                  <span id="handling">24,660.00</span>
+                </div>
+                <div class="total-row">
+                  <span>GST @ 18%:</span>
+                  <span id="gst">1,52,398.80</span>
+                </div>
+                <div class="total-row">
+                  <span>Advance Paid:</span>
+                  <span>- <span class="editable" contenteditable="true" id="advance">2,00,000.00</span></span>
+                </div>
+                <div class="total-row final">
+                  <span>Balance Due:</span>
+                  <span id="total">7,99,058.80</span>
+                </div>
+                <div class="total-words">
+                  <strong>Amount in Words:</strong><br>
+                  <span id="total-words">Seven Lakh Ninety-Nine Thousand Fifty-Eight</span> Rupees and Eighty Paise Only
+                </div>
+              </div>
+            </div>
+
+            <div class="payment-details">
+              <div class="bank-details">
+                <div class="section-header">Payment Details</div>
+                <div class="payment-text">
+                  <strong>Bank:</strong> <span class="editable" contenteditable="true">State Bank of India</span><br>
+                  <strong>Account Name:</strong> <span class="editable" contenteditable="true">BuildCorp Construction
+                    Pvt Ltd</span><br>
+                  <strong>Account No:</strong> <span class="editable" contenteditable="true">12345678901</span><br>
+                  <strong>IFSC Code:</strong> <span class="editable" contenteditable="true">SBIN0012345</span><br>
+                  <strong>Branch:</strong> <span class="editable" contenteditable="true">Guwahati Main
+                    Branch</span><br><br>
+                  <strong>UPI ID:</strong> <span class="editable" contenteditable="true">buildcorp@paytm</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-info">
+              <strong>For any queries contact:</strong><br>
+              Email: <span class="editable" contenteditable="true">Director@ebah.co.in</span> |
+              Phone: <span class="editable" contenteditable="true">+91 7637999607</span> |
+              Website: <span class="editable" contenteditable="true">www.ebah.co.in</span><br>
+              Emergency Contact: <span class="editable" contenteditable="true">+91 7637999607</span>
+            </div>
+
+            <div class="signature-section">
+              <div class="signature-box">
+                <div class="signature-line">Project Manager</div>
+              </div>
+              <div class="signature-box">
+                <div class="signature-line">Client Signature</div>
+              </div>
+              <div class="signature-box">
+                <div class="signature-line">Authorized Signatory</div>
               </div>
             </div>
           </div>
+          <%- include('../partials/tasks/notification.ejs') %>
+            <%- include('../partials/tasks/alert.ejs') %>
 
-          <div class="totals-section">
-            <div class="total-row subtotal">
-              <span>Subtotal:</span>
-              <span id="subtotal">8,22,000.00</span>
-            </div>
-            <div class="total-row">
-              <span>Material Handling (3%):</span>
-              <span id="handling">24,660.00</span>
-            </div>
-            <div class="total-row">
-              <span>GST @ 18%:</span>
-              <span id="gst">1,52,398.80</span>
-            </div>
-            <div class="total-row">
-              <span>Advance Paid:</span>
-              <span>- <span class="editable" contenteditable="true" id="advance">2,00,000.00</span></span>
-            </div>
-            <div class="total-row final">
-              <span>Balance Due:</span>
-              <span id="total">7,99,058.80</span>
-            </div>
-            <div class="total-words">
-              <strong>Amount in Words:</strong><br>
-              <span id="total-words">Seven Lakh Ninety-Nine Thousand Fifty-Eight</span> Rupees and Eighty Paise Only
-            </div>
-          </div>
-        </div>
-
-        <div class="payment-details">
-          <div class="bank-details">
-            <div class="section-header">Payment Details</div>
-            <div class="payment-text">
-              <strong>Bank:</strong> <span class="editable" contenteditable="true">State Bank of India</span><br>
-              <strong>Account Name:</strong> <span class="editable" contenteditable="true">BuildCorp Construction Pvt Ltd</span><br>
-              <strong>Account No:</strong> <span class="editable" contenteditable="true">12345678901</span><br>
-              <strong>IFSC Code:</strong> <span class="editable" contenteditable="true">SBIN0012345</span><br>
-              <strong>Branch:</strong> <span class="editable" contenteditable="true">Guwahati Main Branch</span><br><br>
-              <strong>UPI ID:</strong> <span class="editable" contenteditable="true">buildcorp@paytm</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="contact-info">
-          <strong>For any queries contact:</strong><br>
-          Email: <span class="editable" contenteditable="true">Director@ebah.co.in</span> |
-          Phone: <span class="editable" contenteditable="true">+91 7637999607</span> |
-          Website: <span class="editable" contenteditable="true">www.ebah.co.in</span><br>
-          Emergency Contact: <span class="editable" contenteditable="true">+91 7637999607</span>
-        </div>
-
-        <div class="signature-section">
-          <div class="signature-box">
-            <div class="signature-line">Project Manager</div>
-          </div>
-          <div class="signature-box">
-            <div class="signature-line">Client Signature</div>
-          </div>
-          <div class="signature-box">
-            <div class="signature-line">Authorized Signatory</div>
-          </div>
-        </div>
-      </div>
-      <%- include('../partials/tasks/notification.ejs') %>
-      <%- include('../partials/tasks/alert.ejs') %>
-
-  </main>
-  </section>
-  <script src="../../js/admin/index.js"></script>
-  <script src="../../js/admin/common.js"></script>
-  <script>
-    // Construction-specific templates
-    const templates = {
+    </main>
+    </section>
+    <script src="../../js/admin/index.js"></script>
+    <script src="../../js/admin/common.js"></script>
+    <script>
+      // Construction-specific templates
+      const templates = {
         residential: {
-          items: [{
-                description: "Foundation Excavation",
-                specs: "Depth: 4 feet, Area: 1200 sq.ft",
-                qty: 1200,
-                unit: "
+          items: [
+            { description: "Foundation Excavation", specs: "Depth: 4 feet, Area: 1200 sq.ft", qty: 1200, unit: "Sq.Ft", rate: 45.00 },
+            { description: "Concrete Work (M20 Grade)", specs: "Foundation & Footing", qty: 85, unit: "Cu.Ft", rate: 4500.00 },
+            { description: "Steel Reinforcement", specs: "TMT Bars - Various Sizes", qty: 2500, unit: "Kg", rate: 65.00 },
+            { description: "Brickwork", specs: "9\" Wall, 1:4 Cement Mortar", qty: 850, unit: "Sq.Ft", rate: 180.00 }
+          ]
+        },
+        commercial: {
+          items: [
+            { description: "Site Preparation", specs: "Leveling and compaction", qty: 5000, unit: "Sq.Ft", rate: 25.00 },
+            { description: "RCC Column Work", specs: "M25 Grade Concrete", qty: 120, unit: "Cu.Ft", rate: 5200.00 },
+            { description: "Beam Construction", specs: "RCC Beams as per drawing", qty: 85, unit: "Cu.Ft", rate: 4800.00 },
+            { description: "Slab Casting", specs: "6\" thick RCC Slab", qty: 4500, unit: "Sq.Ft", rate: 320.00 }
+          ]
+        },
+        renovation: {
+          items: [
+            { description: "Demolition Work", specs: "Breaking existing structures", qty: 800, unit: "Sq.Ft", rate: 35.00 },
+            { description: "New Flooring", specs: "Vitrified tiles 2x2 ft", qty: 1200, unit: "Sq.Ft", rate: 180.00 },
+            { description: "Painting Work", specs: "Interior wall painting", qty: 2500, unit: "Sq.Ft", rate: 45.00 },
+            { description: "Electrical Rewiring", specs: "Complete house rewiring", qty: 1, unit: "Nos", rate: 85000.00 }
+          ]
+        },
+        material: {
+          items: [
+            { description: "Cement Supply", specs: "OPC 53 Grade", qty: 200, unit: "Bag", rate: 420.00 },
+            { description: "Steel Bars", specs: "TMT Fe500 - 12mm", qty: 5000, unit: "Kg", rate: 68.00 },
+            { description: "Aggregate Supply", specs: "20mm & 10mm mixed", qty: 150, unit: "Cu.Ft", rate: 45.00 },
+            { description: "Sand Supply", specs: "River sand - Fine", qty: 120, unit: "Cu.Ft", rate: 35.00 }
+          ]
+        },
+        labor: {
+          items: [
+            { description: "Mason Work", specs: "Skilled mason with helper", qty: 15, unit: "Days", rate: 1800.00 },
+            { description: "Helper Labor", specs: "General construction work", qty: 30, unit: "Days", rate: 800.00 },
+            { description: "Carpenter Work", specs: "Formwork and finishing", qty: 10, unit: "Days", rate: 2200.00 },
+            { description: "Painter Work", specs: "Wall and ceiling painting", qty: 8, unit: "Days", rate: 1500.00 }
+          ]
+        },
+        plumbing: {
+          items: [
+            { description: "Water Supply Line", specs: "CPVC Pipes and fittings", qty: 150, unit: "RMT", rate: 180.00 },
+            { description: "Drainage Work", specs: "PVC drainage pipes", qty: 120, unit: "RMT", rate: 120.00 },
+            { description: "Sanitary Fittings", specs: "WC, Basin, Taps", qty: 3, unit: "Set", rate: 15000.00 },
+            { description: "Installation Labor", specs: "Plumber with helper", qty: 8, unit: "Days", rate: 2500.00 }
+          ]
+        },
+        electrical: {
+          items: [
+            { description: "Wiring Work", specs: "Copper wire - various sizes", qty: 500, unit: "RMT", rate: 45.00 },
+            { description: "Switch & Socket", specs: "Modular switches", qty: 25, unit: "Nos", rate: 350.00 },
+            { description: "Distribution Board", specs: "MCB panel 12 way", qty: 1, unit: "Nos", rate: 4500.00 },
+            { description: "Light Fittings", specs: "LED lights and fans", qty: 15, unit: "Nos", rate: 1200.00 }
+          ]
+        }
+      };
+
+      // Load template function
+      function loadTemplate(templateName) {
+        const template = templates[templateName];
+        if (!template) return;
+
+        const tbody = document.getElementById('items-tbody');
+        tbody.innerHTML = '';
+
+        template.items.forEach(item => {
+          addItemRow(item.description, item.specs, item.qty, item.unit, item.rate);
+        });
+
+        calculateTotals();
+      }
+
+      // Add item row function
+      function addItemRow(description = "New Item", specs = "Item specifications", qty = 1, unit = "Nos", rate = 0) {
+        const tbody = document.getElementById('items-tbody');
+        const newRow = document.createElement('tr');
+
+        const unitOptions = ['Sq.Ft', 'Cu.Ft', 'Sq.M', 'Cu.M', 'Nos', 'Kg', 'Ton', 'Bag', 'RMT', 'Days', 'Hours'];
+        const unitSelect = unitOptions.map(u =>
+          `<option ${u === unit ? 'selected' : ''}>${u}</option>`
+        ).join('');
+
+        newRow.innerHTML = `
+        <td class="item-description">
+          <div class="editable" contenteditable="true">${description}</div>
+          <div class="item-specs">${specs}</div>
+        </td>
+        <td class="qty-col editable" contenteditable="true" data-type="qty">${qty}</td>
+        <td class="qty-col">
+          <select class="unit-selector" data-type="unit">
+            ${unitSelect}
+          </select>
+        </td>
+        <td class="rate-col editable" contenteditable="true" data-type="rate">${rate.toFixed(2)}</td>
+        <td class="amount-col" data-type="amount">0.00</td>
+        <td><button class="delete-item" onclick="deleteItem(this)">×</button></td>
+            `;
+
+        tbody.appendChild(newRow);
+      }
+
+      // Calculate totals function
+      function calculateTotals() {
+        let subtotal = 0;
+        const rows = document.querySelectorAll('#items-tbody tr');
+
+        rows.forEach(row => {
+          const qtyCell = row.querySelector('[data-type="qty"]');
+          const rateCell = row.querySelector('[data-type="rate"]');
+          const amountCell = row.querySelector('[data-type="amount"]');
+
+          if (qtyCell && rateCell && amountCell) {
+            const qty = parseFloat(qtyCell.textContent) || 0;
+            const rate = parseFloat(rateCell.textContent.replace(/[^\d.]/g, '')) || 0;
+            const amount = qty * rate;
+
+            amountCell.textContent = amount.toLocaleString('en-IN', {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            });
+
+            subtotal += amount;
+          }
+        });
+
+        // Calculate additional charges
+        const handling = subtotal * 0.03; // 3% handling
+        const gst = (subtotal + handling) * 0.18; // 18% GST
+        const advance = parseFloat(document.getElementById('advance').textContent.replace(/[^\d.]/g, '')) || 0;
+        const total = subtotal + handling + gst - advance;
+
+        // Update display
+        document.getElementById('subtotal').textContent = subtotal.toLocaleString('en-IN', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+
+        document.getElementById('handling').textContent = handling.toLocaleString('en-IN', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+
+        document.getElementById('gst').textContent = gst.toLocaleString('en-IN', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+
+        document.getElementById('total').textContent = total.toLocaleString('en-IN', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+
+        // Update total in words
+        document.getElementById('total-words').textContent = numberToWords(Math.floor(total));
+      }
+
+      // Event listeners
+      document.addEventListener('input', function (e) {
+        if (e.target.dataset.type === 'qty' || e.target.dataset.type === 'rate' || e.target.id === 'advance') {
+          setTimeout(calculateTotals, 100);
+        }
+      });
+
+      document.addEventListener('change', function (e) {
+        if (e.target.dataset.type === 'unit') {
+          calculateTotals();
+        }
+      });
+
+      // Add new item
+      function addNewItem() {
+        addItemRow();
+        calculateTotals();
+      }
+
+      // Delete item
+      function deleteItem(button) {
+        if (document.querySelectorAll('#items-tbody tr').length > 1) {
+          button.closest('tr').remove();
+          calculateTotals();
+        } else {
+          alert('Cannot delete the last item. At least one item is required.');
+        }
+      }
+
+      // Print function
+      function printInvoice(divId) {
+        let delete_icons = document.getElementsByClassName('delete-item')
+       for (const key in delete_icons) {
+        const element = delete_icons[key]; 
+        console.log(element);
+        
+       }
+        let printContents = document.getElementById(divId).innerHTML;
+        let originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+      }
+
+      // Download PDF placeholder
+      function downloadPDF() {
+        alert('PDF download feature would require a PDF generation library. Use Print > Save as PDF for now.');
+      }
+
+      // Material calculator placeholder
+      function calculateMaterials() {
+        alert('Material Calculator: This would open a tool to calculate cement, sand, aggregate quantities based on area/volume.');
+      }
+
+      // Number to words conversion
+      function numberToWords(num) {
+        const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+        const teens = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+        const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+        const thousands = ['', 'Thousand', 'Lakh', 'Crore'];
+
+        if (num === 0) return 'Zero';
+
+        function convertHundreds(n) {
+          let result = '';
+          if (n >= 100) {
+            result += ones[Math.floor(n / 100)] + ' Hundred ';
+            n %= 100;
+          }
+          if (n >= 20) {
+            result += tens[Math.floor(n / 10)] + ' ';
+            n %= 10;
+          } else if (n >= 10) {
+            result += teens[n - 10] + ' ';
+            n = 0;
+          }
+          if (n > 0) {
+            result += ones[n] + ' ';
+          }
+          return result;
+        }
+
+        let result = '';
+        let thousandCounter = 0;
+
+        // Handle Indian numbering system
+        if (num >= 10000000) { // Crores
+          result = convertHundreds(Math.floor(num / 10000000)) + 'Crore ';
+          num %= 10000000;
+        }
+        if (num >= 100000) { // Lakhs
+          result += convertHundreds(Math.floor(num / 100000)) + 'Lakh ';
+          num %= 100000;
+        }
+        if (num >= 1000) { // Thousands
+          result += convertHundreds(Math.floor(num / 1000)) + 'Thousand ';
+          num %= 1000;
+        }
+        if (num > 0) {
+          result += convertHundreds(num);
+        }
+
+        return result.trim();
+      }
+
+      // Initialize
+      calculateTotals();
+    </script>
+
+
+</body>
+
+</html>

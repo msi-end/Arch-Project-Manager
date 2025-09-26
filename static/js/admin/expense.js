@@ -2,7 +2,7 @@ BASE_URL = location.href;
 let ReqURI = {
   addExps: BASE_URL + `/add-Exps`,
   updExps: BASE_URL + `/expsUpdate/`,
-  getExpsBymonths: BASE_URL + "/getExps",
+  getExpsBymonths:  location.origin + location.pathname + "/getExps",
   NisProjectPaid: location.origin + "/apiv1/nIsProjectPaid",
   MisProjectPaid: location.origin + "/apiv1/mIsProjectPaid",
   Expense_category: location.origin + location.pathname + "/category/readAll",
@@ -396,47 +396,41 @@ function updateIncome_expense(exp_id, type) {
     });
 }
 
-function ChangeExpsByMonths(e) {
+async function ChangeExpsByMonths(e) {
   let dataCtn = document.querySelector(".expense-table table tbody");
   let m = document.querySelector("#ExpsMonth").value;
   let y = document.querySelector("#ExpsYear").value;
-  ReqHandler.GET(ReqURI.getExpsBymonths + `?m=${m}&y=${y}`)
-    .then((res) => {
-      dataCtn.innerHTML = "";
-      if (res.status) {
-        res.data.forEach((e) => {
-          let html = `<tr data-e_id="${e.id}" class="expense-border">
-                      <td>
-                        ${e.id}
-                      </td>
-                      <td class="exp-name-data">
-                        ${e.title}
-                      </td>
-                      <td class="exp-amount-data">
-                        &#8377; ${e.amount}
-                      </td>
-                      <td class="exp-date-data">
-                        ${e.date}
-                      </td>
-                      <td class="exp-mode-data">
-                        ${e.md_type}
-                      </td>
-                      <td>
-                        ${e.remark}
-                      </td>
-                      <td class="flex align-center">
-                        <button class="edit" data-exps_id="<%= exps.id %>" onclick="editExpense(this)">Edit</button>
-                      </td>
-                    </tr>`;
-          dataCtn.innerHTML += html;
-        });
-      } else {
-        AlertNotifier(res.status, res.msg, "error");
-      }
-    })
-    .catch((err) => {
-      console.log("Error(fn-ExpsUpdate):", err);
-    });
+
+  console.log(`${ReqURI.getExpsBymonths}?m=${m}&y=${y}`);
+  try {
+    let res = await ReqHandler.GET(`${ReqURI.getExpsBymonths}?m=${m}&y=${y}`);
+    dataCtn.innerHTML = "";
+    console.log(res);
+
+    if (res.status) {
+      res.data.forEach((exps) => {
+        let html = `<tr data-exps_id="${exps.id}" data-type="${exps.type}" class="${exps.type == "expense" ? "expense-border" : "income-border"}">
+          <td>${exps.id}</td>
+          <td class="exp-name-data">${exps.title}</td>
+          <td class="exp-amount-data">&#8377; ${exps.amount}</td>
+          <td class="exp-date-data">${exps.date}</td>
+          <td class="exp-mode-data">${exps.mode_of_pay}</td>
+          <td class="exp-category">${exps.category || "N/A"}</td>
+          <td class="exp-remark">${exps.remarks || "No remarks"}</td>
+          <td class="flex align-center">
+            <button class="edit" data-exps_id="${exps.id}" onclick="editIncome_expense(this)">Edit</button>
+            <button class="delete" onclick="DeleteIncome_expense(this,'${exps.type}',${exps.id})">Delete</button>
+          </td>
+        </tr>`;
+        dataCtn.innerHTML += html;
+      });
+    } else {
+      AlertNotifier(false, res.msg || "No data found", "error");
+    }
+  } catch (error) {
+    console.log("Error(fn-ExpsUpdate):", error);
+    AlertNotifier(false, error.message || "Something went wrong", "error");
+  }
 }
 
 //EXPENSE CATEGORY

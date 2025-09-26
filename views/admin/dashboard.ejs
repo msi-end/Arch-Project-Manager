@@ -10,200 +10,490 @@
   <link rel="stylesheet" href="sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="../../js/admin/dashboard.module.js"></script>
+  <link rel="stylesheet" href="../../css/admin/analytics-popup.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
   <!-- <link href="
     https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css
     " rel="stylesheet"> -->
   <title>Admin | EBAH</title>
 </head>
+<style>
+  main .main-data {
+    min-height: 74vh;
+  }
+
+  .popup {
+    background: white;
+    border-radius: 20px;
+    width: 100%;
+    max-width: auto;
+    max-height: 100%;
+    overflow-y: none;
+    box-shadow: none;
+    transform: translateY(-100px);
+    opacity: 0;
+    animation: slideDown 0.5s ease forwards;
+    position: relative;
+  }
+</style>
+
 <body>
   <section>
     <%- include('../partials/admin.aside.ejs') %>
-    <main data-app-page="dashboard">
-      <div class="main-data">
-        <%- include('../partials/admin.header.ejs') %>
-        <!-- --HEADING-- -->
-        <div class="main-section flex align-center j-between">
-          <div class="main-heading">
-            <h2>Analytics</h2>
-            <p class="title">Find all project details here</p>
-          </div>
-          <div class="analytic-btn">
-            <select name="" id="">
-              <option>Month</option>
-            </select>
-            <select name="" id="">
-              <option>Year</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- MAIN SUMMARY  -->
-        <div class="main-summary grid">
-          <div class="main-box">
-            <span class="arrow">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
-                <path fill="" d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
-                </path>
-              </svg>
-            </span>
-            <p class="title">Total Projects</p>
-            <h1 class="value"><%= data[0][0]?.total_projects %></h1>
-          </div>
-          <div class="main-box">
-            <span class="arrow">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
-                <path fill="" d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
-                </path>
-              </svg>
-            </span>
-            <p class="title">Total Revenue</p>
-            <h1 class="value">&#8377;<%= data[5][0]?.total_sum+data[5][1]?.total_sum %></h1>
-          </div>
-          <div class="main-box">
-            <span class="arrow">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
-                <path fill="" d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
-                </path>
-              </svg>
-            </span>
-            <p class="title">Total Expenses</p>
-            <h1 class="value">&#8377;<%= data[6][0]?.cash_expenses+data[6][0]?.online_expenses %></h1>
-          </div>
-          <div class="main-box">
-            <span class="arrow">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
-                <path fill="" d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
-                </path>
-              </svg>
-            </span>
-            <p class="title">Total Users</p>
-            <h1 class="value"><%= data[1][0]?.users %></h1>
-          </div>
-        </div>
-
-        <!-- Overview -->
-        <div class="sub-summary grid">
-          <div class="first-part part">
-            <div class="summary-heading flex align-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="bag">
-                <path d="M19,6H16V5a2,2,0,0,0-2-2H10A2,2,0,0,0,8,5V6H5A3,3,0,0,0,2,9v9a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V9A3,3,0,0,0,19,6ZM10,5h4V6H10ZM20,18a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V12.39L8.68,14A1.19,1.19,0,0,0,9,14h6a1.19,1.19,0,0,0,.32-.05L20,12.39Zm0-7.72L14.84,12H9.16L4,10.28V9A1,1,0,0,1,5,8H19a1,1,0,0,1,1,1Z">
-                </path>
-              </svg>
-              <h3 class="title flex-1">Projects Overview</h3>
-              <select onchange="changeType(this)">
-                <option value="normal">Normal</option>
-                <option value="misc">Miscellaneous</option>
-              </select>
+      <main data-app-page="dashboard">
+        <div class="main-data">
+          <%- include('../partials/admin.header.ejs') %>
+            <!-- --HEADING-- -->
+            <div class="main-section flex align-center j-between">
+              <div class="main-heading">
+                <h2>Analytics</h2>
+                <p class="title">Find all project details here</p>
+              </div>
+              <div class="analytic-btn">
+                <select name="" id="">
+                  <option>Month</option>
+                </select>
+                <select name="" id="">
+                  <option>Year</option>
+                </select>
+              </div>
             </div>
-            <%
-                let [completed, pending] = [0, 0];
-                let [misc_completed, misc_pending] = [0, 0];
-                data[2].forEach(e => { e.project_status == 'completed' ? completed++ : pending++; });
-                data[3].forEach(e => { e.project_status == 'completed' ? misc_completed++ : misc_pending++; });
-            %>
-            <div class="sub-flex flex align-center">
-              <div class="sub-box flex-1">
+
+            <!-- MAIN SUMMARY  -->
+            <div class="main-summary grid">
+              <div class="main-box">
+                <span class="arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
+                    <path fill=""
+                      d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
+                    </path>
+                  </svg>
+                </span>
                 <p class="title">Total Projects</p>
-                <h2 class="value n"><%= pending+completed %></h2>
-                <h2 class="value m hide"><%= misc_completed+misc_pending %></h2>
+                <h1 class="value">
+                  <%= data[0][0]?.total_projects %>
+                </h1>
               </div>
-              <div class="sub-box flex-1">
-                <p class="title">In Progress</p>
-                <h2 class="value n"><%= pending %></h2>
-                <h2 class="value m hide"><%= misc_pending %></h2>
+              <div class="main-box">
+                <span class="arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
+                    <path fill=""
+                      d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
+                    </path>
+                  </svg>
+                </span>
+                <p class="title">Total Revenue</p>
+                <h1 class="value">&#8377;<%= data[5][0]?.total_sum+data[5][1]?.total_sum %>
+                </h1>
               </div>
-              <div class="sub-box flex-1">
-                <p class="title">Completed</p>
-                <h2 class="value n"><%= completed %></h2>
-                <h2 class="value m hide"><%= misc_completed %></h2>
+              <div class="main-box">
+                <span class="arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
+                    <path fill=""
+                      d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
+                    </path>
+                  </svg>
+                </span>
+                <p class="title">Total Expenses</p>
+                <h1 class="value">&#8377;<%= data[6][0]?.cash_expenses+data[6][0]?.online_expenses %>
+                </h1>
+              </div>
+              <div class="main-box">
+                <span class="arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
+                    <path fill=""
+                      d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
+                    </path>
+                  </svg>
+                </span>
+                <p class="title">Total Users</p>
+                <h1 class="value">
+                  <%= data[1][0]?.users %>
+                </h1>
               </div>
             </div>
+
+            <!-- Overview -->
+            <div class="sub-summary grid">
+              <div class="first-part part">
+                <div class="summary-heading flex align-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="bag">
+                    <path
+                      d="M19,6H16V5a2,2,0,0,0-2-2H10A2,2,0,0,0,8,5V6H5A3,3,0,0,0,2,9v9a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V9A3,3,0,0,0,19,6ZM10,5h4V6H10ZM20,18a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V12.39L8.68,14A1.19,1.19,0,0,0,9,14h6a1.19,1.19,0,0,0,.32-.05L20,12.39Zm0-7.72L14.84,12H9.16L4,10.28V9A1,1,0,0,1,5,8H19a1,1,0,0,1,1,1Z">
+                    </path>
+                  </svg>
+                  <h3 class="title flex-1">Projects Overview</h3>
+                  <select onchange="changeType(this)">
+                    <option value="normal">Normal</option>
+                    <option value="misc">Miscellaneous</option>
+                  </select>
+                </div>
+                <% let [completed, pending]=[0, 0]; let [misc_completed, misc_pending]=[0, 0]; data[2].forEach(e=> {
+                  e.project_status == 'completed' ? completed++ : pending++; });
+                  data[3].forEach(e => { e.project_status == 'completed' ? misc_completed++ : misc_pending++; });
+                  %>
+                  <div class="sub-flex flex align-center">
+                    <div class="sub-box flex-1">
+                      <p class="title">Total Projects</p>
+                      <h2 class="value n">
+                        <%= pending+completed %>
+                      </h2>
+                      <h2 class="value m hide">
+                        <%= misc_completed+misc_pending %>
+                      </h2>
+                    </div>
+                    <div class="sub-box flex-1">
+                      <p class="title">In Progress</p>
+                      <h2 class="value n">
+                        <%= pending %>
+                      </h2>
+                      <h2 class="value m hide">
+                        <%= misc_pending %>
+                      </h2>
+                    </div>
+                    <div class="sub-box flex-1">
+                      <p class="title">Completed</p>
+                      <h2 class="value n">
+                        <%= completed %>
+                      </h2>
+                      <h2 class="value m hide">
+                        <%= misc_completed %>
+                      </h2>
+                    </div>
+                  </div>
+              </div>
+              <div class="second-part part">
+                <div class="summary-heading flex align-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="moneybag">
+                    <path fill=""
+                      d="M12,11a3,3,0,1,0,3,3A3,3,0,0,0,12,11Zm0,4a1,1,0,1,1,1-1A1,1,0,0,1,12,15Zm7-9H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H5A3,3,0,0,0,2,9V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V9A3,3,0,0,0,19,6ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10ZM4,9A1,1,0,0,1,5,8H6a2,2,0,0,1-2,2ZM5,20a1,1,0,0,1-1-1V18a2,2,0,0,1,2,2Zm15-1a1,1,0,0,1-1,1H18a2,2,0,0,1,2-2Zm0-3a4,4,0,0,0-4,4H8a4,4,0,0,0-4-4V12A4,4,0,0,0,8,8h8a4,4,0,0,0,4,4Zm0-6a2,2,0,0,1-2-2h1a1,1,0,0,1,1,1Z">
+                    </path>
+                  </svg>
+                  <h3 class="title flex-1">Projects Finance</h3>
+                  <select name="" id="" onchange="changeType(this)">
+                    <option value="normal">Normal</option>
+                    <option value="misc">Miscellaneous</option>
+                  </select>
+                </div>
+                <div class="sub-flex flex align-center">
+                  <div class="sub-box flex-1">
+                    <p class="title">Total Amount</p>
+                    <h2 class="value n">&#8377;<%= data[4][1]?.total_amount_got %>
+                    </h2>
+                    <h2 class="value m hide">&#8377;<%= data[4][0]?.total_amount_got %>
+                    </h2>
+                  </div>
+                  <div class="sub-box flex-1">
+                    <p class="title">Cash In Hand</p>
+                    <h2 class="value n">&#8377;<%= data[4][1]?.cash_sum %>
+                    </h2>
+                    <h2 class="value m hide">&#8377;<%= data[4][0]?.cash_sum %>
+                    </h2>
+                  </div>
+                  <div class="sub-box flex-1">
+                    <p class="title">Amount In Bank</p>
+                    <h2 class="value n">&#8377;<%= data[4][1]?.online_sum %>
+                    </h2>
+                    <h2 class="value m hide">&#8377;<%= data[4][0]?.online_sum %>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Finance -->
+            <div class="sub-summary grid finance">
+              <div class="first-part">
+                <div class="summary-heading flex align-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="rupee-sign">
+                    <path fill=""
+                      d="M18 7h-2.21a5.49 5.49 0 0 0-1-2H18a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h3.5a3.5 3.5 0 0 1 3.15 2H7a1 1 0 0 0 0 2h7a3.5 3.5 0 0 1-3.45 3H7a.7.7 0 0 0-.14 0 .65.65 0 0 0-.2 0 .69.69 0 0 0-.19.1l-.12.07a.75.75 0 0 0-.14.17 1.1 1.1 0 0 0-.09.14.61.61 0 0 0 0 .18A.65.65 0 0 0 6 13a.7.7 0 0 0 0 .14.65.65 0 0 0 0 .2.69.69 0 0 0 .1.19s0 .08.07.12l6 7a1 1 0 0 0 1.52-1.3L9.18 14h1.32A5.5 5.5 0 0 0 16 9h2a1 1 0 0 0 0-2Z">
+                    </path>
+                  </svg>
+                  <h3 class="title">Finance Overview</h3>
+                </div>
+                <div class="sub-flex flex align-center">
+                  <div class="sub-box flex-1">
+                    <p class="title">Total Amount</p>
+                    <h2 class="value">&#8377;<%= data[4][0]?.total_amount_got+data[4][1]?.total_amount_got %>
+                    </h2>
+                  </div>
+                  <div class="sub-box flex-1">
+                    <p class="title">Cash In Hand</p>
+                    <h2 class="value">&#8377;<%= data[4][0]?.cash_sum+data[4][1]?.cash_sum %>
+                    </h2>
+                  </div>
+                  <div class="sub-box flex-1">
+                    <p class="title">Amount In Bank</p>
+                    <h2 class="value">&#8377;<%= data[4][0]?.online_sum+data[4][1]?.online_sum %>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+              <div class="second-part">
+                <div class="summary-heading flex align-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-withdrawal">
+                    <path fill=""
+                      d="M22,2H2A1,1,0,0,0,1,3v8a1,1,0,0,0,1,1H5v9a1,1,0,0,0,1,1H18a1,1,0,0,0,1-1V12h3a1,1,0,0,0,1-1V3A1,1,0,0,0,22,2ZM7,20V18a2,2,0,0,1,2,2Zm10,0H15a2,2,0,0,1,2-2Zm0-4a4,4,0,0,0-4,4H11a4,4,0,0,0-4-4V8H17Zm4-6H19V7a1,1,0,0,0-1-1H6A1,1,0,0,0,5,7v3H3V4H21Zm-9,5a3,3,0,1,0-3-3A3,3,0,0,0,12,15Zm0-4a1,1,0,1,1-1,1A1,1,0,0,1,12,11Z">
+                    </path>
+                  </svg>
+                  <h3 class="title">Expenses Overview</h3>
+                </div>
+                <div class="sub-flex flex align-center">
+                  <div class="sub-box flex-1">
+                    <p class="title">Total Amount</p>
+                    <h2 class="value">&#8377;<%= data[6][0]?.cash_expenses+data[6][0]?.online_expenses %>
+                    </h2>
+                  </div>
+                  <div class="sub-box flex-1">
+                    <p class="title">Cash In Hand</p>
+                    <h2 class="value">&#8377;<%= data[6][0]?.cash_expenses %>
+                    </h2>
+                  </div>
+                  <div class="sub-box flex-1">
+                    <p class="title">Amount In Bank</p>
+                    <h2 class="value">&#8377;<%= data[6][0]?.online_expenses %>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="popup" id="popupOverlay">
+          <div class="popup-header">
+            <h1 class="popup-title">Advance Analytics</h1>
+            <p class="popup-subtitle">Find all project details here</p>
+            <!-- <button class="close-btn" onclick="closeAnalyticsPopup()">×</button> -->
           </div>
-          <div class="second-part part">
-            <div class="summary-heading flex align-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="moneybag">
-                <path fill="" d="M12,11a3,3,0,1,0,3,3A3,3,0,0,0,12,11Zm0,4a1,1,0,1,1,1-1A1,1,0,0,1,12,15Zm7-9H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H5A3,3,0,0,0,2,9V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V9A3,3,0,0,0,19,6ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10ZM4,9A1,1,0,0,1,5,8H6a2,2,0,0,1-2,2ZM5,20a1,1,0,0,1-1-1V18a2,2,0,0,1,2,2Zm15-1a1,1,0,0,1-1,1H18a2,2,0,0,1,2-2Zm0-3a4,4,0,0,0-4,4H8a4,4,0,0,0-4-4V12A4,4,0,0,0,8,8h8a4,4,0,0,0,4,4Zm0-6a2,2,0,0,1-2-2h1a1,1,0,0,1,1,1Z"></path>
-              </svg>
-              <h3 class="title flex-1">Projects Finance</h3>
-              <select name="" id="" onchange="changeType(this)">
-                <option value="normal">Normal</option>
-                <option value="misc">Miscellaneous</option>
-              </select>
+
+          <div class="popup-content">
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-value">₹1,68,267</div>
+                <div class="stat-label">Total Expenses</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value">13</div>
+                <div class="stat-label">Total Transactions</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value">₹12,944</div>
+                <div class="stat-label">Average Amount</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value">₹56,200</div>
+                <div class="stat-label">Highest Expense</div>
+              </div>
             </div>
-            <div class="sub-flex flex align-center">
-              <div class="sub-box flex-1">
-                <p class="title">Total Amount</p>
-                <h2 class="value n">&#8377;<%= data[4][1]?.total_amount_got %></h2>
-                <h2 class="value m hide">&#8377;<%= data[4][0]?.total_amount_got %></h2>
+
+            <!-- Charts -->
+            <div class="charts-container">
+              <div class="chart-wrapper">
+                <h3 class="chart-title">Category-wise Expenses</h3>
+                <div class="chart-container">
+                  <canvas id="categoryChart"></canvas>
+                </div>
               </div>
-              <div class="sub-box flex-1">
-                <p class="title">Cash In Hand</p>
-                <h2 class="value n">&#8377;<%= data[4][1]?.cash_sum %></h2>
-                <h2 class="value m hide">&#8377;<%= data[4][0]?.cash_sum %></h2>
+
+              <div class="chart-wrapper">
+                <h3 class="chart-title">Trend</h3>
+                <div class="chart-container">
+                  <canvas id="trendChart"></canvas>
+                </div>
               </div>
-              <div class="sub-box flex-1">
-                <p class="title">Amount In Bank</p>
-                <h2 class="value n">&#8377;<%= data[4][1]?.online_sum %></h2>
-                <h2 class="value m hide">&#8377;<%= data[4][0]?.online_sum %></h2>
+
+              <div class="chart-wrapper full-width-chart">
+                <h3 class="chart-title">Payment Method Distribution</h3>
+                <div class="chart-container">
+                  <canvas id="paymentChart"></canvas>
+                </div>
+
+                <div class="payment-modes">
+                  <div class="payment-mode">
+                    <div class="payment-icon">💰</div>
+                    <div class="payment-label">Cash</div>
+                    <div class="payment-amount">₹1,13,500</div>
+                  </div>
+                  <div class="payment-mode">
+                    <div class="payment-icon">💳</div>
+                    <div class="payment-label">Online</div>
+                    <div class="payment-amount">₹23,867</div>
+                  </div>
+                  <div class="payment-mode">
+                    <div class="payment-icon">💵</div>
+                    <div class="payment-label">Advance Pay</div>
+                    <div class="payment-amount">₹56,200</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Finance -->
-        <div class="sub-summary grid finance">
-          <div class="first-part">
-            <div class="summary-heading flex align-center">
-              <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="rupee-sign">
-                <path fill="" d="M18 7h-2.21a5.49 5.49 0 0 0-1-2H18a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h3.5a3.5 3.5 0 0 1 3.15 2H7a1 1 0 0 0 0 2h7a3.5 3.5 0 0 1-3.45 3H7a.7.7 0 0 0-.14 0 .65.65 0 0 0-.2 0 .69.69 0 0 0-.19.1l-.12.07a.75.75 0 0 0-.14.17 1.1 1.1 0 0 0-.09.14.61.61 0 0 0 0 .18A.65.65 0 0 0 6 13a.7.7 0 0 0 0 .14.65.65 0 0 0 0 .2.69.69 0 0 0 .1.19s0 .08.07.12l6 7a1 1 0 0 0 1.52-1.3L9.18 14h1.32A5.5 5.5 0 0 0 16 9h2a1 1 0 0 0 0-2Z"></path>
-              </svg>
-              <h3 class="title">Finance Overview</h3>
-            </div>
-            <div class="sub-flex flex align-center">
-              <div class="sub-box flex-1">
-                <p class="title">Total Amount</p>
-                <h2 class="value">&#8377;<%= data[4][0]?.total_amount_got+data[4][1]?.total_amount_got %></h2>
-              </div>
-              <div class="sub-box flex-1">
-                <p class="title">Cash In Hand</p>
-                <h2 class="value">&#8377;<%= data[4][0]?.cash_sum+data[4][1]?.cash_sum %></h2>
-              </div>
-              <div class="sub-box flex-1">
-                <p class="title">Amount In Bank</p>
-                <h2 class="value">&#8377;<%= data[4][0]?.online_sum+data[4][1]?.online_sum %></h2>
-              </div>
-            </div>
-          </div>
-          <div class="second-part">
-            <div class="summary-heading flex align-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-withdrawal">
-                <path fill="" d="M22,2H2A1,1,0,0,0,1,3v8a1,1,0,0,0,1,1H5v9a1,1,0,0,0,1,1H18a1,1,0,0,0,1-1V12h3a1,1,0,0,0,1-1V3A1,1,0,0,0,22,2ZM7,20V18a2,2,0,0,1,2,2Zm10,0H15a2,2,0,0,1,2-2Zm0-4a4,4,0,0,0-4,4H11a4,4,0,0,0-4-4V8H17Zm4-6H19V7a1,1,0,0,0-1-1H6A1,1,0,0,0,5,7v3H3V4H21Zm-9,5a3,3,0,1,0-3-3A3,3,0,0,0,12,15Zm0-4a1,1,0,1,1-1,1A1,1,0,0,1,12,11Z"></path>
-              </svg>
-              <h3 class="title">Expenses Overview</h3>
-            </div>
-            <div class="sub-flex flex align-center">
-              <div class="sub-box flex-1">
-                <p class="title">Total Amount</p>
-                <h2 class="value">&#8377;<%= data[6][0]?.cash_expenses+data[6][0]?.online_expenses %></h2>
-              </div>
-              <div class="sub-box flex-1">
-                <p class="title">Cash In Hand</p>
-                <h2 class="value">&#8377;<%= data[6][0]?.cash_expenses %></h2>
-              </div>
-              <div class="sub-box flex-1">
-                <p class="title">Amount In Bank</p>
-                <h2 class="value">&#8377;<%= data[6][0]?.online_expenses %></h2>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <%- include('../partials/tasks/notification.ejs') %>
-      <%- include('../partials/tasks/alert.ejs') %>
-    </main>
+        <%- include('../partials/tasks/notification.ejs') %>
+          <%- include('../partials/tasks/alert.ejs') %>
+      </main>
   </section>
+  <script>
+    // Expense data from the image
+    const expenseData = [
+      { category: 'Normal Project', amount: 132200, mode: 'cash' },
+      { category: 'Normal Project', amount: 56200, mode: 'Advance Pay' },
+      { category: 'Misc Project', amount: 34000, mode: 'cash' },
+      { category: 'Misc Project', amount: 8000, mode: 'online' },
+      { category: 'online', amount: 7867, mode: 'online' },
+      { category: 'online', amount: 500, mode: 'cash' },
+      { category: 'N/A', amount: 2000, mode: 'sbi044' },
+      { category: 'N/A', amount: 2000, mode: 'Axis_bank' },
+      { category: 'N/A', amount: 258600, mode: 'Axis_bank' },
+    ];
 
+    let charts = {};
+      setTimeout(() => {
+        initializeCharts();
+      }, 500);
+  
+    function initializeCharts() {
+      const colorPalette = {
+        primary: ['#ff6b35', '#f7931e', '#667eea', '#764ba2'],
+        secondary: ['rgba(255, 107, 53, 0.8)', 'rgba(247, 147, 30, 0.8)', 'rgba(102, 126, 234, 0.8)', 'rgba(118, 75, 162, 0.8)'],
+        light: ['rgba(255, 107, 53, 0.2)', 'rgba(247, 147, 30, 0.2)', 'rgba(102, 126, 234, 0.2)', 'rgba(118, 75, 162, 0.2)']
+      };
+
+      // Category Chart
+      const categoryData = expenseData.reduce((acc, item) => {
+        acc[item.category] = (acc[item.category] || 0) + item.amount;
+        return acc;
+      }, {});
+
+      charts.category = new Chart(document.getElementById('categoryChart'), {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(categoryData),
+          datasets: [{
+            data: Object.values(categoryData),
+            backgroundColor: colorPalette.secondary,
+            borderColor: colorPalette.primary,
+            borderWidth: 3,
+            hoverOffset: 10
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                padding: 20,
+                usePointStyle: true,
+                font: { size: 12, weight: '600' }
+              }
+            }
+          },
+          animation: {
+            animateRotate: true,
+            duration: 1500
+          }
+        }
+      });
+
+      // Monthly Trend Chart (simulated data)
+      charts.trend = new Chart(document.getElementById('trendChart'), {
+        type: 'line',
+        data: {
+          labels: ['Jul', 'Aug', 'Sep'],
+          datasets: [{
+            label: 'Monthly Expenses',
+            data: [2000, 35367, 130900],
+            borderColor: colorPalette.primary[0],
+            backgroundColor: colorPalette.light[0],
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: colorPalette.primary[0],
+            pointBorderColor: '#fff',
+            pointBorderWidth: 3,
+            pointRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: 'rgba(0,0,0,0.1)' },
+              ticks: {
+                callback: function (value) {
+                  return '₹' + value.toLocaleString();
+                }
+              }
+            },
+            x: {
+              grid: { display: false }
+            }
+          },
+          animation: {
+            duration: 2000,
+            easing: 'easeInOutQuart'
+          }
+        }
+      });
+
+      // Payment Method Chart
+      const paymentData = expenseData.reduce((acc, item) => {
+        acc[item.mode] = (acc[item.mode] || 0) + item.amount;
+        return acc;
+      }, {});
+console.log(paymentData);
+
+      charts.payment = new Chart(document.getElementById('paymentChart'), {
+        type: 'bar',
+        data: {
+          labels: Object.keys(paymentData),
+          datasets: [{
+            label: 'Amount (₹)',
+            data: Object.values(paymentData),
+            backgroundColor: colorPalette.secondary,
+            borderColor: colorPalette.primary,
+            borderWidth: 2,
+            borderRadius: 8,
+            borderSkipped: false,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: 'rgba(0,0,0,0.1)' },
+              ticks: {
+                callback: function (value) {
+                  return '₹' + value.toLocaleString();
+                }
+              }
+            },
+            x: {
+              grid: { display: false }
+            }
+          },
+          animation: {
+            duration: 1500,
+            easing: 'easeOutBounce'
+          }
+        }
+      });
+    }
+  </script>
 
   <!-- JAVASCRIPT -->
 

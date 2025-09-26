@@ -19,7 +19,7 @@ exports.Auth = async (req, res) => {
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     if (Email && req.body.Password) {
         const query = `SELECT em_id ,name,email, password FROM employee WHERE email ='${Email}' `;
-        let queryUpdateTime = `UPDATE employee SET lastLoginAt = CONVERT_TZ(NOW(),\'+00:00\',\'+05:30\') WHERE email='${Email}';UPDATE empAttendance  SET ${monthNames[month]}='P',year='${year}' WHERE date='${date}' AND empID=? `;
+        let queryUpdateTime = `UPDATE employee SET lastLoginAt = CONVERT_TZ(NOW(),\'+00:00\',\'+05:30\') WHERE email='${Email}';UPDATE empattendance  SET ${monthNames[month]}='P',year='${year}' WHERE date='${date}' AND empID=? `;
         const hash = createHmac('sha256', 'zxcvbnmsdasgdrf').update(req.body.Password).digest('hex');
         await databaseCon.query(query, (err, rows, fields) => {
             if (err) throw new errorHandler(404, 'Something wents wrong in this Mysql Auth');
