@@ -48,7 +48,7 @@ function dataUnity(arr) {
   });
 
   arr.forEach((el) => {
-    el["category"] = finalTaskData;
+    el["phase"] = finalTaskData;
   });
 }
 

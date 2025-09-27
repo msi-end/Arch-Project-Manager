@@ -298,7 +298,7 @@
     // Fetch data from API
     async function fetchAnalyticsData() {
       try {
-        const response = await fetch('http://localhost:3005/admin/analytics/misc');
+        const response = await fetch(location.origin+'/admin/analytics/misc');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
