@@ -269,7 +269,7 @@
                   </div>
                    <div>
                     <br>
-                    <h5>Task wise</h5>
+                    <h5>Task wise (Recieved)</h5>
                     <div class="payment-modes" id="paymentModesTaskContainer">
                       <!-- Dynamic cards will be inserted here -->
                     </div>
@@ -325,7 +325,7 @@
     // Update stats cards with API data
     function updateStatsCards(data) {
       if (data && data.summary) {
-        document.querySelector('.stat-card:nth-child(1) .stat-value').textContent = `₹${data.summary.totalAgreementAmount?.toLocaleString() || '0'}`;
+        document.querySelector('.stat-card:nth-child(1) .stat-value').textContent = `₹${data.summary.totalProjectsAmount?.toLocaleString() || '0'}`;
         document.querySelector('.stat-card:nth-child(2) .stat-value').textContent = data.summary.totalDeals || '0';
         document.querySelector('.stat-card:nth-child(3) .stat-value').textContent = `₹${data.summary.totalReceived?.toLocaleString() || '0'}`;
         document.querySelector('.stat-card:nth-child(4) .stat-value').textContent = `${data.summary.totalOutstanding < 0 ? '-' : ''}₹${Math.abs(data.summary.totalOutstanding || 0).toLocaleString()}`;
@@ -467,7 +467,7 @@
 
       // Task Income Chart - Enhanced for dynamic data
       if (apiData.taskStats && apiData.taskStats.length > 0) {
-        const taskLabels = apiData.taskStats.map(item => `Task ${item.task}`);
+        const taskLabels = apiData.taskStats.map(item => `${item.task_name}`);
         const taskReceived = apiData.taskStats.map(item => item.totalReceived || 0);
         const taskAmounts = apiData.taskStats.map(item => item.totalAmount || 0);
 
@@ -541,7 +541,7 @@
       // Deal Status Overview Chart
       if (apiData.summary) {
         const statusData = {
-          'Agreement Amount': apiData.summary.totalAgreementAmount || 0,
+          'Agreement Amount': apiData.summary.totalProjectsAmount || 0,
           'Amount Received': apiData.summary.totalReceived || 0,
           'Outstanding': Math.abs(apiData.summary.totalOutstanding || 0)
         };

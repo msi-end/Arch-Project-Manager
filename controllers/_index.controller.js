@@ -274,7 +274,7 @@ exports.insertNewMiscDeal = async (req, res) => {
           req.body.name,
           req.body.rfNo,
           req.body.contactNo,
-          req.body.agreementAm,
+          req.body.agreementAm||0,
           req.body.workName,
           req.body.email,
           req.body.city,
@@ -296,7 +296,7 @@ exports.insertNewMiscDeal = async (req, res) => {
             mdealId,
             req.body.TotalAm,
             Number(req.body.task),
-            req.body.agreementAm,
+            req.body.agreementAm||0,
             req.body.mpdeadline,
             "Advance Pay",
           ];

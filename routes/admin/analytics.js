@@ -4,5 +4,6 @@ const analyticsController = require('../../controllers/analytics.crud.js');
 
 // Admin Routes
 router.get('/misc', analyticsController.getSingleDealsAnalytics);
+router.get('/normal', analyticsController.getNormalDealsAnalytics);
 
 module.exports = router;
