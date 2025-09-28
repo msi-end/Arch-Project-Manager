@@ -6,14 +6,16 @@
       </path>
     </svg>
   </span>
-
-  <div class="more-data-text flex align-center">
-    <h2>
-      <%= data.reference_no %>
-    </h2>
+   <div class="more-data-text align-center" style="opacity: .9;">
     <h2>
       <%= data.work_name %>
     </h2>
+    <h2>
+   <span style="opacity: .7;">Reference no:</span>
+   <%= data.reference_no %>
+    </h2>
+    <h3><span style="opacity: .7;">Category: </span><%= data.category ? data.category : "N/A" %></h3>
+   
   </div>
   <!-- DETAILS  -->
   <div class="contents grid">
@@ -41,9 +43,9 @@
       </p>
     </div>
     <div class="description flex align-center">
-      <h3>Project Amount:</h3>
+      <h3>Total Project Amount(Value):</h3>
       <p class="text">&#8377; <span>
-          <%= data.agreement_amount?data.agreement_amount:"0/-"  %>
+          <%= data.total_price? data.total_price :"0/-"  %>
         </span></p>
     </div>
     <div class="description flex align-center">

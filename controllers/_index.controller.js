@@ -2,6 +2,12 @@ const { error } = require("winston");
 const db = require("../config/db.config");
 const { dataUnity, arrangeFinance } = require("../utils/arrange");
 
+
+function parseDMY(dateStr) {
+  if (!dateStr) return new Date("1970-01-01");
+  let [day, month, year] = dateStr.split("/");
+  return new Date(`${year}-${month}-${day}`);
+}
 // ---- All Index routes here ----
 exports.dashboard = async (req, res) => {
   if (req.session.isLoggedIn == true && req.session.role == "admin") {
@@ -88,11 +94,6 @@ exports.settings = (req, res) => {
   }
 };
 
-function parseDMY(dateStr) {
-  if (!dateStr) return new Date("1970-01-01");
-  let [day, month, year] = dateStr.split("/");
-  return new Date(`${year}-${month}-${day}`);
-}
 
 exports.expense = (req, res) => {
   if (req.session.isLoggedIn == true && req.session.role == "admin") {
@@ -273,7 +274,7 @@ exports.insertNewMiscDeal = async (req, res) => {
           req.body.name,
           req.body.rfNo,
           req.body.contactNo,
-          req.body.agreementAm,
+          req.body.agreementAm||0,
           req.body.workName,
           req.body.email,
           req.body.city,
@@ -295,7 +296,7 @@ exports.insertNewMiscDeal = async (req, res) => {
             mdealId,
             req.body.TotalAm,
             Number(req.body.task),
-            req.body.agreementAm,
+            req.body.agreementAm||0,
             req.body.mpdeadline,
             "Advance Pay",
           ];
@@ -394,7 +395,7 @@ exports.renderMiscProjectDashboard = async (req, res) => {
         if (countErr)
           return res.status(500).send("Failed to fetch total count");
         const totalPages = Math.ceil(countResult[0].total / 10);
-        const q = `select single_deal.sdid, single_deal.reference_no, single_deal.contact, single_deal.email, single_deal.sdeal_name, single_deal.work_name, single_deal.agreement_amount, single_deal.total_price, single_deal.city, single_deal.mp_deadline, misc_project_subtask.mstask_id, misc_project_subtask.mdeal_id, mis_subtask.msub_task_name, misc_project_subtask.mstask_status, misc_project_subtask.dateofdeadline 
+        const q = `select single_deal.sdid, single_deal.reference_no, single_deal.contact, single_deal.email, single_deal.sdeal_name, single_deal.work_name, single_deal.agreement_amount, single_deal.total_price, single_deal.city, single_deal.mp_deadline,single_deal.category, misc_project_subtask.mstask_id, misc_project_subtask.mdeal_id, mis_subtask.msub_task_name, misc_project_subtask.mstask_status, misc_project_subtask.dateofdeadline 
         from misc_project_subtask 
         inner join single_deal on single_deal.sdid = misc_project_subtask.mdeal_id 
         inner join mis_subtask on mis_subtask.msub_task_id = misc_project_subtask.mstask_id order by single_deal.sdid DESC`;

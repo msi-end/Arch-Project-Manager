@@ -6,13 +6,16 @@
     </svg>
   </span>
 
-  <div class="more-data-text flex align-center">
-    <h2>
-      <%= pdata.reference_no %>
-    </h2>
+  <div class="more-data-text align-center" style="opacity: .9;">
     <h2>
       <%= pdata.work_name %>
     </h2>
+    <h2>
+   <span style="opacity: .7;">Reference no:</span>
+   <%= pdata.reference_no %>
+    </h2>
+    <h3><span style="opacity: .7;">Category: </span><%= pdata.category ? pdata.category : "N/A" %></h3>
+   
   </div>
   <!-- DETAILS  -->
   <div class="contents grid">
@@ -46,7 +49,7 @@
 
   <!-- --BOX-- -->
   <div class="task-grid grid">
-    <% pdata.category.sort((a, b) => a.name.localeCompare(b.name)).forEach((task)=>{ %>
+    <% pdata.phase.sort((a, b) => a.name.localeCompare(b.name)).forEach((task)=>{ %>
     <%- include('./tasks/task.ejs', {cat: task, dealId : pdata.id} )%>
     <% }) %>
   </div>

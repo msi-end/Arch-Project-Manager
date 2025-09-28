@@ -11,7 +11,12 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="../../js/admin/dashboard.module.js"></script>
   <link rel="stylesheet" href="../../css/admin/analytics-popup.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <link rel="stylesheet" href="../../css/admin/dashboars-analytics.css">
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script> -->
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
   <!-- <link href="
     https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css
@@ -41,301 +46,395 @@
 <body>
   <section>
     <%- include('../partials/admin.aside.ejs') %>
-      <main data-app-page="dashboard">
-        <div class="main-data">
-          <%- include('../partials/admin.header.ejs') %>
-            <!-- --HEADING-- -->
-            <div class="main-section flex align-center j-between">
-              <div class="main-heading">
-                <h2>Analytics</h2>
-                <p class="title">Find all project details here</p>
-              </div>
-              <div class="analytic-btn">
-                <select name="" id="">
-                  <option>Month</option>
-                </select>
-                <select name="" id="">
-                  <option>Year</option>
-                </select>
+    <main data-app-page="dashboard">
+      <div class="main-data">
+        <%- include('../partials/admin.header.ejs') %>
+        <!-- --HEADING-- -->
+        <div class="main-section flex align-center j-between">
+          <div class="main-heading">
+            <h2>Analytics</h2>
+            <p class="title">Find all project details here</p>
+          </div>
+          <div class="analytic-btn">
+            <select name="" id="">
+              <option>Month</option>
+            </select>
+            <select name="" id="">
+              <option>Year</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- MAIN SUMMARY  -->
+        <!-- ===================================================================== -->
+
+        <!-- ===================================================================== -->
+        <div class="main-summary grid">
+          <div class="main-box">
+            <span class="arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
+                <path fill="" d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
+                </path>
+              </svg>
+            </span>
+            <p class="title">Total Projects</p>
+            <h1 class="value">
+              <%= data[0][0]?.total_projects %>
+            </h1>
+          </div>
+          <div class="main-box">
+            <span class="arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
+                <path fill="" d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
+                </path>
+              </svg>
+            </span>
+            <p class="title">Total Revenue</p>
+            <h1 class="value">&#8377;<%= data[5][0]?.total_sum+data[5][1]?.total_sum %>
+            </h1>
+          </div>
+          <div class="main-box">
+            <span class="arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
+                <path fill="" d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
+                </path>
+              </svg>
+            </span>
+            <p class="title">Total Expenses</p>
+            <h1 class="value">&#8377;<%= data[6][0]?.cash_expenses+data[6][0]?.online_expenses %>
+            </h1>
+          </div>
+          <div class="main-box">
+            <span class="arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
+                <path fill="" d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
+                </path>
+              </svg>
+            </span>
+            <p class="title">Total Users</p>
+            <h1 class="value">
+              <%= data[1][0]?.users %>
+            </h1>
+          </div>
+        </div>
+  <div class="dashboard">
+          <div class="controls">
+            <button class="control-btn active" onclick="showView('normal')">Normal Projects</button>
+            <button class="control-btn" onclick="showView('misc')">Miscellaneous</button>
+            <button class="control-btn" onclick="showView('all')">All Projects</button>
+          </div>
+
+          <div class="summary-cards" style="display: none;">
+            <div class="summary-card">
+              <div class="card-icon projects-icon">📋</div>
+              <div class="card-title">Total Projects</div>
+              <div class="card-value" id="total-projects">19</div>
+              <div class="card-trend">↗ 12% from last month</div>
+            </div>
+
+            <div class="summary-card">
+              <div class="card-icon revenue-icon">💰</div>
+              <div class="card-title">Total Revenue</div>
+              <div class="card-value" id="total-revenue">₹445,342</div>
+              <div class="card-trend">↗ 23% from last month</div>
+            </div>
+
+            <div class="summary-card">
+              <div class="card-icon expenses-icon">💸</div>
+              <div class="card-title">Total Expenses</div>
+              <div class="card-value" id="total-expenses">₹2,505</div>
+              <div class="card-trend">↘ 5% from last month</div>
+            </div>
+
+            <div class="summary-card">
+              <div class="card-icon users-icon">👥</div>
+              <div class="card-title">Total Users</div>
+              <div class="card-value" id="total-users">6</div>
+              <div class="card-trend">↗ 20% from last month</div>
+            </div>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi-item">
+              <div class="kpi-label">Profit Margin (Not Included Project Expense , Other Expenses, Output maybe diffrent after Other expenses  )</div>
+              <div class="kpi-value">99.4%</div>
+            </div>
+            <div class="kpi-item">
+              <div class="kpi-label">Completion Rate</div>
+              <div class="kpi-value">21.1%</div>
+            </div>
+            <div class="kpi-item">
+              <div class="kpi-label">Avg Project Value</div>
+              <div class="kpi-value">₹23,439</div>
+            </div>
+            <div class="kpi-item">
+              <div class="kpi-label">Cash Position</div>
+              <div class="kpi-value">₹44,622</div>
+            </div>
+          </div>
+
+          <div class="charts-container">
+            <div class="chart-card">
+              <div class="chart-title">Project Status Distribution</div>
+              <div class="chart-container">
+                <canvas id="projectStatusChart"></canvas>
               </div>
             </div>
 
-            <!-- MAIN SUMMARY  -->
-            <div class="main-summary grid">
-              <div class="main-box">
-                <span class="arrow">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
-                    <path fill=""
-                      d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
-                    </path>
-                  </svg>
-                </span>
-                <p class="title">Total Projects</p>
-                <h1 class="value">
-                  <%= data[0][0]?.total_projects %>
-                </h1>
-              </div>
-              <div class="main-box">
-                <span class="arrow">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
-                    <path fill=""
-                      d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
-                    </path>
-                  </svg>
-                </span>
-                <p class="title">Total Revenue</p>
-                <h1 class="value">&#8377;<%= data[5][0]?.total_sum+data[5][1]?.total_sum %>
-                </h1>
-              </div>
-              <div class="main-box">
-                <span class="arrow">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
-                    <path fill=""
-                      d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
-                    </path>
-                  </svg>
-                </span>
-                <p class="title">Total Expenses</p>
-                <h1 class="value">&#8377;<%= data[6][0]?.cash_expenses+data[6][0]?.online_expenses %>
-                </h1>
-              </div>
-              <div class="main-box">
-                <span class="arrow">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-up-right">
-                    <path fill=""
-                      d="M17.92,6.62a1,1,0,0,0-.54-.54A1,1,0,0,0,17,6H7A1,1,0,0,0,7,8h7.59l-8.3,8.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L16,9.41V17a1,1,0,0,0,2,0V7A1,1,0,0,0,17.92,6.62Z">
-                    </path>
-                  </svg>
-                </span>
-                <p class="title">Total Users</p>
-                <h1 class="value">
-                  <%= data[1][0]?.users %>
-                </h1>
+            <div class="chart-card">
+              <div class="chart-title">Financial Breakdown</div>
+              <div class="chart-container">
+                <canvas id="financialChart"></canvas>
               </div>
             </div>
 
-            <!-- Overview -->
-            <div class="sub-summary grid">
-              <div class="first-part part">
-                <div class="summary-heading flex align-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="bag">
-                    <path
-                      d="M19,6H16V5a2,2,0,0,0-2-2H10A2,2,0,0,0,8,5V6H5A3,3,0,0,0,2,9v9a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V9A3,3,0,0,0,19,6ZM10,5h4V6H10ZM20,18a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V12.39L8.68,14A1.19,1.19,0,0,0,9,14h6a1.19,1.19,0,0,0,.32-.05L20,12.39Zm0-7.72L14.84,12H9.16L4,10.28V9A1,1,0,0,1,5,8H19a1,1,0,0,1,1,1Z">
-                    </path>
-                  </svg>
-                  <h3 class="title flex-1">Projects Overview</h3>
-                  <select onchange="changeType(this)">
-                    <option value="normal">Normal</option>
-                    <option value="misc">Miscellaneous</option>
-                  </select>
-                </div>
-                <% let [completed, pending]=[0, 0]; let [misc_completed, misc_pending]=[0, 0]; data[2].forEach(e=> {
+            <div class="chart-card ">
+              <div class="chart-title">Project Types Comparison</div>
+              <div class="chart-container">
+                <canvas id="projectComparisonChart"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card" style="display: none;">
+              <div class="chart-title">Revenue vs Expenses</div>
+              <div class="chart-container">
+                <canvas id="revenueExpensesChart"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card" style="display: none;">
+              <div class="chart-title">Monthly Progress</div>
+              <div class="chart-container">
+                <canvas id="progressChart"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card " style="display: none;">
+              <div class="chart-title">Cash Flow Analysis</div>
+              <div class="chart-container">
+                <canvas id="cashFlowChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Overview -->
+        <div class="sub-summary grid">
+          <div class="first-part part">
+            <div class="summary-heading flex align-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="bag">
+                <path d="M19,6H16V5a2,2,0,0,0-2-2H10A2,2,0,0,0,8,5V6H5A3,3,0,0,0,2,9v9a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V9A3,3,0,0,0,19,6ZM10,5h4V6H10ZM20,18a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V12.39L8.68,14A1.19,1.19,0,0,0,9,14h6a1.19,1.19,0,0,0,.32-.05L20,12.39Zm0-7.72L14.84,12H9.16L4,10.28V9A1,1,0,0,1,5,8H19a1,1,0,0,1,1,1Z">
+                </path>
+              </svg>
+              <h3 class="title flex-1">Projects Overview</h3>
+              <select onchange="changeType(this)">
+                <option value="normal">Normal</option>
+                <option value="misc">Miscellaneous</option>
+              </select>
+            </div>
+            <% let [completed, pending]=[0, 0]; let [misc_completed, misc_pending]=[0, 0]; data[2].forEach(e=> {
                   e.project_status == 'completed' ? completed++ : pending++; });
                   data[3].forEach(e => { e.project_status == 'completed' ? misc_completed++ : misc_pending++; });
                   %>
-                  <div class="sub-flex flex align-center">
-                    <div class="sub-box flex-1">
-                      <p class="title">Total Projects</p>
-                      <h2 class="value n">
-                        <%= pending+completed %>
-                      </h2>
-                      <h2 class="value m hide">
-                        <%= misc_completed+misc_pending %>
-                      </h2>
-                    </div>
-                    <div class="sub-box flex-1">
-                      <p class="title">In Progress</p>
-                      <h2 class="value n">
-                        <%= pending %>
-                      </h2>
-                      <h2 class="value m hide">
-                        <%= misc_pending %>
-                      </h2>
-                    </div>
-                    <div class="sub-box flex-1">
-                      <p class="title">Completed</p>
-                      <h2 class="value n">
-                        <%= completed %>
-                      </h2>
-                      <h2 class="value m hide">
-                        <%= misc_completed %>
-                      </h2>
-                    </div>
-                  </div>
+            <div class="sub-flex flex align-center">
+              <div class="sub-box flex-1">
+                <p class="title">Total Projects</p>
+                <h2 class="value n">
+                  <%= pending+completed %>
+                </h2>
+                <h2 class="value m hide">
+                  <%= misc_completed+misc_pending %>
+                </h2>
               </div>
-              <div class="second-part part">
-                <div class="summary-heading flex align-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="moneybag">
-                    <path fill=""
-                      d="M12,11a3,3,0,1,0,3,3A3,3,0,0,0,12,11Zm0,4a1,1,0,1,1,1-1A1,1,0,0,1,12,15Zm7-9H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H5A3,3,0,0,0,2,9V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V9A3,3,0,0,0,19,6ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10ZM4,9A1,1,0,0,1,5,8H6a2,2,0,0,1-2,2ZM5,20a1,1,0,0,1-1-1V18a2,2,0,0,1,2,2Zm15-1a1,1,0,0,1-1,1H18a2,2,0,0,1,2-2Zm0-3a4,4,0,0,0-4,4H8a4,4,0,0,0-4-4V12A4,4,0,0,0,8,8h8a4,4,0,0,0,4,4Zm0-6a2,2,0,0,1-2-2h1a1,1,0,0,1,1,1Z">
-                    </path>
-                  </svg>
-                  <h3 class="title flex-1">Projects Finance</h3>
-                  <select name="" id="" onchange="changeType(this)">
-                    <option value="normal">Normal</option>
-                    <option value="misc">Miscellaneous</option>
-                  </select>
-                </div>
-                <div class="sub-flex flex align-center">
-                  <div class="sub-box flex-1">
-                    <p class="title">Total Amount</p>
-                    <h2 class="value n">&#8377;<%= data[4][1]?.total_amount_got %>
-                    </h2>
-                    <h2 class="value m hide">&#8377;<%= data[4][0]?.total_amount_got %>
-                    </h2>
-                  </div>
-                  <div class="sub-box flex-1">
-                    <p class="title">Cash In Hand</p>
-                    <h2 class="value n">&#8377;<%= data[4][1]?.cash_sum %>
-                    </h2>
-                    <h2 class="value m hide">&#8377;<%= data[4][0]?.cash_sum %>
-                    </h2>
-                  </div>
-                  <div class="sub-box flex-1">
-                    <p class="title">Amount In Bank</p>
-                    <h2 class="value n">&#8377;<%= data[4][1]?.online_sum %>
-                    </h2>
-                    <h2 class="value m hide">&#8377;<%= data[4][0]?.online_sum %>
-                    </h2>
-                  </div>
-                </div>
+              <div class="sub-box flex-1">
+                <p class="title">In Progress</p>
+                <h2 class="value n">
+                  <%= pending %>
+                </h2>
+                <h2 class="value m hide">
+                  <%= misc_pending %>
+                </h2>
+              </div>
+              <div class="sub-box flex-1">
+                <p class="title">Completed</p>
+                <h2 class="value n">
+                  <%= completed %>
+                </h2>
+                <h2 class="value m hide">
+                  <%= misc_completed %>
+                </h2>
               </div>
             </div>
-
-            <!-- Finance -->
-            <div class="sub-summary grid finance">
-              <div class="first-part">
-                <div class="summary-heading flex align-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="rupee-sign">
-                    <path fill=""
-                      d="M18 7h-2.21a5.49 5.49 0 0 0-1-2H18a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h3.5a3.5 3.5 0 0 1 3.15 2H7a1 1 0 0 0 0 2h7a3.5 3.5 0 0 1-3.45 3H7a.7.7 0 0 0-.14 0 .65.65 0 0 0-.2 0 .69.69 0 0 0-.19.1l-.12.07a.75.75 0 0 0-.14.17 1.1 1.1 0 0 0-.09.14.61.61 0 0 0 0 .18A.65.65 0 0 0 6 13a.7.7 0 0 0 0 .14.65.65 0 0 0 0 .2.69.69 0 0 0 .1.19s0 .08.07.12l6 7a1 1 0 0 0 1.52-1.3L9.18 14h1.32A5.5 5.5 0 0 0 16 9h2a1 1 0 0 0 0-2Z">
-                    </path>
-                  </svg>
-                  <h3 class="title">Finance Overview</h3>
-                </div>
-                <div class="sub-flex flex align-center">
-                  <div class="sub-box flex-1">
-                    <p class="title">Total Amount</p>
-                    <h2 class="value">&#8377;<%= data[4][0]?.total_amount_got+data[4][1]?.total_amount_got %>
-                    </h2>
-                  </div>
-                  <div class="sub-box flex-1">
-                    <p class="title">Cash In Hand</p>
-                    <h2 class="value">&#8377;<%= data[4][0]?.cash_sum+data[4][1]?.cash_sum %>
-                    </h2>
-                  </div>
-                  <div class="sub-box flex-1">
-                    <p class="title">Amount In Bank</p>
-                    <h2 class="value">&#8377;<%= data[4][0]?.online_sum+data[4][1]?.online_sum %>
-                    </h2>
-                  </div>
-                </div>
+          </div>
+          <div class="second-part part">
+            <div class="summary-heading flex align-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="moneybag">
+                <path fill="" d="M12,11a3,3,0,1,0,3,3A3,3,0,0,0,12,11Zm0,4a1,1,0,1,1,1-1A1,1,0,0,1,12,15Zm7-9H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H5A3,3,0,0,0,2,9V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V9A3,3,0,0,0,19,6ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10ZM4,9A1,1,0,0,1,5,8H6a2,2,0,0,1-2,2ZM5,20a1,1,0,0,1-1-1V18a2,2,0,0,1,2,2Zm15-1a1,1,0,0,1-1,1H18a2,2,0,0,1,2-2Zm0-3a4,4,0,0,0-4,4H8a4,4,0,0,0-4-4V12A4,4,0,0,0,8,8h8a4,4,0,0,0,4,4Zm0-6a2,2,0,0,1-2-2h1a1,1,0,0,1,1,1Z">
+                </path>
+              </svg>
+              <h3 class="title flex-1">Projects Finance</h3>
+              <select name="" id="" onchange="changeType(this)">
+                <option value="normal">Normal</option>
+                <option value="misc">Miscellaneous</option>
+              </select>
+            </div>
+            <div class="sub-flex flex align-center">
+              <div class="sub-box flex-1">
+                <p class="title">Total Amount</p>
+                <h2 class="value n">&#8377;<%= data[4][1]?.total_amount_got %>
+                </h2>
+                <h2 class="value m hide">&#8377;<%= data[4][0]?.total_amount_got %>
+                </h2>
               </div>
-              <div class="second-part">
-                <div class="summary-heading flex align-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-withdrawal">
-                    <path fill=""
-                      d="M22,2H2A1,1,0,0,0,1,3v8a1,1,0,0,0,1,1H5v9a1,1,0,0,0,1,1H18a1,1,0,0,0,1-1V12h3a1,1,0,0,0,1-1V3A1,1,0,0,0,22,2ZM7,20V18a2,2,0,0,1,2,2Zm10,0H15a2,2,0,0,1,2-2Zm0-4a4,4,0,0,0-4,4H11a4,4,0,0,0-4-4V8H17Zm4-6H19V7a1,1,0,0,0-1-1H6A1,1,0,0,0,5,7v3H3V4H21Zm-9,5a3,3,0,1,0-3-3A3,3,0,0,0,12,15Zm0-4a1,1,0,1,1-1,1A1,1,0,0,1,12,11Z">
-                    </path>
-                  </svg>
-                  <h3 class="title">Expenses Overview</h3>
-                </div>
-                <div class="sub-flex flex align-center">
-                  <div class="sub-box flex-1">
-                    <p class="title">Total Amount</p>
-                    <h2 class="value">&#8377;<%= data[6][0]?.cash_expenses+data[6][0]?.online_expenses %>
-                    </h2>
-                  </div>
-                  <div class="sub-box flex-1">
-                    <p class="title">Cash In Hand</p>
-                    <h2 class="value">&#8377;<%= data[6][0]?.cash_expenses %>
-                    </h2>
-                  </div>
-                  <div class="sub-box flex-1">
-                    <p class="title">Amount In Bank</p>
-                    <h2 class="value">&#8377;<%= data[6][0]?.online_expenses %>
-                    </h2>
-                  </div>
-                </div>
+              <div class="sub-box flex-1">
+                <p class="title">Cash In Hand</p>
+                <h2 class="value n">&#8377;<%= data[4][1]?.cash_sum %>
+                </h2>
+                <h2 class="value m hide">&#8377;<%= data[4][0]?.cash_sum %>
+                </h2>
+              </div>
+              <div class="sub-box flex-1">
+                <p class="title">Amount In Bank</p>
+                <h2 class="value n">&#8377;<%= data[4][1]?.online_sum %>
+                </h2>
+                <h2 class="value m hide">&#8377;<%= data[4][0]?.online_sum %>
+                </h2>
               </div>
             </div>
+          </div>
         </div>
-        <div class="popup" id="popupOverlay">
-          <div class="popup-header">
-            <h1 class="popup-title">Advance Analytics</h1>
-            <p class="popup-subtitle">Find all project details here</p>
-            <!-- <button class="close-btn" onclick="closeAnalyticsPopup()">×</button> -->
+
+        <!-- Finance -->
+        <div class="sub-summary grid finance">
+          <div class="first-part">
+            <div class="summary-heading flex align-center">
+              <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="rupee-sign">
+                <path fill="" d="M18 7h-2.21a5.49 5.49 0 0 0-1-2H18a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h3.5a3.5 3.5 0 0 1 3.15 2H7a1 1 0 0 0 0 2h7a3.5 3.5 0 0 1-3.45 3H7a.7.7 0 0 0-.14 0 .65.65 0 0 0-.2 0 .69.69 0 0 0-.19.1l-.12.07a.75.75 0 0 0-.14.17 1.1 1.1 0 0 0-.09.14.61.61 0 0 0 0 .18A.65.65 0 0 0 6 13a.7.7 0 0 0 0 .14.65.65 0 0 0 0 .2.69.69 0 0 0 .1.19s0 .08.07.12l6 7a1 1 0 0 0 1.52-1.3L9.18 14h1.32A5.5 5.5 0 0 0 16 9h2a1 1 0 0 0 0-2Z">
+                </path>
+              </svg>
+              <h3 class="title">Finance Overview</h3>
+            </div>
+            <div class="sub-flex flex align-center">
+              <div class="sub-box flex-1">
+                <p class="title">Total Amount</p>
+                <h2 class="value">&#8377;<%= data[4][0]?.total_amount_got+data[4][1]?.total_amount_got %>
+                </h2>
+              </div>
+              <div class="sub-box flex-1">
+                <p class="title">Cash In Hand</p>
+                <h2 class="value">&#8377;<%= data[4][0]?.cash_sum+data[4][1]?.cash_sum %>
+                </h2>
+              </div>
+              <div class="sub-box flex-1">
+                <p class="title">Amount In Bank</p>
+                <h2 class="value">&#8377;<%= data[4][0]?.online_sum+data[4][1]?.online_sum %>
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div class="second-part">
+            <div class="summary-heading flex align-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="money-withdrawal">
+                <path fill="" d="M22,2H2A1,1,0,0,0,1,3v8a1,1,0,0,0,1,1H5v9a1,1,0,0,0,1,1H18a1,1,0,0,0,1-1V12h3a1,1,0,0,0,1-1V3A1,1,0,0,0,22,2ZM7,20V18a2,2,0,0,1,2,2Zm10,0H15a2,2,0,0,1,2-2Zm0-4a4,4,0,0,0-4,4H11a4,4,0,0,0-4-4V8H17Zm4-6H19V7a1,1,0,0,0-1-1H6A1,1,0,0,0,5,7v3H3V4H21Zm-9,5a3,3,0,1,0-3-3A3,3,0,0,0,12,15Zm0-4a1,1,0,1,1-1,1A1,1,0,0,1,12,11Z">
+                </path>
+              </svg>
+              <h3 class="title">Expenses Overview</h3>
+            </div>
+            <div class="sub-flex flex align-center">
+              <div class="sub-box flex-1">
+                <p class="title">Total Amount</p>
+                <h2 class="value">&#8377;<%= data[6][0]?.cash_expenses+data[6][0]?.online_expenses %>
+                </h2>
+              </div>
+              <div class="sub-box flex-1">
+                <p class="title">Cash In Hand</p>
+                <h2 class="value">&#8377;<%= data[6][0]?.cash_expenses %>
+                </h2>
+              </div>
+              <div class="sub-box flex-1">
+                <p class="title">Amount In Bank</p>
+                <h2 class="value">&#8377;<%= data[6][0]?.online_expenses %>
+                </h2>
+              </div>
+            </div>
+          </div>
+        <br><br><br><br><br><br><br><br><br><br>
+
+        </div>
+      </div>
+      <!-- <div class="popup" id="popupOverlay">
+        <div class="popup-header">
+          <h1 class="popup-title">Advance Analytics</h1>
+          <p class="popup-subtitle">Find all project details here</p>
+        <button class="close-btn" onclick="closeAnalyticsPopup()">×</button> 
+        </div>
+
+        <div class="popup-content">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value">₹1,68,267</div>
+              <div class="stat-label">Total Expenses</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">13</div>
+              <div class="stat-label">Total Transactions</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">₹12,944</div>
+              <div class="stat-label">Average Amount</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">₹56,200</div>
+              <div class="stat-label">Highest Expense</div>
+            </div>
           </div>
 
-          <div class="popup-content">
-            <!-- Stats Grid -->
-            <div class="stats-grid">
-              <div class="stat-card">
-                <div class="stat-value">₹1,68,267</div>
-                <div class="stat-label">Total Expenses</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-value">13</div>
-                <div class="stat-label">Total Transactions</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-value">₹12,944</div>
-                <div class="stat-label">Average Amount</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-value">₹56,200</div>
-                <div class="stat-label">Highest Expense</div>
+          <div class="charts-container">
+            <div class="chart-wrapper">
+              <h3 class="chart-title">Category-wise Expenses</h3>
+              <div class="chart-container">
+                <canvas id="categoryChart"></canvas>
               </div>
             </div>
 
-            <!-- Charts -->
-            <div class="charts-container">
-              <div class="chart-wrapper">
-                <h3 class="chart-title">Category-wise Expenses</h3>
-                <div class="chart-container">
-                  <canvas id="categoryChart"></canvas>
-                </div>
+            <div class="chart-wrapper">
+              <h3 class="chart-title">Trend</h3>
+              <div class="chart-container">
+                <canvas id="trendChart"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-wrapper full-width-chart">
+              <h3 class="chart-title">Payment Method Distribution</h3>
+              <div class="chart-container">
+                <canvas id="paymentChart"></canvas>
               </div>
 
-              <div class="chart-wrapper">
-                <h3 class="chart-title">Trend</h3>
-                <div class="chart-container">
-                  <canvas id="trendChart"></canvas>
+              <div class="payment-modes">
+                <div class="payment-mode">
+                  <div class="payment-icon">💰</div>
+                  <div class="payment-label">Cash</div>
+                  <div class="payment-amount">₹1,13,500</div>
                 </div>
-              </div>
-
-              <div class="chart-wrapper full-width-chart">
-                <h3 class="chart-title">Payment Method Distribution</h3>
-                <div class="chart-container">
-                  <canvas id="paymentChart"></canvas>
+                <div class="payment-mode">
+                  <div class="payment-icon">💳</div>
+                  <div class="payment-label">Online</div>
+                  <div class="payment-amount">₹23,867</div>
                 </div>
-
-                <div class="payment-modes">
-                  <div class="payment-mode">
-                    <div class="payment-icon">💰</div>
-                    <div class="payment-label">Cash</div>
-                    <div class="payment-amount">₹1,13,500</div>
-                  </div>
-                  <div class="payment-mode">
-                    <div class="payment-icon">💳</div>
-                    <div class="payment-label">Online</div>
-                    <div class="payment-amount">₹23,867</div>
-                  </div>
-                  <div class="payment-mode">
-                    <div class="payment-icon">💵</div>
-                    <div class="payment-label">Advance Pay</div>
-                    <div class="payment-amount">₹56,200</div>
-                  </div>
+                <div class="payment-mode">
+                  <div class="payment-icon">💵</div>
+                  <div class="payment-label">Advance Pay</div>
+                  <div class="payment-amount">₹56,200</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <%- include('../partials/tasks/notification.ejs') %>
-          <%- include('../partials/tasks/alert.ejs') %>
-      </main>
+      </div> -->
+      <%- include('../partials/tasks/notification.ejs') %>
+      <%- include('../partials/tasks/alert.ejs') %>
+    </main>
   </section>
-  <script>
+  <!-- <script>
     // Expense data from the image
     const expenseData = [
       { category: 'Normal Project', amount: 132200, mode: 'cash' },
@@ -350,10 +449,10 @@
     ];
 
     let charts = {};
-      setTimeout(() => {
-        initializeCharts();
-      }, 500);
-  
+    setTimeout(() => {
+      initializeCharts();
+    }, 500);
+
     function initializeCharts() {
       const colorPalette = {
         primary: ['#ff6b35', '#f7931e', '#667eea', '#764ba2'],
@@ -450,7 +549,7 @@
         acc[item.mode] = (acc[item.mode] || 0) + item.amount;
         return acc;
       }, {});
-console.log(paymentData);
+      console.log(paymentData);
 
       charts.payment = new Chart(document.getElementById('paymentChart'), {
         type: 'bar',
@@ -493,7 +592,7 @@ console.log(paymentData);
         }
       });
     }
-  </script>
+  </script> -->
 
   <!-- JAVASCRIPT -->
 
@@ -501,6 +600,407 @@ console.log(paymentData);
   <script src="../../js/admin/common.js"></script>
   <script src="../../js/admin/dashboard.render.js"></script>
   <script src="../../js/admin/dashboard.js"></script>
+
+
+
+
+  <script>
+    function extractDataFromDOM() {
+      // Extract main summary data
+      const mainBoxes = document.querySelectorAll('.main-summary .main-box');
+      const mainData = {
+        totalProjects: parseInt(mainBoxes[0].querySelector('.value').textContent.trim()),
+        totalRevenue: parseInt(mainBoxes[1].querySelector('.value').textContent.trim().replace('₹', '').replace(/,/g, '')),
+        totalExpenses: parseInt(mainBoxes[2].querySelector('.value').textContent.trim().replace('₹', '').replace(/,/g, '')),
+        totalUsers: parseInt(mainBoxes[3].querySelector('.value').textContent.trim())
+      };
+
+      // Extract finance overview data
+      const financeBoxes = document.querySelector('.finance .first-part .sub-flex').querySelectorAll('.sub-box');
+      const financeData = {
+        totalAmount: parseInt(financeBoxes[0].querySelector('.value').textContent.trim().replace('₹', '').replace(/,/g, '')),
+        cashInHand: parseInt(financeBoxes[1].querySelector('.value').textContent.trim().replace('₹', '').replace(/,/g, '')),
+        amountInBank: parseInt(financeBoxes[2].querySelector('.value').textContent.trim().replace('₹', '').replace(/,/g, ''))
+      };
+
+      // Extract expenses overview data
+      const expensesBoxes = document.querySelector('.finance .second-part .sub-flex').querySelectorAll('.sub-box');
+      const expensesData = {
+        totalAmount: parseInt(expensesBoxes[0].querySelector('.value').textContent.trim().replace('₹', '').replace(/,/g, '')),
+        cashInHand: parseInt(expensesBoxes[1].querySelector('.value').textContent.trim().replace('₹', '').replace(/,/g, '')),
+        amountInBank: parseInt(expensesBoxes[2].querySelector('.value').textContent.trim().replace('₹', '').replace(/,/g, ''))
+      };
+
+      // Extract normal projects data
+      const projectsOverview = document.querySelector('.grid:not(.finance) .first-part');
+      const normalProjectsBoxes = projectsOverview.querySelectorAll('.sub-box');
+      const normalData = {
+        totalProjects: parseInt(normalProjectsBoxes[0].querySelector('.value.n').textContent.trim()),
+        inProgress: parseInt(normalProjectsBoxes[1].querySelector('.value.n').textContent.trim()),
+        completed: parseInt(normalProjectsBoxes[2].querySelector('.value.n').textContent.trim())
+      };
+
+      // Extract misc projects data
+      const miscData = {
+        totalProjects: parseInt(normalProjectsBoxes[0].querySelector('.value.m').textContent.trim()),
+        inProgress: parseInt(normalProjectsBoxes[1].querySelector('.value.m').textContent.trim()),
+        completed: parseInt(normalProjectsBoxes[2].querySelector('.value.m').textContent.trim())
+      };
+
+      // Extract projects finance data
+      const projectsFinance = document.querySelector('.grid:not(.finance) .second-part');
+      const financeProjectsBoxes = projectsFinance.querySelectorAll('.sub-box');
+
+      // Add financial data to normal and misc
+      normalData.totalAmount = parseInt(financeProjectsBoxes[0].querySelector('.value.n').textContent.trim().replace('₹', '').replace(/,/g, ''));
+      normalData.cashInHand = parseInt(financeProjectsBoxes[1].querySelector('.value.n').textContent.trim().replace('₹', '').replace(/,/g, ''));
+      normalData.amountInBank = parseInt(financeProjectsBoxes[2].querySelector('.value.n').textContent.trim().replace('₹', '').replace(/,/g, ''));
+
+      miscData.totalAmount = parseInt(financeProjectsBoxes[0].querySelector('.value.m').textContent.trim().replace('₹', '').replace(/,/g, ''));
+      miscData.cashInHand = parseInt(financeProjectsBoxes[1].querySelector('.value.m').textContent.trim().replace('₹', '').replace(/,/g, ''));
+      miscData.amountInBank = parseInt(financeProjectsBoxes[2].querySelector('.value.m').textContent.trim().replace('₹', '').replace(/,/g, ''));
+
+      // Combine all data
+      return {
+        totalProjects: mainData.totalProjects,
+        totalRevenue: mainData.totalRevenue,
+        totalExpenses: mainData.totalExpenses,
+        totalUsers: mainData.totalUsers,
+        normal: normalData,
+        misc: miscData,
+        finance: financeData,
+        expenses: expensesData
+      };
+    }
+
+    // Usage when HTML is in DOM:
+    const analyticsData = extractDataFromDOM();
+    console.log(analyticsData);
+    let charts = {};
+    let currentView = 'normal';
+
+    // Color schemes
+    const colors = {
+      primary: ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe', '#43e97b', '#38f9d7'],
+      gradient: [
+        'rgba(102, 126, 234, 0.8)',
+        'rgba(118, 75, 162, 0.8)',
+        'rgba(240, 147, 251, 0.8)',
+        'rgba(245, 87, 108, 0.8)',
+        'rgba(79, 172, 254, 0.8)',
+        'rgba(0, 242, 254, 0.8)',
+        'rgba(67, 233, 123, 0.8)',
+        'rgba(56, 249, 215, 0.8)'
+      ]
+    };
+
+    function initCharts() {
+      createProjectStatusChart();
+      createFinancialChart();
+      createProjectComparisonChart();
+      createRevenueExpensesChart();
+      createProgressChart();
+      createCashFlowChart();
+    }
+
+    function createProjectStatusChart() {
+      const ctx = document.getElementById('projectStatusChart').getContext('2d');
+      const data = currentView === 'all' ? {
+        completed: analyticsData.normal.completed + analyticsData.misc.completed,
+        inProgress: analyticsData.normal.inProgress + analyticsData.misc.inProgress
+      } : analyticsData[currentView];
+
+      charts.projectStatus = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['In Progress', 'Completed'],
+          datasets: [{
+            data: [data.inProgress, data.completed],
+            backgroundColor: colors.gradient.slice(0, 2),
+            borderWidth: 0,
+            cutout: '60%'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                padding: 20,
+                usePointStyle: true
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function createFinancialChart() {
+      const ctx = document.getElementById('financialChart').getContext('2d');
+
+      charts.financial = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Total Revenue', 'Total Expenses', 'Net Profit'],
+          datasets: [{
+            label: 'Amount (₹)',
+            data: [
+              analyticsData.totalRevenue,
+              analyticsData.totalExpenses,
+              analyticsData.totalRevenue - analyticsData.totalExpenses
+            ],
+            backgroundColor: colors.gradient.slice(0, 3),
+            borderRadius: 8,
+            borderSkipped: false,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return '₹' + value.toLocaleString();
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function createProjectComparisonChart() {
+      const ctx = document.getElementById('projectComparisonChart').getContext('2d');
+
+      charts.projectComparison = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Total Projects', 'In Progress', 'Completed'],
+          datasets: [{
+            label: 'Normal Projects',
+            data: [
+              analyticsData.normal.totalProjects,
+              analyticsData.normal.inProgress,
+              analyticsData.normal.completed
+            ],
+            backgroundColor: colors.gradient[0],
+            borderRadius: 6,
+          }, {
+            label: 'Miscellaneous Projects',
+            data: [
+              analyticsData.misc.totalProjects,
+              analyticsData.misc.inProgress,
+              analyticsData.misc.completed
+            ],
+            backgroundColor: colors.gradient[1],
+            borderRadius: 6,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+
+    function createRevenueExpensesChart() {
+      const ctx = document.getElementById('revenueExpensesChart').getContext('2d');
+
+      charts.revenueExpenses = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          datasets: [{
+            label: 'Revenue',
+            data: [50000, 75000, 100000, 125000, 200000, 445342],
+            borderColor: colors.primary[0],
+            backgroundColor: colors.gradient[0],
+            fill: true,
+            tension: 0.4
+          }, {
+            label: 'Expenses',
+            data: [5000, 3000, 4000, 2000, 1500, 2505],
+            borderColor: colors.primary[3],
+            backgroundColor: colors.gradient[3],
+            fill: true,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return '₹' + value.toLocaleString();
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function createProgressChart() {
+      const ctx = document.getElementById('progressChart').getContext('2d');
+
+      charts.progress = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Projects', 'Revenue', 'Users', 'Quality', 'Efficiency', 'Growth'],
+          datasets: [{
+            label: 'Current Performance',
+            data: [80, 95, 60, 90, 85, 75],
+            backgroundColor: colors.gradient[4],
+            borderColor: colors.primary[4],
+            pointBackgroundColor: colors.primary[4],
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: colors.primary[4]
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            r: {
+              angleLines: {
+                display: true
+              },
+              suggestedMin: 0,
+              suggestedMax: 100
+            }
+          }
+        }
+      });
+    }
+
+    function createCashFlowChart() {
+      const ctx = document.getElementById('cashFlowChart').getContext('2d');
+
+      charts.cashFlow = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+          datasets: [{
+            label: 'Cash In Hand',
+            data: [10000, 15000, 20000, 22000, 24000, 25611],
+            borderColor: colors.primary[6],
+            backgroundColor: colors.gradient[6],
+            fill: false,
+            tension: 0.4
+          }, {
+            label: 'Bank Amount',
+            data: [15000, 16000, 17500, 18000, 18500, 19011],
+            borderColor: colors.primary[0],
+            backgroundColor: colors.gradient[0],
+            fill: false,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return '₹' + value.toLocaleString();
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function showView(view) {
+      currentView = view;
+
+      // Update active button
+      document.querySelectorAll('.control-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Update summary cards based on view
+      updateSummaryCards(view);
+
+      // Destroy existing charts and recreate
+      Object.values(charts).forEach(chart => chart.destroy());
+      charts = {};
+      initCharts();
+    }
+
+    function updateSummaryCards(view) {
+      const data = view === 'all' ? {
+        projects: analyticsData.totalProjects,
+        revenue: analyticsData.totalRevenue,
+        expenses: analyticsData.totalExpenses,
+        users: analyticsData.totalUsers
+      } : view === 'normal' ? {
+        projects: analyticsData.normal.totalProjects,
+        revenue: analyticsData.normal.totalAmount,
+        expenses: Math.round(analyticsData.totalExpenses * 0.7), // Estimated
+        users: Math.round(analyticsData.totalUsers * 0.8) // Estimated
+      } : {
+        projects: analyticsData.misc.totalProjects,
+        revenue: analyticsData.misc.totalAmount,
+        expenses: Math.round(analyticsData.totalExpenses * 0.3), // Estimated
+        users: Math.round(analyticsData.totalUsers * 0.2) // Estimated
+      };
+
+      document.getElementById('total-projects').textContent = data.projects;
+      document.getElementById('total-revenue').textContent = '₹' + data.revenue.toLocaleString();
+      document.getElementById('total-expenses').textContent = '₹' + data.expenses.toLocaleString();
+      document.getElementById('total-users').textContent = data.users;
+    }
+
+    // Initialize dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+      initCharts();
+    });
+  </script>
+
+
+
+
+
 </body>
 
 </html>

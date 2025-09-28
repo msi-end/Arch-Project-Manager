@@ -54,6 +54,7 @@
                 <th>Client Name</th>
                 <th>Project Name</th>
                 <th>Agreement Date</th>
+                <th>Category</th>
                 <th>Status</th>
                 <th>Action</th>
                 <th></th>
@@ -74,6 +75,9 @@
                 </td>
                 <td>
                   <%= data.mp_deadline %>
+                </td>
+                <td>
+                    <%= data.category ? data.category : "N/A" %>
                 </td>
                 <td class=""><button class="<%= data.mstask_status.toLowerCase() === 'completed' ? 'status success' : 'status warning' %>">
                     <%= data.mstask_status %>
