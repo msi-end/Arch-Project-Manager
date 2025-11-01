@@ -31,7 +31,7 @@
         <div class="project_expand grid">
             <p class="none"></p>
             <!-- tasks  --> 
-            <% pdata.category.forEach((task)=>{ %>
+            <% pdata?.category.forEach((task)=>{ %>
             <%- include('./task.ejs', {cat: task, dealId : pdata.id} )%>
             <% }) %>
         </div>
